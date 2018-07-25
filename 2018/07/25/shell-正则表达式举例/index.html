@@ -108,24 +108,24 @@
 
 
 
-  <meta name="description" content="boot-img的解包与打包">
+  <meta name="description" content="假设有这些脚本： -rwxrwxrwx    1 1006     1002           248 Jan 21  2017 play1stFire.sh-rwxrwxrwx    1 1006     1002           248 Jan 21  2017 play2ndFire.sh-rwxrwxrwx    1 1006     1002           246 Jan 2">
 <meta property="og:type" content="article">
-<meta property="og:title" content="boot.img的解包与打包">
-<meta property="og:url" content="http://yoursite.com/2018/07/23/boot-img的解包与打包/index.html">
+<meta property="og:title" content="shell 正则表达式举例">
+<meta property="og:url" content="http://yoursite.com/2018/07/25/shell-正则表达式举例/index.html">
 <meta property="og:site_name" content="Semiyd&#39;s Blog">
-<meta property="og:description" content="boot-img的解包与打包">
+<meta property="og:description" content="假设有这些脚本： -rwxrwxrwx    1 1006     1002           248 Jan 21  2017 play1stFire.sh-rwxrwxrwx    1 1006     1002           248 Jan 21  2017 play2ndFire.sh-rwxrwxrwx    1 1006     1002           246 Jan 2">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-07-23T14:05:48.114Z">
+<meta property="og:updated_time" content="2018-07-25T13:11:12.841Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="boot.img的解包与打包">
-<meta name="twitter:description" content="boot-img的解包与打包">
+<meta name="twitter:title" content="shell 正则表达式举例">
+<meta name="twitter:description" content="假设有这些脚本： -rwxrwxrwx    1 1006     1002           248 Jan 21  2017 play1stFire.sh-rwxrwxrwx    1 1006     1002           248 Jan 21  2017 play2ndFire.sh-rwxrwxrwx    1 1006     1002           246 Jan 2">
 
 
 
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/07/23/boot-img的解包与打包/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/07/25/shell-正则表达式举例/"/>
 
 
 
@@ -135,7 +135,7 @@
   };
 </script>
 
-  <title>boot.img的解包与打包 | Semiyd's Blog</title>
+  <title>shell 正则表达式举例 | Semiyd's Blog</title>
   
 
 
@@ -280,7 +280,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/07/23/boot-img的解包与打包/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/07/25/shell-正则表达式举例/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Semiyd">
@@ -297,7 +297,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">boot.img的解包与打包
+          <h1 class="post-title" itemprop="name headline">shell 正则表达式举例
               
             
           </h1>
@@ -322,7 +322,7 @@
                 
               
 
-              <time title="Created: 2018-07-23 22:04:59 / Modified: 22:05:48" itemprop="dateCreated datePublished" datetime="2018-07-23T22:04:59+08:00">2018-07-23</time>
+              <time title="Created: 2018-07-25 21:10:13 / Modified: 21:11:12" itemprop="dateCreated datePublished" datetime="2018-07-25T21:10:13+08:00">2018-07-25</time>
             
 
             
@@ -358,7 +358,7 @@
                   , 
                 
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Linux/Application/Android/" itemprop="url" rel="index"><span itemprop="name">Android</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Linux/Application/Shell/" itemprop="url" rel="index"><span itemprop="name">Shell</span></a></span>
 
                 
                 
@@ -392,14 +392,23 @@
       
 
       
-        <p><center><strong>boot-img的解包与打包</strong></center><br>
-
-	<div class="row">
-    <embed src="./boot-img的解包与打包.pdf" width="100%" height="550" type="application/pdf">
-	</div>
-
-
-</p>
+        <p>假设有这些脚本：</p>
+<p>-rwxrwxrwx    1 1006     1002           248 Jan 21  2017 play1stFire.sh<br>-rwxrwxrwx    1 1006     1002           248 Jan 21  2017 play2ndFire.sh<br>-rwxrwxrwx    1 1006     1002           246 Jan 21  2017 playAlarm.sh<br>-rwxrwxrwx    1 1006     1002       6111232 Jan 21  2017 playAllTest.sh<br>-rwxrwxrwx    1 1006     1002           256 Jan 21  2017 playBellForceOff.sh<br>-rwxrwxrwx    1 1006     1002           253 Jan 21  2017 playPrealarm.sh<br>-rwxrwxrwx    1 1006     1002           249 Jan 21  2017 playTel.sh<br>-rwxrwxrwx    1 1006     1002           248 Jan 21  2017 playTrbl.sh</p>
+<p>每次ps查看的时候，其中任一个脚本会运行。但不确定是哪个在运行。<br>且将来脚本可能会增加。但是命名格式不变。都是play*.sh</p>
+<p>此时需要杀掉正在跑的脚本。</p>
+<p>这时候，用grep play<em>.sh是不行的。<br>grep不能使用</em>这种通配符，grep只是能支持正则表达式。</p>
+<a id="more"></a>
+<p>grep -h<br>BusyBox v1.23.2 (2016-12-28 14:07:05 HKT) multi-call binary.</p>
+<p>Usage: grep [-HhnlLoqvsriwFE] [-m N] [-A/B/C N] PATTERN/-e PATTERN…/-f FILE [FILE]…</p>
+<p>Search for PATTERN in FILEs (or stdin)</p>
+<p>​    -H      Add ‘filename:’ prefix<br>    -h      Do not add ‘filename:’ prefix<br>    -n      Add ‘line_no:’ prefix<br>    -l      Show only names of files that match<br>    -L      Show only names of files that don’t match<br>    -c      Show only count of matching lines<br>    -o      Show only the matching part of line<br>    -q      Quiet. Return 0 if PATTERN is found, 1 otherwise<br>    -v      Select non-matching lines<br>    -s      Suppress open and read errors<br>    -r      Recurse<br>    -i      Ignore case<br>    -w      Match whole words only<br>    -x      Match whole lines only<br>    -F      PATTERN is a literal (not regexp)<br>    -E      PATTERN is an extended regexp<br>    -m N    Match up to N times per file<br>    -A N    Print N lines of trailing context<br>    -B N    Print N lines of leading context<br>    -C N    Same as ‘-A N -B N’<br>    -e PTRN Pattern to match<br>    -f FILE Read pattern from file</p>
+<p>这时候就要用这个参数-E      PATTERN is an extended regexp<br>regexp就是正则的意思<br>具体脚本应该这么写</p>
+<pre><code>if [ $(ps | grep -E play.+\.sh | grep -v grep | awk &apos;{print $1}&apos; | wc -w) -gt 0 ]            #[ $(pidof playTrbl.sh | wc -w) -gt 0 ]
+then
+    ps | grep -E play.+\.sh | grep -v grep | awk &apos;{print $1}&apos; | xargs kill                 #kill $(pidof playTrbl.sh | awk &apos;{print $1}&apos;)    #kill playTrbl.sh
+fi
+</code></pre><p>那么上面脚本，是什么意思呢？<br>grep -E play.+.sh<br>在正则 中<br>.表示一定有一个任意字符<br>+表示，重复一个或一个以上的前一个字符。因为前一个字符是.   所以意思就是重复任意字符<br>.表示转义，因为.号本身在正则里面，是有含义的。那么要表示真正的字符.，就需要.   这个原理类似于\n</p>
+<p>所以play.+.sh，其实就等于ls时候的play*.sh</p>
 
       
     </div>
@@ -427,8 +436,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/07/23/android-boot-img-结构/" rel="next" title="android boot.img 结构 ">
-                <i class="fa fa-chevron-left"></i> android boot.img 结构 
+              <a href="/2018/07/25/shell的不同类型Login-Non-login-shell和环境变量的设置/" rel="next" title="shell的不同类型Login Non-login shell和环境变量的设置">
+                <i class="fa fa-chevron-left"></i> shell的不同类型Login Non-login shell和环境变量的设置
               </a>
             
           </div>
@@ -437,8 +446,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/07/23/main函数入参的处理/" rel="prev" title="main函数入参的处理">
-                main函数入参的处理 <i class="fa fa-chevron-right"></i>
+              <a href="/2018/07/25/parted命令不等完成就立即返回的问题/" rel="prev" title="parted命令不等完成就立即返回的问题">
+                parted命令不等完成就立即返回的问题 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>

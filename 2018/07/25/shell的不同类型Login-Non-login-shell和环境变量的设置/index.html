@@ -108,24 +108,24 @@
 
 
 
-  <meta name="description" content="boot-img的解包与打包">
+  <meta name="description" content="​    首先有两个维度：          Login/Non-login shell            Login shell:                就是指板子启动后，输入root按回车登录，然后得到的那种shell。            Non-login shell:                就是指在/etc/init.d/rcS里面自动运行的脚本，这些脚本并未经过登">
 <meta property="og:type" content="article">
-<meta property="og:title" content="boot.img的解包与打包">
-<meta property="og:url" content="http://yoursite.com/2018/07/23/boot-img的解包与打包/index.html">
+<meta property="og:title" content="shell的不同类型Login Non-login shell和环境变量的设置">
+<meta property="og:url" content="http://yoursite.com/2018/07/25/shell的不同类型Login-Non-login-shell和环境变量的设置/index.html">
 <meta property="og:site_name" content="Semiyd&#39;s Blog">
-<meta property="og:description" content="boot-img的解包与打包">
+<meta property="og:description" content="​    首先有两个维度：          Login/Non-login shell            Login shell:                就是指板子启动后，输入root按回车登录，然后得到的那种shell。            Non-login shell:                就是指在/etc/init.d/rcS里面自动运行的脚本，这些脚本并未经过登">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-07-23T14:05:48.114Z">
+<meta property="og:updated_time" content="2018-07-25T13:09:36.489Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="boot.img的解包与打包">
-<meta name="twitter:description" content="boot-img的解包与打包">
+<meta name="twitter:title" content="shell的不同类型Login Non-login shell和环境变量的设置">
+<meta name="twitter:description" content="​    首先有两个维度：          Login/Non-login shell            Login shell:                就是指板子启动后，输入root按回车登录，然后得到的那种shell。            Non-login shell:                就是指在/etc/init.d/rcS里面自动运行的脚本，这些脚本并未经过登">
 
 
 
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/07/23/boot-img的解包与打包/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/07/25/shell的不同类型Login-Non-login-shell和环境变量的设置/"/>
 
 
 
@@ -135,7 +135,7 @@
   };
 </script>
 
-  <title>boot.img的解包与打包 | Semiyd's Blog</title>
+  <title>shell的不同类型Login Non-login shell和环境变量的设置 | Semiyd's Blog</title>
   
 
 
@@ -280,7 +280,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/07/23/boot-img的解包与打包/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/07/25/shell的不同类型Login-Non-login-shell和环境变量的设置/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Semiyd">
@@ -297,7 +297,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">boot.img的解包与打包
+          <h1 class="post-title" itemprop="name headline">shell的不同类型Login Non-login shell和环境变量的设置
               
             
           </h1>
@@ -322,7 +322,7 @@
                 
               
 
-              <time title="Created: 2018-07-23 22:04:59 / Modified: 22:05:48" itemprop="dateCreated datePublished" datetime="2018-07-23T22:04:59+08:00">2018-07-23</time>
+              <time title="Created: 2018-07-25 21:07:46 / Modified: 21:09:36" itemprop="dateCreated datePublished" datetime="2018-07-25T21:07:46+08:00">2018-07-25</time>
             
 
             
@@ -358,7 +358,7 @@
                   , 
                 
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Linux/Application/Android/" itemprop="url" rel="index"><span itemprop="name">Android</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Linux/Application/Shell/" itemprop="url" rel="index"><span itemprop="name">Shell</span></a></span>
 
                 
                 
@@ -392,14 +392,10 @@
       
 
       
-        <p><center><strong>boot-img的解包与打包</strong></center><br>
-
-	<div class="row">
-    <embed src="./boot-img的解包与打包.pdf" width="100%" height="550" type="application/pdf">
-	</div>
-
-
-</p>
+        <p>​    首先有两个维度：<br>          Login/Non-login shell<br>            Login shell:<br>                就是指板子启动后，输入root按回车登录，然后得到的那种shell。<br>            Non-login shell:<br>                就是指在/etc/init.d/rcS里面自动运行的脚本，这些脚本并未经过登录过程，直接运行。<br>         Interactive/Non-interactive shell<br>            Interactive shell:<br>                是指会接受键盘输入，或者会把打印信息打印到终端的shell命令或者脚本。<br>            Non-interactive shell:<br>                就是指既没有输入的方法，也不会把信息打印到任何终端的shell命令或者脚本。<br><a id="more"></a><br>​        所以组合如下：<br>            interactive login shell<br>                环境变量取决于/etc/profile或者~/.profile<br>                例如：通过getty,ssh,su等，登录进去，得到的首个shell。<br>            non-interactive login shell<br>                环境变量取决于/etc/profile或者~/.profile<br>                例如：极为罕见，有时用于一些X settings用display manager登录，然后做一些工作，所以无互动，但又是登录了。<br>            interactive, non-login shell<br>                环境变量取决于~/.bashrc或者~/.zshrc等<br>                例如：在已有的session（screen, X terminal, Emacs terminal buffer, a shell inside another, etc.）上开出来的shell<br>            non-interactive, non-login shell<br>                环境变量取决于~/.bashrc或者~/.zshrc等<br>                例如：类似interactive, non-login shell，只是没有互动的输入输出的就算是这类。</p>
+<p>​        所以可以看出，其实是不是interactive无所谓。关键还是，是不是login还是non-login。login就是/etc/profile，non-login就是.bashrc</p>
+<p>​        如何判断当前是不是login shell？<br>            prompt&gt; echo $0<br>            -bash # “-“ is the first character. Therefore, this is a login shell.<br>            prompt&gt; echo $0<br>            bash # “-“ is NOT the first character. This is NOT a login shell.</p>
+<p>​        对于嵌入式板子上的busybox，实测如下:<br>            登录后得到的可以敲命令的shell也就是login-shell，由/etc/profile或者/root/.profile决定环境变量设置。<br>            在已有的shell基础上（例如刚刚登录得到的shell）再运行的shell，也就是non-login shell，由/etc/init.d/rcS决定环境变量设置。<br>            另外，为什么会执行rcS?因为init进程，会去读/etc/inittab里面的sysinit项。找到sysinit对应的值就是/etc/init.d/rcS        </p>
 
       
     </div>
@@ -427,8 +423,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/07/23/android-boot-img-结构/" rel="next" title="android boot.img 结构 ">
-                <i class="fa fa-chevron-left"></i> android boot.img 结构 
+              <a href="/2018/07/25/shell脚本执行顺序的注意点/" rel="next" title="shell脚本执行顺序的注意点">
+                <i class="fa fa-chevron-left"></i> shell脚本执行顺序的注意点
               </a>
             
           </div>
@@ -437,8 +433,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/07/23/main函数入参的处理/" rel="prev" title="main函数入参的处理">
-                main函数入参的处理 <i class="fa fa-chevron-right"></i>
+              <a href="/2018/07/25/shell-正则表达式举例/" rel="prev" title="shell 正则表达式举例">
+                shell 正则表达式举例 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>

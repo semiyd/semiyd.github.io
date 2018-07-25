@@ -108,24 +108,24 @@
 
 
 
-  <meta name="description" content="boot-img的解包与打包">
+  <meta name="description" content="假设有这么个脚本，作为某应用程序的启动脚本。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="boot.img的解包与打包">
-<meta property="og:url" content="http://yoursite.com/2018/07/23/boot-img的解包与打包/index.html">
+<meta property="og:title" content="shell脚本执行顺序的注意点">
+<meta property="og:url" content="http://yoursite.com/2018/07/25/shell脚本执行顺序的注意点/index.html">
 <meta property="og:site_name" content="Semiyd&#39;s Blog">
-<meta property="og:description" content="boot-img的解包与打包">
+<meta property="og:description" content="假设有这么个脚本，作为某应用程序的启动脚本。">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-07-23T14:05:48.114Z">
+<meta property="og:updated_time" content="2018-07-25T13:06:20.071Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="boot.img的解包与打包">
-<meta name="twitter:description" content="boot-img的解包与打包">
+<meta name="twitter:title" content="shell脚本执行顺序的注意点">
+<meta name="twitter:description" content="假设有这么个脚本，作为某应用程序的启动脚本。">
 
 
 
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/07/23/boot-img的解包与打包/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/07/25/shell脚本执行顺序的注意点/"/>
 
 
 
@@ -135,7 +135,7 @@
   };
 </script>
 
-  <title>boot.img的解包与打包 | Semiyd's Blog</title>
+  <title>shell脚本执行顺序的注意点 | Semiyd's Blog</title>
   
 
 
@@ -280,7 +280,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/07/23/boot-img的解包与打包/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/07/25/shell脚本执行顺序的注意点/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Semiyd">
@@ -297,7 +297,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">boot.img的解包与打包
+          <h1 class="post-title" itemprop="name headline">shell脚本执行顺序的注意点
               
             
           </h1>
@@ -322,7 +322,7 @@
                 
               
 
-              <time title="Created: 2018-07-23 22:04:59 / Modified: 22:05:48" itemprop="dateCreated datePublished" datetime="2018-07-23T22:04:59+08:00">2018-07-23</time>
+              <time title="Created: 2018-07-25 21:03:19 / Modified: 21:06:20" itemprop="dateCreated datePublished" datetime="2018-07-25T21:03:19+08:00">2018-07-25</time>
             
 
             
@@ -358,7 +358,7 @@
                   , 
                 
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Linux/Application/Android/" itemprop="url" rel="index"><span itemprop="name">Android</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Linux/Application/Shell/" itemprop="url" rel="index"><span itemprop="name">Shell</span></a></span>
 
                 
                 
@@ -392,14 +392,17 @@
       
 
       
-        <p><center><strong>boot-img的解包与打包</strong></center><br>
-
-	<div class="row">
-    <embed src="./boot-img的解包与打包.pdf" width="100%" height="550" type="application/pdf">
-	</div>
-
-
-</p>
+        <p>假设有这么个脚本，作为某应用程序的启动脚本。</p>
+<a id="more"></a>
+<p>#!/bin/sh</p>
+<p>#Start up Application<br>ps -ef| grep “eN-Display” | grep -v “grep”<br>isrunning=$?<br>if [ ! “$isrunning” -eq 0 ]; then<br>    ./eN-Display<br>fi</p>
+<p>那么现在有另外一端脚本。需要执行上面的启动脚本，并等待eN-Display真正运行起来。</p>
+<p>/home/DSP/dspd &amp;<br>until [ $(pidof eN-Display | wc -w) -gt 0 ]         #wait until eN-Display is up before re-check if it’s alive again with the while loop<br>do<br>    sleep 1<br>done</p>
+<p>这段代码实际执行是有问题的。<br>原因是：<br>/home/DSP/dspd &amp;这句话，实际上是派生了一个新的shell脚本的进程，并立即返回。这就打破了由上往下的线性的执行关系。<br>所以根据具体cpu执行速度的情况，有可能还没等到dspd执行完毕，下面一句话<br>until [ $(pidof eN-Display | wc -w) -gt 0 ]<br>就先执行了。<br>那么比较极端的情况，就是dsps根本还没来得及开始执行，<br>until [ $(pidof eN-Display | wc -w) -gt 0 ]就跑了<br>那么until [ $(pidof eN-Display | wc -w) -gt 0 ]这句话，本质上，是要跑一个叫pidof的程序的。<br>这个pidof程序，从开始运行到退出，也是需要时间的。<br>正当pidof运行的时候，这时候dspd &amp;脚本跑到了ps -ef| grep “eN-Display” | grep -v “grep”<br>会产生什么结果呢？<br>ps -ef| grep “eN-Display” | grep -v “grep”的本意是想看看是否eN-Display已经在跑。在跑就不要启动了。<br>但此时，ps -ef| grep “eN-Display” | grep -v “grep”这句话因为刚刚的pidof尚未退出，会反过来抓到这个结果：</p>
+<p>19542 root       0:00 pidof eN-Display</p>
+<p>这句话其实就是ps的打印信息过滤后的结果<br>ps的结果例如：<br>28498 root       0:00 {guard.sh} /bin/sh ./guard.sh<br>28568 root       0:00 [kworker/0:5]<br>29881 root       0:03 ./eN-Display -qws<br>29882 root       0:00 {log_check} /bin/sh ../log_check dsp</p>
+<p>因为pidof这行里面带上了eN-Display的关键词，被误抓了。<br>结果，dspd误以为，eN-Display已经启动，马上决定不再启动eN-Display<br>最终会导致，<br>    /home/DSP/dspd &amp;<br>    until [ $(pidof eN-Display | wc -w) -gt 0 ]         #wait until eN-Display is up before re-check if it’s alive again with the while loop<br>    do<br>        sleep 1<br>    done<br>有时候会并没有去启动eN-Display</p>
+<p>解决办法是：<br>Restart_Display(){<br>    /home/DSP/dspd<br>    until [ $(pidof eN-Display | wc -w) -gt 0 ]         #wait until eN-Display is up before re-check if it’s alive again with the while loop<br>    do<br>        sleep 1<br>    done<br>}<br>去掉/home/DSP/dspd后面的&amp;符号。<br>这样，保证dspd运行结束以后，再去检查pidof，这样就没问题了</p>
 
       
     </div>
@@ -427,8 +430,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/07/23/android-boot-img-结构/" rel="next" title="android boot.img 结构 ">
-                <i class="fa fa-chevron-left"></i> android boot.img 结构 
+              <a href="/2018/07/25/shell命令基础知识/" rel="next" title="shell命令基础知识">
+                <i class="fa fa-chevron-left"></i> shell命令基础知识
               </a>
             
           </div>
@@ -437,8 +440,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/07/23/main函数入参的处理/" rel="prev" title="main函数入参的处理">
-                main函数入参的处理 <i class="fa fa-chevron-right"></i>
+              <a href="/2018/07/25/shell的不同类型Login-Non-login-shell和环境变量的设置/" rel="prev" title="shell的不同类型Login Non-login shell和环境变量的设置">
+                shell的不同类型Login Non-login shell和环境变量的设置 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>

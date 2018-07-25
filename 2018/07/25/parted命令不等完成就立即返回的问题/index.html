@@ -108,24 +108,24 @@
 
 
 
-  <meta name="description" content="boot-img的解包与打包">
+  <meta name="description" content="在制作自动烧写emmc的脚本的时候，遇到这样一个问题：">
 <meta property="og:type" content="article">
-<meta property="og:title" content="boot.img的解包与打包">
-<meta property="og:url" content="http://yoursite.com/2018/07/23/boot-img的解包与打包/index.html">
+<meta property="og:title" content="parted命令不等完成就立即返回的问题">
+<meta property="og:url" content="http://yoursite.com/2018/07/25/parted命令不等完成就立即返回的问题/index.html">
 <meta property="og:site_name" content="Semiyd&#39;s Blog">
-<meta property="og:description" content="boot-img的解包与打包">
+<meta property="og:description" content="在制作自动烧写emmc的脚本的时候，遇到这样一个问题：">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-07-23T14:05:48.114Z">
+<meta property="og:updated_time" content="2018-07-25T13:23:47.547Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="boot.img的解包与打包">
-<meta name="twitter:description" content="boot-img的解包与打包">
+<meta name="twitter:title" content="parted命令不等完成就立即返回的问题">
+<meta name="twitter:description" content="在制作自动烧写emmc的脚本的时候，遇到这样一个问题：">
 
 
 
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/07/23/boot-img的解包与打包/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/07/25/parted命令不等完成就立即返回的问题/"/>
 
 
 
@@ -135,7 +135,7 @@
   };
 </script>
 
-  <title>boot.img的解包与打包 | Semiyd's Blog</title>
+  <title>parted命令不等完成就立即返回的问题 | Semiyd's Blog</title>
   
 
 
@@ -280,7 +280,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/07/23/boot-img的解包与打包/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/07/25/parted命令不等完成就立即返回的问题/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Semiyd">
@@ -297,7 +297,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">boot.img的解包与打包
+          <h1 class="post-title" itemprop="name headline">parted命令不等完成就立即返回的问题
               
             
           </h1>
@@ -322,7 +322,7 @@
                 
               
 
-              <time title="Created: 2018-07-23 22:04:59 / Modified: 22:05:48" itemprop="dateCreated datePublished" datetime="2018-07-23T22:04:59+08:00">2018-07-23</time>
+              <time title="Created: 2018-07-25 21:12:21 / Modified: 21:23:47" itemprop="dateCreated datePublished" datetime="2018-07-25T21:12:21+08:00">2018-07-25</time>
             
 
             
@@ -358,7 +358,7 @@
                   , 
                 
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Linux/Application/Android/" itemprop="url" rel="index"><span itemprop="name">Android</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Linux/Application/Shell/" itemprop="url" rel="index"><span itemprop="name">Shell</span></a></span>
 
                 
                 
@@ -392,14 +392,17 @@
       
 
       
-        <p><center><strong>boot-img的解包与打包</strong></center><br>
+        <p>在制作自动烧写emmc的脚本的时候，遇到这样一个问题：</p>
+<a id="more"></a>
+<p>主要是parted涉及制作分区，但这个命令又不等完成就立即返回，导致脚本的顺序执行上被打乱了。</p>
+<p>在调试自动烧写的时候，老是提示/dev/mmcblk1p2 is mounted; will not make a filesystem here!<br>                手动敲，只要在umount -f /dev/mmcblk1p2后面再执行mkfs.ext3 -F -L “rootfs” /dev/mmcblk1p2，就可以。自动执行就不行<br>                发现自动执行的话，其实是因为parted -s 这种命令，是立即返回的，导致后续umount 的时候，parted -s 尚未执行完成。<br>                等parted -s 执行完成后，又会自动mount到/run/media下，导致后面mkfs.ext3失败。<br>                所以解决办法是，要么在parted后面睡眠数秒。要么等待udev把/run/media/mmcblk1p2重新mount上。（判断parted是否退出也是不可行的）<br>                但因为判断是否mount上，比较困难。所以简单起见还是等2秒吧。<br>    但其实通过fdisk分区的话，就没这个问题了。</p>
+
 
 	<div class="row">
-    <embed src="./boot-img的解包与打包.pdf" width="100%" height="550" type="application/pdf">
+    <embed src="./linux-Bash-script.pdf" width="100%" height="550" type="application/pdf">
 	</div>
 
 
-</p>
 
       
     </div>
@@ -427,8 +430,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/07/23/android-boot-img-结构/" rel="next" title="android boot.img 结构 ">
-                <i class="fa fa-chevron-left"></i> android boot.img 结构 
+              <a href="/2018/07/25/shell-正则表达式举例/" rel="next" title="shell 正则表达式举例">
+                <i class="fa fa-chevron-left"></i> shell 正则表达式举例
               </a>
             
           </div>
@@ -436,10 +439,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/07/23/main函数入参的处理/" rel="prev" title="main函数入参的处理">
-                main函数入参的处理 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>

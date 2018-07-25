@@ -1,0 +1,824 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.3.0" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.3.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.3.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.3.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.3.0" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '6.3.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="这里的命令基本上指Bash命令，也就是最常用的shell。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="shell命令基础知识">
+<meta property="og:url" content="http://yoursite.com/2018/07/25/shell命令基础知识/index.html">
+<meta property="og:site_name" content="Semiyd&#39;s Blog">
+<meta property="og:description" content="这里的命令基本上指Bash命令，也就是最常用的shell。">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2018-07-25T13:03:50.809Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="shell命令基础知识">
+<meta name="twitter:description" content="这里的命令基本上指Bash命令，也就是最常用的shell。">
+
+
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/07/25/shell命令基础知识/"/>
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>shell命令基础知识 | Semiyd's Blog</title>
+  
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Semiyd's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br />Home</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+    <a href="/categories/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-th"></i> <br />Categories</a>
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/07/25/shell命令基础知识/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Semiyd">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Semiyd's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">shell命令基础知识
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2018-07-25 20:57:45 / Modified: 21:03:50" itemprop="dateCreated datePublished" datetime="2018-07-25T20:57:45+08:00">2018-07-25</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Linux/" itemprop="url" rel="index"><span itemprop="name">Linux</span></a></span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Linux/Application/" itemprop="url" rel="index"><span itemprop="name">Application</span></a></span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Linux/Application/Shell/" itemprop="url" rel="index"><span itemprop="name">Shell</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>这里的命令基本上指Bash命令，也就是最常用的shell。</p>
+<a id="more"></a>
+<p>拷贝文件夹：<br>cp -Rv /source /dest</p>
+<p>移动文件：<br>mv -v /source /dest</p>
+<p>创建软链接：<br>ln -s source dest<br>注：如果dest是指向文件夹的，请勿使用dest/，会报错。直接使用dest即可</p>
+<p>创建硬链接：<br>ln source dest<br>硬链接的坏处是，相当于创建一个文件，其inode是和源文件一模一样的。<br>但如果出现跨越不同的文件系统分区的情况，inode number只在自己的文件系统分区内唯一。<br>所以不能跨越分区去建立硬链接。</p>
+<p>基于图形环境的文件链接：<br>以xxx.desktop为命名。<br>例如：<br>[Desktop Entry]<br>Name=Source Insight 3<br>Exec=env WINEPREFIX=”/home/yandong/.wine” wine-stable C:\\Program\ Files\ \(x86\)\\Source\ Insight\ 3\\Insight3.exe<br>Type=Application<br>StartupNotify=true<br>Icon=8209_NewShortcut2_73B02DBE2F5B46B2A29EC665DA6D14E9.0</p>
+<p>解压：<br>gzip:<br>    tar zxvf <em>.gzip<br>xz:<br>    tar -Jxvf linux-3.12.tar.xz                xz -d </em>.tar.xz<br>tar:<br>    tar -xvf  <em>.tar<br>bz2:<br>    tar xvfj </em>.bz2 -C 解压到的目标目录/<br>zip:<br>    unzip <em>.zip<br>压缩：<br>gzip:<br>    gzip -rv </em>.<em><br>tar.bz2:<br>    tar cvfj FileName.tar.bz2 DirName    打包DirName所有文件包含隐藏文件<br>    tar cvfj uboot-20151125.tar.bz2 </em>    这种只会打包当前目录下的非隐藏文件(这种情况如果是涉及kernel uboot，可能导致编译出来的uImage等发送变化。所以代码打包最好是包含顶层目录)<br>    tar cvfj test.tar.bz2 <em> .[!.]</em>        这种方式能打包.tmp文件，但是对..tmp这种隐藏文件还是会忽略。<br>    另外：不要用ubuntu自带的图形菜单压缩解压。这种方式处理symlink有问题，会导致源码不能编译等等<br>tar:<br>    tar cvf FileName.tar DirName<br>xz:<br>    tar -Jcvf xxx.tar.xz xxx/</p>
+<p>配置ip：<br>ifconfig eth0 192.168.1.6 netmask 255.255.255.0</p>
+<p>搜索文件名：<br>find ./ -name 文件名    会搜索当前目录和子目录</p>
+<p>搜索文件内容：<br>find ./ -name “*” -exec grep -n -H “字串” {} \; &gt; ~/Desktop/result.txt<br>    此处-exec是find的一个参数。后面可以跟上后续的命令，如grep等。</p>
+<p>SVN操作：<br>    svn checkout  <a href="https://xxx" target="_blank" rel="noopener">https://xxx</a> –username xxx<br>    新增文件<br>    svn st | awk ‘{if ( $1 == “?”) { print $2}}’ | xargs svn add –no-ignore<br>    svn commit -m “”<br>    删除文件<br>    for i in  $(svn st | grep ! | awk ‘{print $2}’); do svn delete $i; done<br>    svn commit -m “”<br>    改动文件<br>    svn commit -m “”<br>    更新目录<br>    svn update</p>
+<p>权限：<br>    chmod -R 777 /目标文件夹<br>    注：有时候会遇到一种叫s的属性，比如某个文件，是rws而不是rwx。<br>    分两种情形。<br>    s字符出现在user权限区域，如-rwsr-xr-x：<br>        s的含义是，允许其以owner身份执行。其实际作用就是，比如这个文件是root建的。owner是root。则可以以root身份运行，相当于可执行文件内置sudo了。也称为SUID (set user ID)。<br>        举例，在busybox环境下，有这么个文件：<br>            /etc/busybox.conf<br>                [SUID]<br>                reboot = ssx root.root<br>            这时候reboot命令，就用root身份运行。这样普通用户也可以执行reboot了。<br>        再举一例：<br>            $ ll /usr/bin/passwd<br>            -rwsr-xr-x 1 root root 52K Nov 20  2015 /usr/bin/passwd<br>            为什么passwd要用到SUID？因为passwd命令，会涉及修改/etc/passwd文件。而：<br>            $ ll /etc/passwd<br>            -rw-r–r– 1 root root 3.6K Feb  6 13:27 /etc/passwd<br>            这个文件，处于安全考虑，不允许非root账户直接访问的。<br>            所以必须以root身份，去运行passwd，才能正常运行。<br>            当然，passwd程序本身，必须保证普通用户不去修改root密码，这是由passwd程序的代码里面所检查保证的。<br>    s字符出现在group权限区域，如drwxr-sr-x<br>        这里又分两种情况。<br>        一，这个s修饰的是某个目录：<br>            s的含义是，在此目录里面，不管是谁，建立的任何文件，其group信息，都自动继承创建此目录的group信息。也称为SGID (set group ID)。<br>            举例：<br>            现在有用户prj，属于组sshd</p>
+<pre><code>        # id
+        uid=1001(prj) gid=1002(sshd) groups=1002(sshd)
+        有这么个文件夹：
+        # ls -l
+        drwxr-sr-x    1 prj      root          2048 Sep 12 22:12 prj
+        可见，这个prj文件夹，继承了root组的组信息。
+        # touch prj/222
+        # ls -l
+        -rw-------    1 prj      root             0 Sep 12 23:50 222
+        效果就是，建立的文件222，组并未sshd，而是root了。
+        但如果是把已有的文件，放到带s属性的目录中，则不会因此改变group信息。
+    二，这个s修饰的是某个命令：
+        s的含义是，不管是谁执行这个命令，执行命令的时候，group信息，都继承命令本身的group信息。
+        举例：
+        有个命令叫write，作用是一个用户给另外一个用户的tty终端发消息。
+        默认来说，是不允许这么做的。
+        假设有两个用户。joe和jenny。joe想发消息给jenny。这时候joe看了下jenny所在的终端：
+        joe:~&gt; ls -l /dev/tty1
+        crw--w---- 1 jenny tty 4, 1 Jan 23 11:41 /dev/tty1
+        可以看到，这个tty设备，除了jenny本人，还有tty组以外，别人是不能写的。
+        一般来说，joe肯定有自己的组，不太可能是tty组。怎么办？
+        这时候就可以把write的组属性加上s：
+        joe:~&gt; ls -l /usr/bin/write
+        -rwxr-sr-x 1 root tty 8744 Dec 5 00:55 /usr/bin/write*
+        作用是，任何人，包括joe，去执行write的时候，其组的信息，都是继承write本身的组信息，也就是tty。
+        既然是tty组的人，那自然可以操作/dev/tty1去给jenny发消息了。
+        joe:~&gt; write jenny tty1
+        hey fuck you Jenny.
+另外，还有一种是+号。
++的含义是，在UNIX标准的基础上，扩展了一系列的权限，成为ACL，Access Control List 
+可以通过下面命令，移除ACL，否则owner不同的时候，别的用户是没法访问本用户的文件的，即使chmod 777也没用：
+setfacl -b -R DSP_NDC/ 
+当然也可以通过getfacl来读取扩展的属性。
+</code></pre><p>安装软件：<br>apt-get install<br>apt-get remove</p>
+<p>设置IP和掩码<br>ifconfig eth0 192.168.5.40 netmask 255.255.255.0</p>
+<p>查看文件类型：(是ARM还是x86编译的)<br>file    文件名</p>
+<p>改动文件时间戳：<br>find ./ -type f |xargs touch</p>
+<p>重命名：<br>mv 源文件名  目标文件名</p>
+<p>系统启动时间：<br>cat /proc/uptime| awk -F. ‘{run_days=$1 / 86400;run_hour=($1 % 86400)/3600;run_minute=($1 % 3600)/60;run_second=$1 % 60;printf(“系统已运行：%d天%d时%d分%d秒”,run_days,run_hour,run_minute,run_second)}’</p>
+<p>制作补丁打补丁：<br>    1.针对单个文件<br>        diff -uNr 源文件 目标文件 &gt; 补丁名.patch    diff执行的时候，当前路径最好在源文件的目标文件夹根路径下，<br>            如uboot目录内部，board/EmbedSky/TQ3358/pll.c这种<br>            这样方便后续在同样的目标文件夹根目录下，如uboot/下，用p0参数打patch。<br>        patch -p0 &lt; 补丁名.patch            因为之前diff执行时候就是目标文件夹了，所以用p0也就是当前这级目录就可以了。</p>
+<pre><code>2.针对文件夹
+    diff -uNr 源文件夹 目标文件夹 &gt; 补丁名.patch    diff执行的时候，当前路径最好在源文件的目标文件夹根路径下，
+        这样方便后续在同样的目标文件夹根目录下，如uboot/下，用p1参数打patch。
+    进入目标文件夹
+    patch -p1 &lt; 补丁名.patch
+</code></pre><p>查看现在运行的daemon:<br>service –status-all<br>或者<br>ps -eo ‘tty,pid,comm’ | grep ^?</p>
+<p>禁用整个系统所有接口的IPv6<br>vi /etc/default/grub<br>GRUB_CMDLINE_LINUX_DEFAULT=”ipv6.disable=1 quiet”<br>update-grub</p>
+<p>改ip地址的配置文件：<br>vi /etc/network/interfaces</p>
+<p>#comment out</p>
+<p>#iface eth0 inet dhcp</p>
+<p>#add follows</p>
+<p>iface eth0 inet static<br>address 10.0.0.30# IP address<br>network 10.0.0.0# network address<br>netmask 255.255.255.0# subnet mask<br>broadcast 10.0.0.255# broadcast address<br>gateway 10.0.0.1# default gateway<br>dns-nameservers 10.0.0.10# name server<br>保存退出后：root@dlp:~# systemctl restart ifup@eth0 </p>
+<p>改动系统的umask<br>编辑/etc/pam.d/common-session加入session optional pam_umask.so<br>编辑/etc/login.defs加入UMASK           027</p>
+<p>显示当前的PATH环境变量<br>echo $PATH</p>
+<p>显示当前所有环境变量<br>env</p>
+<p>分区的剩余空间：<br>df -h</p>
+<p>交叉编译工具链的默认搜索路径：<br>arm-linux-gcc -print-search-dirs</p>
+<p>读取ELF文件（库/可执行文件）的体系架构：<br>    两种方法：<br>    1.arm-none-linux-gnueabi-readelf -A libboost_random.a<br>    2.arm-none-linux-gnueabi-readelf -a -W libboost_random.a | grep Machine    （如果第一种方法不行）<br>          Machine:                           Intel 80386<br>    另外，使用x86原生的readelf命令也是一样的</p>
+<p>查看编译器版本：<br>    strings -a libstdc++.a | grep -i gcc来读取编译器版本</p>
+<p>命令行下直接操作设备文件：<br>    写入：<br>    echo “yandong” &gt; /sys/class/i2c-adapter/i2c-0/0-0052/eeprom<br>    读出：<br>    dd if=/sys/class/i2c-adapter/i2c-0/0-0052/eeprom of=/home/24c02.txt<br>    或者设备如果支持cat方法的话，可以直接cat /dev/BATVIN | od -t u4 -A n</p>
+<p>用dd创建空文件：<br>    dd if=/dev/zero of=hello.txt bs=100M count=1</p>
+<p>vi查找文件内容：<br>    在命令模式下，输入/xxx，就是查找字段xxx</p>
+<p>修改locale：<br>            locale -a查看目前支持的locale<br>            然后编辑/etc/locale.gen，找到en_US.UTF-8 UTF-8，删除注掉的符号#<br>            然后locale-gen</p>
+<p>搜索命令所在的位置：<br>    [root@Honeywell etc]# which ls<br>    /bin/ls</p>
+<p>比vi/vim很快读的，只读查看文本的工具：<br>    less xxx.txt<br>    打开的时候更快<br>    只读<br>    用上下方向键直接就是滚动页面</p>
+<p>跟踪某个正在打印的log：<br>    tail -10 -f xxx.log<br>    意思是，打印最后10行，并且随着xxx.log的增长，持续打印新增的内容。<br>    -f              Print data as file grows</p>
+<p>查看当前用户的用户名+组名<br>[root@Honeywell home]# id<br>uid=0(root) gid=0(root) groups=0(root)<br>同时可以看到用户名的序号，和组名的组号<br>[prj@Honeywell home]# id<br>uid=1001(prj) gid=1002(sshd) groups=1002(sshd),3001(aid_bt),3002(aid_bt_net),3003(aid_inet),3004(aid_net_raw),3005(aid_admin)</p>
+<p>ps命令详解：<br>    1.带“-”符号的，表示是login shell发起的进程。例如<br>theo:&gt; ps auxw | grep bash<br>brenda 31970 0.0 0.3 6080 1556 tty2 S Feb23 0:00 -bash<br>root 32043 0.0 0.3 6112 1600 tty4 S Feb23 0:00 -bash<br>theo 32581 0.0 0.3 6384 1864 pts/1 S Feb23 0:00 bash<br>theo 32616 0.0 0.3 6396 1896 pts/2 S Feb23 0:00 bash<br>    2.需要查看进程间的关系，可以用pstree命令。例如<br>[root@Honeywell home]# pstree<br>linuxrc-+-inetd<br>        |-sh—sh—sh—pstree<br>        `-sshd</p>
+<p>打印io设备的读写统计信息：<br>[root@Honeywell ~]# iostat ALL<br>Linux 3.2.0-EmbedSky (Honeywell)        09/12/12        <em>armv7l</em>        (1 CPU)<br>avg-cpu:  %user   %nice %system %iowait  %steal   %idle<br>           0.00    0.00    0.06    0.00    0.00   99.94<br>Device:            tps   Blk_read/s   Blk_wrtn/s   Blk_read   Blk_wrtn<br>ram0              0.00         0.00         0.00          0          0<br>loop0             0.00         0.00         0.00          0          0<br>mtdblock0         0.00         0.00         0.00          0          0</p>
+<p>打印网络的统计信息：<br>    路由表：<br>    [root@Honeywell ~]# netstat -r<br>    Kernel IP routing table<br>    Destination     Gateway         Genmask         Flags   MSS Window  irtt Iface<br>    192.168.1.0     <em>               255.255.255.0   U         0 0          0 eth0<br>    列出所有连接：<br>    $ netstat -a<br>    Active Internet connections (servers and established)<br>    Proto Recv-Q Send-Q Local Address           Foreign Address         State<br>    tcp        0      0 enlightened:domain      </em>:<em>                     LISTEN<br>    tcp        0      0 localhost:ipp           </em>:*                     LISTEN<br>    tcp        0      0 enlightened.local:54750 li240-5.members.li:http ESTABLISHED<br>    Active UNIX domain sockets (servers and established)<br>    Proto RefCnt Flags       Type       State         I-Node   Path<br>    unix  2      [ ACC ]     STREAM     LISTENING     12403    @/tmp/dbus-IDgfj3UGXX<br>    unix  2      [ ACC ]     STREAM     LISTENING     40202    @/dbus-vfs-daemon/socket-6nUC6CCx</p>
+<p>把内容追加到文件尾部<br>    使用&gt;&gt;操作符，例如：<br>    mike:~&gt; date &gt;&gt; wishlist<br>    mike:~&gt; cat wishlist<br>    more money<br>    less work<br>    Thu Feb 28 20:23:07 CET 2002<br>    date命令的输出结果，被添加到了wishlist的最后。<br>    &gt;&gt;后面只能跟上一个文件名。要同时追加到多个文件的尾部，需用tee -a命令。</p>
+<p>2&gt;&amp;1到底是干啥的？<br>    经常可以看到下面这种写法：<br>    /tmp/test.sh &gt; /tmp/test.log 2&gt;&amp;1<br>    在shell中，每个进程都和三个系统文件 相关联：标准输入stdin，标准输出stdout、标准错误stderr，三个系统文件的文件描述符分别为0，1、2。所以这里2&gt;&amp;1 的意思就是将标准错误也输出到标准输出当中。<br>    &gt;是重定向的意思。<br>    &amp;是等同于的意思，2&gt;&amp;1，表示2的输出重定向，等同于1。换句话说，就是把标准错误和标准输出，合二为一。<br>    那么哪些是“标准错误”，哪些又是“标准输出”呢？<br>    举个例子：<br>    $ cat test.sh<br>    t<br>    date<br>    test.sh中包含两个命令，其中t是一个不存在的命令，执行会报错，默认情况下，错误会输出到stderr。date则能正确执行，并且输出时间信息，默认输出到stdout<br>    ./test.sh &gt; test1.log<br>    ./test.sh: line 1: t: command not found<br>    $ cat test1.log<br>    Wed Jul 10 21:12:02 CST 2013<br>    可以看到，date的执行结果被重定向到log文件中了，而t无法执行的错误则只打印在屏幕上。<br>    $ ./test.sh &gt; test2.log 2&gt;&amp;1<br>    $ cat test2.log<br>    ./test.sh: line 1: t: command not found<br>    Tue Oct 9 20:53:44 CST 2007<br>    这次，stderr和stdout的内容都被重定向到log文件中了。<br>    所以在一般程序启动的语句里面，常见2&gt;&amp;1。作用无非就是当错误信息保存的完整些，同时包含标准错误和标准输出两类。<br>    还有个例子，就是让某个程序闭嘴，不管是stderr还是stdout，都不要声张：<br>    xxx_app &gt; /dev/null 2&gt;&amp;1</p>
+<p>如何同时输出给stdout和文件？<br>    答案是用tee命令。<br>    举例：<br>    mireille ~/test&gt; date | tee file1 file2    此处如果不用tee，而是用date &gt; file1，则屏幕上（也就是stdout）不会有显示，只是默默给输出给了file1.更何况&gt;符号是不能同时输出给多个文件的。<br>    Thu Jun 10 11:10:34 CEST 2004<br>    mireille ~/test&gt; cat file1<br>    Thu Jun 10 11:10:34 CEST 2004<br>    mireille ~/test&gt; cat file2<br>    Thu Jun 10 11:10:34 CEST 2004<br>    接着刚刚的例子：<br>    mireille ~/test&gt; uptime | tee -a file2<br>    11:10:51 up 21 days, 21:21, 57 users, load average: 0.04, 0.16, 0.26<br>    mireille ~/test&gt; cat file2<br>    Thu Jun 10 11:10:34 CEST 2004<br>    11:10:51 up 21 days, 21:21, 57 users, load average: 0.04, 0.16, 0.26<br>    这里-a参数的意思是Append to the given FILEs, don’t overwrite，相当于代替&gt;&gt;的作用。</p>
+<p>ulimit命令的作用：<br>    ulimit命令的作用，就是给各个系统资源加上具体的限制。<br>    $ ulimit -a        这个命令是显示当前的限制<br>    -f: file size (blocks)             unlimited<br>    -t: cpu time (seconds)             unlimited<br>    -d: data seg size (kb)             unlimited<br>    -s: stack size (kb)                8192<br>    -c: core file size (blocks)        0<br>    -m: resident set size (kb)         unlimited<br>    -l: locked memory (kb)             64<br>    -p: processes                      3979<br>    -n: file descriptors               1024<br>    -v: address space (kb)             unlimited<br>    -w: locks                          unlimited<br>    -e: scheduling priority            0<br>    -r: real-time priority             0<br>    通过ulimit，可以限制内存使用，core文件大小，socket数量，堆栈大小等。<br>    具体可以参考：    Kernel\学习资料\通过 ulimit 改善系统性能.pdf</p>
+<p>查看文件夹大小并按降序排列<br>    du -sh /* | sort -rn</p>
+<p>同步文件写操作：<br>    sync<br>    这个命令，针对一些老的板卡，cpu比较慢，或者内核比较老的，是有用的。<br>    例如：<br>    [root@M28x ~]# tar cvf /mnt/udev.tar /etc/udev/rules.d/99-ttyUSB.rules<br>    tar: removing leading ‘/‘ from member names<br>    etc/udev/rules.d/99-ttyUSB.rules<br>    [root@M28x ~]# umount /mnt/<br>    [root@M28x ~]# mmc0: card 1234 removed    &lt;——–此时拔出<br>    mmcblk0: error -110 sending status comand<br>    这时候其实虽然umount成功，但是sd卡并未完全写入。所以umount完，马上拔出，就有问题<br>    这时候就应该在umount之前，加入一条sync命令，就可以了。<br>    [root@M28x ~]# tar cvf /mnt/udev.tar /etc/udev/rules.d/99-ttyUSB.rules<br>    [root@M28x ~]# sync<br>    [root@M28x ~]# umount /mnt/<br>    [root@M28x ~]# mmc0: card 1234 removed</p>
+<p>当mv命令，需要去覆盖一个非空的目录的时候，mv会显示类似这种错误：mv: cannot move ‘home/‘ to ‘rootfs-cutout/home’: Directory not empty<br>    rsync -a 源目录/ 目的目录/</p>
+<p>连续建立数个目录，如果父目录不存在，一并创建<br>    mkdir -p /a/b/c/d/<br>    同时建立a b c d四个目录</p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/07/25/4-8-6-qt库-编译命令/" rel="next" title="4.8.6 qt库 编译命令">
+                <i class="fa fa-chevron-left"></i> 4.8.6 qt库 编译命令
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/07/25/shell脚本执行顺序的注意点/" rel="prev" title="shell脚本执行顺序的注意点">
+                shell脚本执行顺序的注意点 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Semiyd</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives">
+                
+                    <span class="site-state-item-count">12</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">6</span>
+                    <span class="site-state-item-name">categories</span>
+                  </a>
+                </div>
+              
+
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Semiyd</span>
+
+  
+
+  
+</div>
+
+
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> v3.7.1</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://theme-next.org">NexT.Muse</a> v6.3.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+	
+    
+
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.3.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.3.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.3.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.3.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.3.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

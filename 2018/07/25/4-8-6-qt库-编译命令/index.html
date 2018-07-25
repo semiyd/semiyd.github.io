@@ -108,24 +108,24 @@
 
 
 
-  <meta name="description" content="boot-img的解包与打包">
+  <meta name="description" content="1.source environment-setup-cortexa7hf-neon-poky-linux-gnueabi">
 <meta property="og:type" content="article">
-<meta property="og:title" content="boot.img的解包与打包">
-<meta property="og:url" content="http://yoursite.com/2018/07/23/boot-img的解包与打包/index.html">
+<meta property="og:title" content="4.8.6 qt库 编译命令">
+<meta property="og:url" content="http://yoursite.com/2018/07/25/4-8-6-qt库-编译命令/index.html">
 <meta property="og:site_name" content="Semiyd&#39;s Blog">
-<meta property="og:description" content="boot-img的解包与打包">
+<meta property="og:description" content="1.source environment-setup-cortexa7hf-neon-poky-linux-gnueabi">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-07-23T14:05:48.114Z">
+<meta property="og:updated_time" content="2018-07-25T12:55:38.999Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="boot.img的解包与打包">
-<meta name="twitter:description" content="boot-img的解包与打包">
+<meta name="twitter:title" content="4.8.6 qt库 编译命令">
+<meta name="twitter:description" content="1.source environment-setup-cortexa7hf-neon-poky-linux-gnueabi">
 
 
 
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/07/23/boot-img的解包与打包/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/07/25/4-8-6-qt库-编译命令/"/>
 
 
 
@@ -135,7 +135,7 @@
   };
 </script>
 
-  <title>boot.img的解包与打包 | Semiyd's Blog</title>
+  <title>4.8.6 qt库 编译命令 | Semiyd's Blog</title>
   
 
 
@@ -280,7 +280,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/07/23/boot-img的解包与打包/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/07/25/4-8-6-qt库-编译命令/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Semiyd">
@@ -297,7 +297,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">boot.img的解包与打包
+          <h1 class="post-title" itemprop="name headline">4.8.6 qt库 编译命令
               
             
           </h1>
@@ -322,7 +322,7 @@
                 
               
 
-              <time title="Created: 2018-07-23 22:04:59 / Modified: 22:05:48" itemprop="dateCreated datePublished" datetime="2018-07-23T22:04:59+08:00">2018-07-23</time>
+              <time title="Created: 2018-07-25 20:48:30 / Modified: 20:55:38" itemprop="dateCreated datePublished" datetime="2018-07-25T20:48:30+08:00">2018-07-25</time>
             
 
             
@@ -358,7 +358,14 @@
                   , 
                 
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Linux/Application/Android/" itemprop="url" rel="index"><span itemprop="name">Android</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Linux/Application/Qtopia/" itemprop="url" rel="index"><span itemprop="name">Qtopia</span></a></span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Linux/Application/Qtopia/4-8-6/" itemprop="url" rel="index"><span itemprop="name">4.8.6</span></a></span>
 
                 
                 
@@ -392,14 +399,18 @@
       
 
       
-        <p><center><strong>boot-img的解包与打包</strong></center><br>
-
-	<div class="row">
-    <embed src="./boot-img的解包与打包.pdf" width="100%" height="550" type="application/pdf">
-	</div>
-
-
-</p>
+        <p>1.<br>source environment-setup-cortexa7hf-neon-poky-linux-gnueabi</p>
+<a id="more"></a>
+<p>2.<br>change mkspecs/qws/linux-arm-g++/qmake.conf to:<br>#</p>
+<h1 id="qmake-configuration-for-building-with-arm-linux-g"><a href="#qmake-configuration-for-building-with-arm-linux-g" class="headerlink" title="qmake configuration for building with arm-linux-g++"></a>qmake configuration for building with arm-linux-g++</h1><p>#</p>
+<p>include(../../common/linux.conf)<br>include(../../common/gcc-base-unix.conf)<br>include(../../common/g++-unix.conf)<br>include(../../common/qws.conf)</p>
+<h1 id="modifications-to-g-conf"><a href="#modifications-to-g-conf" class="headerlink" title="modifications to g++.conf"></a>modifications to g++.conf</h1><p>QMAKE_CC                = arm-poky-linux-gnueabi-gcc<br>QMAKE_CXX               = arm-poky-linux-gnueabi-g++<br>QMAKE_LINK              = arm-poky-linux-gnueabi-g++<br>QMAKE_LINK_SHLIB        = arm-poky-linux-gnueabi-g++</p>
+<h1 id="modifications-to-linux-conf"><a href="#modifications-to-linux-conf" class="headerlink" title="modifications to linux.conf"></a>modifications to linux.conf</h1><p>QMAKE_AR                = arm-poky-linux-gnueabi-ar cqs<br>QMAKE_OBJCOPY           = arm-poky-linux-gnueabi-objcopy<br>QMAKE_STRIP             = arm-poky-linux-gnueabi-strip</p>
+<p>QMAKE_INCDIR        += /home/share/tslib/1.16/Board/arm-poky-linux-gnueabi-gcc-5.3.0-MYD-Y6ULX/usr/local/include/<br>QMAKE_LIBDIR        += /home/share/tslib/1.16/Board/arm-poky-linux-gnueabi-gcc-5.3.0-MYD-Y6ULX/usr/local/lib/</p>
+<p>QMAKE_CFLAGS        += -mfloat-abi=hard<br>QMAKE_CXXFLAGS      += -mfloat-abi=hard</p>
+<p>load(qt_config)</p>
+<p>3.<br>./configure -release -shared -fast -no-largefile -qt-sql-sqlite -no-qt3support -no-xmlpatterns -no-mmx -no-3dnow -no-sse -no-sse2 -no-svg -no-webkit -qt-zlib  -qt-libtiff -qt-libpng -qt-libmng -qt-libjpeg -make libs -nomake tools -no-nis -no-cups -no-iconv -no-dbus -no-openssl -no-icu -xplatform qws/linux-arm-g++ -embedded arm -little-endian -qt-freetype -depths 16,18,24,32  -no-glib -qt-mouse-tslib -I /home/share/1.16/tslib/Board/arm-poky-linux-gnueabi-gcc-5.3.0-MYD-Y6ULX/usr/local/include/ -L /home/share/1.16/tslib/Board/arm-poky-linux-gnueabi-gcc-5.3.0-MYD-Y6ULX/usr/local/lib/ -prefix /home/share/Qt/4.8.6/Board/arm-poky-linux-gnueabi-gcc-5.3.0-MYD-Y6ULX/ -sysroot /home/share/cross-compiler/arm-poky-linux-gnueabi-gcc-5.3.0-MYD-Y6ULX/sysroots/cortexa7hf-neon-poky-linux-gnueabi -v</p>
+<p>4.<br>make -j8<br>make install</p>
 
       
     </div>
@@ -427,8 +438,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/07/23/android-boot-img-结构/" rel="next" title="android boot.img 结构 ">
-                <i class="fa fa-chevron-left"></i> android boot.img 结构 
+              <a href="/2018/07/23/main函数入参的处理/" rel="next" title="main函数入参的处理">
+                <i class="fa fa-chevron-left"></i> main函数入参的处理
               </a>
             
           </div>
@@ -437,8 +448,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/07/23/main函数入参的处理/" rel="prev" title="main函数入参的处理">
-                main函数入参的处理 <i class="fa fa-chevron-right"></i>
+              <a href="/2018/07/25/shell命令基础知识/" rel="prev" title="shell命令基础知识">
+                shell命令基础知识 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -484,8 +495,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -553,6 +573,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#qmake-configuration-for-building-with-arm-linux-g"><span class="nav-number">1.</span> <span class="nav-text">qmake configuration for building with arm-linux-g++</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#modifications-to-g-conf"><span class="nav-number">2.</span> <span class="nav-text">modifications to g++.conf</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#modifications-to-linux-conf"><span class="nav-number">3.</span> <span class="nav-text">modifications to linux.conf</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
