@@ -108,24 +108,24 @@
 
 
 
-  <meta name="description" content="​    首先有两个维度：          Login/Non-login shell            Login shell:                就是指板子启动后，输入root按回车登录，然后得到的那种shell。            Non-login shell:                就是指在/etc/init.d/rcS里面自动运行的脚本，这些脚本并未经过登">
+  <meta name="description" content="线程笔记">
 <meta property="og:type" content="article">
-<meta property="og:title" content="shell的不同类型Login Non-login shell和环境变量的设置">
-<meta property="og:url" content="http://yoursite.com/2018/07/25/shell的不同类型Login-Non-login-shell和环境变量的设置/index.html">
+<meta property="og:title" content="线程笔记">
+<meta property="og:url" content="http://yoursite.com/2018/07/25/线程笔记/index.html">
 <meta property="og:site_name" content="Semiyd&#39;s Blog">
-<meta property="og:description" content="​    首先有两个维度：          Login/Non-login shell            Login shell:                就是指板子启动后，输入root按回车登录，然后得到的那种shell。            Non-login shell:                就是指在/etc/init.d/rcS里面自动运行的脚本，这些脚本并未经过登">
+<meta property="og:description" content="线程笔记">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-07-25T13:09:36.489Z">
+<meta property="og:updated_time" content="2018-07-25T13:56:18.762Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="shell的不同类型Login Non-login shell和环境变量的设置">
-<meta name="twitter:description" content="​    首先有两个维度：          Login/Non-login shell            Login shell:                就是指板子启动后，输入root按回车登录，然后得到的那种shell。            Non-login shell:                就是指在/etc/init.d/rcS里面自动运行的脚本，这些脚本并未经过登">
+<meta name="twitter:title" content="线程笔记">
+<meta name="twitter:description" content="线程笔记">
 
 
 
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/07/25/shell的不同类型Login-Non-login-shell和环境变量的设置/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/07/25/线程笔记/"/>
 
 
 
@@ -135,7 +135,7 @@
   };
 </script>
 
-  <title>shell的不同类型Login Non-login shell和环境变量的设置 | Semiyd's Blog</title>
+  <title>线程笔记 | Semiyd's Blog</title>
   
 
 
@@ -280,7 +280,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/07/25/shell的不同类型Login-Non-login-shell和环境变量的设置/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/07/25/线程笔记/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Semiyd">
@@ -297,7 +297,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">shell的不同类型Login Non-login shell和环境变量的设置
+          <h1 class="post-title" itemprop="name headline">线程笔记
               
             
           </h1>
@@ -322,7 +322,7 @@
                 
               
 
-              <time title="Created: 2018-07-25 21:07:46 / Modified: 21:09:36" itemprop="dateCreated datePublished" datetime="2018-07-25T21:07:46+08:00">2018-07-25</time>
+              <time title="Created: 2018-07-25 21:50:43 / Modified: 21:56:18" itemprop="dateCreated datePublished" datetime="2018-07-25T21:50:43+08:00">2018-07-25</time>
             
 
             
@@ -358,7 +358,14 @@
                   , 
                 
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Linux/Application/Shell/" itemprop="url" rel="index"><span itemprop="name">Shell</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Linux/Application/进程和线程/" itemprop="url" rel="index"><span itemprop="name">进程和线程</span></a></span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Linux/Application/进程和线程/线程/" itemprop="url" rel="index"><span itemprop="name">线程</span></a></span>
 
                 
                 
@@ -392,10 +399,61 @@
       
 
       
-        <p>​    首先有两个维度：<br>          Login/Non-login shell<br>            Login shell:<br>                就是指板子启动后，输入root按回车登录，然后得到的那种shell。<br>            Non-login shell:<br>                就是指在/etc/init.d/rcS里面自动运行的脚本，这些脚本并未经过登录过程，直接运行。<br>         Interactive/Non-interactive shell<br>            Interactive shell:<br>                是指会接受键盘输入，或者会把打印信息打印到终端的shell命令或者脚本。<br>            Non-interactive shell:<br>                就是指既没有输入的方法，也不会把信息打印到任何终端的shell命令或者脚本。<br><a id="more"></a><br>​        所以组合如下：<br>            interactive login shell<br>                环境变量取决于/etc/profile或者~/.profile<br>                例如：通过getty,ssh,su等，登录进去，得到的首个shell。<br>            non-interactive login shell<br>                环境变量取决于/etc/profile或者~/.profile<br>                例如：极为罕见，有时用于一些X settings用display manager登录，然后做一些工作，所以无互动，但又是登录了。<br>            interactive, non-login shell<br>                环境变量取决于~/.bashrc或者~/.zshrc等<br>                例如：在已有的session（screen, X terminal, Emacs terminal buffer, a shell inside another, etc.）上开出来的shell<br>            non-interactive, non-login shell<br>                环境变量取决于~/.bashrc或者~/.zshrc等<br>                例如：类似interactive, non-login shell，只是没有互动的输入输出的就算是这类。</p>
-<p>​        所以可以看出，其实是不是interactive无所谓。关键还是，是不是login还是non-login。login就是/etc/profile，non-login就是.bashrc</p>
-<p>​        如何判断当前是不是login shell？<br>            prompt&gt; echo $0<br>            -bash # “-“ is the first character. Therefore, this is a login shell.<br>            prompt&gt; echo $0<br>            bash # “-“ is NOT the first character. This is NOT a login shell.</p>
-<p>​        对于嵌入式板子上的busybox，实测如下:<br>            登录后得到的可以敲命令的shell也就是login-shell，由/etc/profile或者/root/.profile决定环境变量设置。<br>            在已有的shell基础上（例如刚刚登录得到的shell）再运行的shell，也就是non-login shell，由/etc/init.d/rcS决定环境变量设置。<br>            另外，为什么会执行rcS?因为init进程，会去读/etc/inittab里面的sysinit项。找到sysinit对应的值就是/etc/init.d/rcS        </p>
+        <center>线程笔记</center>
+
+<a id="more"></a>
+<p>linux下用C开发多线程程序，Linux系统下的多线程遵循POSIX线程接口，借助pthread库来完成。</p>
+<p>需要包含这个头文件：</p>
+<p>#include &lt;pthread.h&gt;</p>
+<p>1.建立线程（下面这个例子建立了2个线程）：<br>原型函数是：int   pthread_create(pthread_t   <em>   thread, pthread_attr_t </em> attr, void <em> (</em>start_routine)(void <em>), void </em> arg)<br>与fork()调用创建一个进程的方法不同，pthread_create()创建的线程并不具备与主线程（即调用pthread_create()的线 程）同样的执行序列，而是使其运行start_routine(arg)函数。<br>pthread_create()中的attr参数是一个结构指针，结构中的元素分别对应着新线程的运行属性，主要包括以下几项：<br><strong>detachstate， 表示新线程是否与进程中其他线程脱离同步，如果置位则新线程不能用pthread_join()来同步，且在退出时自行释放所占用的资源。缺省为 PTHREAD_CREATE_JOINABLE状态。这个属性也可以在线程创建并运行以后用pthread_detach()来设置，而一旦设置为 PTHREAD_CREATE_DETACH状态（不论是创建时设置还是运行时设置）则不能再恢复到 PTHREAD_CREATE_JOINABLE状态。
+</strong>schedpolicy，表示新线程的调度策略，主要包括 SCHED_OTHER（正常、非实时）、SCHED_RR（实时、轮转法）和 SCHED_FIFO（实时、先入先出）三种，缺省为SCHED_OTHER，后两种调度策略仅对超级用户有效。运行时可以用过 pthread_setschedparam()来改变。<br><strong>schedparam，一个struct sched_param结构，目前仅有一个sched_priority整型变量表示线程的运行优先级。这个参数仅当调度策略为实时（即SCHED_RR 或SCHED_FIFO）时才有效，并可以在运行时通过pthread_setschedparam()函数来改变，缺省为0。
+</strong>inheritsched， 有两种值可供选择：PTHREAD_EXPLICIT_SCHED和PTHREAD_INHERIT_SCHED，前者表示新线程使用显式指定调度策略和 调度参数（即attr中的值），而后者表示继承调用者线程的值。缺省为PTHREAD_EXPLICIT_SCHED。<br>__scope， 表示线程间竞争CPU的范围，也就是说线程优先级的有效范围。POSIX的标准中定义了两个值： PTHREAD_SCOPE_SYSTEM和PTHREAD_SCOPE_PROCESS，前者表示与系统中所有线程一起竞争CPU时间，后者表示仅与同 进程中的线程竞争CPU。目前LinuxThreads仅实现了PTHREAD_SCOPE_SYSTEM一值。</p>
+<p>举例如下：<br>static void <em>StartFasyncRoutineThread(void </em>arg) {<br>    //do something<br>}</p>
+<p>static void <em>StartFasyncHeartbeatThread(void </em>arg) {<br>    //do something<br>}</p>
+<p>static void CreateRoutineThread() {<br>    pthread_t publisherThreadId,heartbeatThreadId = 0;<br>    if (pthread_create(&amp;publisherThreadId, NULL, StartFasyncRoutineThread, NULL)!= 0) {<br>        printf(“create PublisherThread fail”);<br>    } else {<br>        printf(“create PublisherThread start”);<br>    }</p>
+<pre><code>if (pthread_create(&amp;heartbeatThreadId, NULL, StartFasyncHeartbeatThread, NULL)!= 0) {
+    printf(&quot;create heartbeatThread fail&quot;);
+} else {
+    printf(&quot;create heartbeatThread start&quot;);
+}    
+</code></pre><p>}</p>
+<p>int main(int argc, char **argv)<br>{<br>    CreateRoutineThread();<br>}</p>
+<p>2.pthread_join函数的作用：<br>pthread_join使一个线程等待另一个线程结束。<br>代码中如果没有pthread_join主线程会很快结束从而使整个进程结束，从而使创建的线程没有机会开始执行就结束了。加入pthread_join后，主线程会一直等待直到等待的线程结束自己才结束，使创建的线程有机会执行。<br>详见“pthread_join函数及linux线程.pdf”</p>
+<p>有关如何让线程阻塞在一个信号上的做法，参见“多线程中的信号机制–sigwait()函数.pdf”</p>
+<p>线程和进程在使用上各有优缺点：线程执行开销小，但不利于资源的管理和保护；而进程正相反。同时，线程适合于在SMP机器上运行，而进程则可以跨机器迁移。</p>
+<p>编译：<br>    注意要加-lpthread的链接选项。-L不用特别指定，因为pthread属于默认库，不算是第三方的库，编译器按照默认路径就能找到。</p>
+<p>一些相关的文献如下：</p>
+
+
+	<div class="row">
+    <embed src="./pthread_create函数的详细讲解(包括向线程函数传递参数详解).pdf" width="100%" height="550" type="application/pdf">
+	</div>
+
+
+
+
+
+	<div class="row">
+    <embed src="./pthread_create函数详解.pdf" width="100%" height="550" type="application/pdf">
+	</div>
+
+
+
+
+
+	<div class="row">
+    <embed src="./pthread_join函数及linux线程.pdf" width="100%" height="550" type="application/pdf">
+	</div>
+
+
+
+
+
+	<div class="row">
+    <embed src="./多线程中的信号机制--sigwait()函数.pdf" width="100%" height="550" type="application/pdf">
+	</div>
+
+
 
       
     </div>
@@ -423,8 +481,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/07/25/shell脚本执行顺序的注意点/" rel="next" title="shell脚本执行顺序的注意点">
-                <i class="fa fa-chevron-left"></i> shell脚本执行顺序的注意点
+              <a href="/2018/07/25/进程和线程比较/" rel="next" title="进程和线程比较">
+                <i class="fa fa-chevron-left"></i> 进程和线程比较
               </a>
             
           </div>
@@ -433,8 +491,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/07/25/shell-正则表达式举例/" rel="prev" title="shell 正则表达式举例">
-                shell 正则表达式举例 <i class="fa fa-chevron-right"></i>
+              <a href="/2018/07/25/进程笔记/" rel="prev" title="最简单的进程的例子">
+                最简单的进程的例子 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>

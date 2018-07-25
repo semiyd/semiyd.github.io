@@ -108,24 +108,24 @@
 
 
 
-  <meta name="description" content="​    首先有两个维度：          Login/Non-login shell            Login shell:                就是指板子启动后，输入root按回车登录，然后得到的那种shell。            Non-login shell:                就是指在/etc/init.d/rcS里面自动运行的脚本，这些脚本并未经过登">
+  <meta name="description" content="so库按照加载方式分，分成两类：">
 <meta property="og:type" content="article">
-<meta property="og:title" content="shell的不同类型Login Non-login shell和环境变量的设置">
-<meta property="og:url" content="http://yoursite.com/2018/07/25/shell的不同类型Login-Non-login-shell和环境变量的设置/index.html">
+<meta property="og:title" content="so动态库文件的生成">
+<meta property="og:url" content="http://yoursite.com/2018/07/25/so动态库文件的生成/index.html">
 <meta property="og:site_name" content="Semiyd&#39;s Blog">
-<meta property="og:description" content="​    首先有两个维度：          Login/Non-login shell            Login shell:                就是指板子启动后，输入root按回车登录，然后得到的那种shell。            Non-login shell:                就是指在/etc/init.d/rcS里面自动运行的脚本，这些脚本并未经过登">
+<meta property="og:description" content="so库按照加载方式分，分成两类：">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-07-25T13:09:36.489Z">
+<meta property="og:updated_time" content="2018-07-25T13:33:55.895Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="shell的不同类型Login Non-login shell和环境变量的设置">
-<meta name="twitter:description" content="​    首先有两个维度：          Login/Non-login shell            Login shell:                就是指板子启动后，输入root按回车登录，然后得到的那种shell。            Non-login shell:                就是指在/etc/init.d/rcS里面自动运行的脚本，这些脚本并未经过登">
+<meta name="twitter:title" content="so动态库文件的生成">
+<meta name="twitter:description" content="so库按照加载方式分，分成两类：">
 
 
 
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/07/25/shell的不同类型Login-Non-login-shell和环境变量的设置/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/07/25/so动态库文件的生成/"/>
 
 
 
@@ -135,7 +135,7 @@
   };
 </script>
 
-  <title>shell的不同类型Login Non-login shell和环境变量的设置 | Semiyd's Blog</title>
+  <title>so动态库文件的生成 | Semiyd's Blog</title>
   
 
 
@@ -280,7 +280,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/07/25/shell的不同类型Login-Non-login-shell和环境变量的设置/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/07/25/so动态库文件的生成/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Semiyd">
@@ -297,7 +297,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">shell的不同类型Login Non-login shell和环境变量的设置
+          <h1 class="post-title" itemprop="name headline">so动态库文件的生成
               
             
           </h1>
@@ -322,7 +322,7 @@
                 
               
 
-              <time title="Created: 2018-07-25 21:07:46 / Modified: 21:09:36" itemprop="dateCreated datePublished" datetime="2018-07-25T21:07:46+08:00">2018-07-25</time>
+              <time title="Created: 2018-07-25 21:32:29 / Modified: 21:33:55" itemprop="dateCreated datePublished" datetime="2018-07-25T21:32:29+08:00">2018-07-25</time>
             
 
             
@@ -352,13 +352,6 @@
                 
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Linux/Application/" itemprop="url" rel="index"><span itemprop="name">Application</span></a></span>
-
-                
-                
-                  , 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Linux/Application/Shell/" itemprop="url" rel="index"><span itemprop="name">Shell</span></a></span>
 
                 
                 
@@ -392,10 +385,11 @@
       
 
       
-        <p>​    首先有两个维度：<br>          Login/Non-login shell<br>            Login shell:<br>                就是指板子启动后，输入root按回车登录，然后得到的那种shell。<br>            Non-login shell:<br>                就是指在/etc/init.d/rcS里面自动运行的脚本，这些脚本并未经过登录过程，直接运行。<br>         Interactive/Non-interactive shell<br>            Interactive shell:<br>                是指会接受键盘输入，或者会把打印信息打印到终端的shell命令或者脚本。<br>            Non-interactive shell:<br>                就是指既没有输入的方法，也不会把信息打印到任何终端的shell命令或者脚本。<br><a id="more"></a><br>​        所以组合如下：<br>            interactive login shell<br>                环境变量取决于/etc/profile或者~/.profile<br>                例如：通过getty,ssh,su等，登录进去，得到的首个shell。<br>            non-interactive login shell<br>                环境变量取决于/etc/profile或者~/.profile<br>                例如：极为罕见，有时用于一些X settings用display manager登录，然后做一些工作，所以无互动，但又是登录了。<br>            interactive, non-login shell<br>                环境变量取决于~/.bashrc或者~/.zshrc等<br>                例如：在已有的session（screen, X terminal, Emacs terminal buffer, a shell inside another, etc.）上开出来的shell<br>            non-interactive, non-login shell<br>                环境变量取决于~/.bashrc或者~/.zshrc等<br>                例如：类似interactive, non-login shell，只是没有互动的输入输出的就算是这类。</p>
-<p>​        所以可以看出，其实是不是interactive无所谓。关键还是，是不是login还是non-login。login就是/etc/profile，non-login就是.bashrc</p>
-<p>​        如何判断当前是不是login shell？<br>            prompt&gt; echo $0<br>            -bash # “-“ is the first character. Therefore, this is a login shell.<br>            prompt&gt; echo $0<br>            bash # “-“ is NOT the first character. This is NOT a login shell.</p>
-<p>​        对于嵌入式板子上的busybox，实测如下:<br>            登录后得到的可以敲命令的shell也就是login-shell，由/etc/profile或者/root/.profile决定环境变量设置。<br>            在已有的shell基础上（例如刚刚登录得到的shell）再运行的shell，也就是non-login shell，由/etc/init.d/rcS决定环境变量设置。<br>            另外，为什么会执行rcS?因为init进程，会去读/etc/inittab里面的sysinit项。找到sysinit对应的值就是/etc/init.d/rcS        </p>
+        <p>so库按照加载方式分，分成两类：</p>
+<a id="more"></a>
+<p>1.运行的时候再去加载，链接的时候不参与编译过程：<br>    尝试生成so库，然后用另外一个app去调用：<br>        /opt/IQ8/test_applications/hfdev_lib_user（需要为库建一个头文件，具体参见代码）<br>        $(CROSS)gcc  -shared  -fPIC  -o hfdev.so hfdev.c -ldl    这行是生成.so文件。注意-shared  -fPIC  -ldl都是不可少的参数。<br>        如果少了-ldl，会提示找不到dlopen和dlsym的定义。<br>        具体的代码写在/opt/IQ8/test_applications/hfdev_lib_user/hf_user.c里面</p>
+<p>2.链接的时候需要参与编译的过程，也就是最常见的做法：<br>举例：<br>gcc -Wall -fPIC -c foo.c    需要先编译.o文件<br>gcc -shared -o libfoo.so foo.o    然后由.o文件生成.so文件<br>gcc -L/home/username/foo -Wall -o test main.c -lfoo    应用程序链接的时候指定刚刚的.so库<br>export LD_LIBRARY_PATH=/home/username/foo:$LD_LIBRARY_PATH<br>./test<br>参考“fasync_lib-20180608.tar.bz2”</p>
+<p>-fPIC含义的解释：<br>What is position independent code? PIC is code that works no matter where in memory it is placed. Because several different programs<br>can all use one instance of your shared library, the library cannot store things at fixed addresses, since the location of that library in memory will vary from program to program    </p>
 
       
     </div>
@@ -423,8 +417,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/07/25/shell脚本执行顺序的注意点/" rel="next" title="shell脚本执行顺序的注意点">
-                <i class="fa fa-chevron-left"></i> shell脚本执行顺序的注意点
+              <a href="/2018/07/25/googletest/" rel="next" title="googletest">
+                <i class="fa fa-chevron-left"></i> googletest
               </a>
             
           </div>
@@ -433,8 +427,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/07/25/shell-正则表达式举例/" rel="prev" title="shell 正则表达式举例">
-                shell 正则表达式举例 <i class="fa fa-chevron-right"></i>
+              <a href="/2018/07/25/进程和线程比较/" rel="prev" title="进程和线程比较">
+                进程和线程比较 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
