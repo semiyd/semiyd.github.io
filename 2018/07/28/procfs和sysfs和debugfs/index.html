@@ -1,0 +1,909 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.3.0" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.3.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.3.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.3.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.3.0" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '6.3.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="procfs和sysfs和debugfs">
+<meta property="og:type" content="article">
+<meta property="og:title" content="procfs和sysfs和debugfs">
+<meta property="og:url" content="http://yoursite.com/2018/07/28/procfs和sysfs和debugfs/index.html">
+<meta property="og:site_name" content="Semiyd&#39;s Blog">
+<meta property="og:description" content="procfs和sysfs和debugfs">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2018-07-28T07:02:56.642Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="procfs和sysfs和debugfs">
+<meta name="twitter:description" content="procfs和sysfs和debugfs">
+
+
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/07/28/procfs和sysfs和debugfs/"/>
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>procfs和sysfs和debugfs | Semiyd's Blog</title>
+  
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Semiyd's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br />Home</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+    <a href="/categories/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-th"></i> <br />Categories</a>
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/07/28/procfs和sysfs和debugfs/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Semiyd">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Semiyd's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">procfs和sysfs和debugfs
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2018-07-28 15:02:17 / Modified: 15:02:56" itemprop="dateCreated datePublished" datetime="2018-07-28T15:02:17+08:00">2018-07-28</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Linux/" itemprop="url" rel="index"><span itemprop="name">Linux</span></a></span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Linux/Kernel/" itemprop="url" rel="index"><span itemprop="name">Kernel</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><center><strong>procfs和sysfs和debugfs</strong></center><br><a id="more"></a><br>    /proc反映kernel内部的通用的信息<br>    /sys和设备更相关<br>        通过sysfs_create_bin_file()来建立sysfs节点。这样在用户空间，通过操作/sys/下面的某个文件，就等于是直接操作硬件<br>        sysfs_create_group()<br>        DEVICE_ATTR(coordinates, 0644, NULL, write_vms);//sysfs写节点的方法注册（write_vms()）<br>        如何在内核中，建立一个sysfs节点，并在用户空间赋值，让内核读到？<br>            准备工作：<br>            static ssize_t gt9xx_device_read(struct file<em> filp, char __user </em>buffer, size_t length, loff_t* offset)<br>            {<br>                return 0;<br>            }</p>
+<pre><code>        static int gt9xx_device_open(struct inode* inode, struct file* filp)
+        {
+            return 0;
+        }
+
+        static int gt9xx_device_close(struct inode* inode, struct file* filp)
+        {
+            return 0;
+        }
+
+        static struct file_operations gt9xx_fops = {
+         .read = gt9xx_device_read,
+         .open = gt9xx_device_open,
+         .release = gt9xx_device_close
+        };
+
+        //声明文件节点对应的回调函数
+        static DEVICE_ATTR(x, S_IWUSR, NULL, gt9xx_update_x);
+        static DEVICE_ATTR(y, S_IWUSR, NULL, gt9xx_update_y);
+        static DEVICE_ATTR(simulate, S_IWUSR, NULL, gt9xx_simulate);
+
+         /* First, see if we can dynamically allocate a major for our device */
+         gt9xx_major = register_chrdev(0, DEVICE_NAME, &amp;gt9xx_fops);
+
+         /* We can either tie our device to a bus (existing, or one that we create)
+          * or use a &quot;virtual&quot; device class. For this example, we choose the latter */
+         gt9xx_class = class_create(THIS_MODULE, CLASS_NAME);
+
+
+         /* With a class, the easiest way to instantiate a device is to call device_create() */
+         gt9xx_device = device_create(gt9xx_class, NULL, MKDEV(gt9xx_major, 0), NULL, CLASS_NAME &quot;_&quot; DEVICE_NAME);
+
+         /* Now we can create the sysfs endpoints (don&apos;t care about errors).
+          * dev_attr_x and dev_attr_y come from the DEVICE_ATTR(...) earlier */
+         retval = device_create_file(gt9xx_device, &amp;dev_attr_x);
+         retval = device_create_file(gt9xx_device, &amp;dev_attr_y);
+         retval = device_create_file(gt9xx_device, &amp;dev_attr_simulate);
+
+        随后有关获取用户空间的数据，有两种方法：通过kfifo或者直接使用.
+        总的来说，DEVICE_ATTR在定义属性的读写API时，其实传进来的时候，就已经是const char* buf了（参见下面的gt9xx_update_x的定义的入参）
+        也就是用户空间输入的数字，到内核里面，已经是字符数组了。所以。如果要直接当成数字使用，是需要转换格式的。
+        kfifo：
+            #define PARROT_MSG_FIFO_SIZE 1024
+
+            /* Use a Kernel FIFO for read operations */
+            static DECLARE_KFIFO(gt9xx_msg_fifo_x, char, PARROT_MSG_FIFO_SIZE);
+            static DECLARE_KFIFO(gt9xx_msg_fifo_y, char, PARROT_MSG_FIFO_SIZE);
+
+            //记得在上面初始化的时候，同时初始化了这些fifo结构体
+                 INIT_KFIFO(gt9xx_msg_fifo_x);
+                 INIT_KFIFO(gt9xx_msg_fifo_y);
+
+            /* Placing data into the read FIFO is done through sysfs */
+            static ssize_t gt9xx_update_y(struct device* dev, struct device_attribute* attr, const char* buf, size_t count)
+            {
+             unsigned int copied;
+
+             if (kfifo_avail(&amp;gt9xx_msg_fifo_y) &lt; count) {
+              printk(&quot;not enough space left on fifo\n&quot;);
+              return -ENOSPC;
+             }
+
+             /* The buffer is already in kernel space, so no need for ..._from_user() */
+             copied = kfifo_in(&amp;gt9xx_msg_fifo_y, buf, count);
+
+             if (copied != count) {
+              printk(&quot;short write detected\n&quot;);
+             }
+
+             return copied;
+            }
+
+            /* This sysfs entry resets the FIFO */
+            static ssize_t gt9xx_simulate(struct device* dev, struct device_attribute* attr, const char* buf, size_t count)
+            {
+                char x;
+                char y;
+                unsigned int tmp=88;
+
+                //kfifo_put(&amp;gt9xx_msg_fifo_x, &amp;tmp);
+                //导出出来
+                kfifo_out(&amp;gt9xx_msg_fifo_x, &amp;x, 3);
+                kfifo_out(&amp;gt9xx_msg_fifo_y, &amp;y, 3);
+                //清零
+                kfifo_reset(&amp;gt9xx_msg_fifo_x);
+                kfifo_reset(&amp;gt9xx_msg_fifo_y);
+                 return count;
+            }
+            //字符设备的read函数示例，可以直接把刚刚收到的字符，返回到用户空间
+            static ssize_t gt9xx_device_read(struct file* filp, char __user *buffer, size_t length, loff_t* offset)
+            {
+             int retval;
+             unsigned int copied;
+
+             if (kfifo_is_empty(&amp;parrot_msg_fifo)) {
+              return 0;
+             }
+
+             retval = kfifo_to_user(&amp;parrot_msg_fifo, buffer, parrot_msg_len[parrot_msg_idx_rd], &amp;copied);
+
+             return retval ? retval : copied;
+            }
+         直接用strict_strtoul转换
+            unsigned int x_axis = 0;
+            static ssize_t gt9xx_update_x(struct device* dev, struct device_attribute* attr, const char* buf, size_t count)
+            {
+                if (strict_strtoul(buf, 10, &amp;x_axis))
+                    return -EINVAL;
+                return count;
+            }
+            这样，在用户空间输入的数字，就直接被转成可以用的数字了，保存在x_axis。
+
+bus-device-driver 模型：
+    bus是指主控，如i2c主控制器
+    device是指连接上来的外部设备
+    driver是指驱动device的方法    
+</code></pre><p>/proc常用接口举例：<br>    /proc/interrupts    查看各个中断号和中断名字<br>                   CPU0<br>          4:          0      INTC  omap2_elm<br>         12:          0      INTC  edma<br>         52:          0      INTC  can0<br>        269:          0      GPIO  phy_interrupt<br>    /proc/net/dev    查看网络子系统，各个接口的收发包的统计<br>        Inter-|   Receive                                                |  Transmit<br>         face |bytes    packets errs drop fifo frame compressed multicast|bytes    packets errs drop fifo colls carrier compressed<br>            lo:     504       6    0    0    0     0          0         0      504       6    0    0    0     0       0          0<br>          eth1:       0       0    0    0    0     0          0         0        0       0    0    0    0     0       0          0<br>          can1:       0       0    0    0    0     0          0         0        0       0    0    0    0     0       0          0<br>          eth0:  315294    2351    0  781    0     0          0         0     1160      13    0    0    0     0       0          0<br>          can0:       0       0    0    0    0     0          0         0        0       0    0    0    0     0       0          0<br>    /proc/iomem    查看request_mem_region申请的resource的寄存器地址范围，注册platform驱动的时候会涉及<br>        44e05000-44e053ff : omap_timer.0<br>          44e05000-44e053ff : omap_timer<br>        44e07000-44e07fff : omap_gpio.0<br>        44e09000-44e0afff : omap_uart.0<br>          44e09000-44e0afff : omap_uart<br>        44e0b000-44e0bfff : omap_i2c.1<br>          44e0b000-44e0bfff : omap_i2c<br>    /proc/version    查看内核版本和编译器信息<br>        Linux version 3.2.0-EmbedSky (yandong@CH4WDT22X8DB2) (gcc version 4.4.6 (for TQ210 EmbedSky Tech) ) #97 Tue Dec 6 11:02:42 HKT 2016<br>    /proc/cpuinfo    查看处理器和MACHINE名字信息<br>        Processor       : ARMv7 Processor rev 2 (v7l)<br>        BogoMIPS        : 795.44<br>        Features        : swp half thumb fastmult vfp edsp thumbee neon vfpv3 tls<br>        CPU implementer : 0x41<br>        CPU architecture: 7<br>        CPU variant     : 0x3<br>        CPU part        : 0xc08<br>        CPU revision    : 2<br>        Hardware        : iq8_ncm_v21<br>        Revision        : 0000<br>        Serial          : 0000000000000000<br>    /proc/kallsyms    查看被EXPORT_SYMBOL导出的内核符号表（很多很多函数名）<br>        c080aec8 t omap_nand_init<br>        c080b55c t omap2_mcspi_init<br>        c080b5c0 t omap2_mcspi_probe<br>        c080ddf4 t omap_i2c_init_driver<br>        c080efb0 t omap_wdt_init<br>    /proc/slabinfo    查看slab池的使用情况</p>
+<pre><code>    # name            &lt;active_objs&gt; &lt;num_objs&gt; &lt;objsize&gt; &lt;objperslab&gt; &lt;pagesperslab&gt; : tunables &lt;limit&gt; &lt;batchcount&gt; &lt;sharedfactor&gt; : slabdata &lt;active_slabs&gt; &lt;num_slabs&gt; &lt;sharedavail&gt;
+    nfs_commit_data        4      9    448    9    1 : tunables   54   27    8 : slabdata      1      1      0
+    nfs_write_data        32     35    576    7    1 : tunables   54   27    8 : slabdata      5      5      0
+    dma-kmalloc-96         0      0    128   31    1 : tunables  120   60    8 : slabdata      0      0      0
+    kmalloc-4194304        0      0 4194304    1 1024 : tunables    1    1    0 : slabdata      0      0      0
+    kmem_cache           185    279    128   31    1 : tunables  120   60    8 : slabdata      9      9      0
+/proc/vmallocinfo    查看vmalloc分配的情况
+    0xe0804000-0xe0807000   12288 _populate_mpu_rt_base+0x9c/0xc8 ioremap
+    0xe0808000-0xe080a000    8192 _populate_mpu_rt_base+0x9c/0xc8 ioremap
+    0xe080a000-0xe080c000    8192 _populate_mpu_rt_base+0x9c/0xc8 ioremap
+/proc/meminfo    查看内存使用情况，包括highmen lowmen使用情况
+    MemTotal:         509988 kB
+    MemFree:          499944 kB
+    HighTotal:             0 kB
+    HighFree:              0 kB
+    LowTotal:         509988 kB
+    LowFree:          499944 kB
+    VmallocTotal:     499712 kB
+    VmallocUsed:        9244 kB
+/proc/partitions    查看分区的情况
+    major minor  #blocks  name
+     179        0    3817472 mmcblk1
+     179        1     512000 mmcblk1p1
+     179        2    3203072 mmcblk1p2
+     179       24        512 mmcblk1rpmb
+     179       16       2048 mmcblk1boot1
+     179        8       2048 mmcblk1boot0
+ /proc/mtd    查看mtd分区的情况
+    dev:    size   erasesize  name
+    mtd0: 00020000 00020000 &quot;NAND.SPL&quot;
+    mtd1: 00020000 00020000 &quot;NAND.SPL.backup1&quot;
+    mtd2: 00020000 00020000 &quot;NAND.SPL.backup2&quot;
+    mtd3: 00020000 00020000 &quot;NAND.SPL.backup3&quot;
+    mtd4: 001e0000 00020000 &quot;NAND.u-boot&quot;
+    mtd5: 00020000 00020000 &quot;NAND.u-boot-env&quot;
+    mtd6: 00300000 00020000 &quot;NAND.LOGO&quot;
+    mtd7: 00500000 00020000 &quot;NAND.kernel&quot;
+    mtd8: 3f580000 00020000 &quot;rootfs&quot;
+/proc/cmdline    查看bootargs
+    setenv bootargs console=ttyO0,115200n8 root=ubi0:rootfs rw ubi.mtd=8 rootfstype=ubifs rootwait=1 ip=none vt.global_cursor_default=0 lcd=X800Y480 uart1_d_can=uart1 uart2_i2c2=uart2
+</code></pre><p>debugfs:<br>    详见    C:\Document\Document\Linux\Kernel\学习资料\Linux内核里的DebugFS.pdf</p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/07/28/链表操作/" rel="next" title="链表操作">
+                <i class="fa fa-chevron-left"></i> 链表操作
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/07/28/early-printk/" rel="prev" title="early_printk">
+                early_printk <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Semiyd</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives">
+                
+                    <span class="site-state-item-count">51</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">18</span>
+                    <span class="site-state-item-name">categories</span>
+                  </a>
+                </div>
+              
+
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Semiyd</span>
+
+  
+
+  
+</div>
+
+
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> v3.7.1</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://theme-next.org">NexT.Muse</a> v6.3.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+	
+    
+
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.3.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.3.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.3.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.3.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.3.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
