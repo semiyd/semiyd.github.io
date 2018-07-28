@@ -1,0 +1,850 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.3.0" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.3.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.3.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.3.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.3.0" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '6.3.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="内存泄漏">
+<meta property="og:type" content="article">
+<meta property="og:title" content="内存泄漏">
+<meta property="og:url" content="http://yoursite.com/2018/07/28/内存泄漏/index.html">
+<meta property="og:site_name" content="Semiyd&#39;s Blog">
+<meta property="og:description" content="内存泄漏">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2018-07-28T02:55:05.231Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="内存泄漏">
+<meta name="twitter:description" content="内存泄漏">
+
+
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/07/28/内存泄漏/"/>
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>内存泄漏 | Semiyd's Blog</title>
+  
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Semiyd's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br />Home</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+    <a href="/categories/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-th"></i> <br />Categories</a>
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/07/28/内存泄漏/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Semiyd">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Semiyd's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">内存泄漏
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2018-07-28 10:51:44 / Modified: 10:55:05" itemprop="dateCreated datePublished" datetime="2018-07-28T10:51:44+08:00">2018-07-28</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Linux/" itemprop="url" rel="index"><span itemprop="name">Linux</span></a></span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Linux/Application/" itemprop="url" rel="index"><span itemprop="name">Application</span></a></span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Linux/Application/调试/" itemprop="url" rel="index"><span itemprop="name">调试</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><center><strong>内存泄漏</strong></center><br><a id="more"></a></p>
+<p>内核内存泄漏的检测<br>    kmemleak方法：<br>        .config里面选上DEBUG_KMEMLEAK<br>        查看内核打印信息详细过程如下：<br>        1.挂载debugfs文件系统<br>        mount -t debugfs nodev /sys/kernel/debug/<br>        2.开启内核自动检测线程<br>        echo scan &gt; /sys/kernel/debug/kmemleak<br>        如果发现泄漏，终端会打印kmemleak: xxx new suspected memory leaks (see /sys/kernel/debug/kmemleak)<br>        3.查看打印信息<br>        cat /sys/kernel/debug/kmemleak<br>        这里面的信息极为详细，可以直接看到泄漏的代码位置。<br>        4.清除内核检测报告，新的内存泄露报告将重新写入/sys/kernel/debug/kmemleak<br>        echo clear &gt; /sys/kernel/debug/kmemleak</p>
+<pre><code>    kmemleak的报告里面，有关类似kmemleak: 123 new suspected memory leaks (see /sys/kernel/debug/kmemleak)，这个123，其实有可能就是一次泄漏.
+
+    page allocation不会被检测到。统计的范围包括：kmalloc,    kmem_cache_alloc,    vmalloc,alloc_bootmem,pcpu_alloc
+
+cat /proc/meminfo
+        尝试：
+            void * tmp;
+                tmp=kmalloc(50000,GFP_ATOMIC);//注意一次不能要求分配太多。我试过一次分配50MB，会失败。一般来讲，kmalloc用来分配小于128K的内存
+            printk(&quot;malloc 50KB!\n&quot;);
+            if(tmp == NULL)
+            {
+                printk(&quot;malloc fail!\n&quot;);    
+            }
+    kmalloc确实会影响到MemFree,Slab,SUnreclaim这三项。小块内存，确实kmalloc最终是通过slab分配的。
+    vmalloc会影响到VmallocUsed,VmallocTotal,VmallocChunk
+        要注意VmallocUsed值不止包括了分配的物理内存，还统计了VM_IOREMAP、VM_MAP等操作的值，譬如VM_IOREMAP是把IO地址映射到内核空间、并未消耗物理内存。
+    通过alloc_pages分配的内存不会自动统计，所以在meminfo里面，只能看到free memory减少了，但从/proc/ meminfo中看不出它们具体用到哪里去了。
+    所以其实即使是meminfo，也没有滴水不漏地统计所有的内存分配。
+
+    参考Linux Kernel Memory Leak Detection.pdf    _proc_meminfo之谜.pdf    这文章写的非常好
+cat /proc/slabinfo
+
+cat /proc/vmallocinfo
+    统计哪些函数，用vmalloc申请了多少内存。一目了然。
+</code></pre><p>应用程序内存泄漏的检测<br>    1.使用LD_PRELOAD来覆盖C库的内存API(如malloc,new)的工具：（无需修改被测代码或者编译方式）<br>        valgrind<br>            无需修改代码或者编译方式。已交叉编译出来。但是在嵌入式设备上运行缓慢。<br>        LeakTracer<br>            perl脚本，无需改代码或者改编译。仅针对new/new[] and delete<br>            工具本身要交叉编译一下，产生一个库文件。会调用gdb。<br>            需要交叉编译perl<br>            ./LeakCheck ./test        静态的检测一下，看看泄漏的多少字节的内存，存在leak.out里面。<br>            ./leak-analyze ./test    借用gdb，定位到泄漏的代码位置。<br>            但实际操作的时候，发现虽然能对例子程序进行正确的分析，但是LeakCheck我们的eN-CPU的时候，产生很多.out文件，但文件中并无# leak这行。<br>            原因是因为被测程序eN-CPU并未结束返回。同样的情况发生在例如./LeakCheck /usr/bin/perl，也是得不到正确的leak.out的（因perl命令是不返回的）<br>            所以这个工具的局限是必须让被测程序正常执行结束才能看到结果。Ctrl+C这种方式结束的，则看不到结果。（可能和特定的SIG有关）<br>        dbgmem<br>            <a href="http://dbgmem.sourceforge.net/README.html#_Toc205092008" target="_blank" rel="noopener">http://dbgmem.sourceforge.net/README.html#_Toc205092008</a><br>            需要配合gdb。<br>            无需改代码或者编译。<br>            交叉编译这个工具，编译不通过。这个工具对交叉编译很不友好，编起来很困难。<br>    2.作为一个库，参与目标程序编译的工具：（需改动被测代码并改动编译参数）<br>        mtrace<br>            是个函数，在malloc之前调用。所以需要修改被测代码。<br>            原理是记录每一对malloc-free的执行，若每一个malloc都有相应的free，则代表没有内存泄露<br>            因为内存泄漏往往并不知道从何下手，所以要改代码的这种方案感觉不太好用。<br>            参考 利用linux的mtrace命令定位内存泄露(Memory Leak).pdf<br>        memwatch<br>            可以打印出哪行出错。<br>            是个.c文件，叫memwatch.c<br>            代码本身需要修改，编译的时候，把memwatch.c编译进去。<br>            gcc -DMEMWATCH -DMW_STDIO test.c memwatch.c -o test<br>            但是要修改编译过程。对于大的工程，这个步骤非常麻烦，也不太好用。<br>        ccmalloc<br>            类似memwatch，需修改编译过程<br>            ccmalloc gcc test1.c<br>            <a href="http://cs.ecs.baylor.edu/~donahoo/tools/ccmalloc/" target="_blank" rel="noopener">http://cs.ecs.baylor.edu/~donahoo/tools/ccmalloc/</a><br>        Electric Fence<br>            针对内存越界的检测，和泄漏不是特别相关。<br>            需要改动编译过程gcc -g -Wall -lefence test_efence.c<br>        Dmalloc<br>            可以打印出哪行出错。<br>            需要改动代码并改动编译。<br>            <a href="http://dmalloc.com/" target="_blank" rel="noopener">http://dmalloc.com/</a><br>            参考    dmalloc用法快速入门.pdf<br>        mpatrol<br>            可以打印出哪行出错。<br>            需要改动代码并改动编译。<br>            参考    mpatrol 菜鸟之路.pdf<br>    3.rootfs自带的工具<br>        top<br>            按shift+M，对程序进行排序，按照内存的使用量<br>            比较直观，但是无助于查找泄漏的代码位置在哪里<br>        cat /proc/{pid}/maps<br>            可以看进程使用的内存是不是在增加，类似top。<br>            shell脚本为while true;do cat/proc/{进程PID/status |grep VmRSS;sleep 1;done},<br>            检查的方法看heap和/dev/mem的mmap段是否持续增加？<br>            堆段向上增长，最大可以增长到1GB的位置，即0x40000000，如果大于1GB，glibc将采用mmap的方式，为堆申请一块内存。<br>            参考    Linux下内存统计和内存泄露类问题的定位方法.pdf<br>        cat /proc/{pid}/smaps<br>            smaps和上面的maps一样，结构是一样的。就是把maps展开更多的细节，但是类目是一样的。<br>            这其中一些名词的解释：<br>            size： 是进程使用内存空间，并不一定实际分配了物理内存；虚拟内存大小        不用看<br>            Rss： “Resident Set Size”，实际驻留”在内存中”的内存数. 不包括已经交换出去的页面。RSS还包括了与其它进程共享的内存区域，通常用于共享库；物理内存占用大小。<br>            Pss： Private Rss， Rss中私有的内存页面；也就是物理内存中，排除和其他进程共享的空间，仅仅自己占用的大小。<br>            Shared_Clean： Rss中和其他进程共享的未改写页面；<br>            Shared_Dirty： Rss和其他进程共享的已改写页面；<br>            Private_Clean： Rss中改写的私有页面页面；<br>            Private_Dirty： Rss中已改写的私有页面页面；<br>            Rss=Shared_Clean+Shared_Dirty+Private_Clean+Private_Dirty。也就是说，Rss包括了private和shared一起加起来的物理内存占用大小。<br>            另外有关share/private和clean/dirty的解释：<br>            所谓shared，就是指内存页，是否和别的进程共享。查看该page的引用数，如果引用&gt;1，则归为shared，如果是1，则归为private<br>            所谓clean，就是是用过没有。用过了，改过了，就为dirty的页。否则就是clean的页。<br>            检查的方法看heap和/dev/mem的mmap段，Rss的大小，是否持续增加？<br>            参考    进程的smaps内存使用分析.pdf    maps, smaps and Memory Stats!.pdf    Linux <em>proc</em>$pid_smaps的含义.pdf</p>
+<pre><code>    一个比较简单的方法，就是使用此目录下的diag这个perl脚本(实测5.20.2的perl版本可以运行)。
+    方法是./diag pid号
+    这个脚本可以直接统计smaps信息，得到堆，栈，mmap区的总大小。
+cat /proc/{pid}/status
+    vmrss
+              * VmPeak: Peak virtual memory size.
+             * VmSize: Virtual memory size.
+              * VmLck: Locked memory size (see mlock(3)).
+              * VmHWM: Peak resident set size (&quot;high water mark&quot;).
+              * VmRSS: Resident set size.
+            * VmData, VmStk, VmExe: Size of data, stack, and text segments.
+    这里面的VMRSS包括的应用程序所有的RSS，包括程序本身，用到的库，也就是top看到的那个RSS，也就是总的常驻内存大小。
+    参考    linux 内存查看方法：meminfo_maps_smaps_status 文件解析.pdf
+</code></pre><p>===============================================================================<br>printf+fflush内存泄漏调查：<br>    测试程序：</p>
+<pre><code>#include &lt;stdio.h&gt;  
+#include &lt;linux/input.h&gt;  
+#include &lt;time.h&gt;
+int main(void)  
+{  
+    int fd_dip = 0;
+        char tempTime[30] = {&apos;\0&apos;};\
+        struct tm timeinfo = {0};\
+        time_t t = time(NULL);\
+while(1)
+{
+localtime_r(&amp;t, &amp;timeinfo);
+        strftime(tempTime, sizeof(tempTime), &quot;%F %T&quot;, &amp;timeinfo);
+        printf(&quot;&lt; WARNING @%s &gt; %s-%d: \n&quot;,tempTime, __func__, __LINE__);
+        fflush(stdout);
+}
+
+    return dip;  
+}  
+
+执行/dip &gt;&gt; /var/bk/log_cpu.txt 2&gt;&amp;1 &amp;
+运行的时候，内存占用持续增加。
+然后杀掉dip程序，可以看到free的内存并不释放。    
+
+做实验：
+    /dip &gt;&gt; /tmp/log_cpu.txt 2&gt;&amp;1直至250M的tmpfs默认容量用尽。
+    把文件写在tmpfs上。然后把log_cpu.txt删除。再观察free内存 ，发现并未增加。
+
+说明和yaffs或者nand有关系的。
+
+而且观察/var/bk/log_cpu.txt增加的速度，和ram占用增加的速度，可以感受到两者增加的幅度几乎是一致的。
+
+echo 3 &gt; /proc/sys/vm/drop_caches    这句话发现可以释放内存。
+
+说明内存没有泄漏，只是被cache了。
+
+[root@Honeywell bk]# cat /proc/meminfo
+MemTotal:         509948 kB
+MemFree:            4024 kB
+Buffers:               0 kB
+Cached:           496240 kB        &lt;----注意看这行
+SwapCached:            0 kB
+Active:             2456 kB
+Inactive:         495096 kB        &lt;----注意看这行
+Active(anon):       1312 kB
+Inactive(anon):        0 kB
+Active(file):       1144 kB
+Inactive(file):   495096 kB
+关键是，cache掉的内存，被从free mem里面扣除了。导致给人一个假的印象，就是可用内存
+
+关闭cache？
+    关是关不掉的。
+但是可以增加kernel reclaim cache的频率。
+echo 500 &gt; /proc/sys/vm/vfs_cache_pressure
+在这之后，执行测试程序的时候，cache还是持续增加。但是一旦测试程序停止，则cache马上被释放了，不再用手动drop。
+
+但针对内存泄漏来说。因为如果有app泄漏，不能退出app。所以改动vfs_cache_pressure没啥大用。关键是怀疑泄漏的时候，需要drop下cache，看看到底是不是真的漏。
+</code></pre><p>To free pagecache:<br>    echo 1 &gt; /proc/sys/vm/drop_caches<br>To free dentries and inodes:<br>    echo 2 &gt; /proc/sys/vm/drop_caches<br>To free pagecache, dentries and inodes:<br>    echo 3 &gt; /proc/sys/vm/drop_caches</p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/07/28/段错误调试方法/" rel="next" title="段错误调试方法">
+                <i class="fa fa-chevron-left"></i> 段错误调试方法
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/07/28/socket/" rel="prev" title="socket">
+                socket <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Semiyd</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives">
+                
+                    <span class="site-state-item-count">30</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">15</span>
+                    <span class="site-state-item-name">categories</span>
+                  </a>
+                </div>
+              
+
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Semiyd</span>
+
+  
+
+  
+</div>
+
+
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> v3.7.1</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://theme-next.org">NexT.Muse</a> v6.3.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+	
+    
+
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.3.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.3.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.3.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.3.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.3.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

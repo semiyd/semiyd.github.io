@@ -1,0 +1,1005 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.3.0" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.3.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.3.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.3.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.3.0" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '6.3.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="系统调用API">
+<meta property="og:type" content="article">
+<meta property="og:title" content="系统调用API">
+<meta property="og:url" content="http://yoursite.com/2018/07/28/系统调用API/index.html">
+<meta property="og:site_name" content="Semiyd&#39;s Blog">
+<meta property="og:description" content="系统调用API">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2018-07-28T03:06:55.113Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="系统调用API">
+<meta name="twitter:description" content="系统调用API">
+
+
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/07/28/系统调用API/"/>
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>系统调用API | Semiyd's Blog</title>
+  
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Semiyd's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br />Home</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+    <a href="/categories/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-th"></i> <br />Categories</a>
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/07/28/系统调用API/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Semiyd">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Semiyd's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">系统调用API
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2018-07-28 11:05:06 / Modified: 11:06:55" itemprop="dateCreated datePublished" datetime="2018-07-28T11:05:06+08:00">2018-07-28</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Linux/" itemprop="url" rel="index"><span itemprop="name">Linux</span></a></span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Linux/Application/" itemprop="url" rel="index"><span itemprop="name">Application</span></a></span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Linux/Application/System-Call/" itemprop="url" rel="index"><span itemprop="name">System Call</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><center><strong>系统调用API</strong></center><br><a id="more"></a><br>====================================用户空间文件操作API====================================================<br>系统调用：<br>int creat(const char <em>filename, mode_t mode);        创建文件<br>int umask(int newmask);                将umask设置为newmask，然后返回旧的umask，它只影响读、写和执行权限。<br>open    两套接口<br>　　    int open(const char </em>pathname, int flags);<br>        打开一个文件<br>　　    int open(const char <em>pathname, int flags, mode_t mode);<br>        如果flags里面包括O_CREAT，则使用这个API，mode表示文件权限<br>    flag常用的种类：<br>        O_RDONLY 以只读方式打开文件<br>        O_WRONLY 以只写方式打开文件<br>        O_RDWR以可读写方式打开文件。<br>            上述三种旗标是互斥的,也就是不可同时使用,但可与下列的旗标利用 OR(|)运算符组合。<br>        O_CREAT 若欲打开的文件不存在则自动建立该文件。<br>        O_TRUNC 若文件存在并且以可写的方式打开时,则清空文件<br>        O_APPEND 当读写文件时会从文件尾开始移动, 也就是所写入的数据会以附加的方式加入到文件后面。<br>        O_NONBLOCK 以不可阻塞的方式打开文件,也就是无论有无数据读取或等待,都会立即返回进程之中。所以默认都是以阻塞方式打开的。<br>    mode常用的种类：<br>        S_IRUSR        用户可以读<br>        S_IWUSR     用户可以写<br>        S_IXUSR        用户可以执行<br>        S_IRWXU    用户可以读写执行<br>        S_IRGRP        组可以读<br>        S_IWGRP        组可以写<br>        S_IXGRP        组可以执行<br>        S_IRWXG    组可以读写执行<br>        等等<br>int close(int fd);                    关闭文件<br>int read(int fd, const void </em>buf, size_t length);        读取length个字节到buf缓冲区<br>int write(int fd, const void *buf, size_t length);        写入length个字节从buf缓冲区到文件<br>int lseek(int fd, offset_t offset, int whence);        对于例如块设备，指定特定的位置进行定位。然后后续可以用read write读写。<br>    whence的种类：<br>        SEEK_SET:    相对于文件头<br>        SEEK_CUR:    相对于文件读写指针的当前位置<br>        SEEK_END:    相对于文件末尾<br>int ioctl(int fd, unsigned long cmd, …);<br>    这个是个三个参数的API，同printf的…可变参数不同，ioctl的只有三个参数，…代表第三个参数，”…”的意思是让内核不要检查这个参数的类型。</p>
+<pre><code>ioctl的cmd命令，一定要用linux标准的定义，如使用_IOR生成的cmd。如果随便乱写，比如1，2
+Linux内核一般会自动地过滤到一些不合法的cmd定义，比如你自己定义的1，2，
+cmd为1，2没有type、没有number，没有direction，也没有size，Linux内核自动过滤掉你的ioctl请求，你的ioctl根本就没有到驱动ioctl上就被返回错误了。
+
+cmd就是最终传给驱动里面的ioctl()的cmd参数，而...对应驱动里面的arg参数。
+    int (*ioctl) (struct inode *inode, struct file *filp,
+                  unsigned int cmd, unsigned long arg);
+除了需要给出cmd以外，...可用来传送具体的数值。
+cmd不是简单的随便起的数字。被分为了4个段
+8bit幻数+8bit序数+2bit传输方向+14bit数据大小
+理论上说，要求8bit幻数唯一，以和别的驱动相区分。但实际上因为驱动众多，幻数早就差不多用完了。所以随便用一个幻数也可。
+幻数通常会用一个字符来表示。比如这个H字符：
+    #define HF_IOC_MAGIC  &apos;H&apos;
+    #define IOCTL_DIP_INFO            _IOR(HF_IOC_MAGIC,1,int)  
+所以定义cmd本身，是要用内核提供的宏的：（定义于&lt;linux/ioctl.h&gt;）
+    _IO(type,nr) //没有参数的命令
+    _IOR(type,nr,size) //该命令是从驱动读取数据
+    _IOW(type,nr,size) //该命令是从驱动写入数据
+    _IOWR(type,nr,size) //双向数据传输
+相应的，在驱动里面，解析cmd也有内核提供的宏：
+    _IOC_DIR(cmd) //从命令中提取方向
+    _IOC_TYPE(cmd) //从命令中提取幻数
+    _IOC_NR(cmd) //从命令中提取序数
+    _IOC_SIZE(cmd) //从命令中提取数据大小
+至于...参数：
+一般会有两种的传参方法：
+    1)整数，那可是省力又省心，直接使用就可以了。
+        驱动和应用，参数类型必须是一致的。比如默认大家都用int型。
+        例如：
+            app里面：
+                 ioctl(fd, TEST_OFFSET, -10)        传入参数-10
+            驱动里面：
+                switch(cmd){
+                    case TEST_OFFSET:        取得cmd TEST_OFFSET
+                        printk(&quot;%d\n&quot;,(int)arg);    取得参数-10
+    2)指针，通过指针的就传什么类型都可以了，一般用来传结构体
+        驱动和应用，参数类型必须是一致的。默认大家都用同一种结构体定义。
+            app里面：
+                struct ioctl_data my_data;
+                ioctl(fd, TEST_KBUF, &amp;my_data);
+            驱动里面：
+                struct ioctl_data val;
+                copy_from_user(&amp;val, (struct ioctl_data *)arg, sizeof(struct ioctl_data))
+相关文档参考Documentation\ioctl\ioctl-number.txt
+</code></pre><p>int select(int nfds, fd_set<em> readset, fd_set</em> writeset, fe_set<em> exceptset, struct timeval</em> timeout);<br>    select的作用，说白了就是睡眠等待文件就绪。<br>    readset,writeset,exceptset分别是被监视的读，写，异常处理的文件描述符的集合。（注意这是三种不同的文件描述符的集合）<br>    readset中，任何一个文件变成可读，select返回。<br>    同理，writeset任何一个可写，则select返回。<br>    timeout设定了超时的时间，超时的话，就可以直接返回。<br>    针对文件描述符集的操作，有如下的API：<br>    FD_ZERO(fd_set <em>set)        清除一个集合<br>    FD_SET(int fd, fd_set </em>set)        把一个fd，加入文件描述符集中<br>    FD_CLR(int fd, fd_set <em>set)        把一个fd，从文件描述符集中删除<br>    FD_ISSET(int fd, fd_set </em>set)    判断文件描述符是否被置位<br>    那么什么时候使用select？<br>    如果说，读写函数确定是非阻塞的。那么举例说：<br>    第一次read，返回-EAGAIN。表示此时没数据可读。<br>    那么只能轮询。但是轮询又很费时，这时候选择select。<br>    select本身会阻塞住，直到监视的read的fd就绪。select完成后，再次调用read，就可以真正读到数据了。poll的使用场景也类似。详见下面介绍。<br>    select的特色就在于，可以同时监视读写，或者异常事件，相比poll而言。<br>    而和poll一样，select的效率不高，要高效的大数据量的处理，还是要走异步IO方式。<br>    那么select和read/write一样，如果说阻塞的话，都是阻塞。那么区别其实在于。select阻塞的是就绪的通知。而read/write阻塞的是IO操作本身。</p>
+<p>int poll(struct pollfd *fds, nfds_t nfds, int timeout);<br>    poll的作用是，睡眠等待timeout个ms的延迟，来等待file descriptors就绪，以完成特定的io操作。<br>    如果timeout还没到，等待的事件已经发生，则poll返回。<br>    如果知道timeout到了，等待事件还未发生，poll也返回。<br>    典型的应用场合，是比如驱动程序通信，发送数据出去，但是发送的数据驱动来不及发了，返回ENOBUFS，此时就可以用poll来等待。<br>    例子代码如下：<br>        again:<br>            len = write(s, &amp;frame, sizeof(frame));<br>            if (len == -1) {<br>                switch (errno) {<br>                case ENOBUFS: {<br>                    int err;<br>                    struct pollfd fds[] = {<br>                        {<br>                            .fd    = s,<br>                            .events    = POLLOUT,        //等待POLLOUT事件<br>                        },<br>                    };</p>
+<pre><code>                if (!use_poll) {
+                    perror(&quot;write&quot;);
+                    exit(EXIT_FAILURE);
+                }
+
+                err = poll(fds, 1, 1000);                //等1s
+                if (err == -1 &amp;&amp; errno != -EINTR) {
+                    perror(&quot;poll()&quot;);
+                    exit(EXIT_FAILURE);
+                }
+            }
+            case EINTR:    /* fallthrough */
+                goto again;                    //如果poll超时或者poll到了所需的事件，则重新尝试write
+            default:
+                perror(&quot;write&quot;);
+                exit(EXIT_FAILURE);
+            }
+        }
+poll对应驱动部分的写法，如下：
+unsigned int (*poll) (struct file *filp, struct poll_table_struct *wait);
+驱动举例：
+static DECLARE_WAIT_QUEUE_HEAD(my_waitq);  //休眠要挂的等待队列
+static unsigned drv_poll(struct file *file, poll_table *wait)
+{
+    unsigned int mask = 0;
+    poll_wait(file, &amp;my_waitq, wait); // 不会立即休眠
+    if (有数据)//判断是否有数据
+        mask |= POLLIN | POLLRDNORM;
+    return mask;
+}
+驱动接口poll本身不会阻塞进程，只是返回后，系统会根据返回值是否阻塞进程，如阻塞，需求驱动去唤醒（有数据时wake up）。
+</code></pre><p>epoll<br>    其实就是poll的增强版<br>    当文件描述符数量很大，IO频繁的时候，poll或者select效率会明显下降。<br>    所以主要用于大规模并发的监听很多socket的时候，类似这种服务器程序，需要用epoll()。</p>
+<p>void <em> mmap(void </em>addr,size_t length,int prot, int flags,int fd,off_t offset);<br>    内存映射，简而言之就是将用户空间的一段内存区域映射到内核空间，映射成功后，用户对这段内存区域的修改可以直接反映到内核空间，<br>    同样，内核空间对这段区域的修改也直接反映用户空间。那么对于内核空间<---->用户空间两者之间需要大量数据传输等操作的话效率是非常高的。（相比copy_to_user这种）<br>    mmap并不分配空间, 只是将文件映射到调用进程的地址空间里（但是会占掉你的 virutal memory）, 然后你就可以用memcpy等操作写文件, 而不用write()了.<br>    主要用于和视频，显示有关的应用场景中。<br>    针对void <em> mmap(void </em>addr,size_t length,int prot, int flags,int fd,off_t offset);的详细解释：<br>        1、返回值是映射到用户空间的地址。这是一个通用型指针，这样就保证了各种类型的申请方式。<br>        2、void *addr 是程序员所希望的虚拟地址作为起始映射地址，通常填NULL，内核自动分配。<br>        3、size_t length当然是指需要映射的区域大小。<br>        4、int prot是指对读写权限。<br>            常用的是PROT_EXEC（可执行）,PROT_READ（可读）,PROT_WRITE（可写）,PROT_NONE（不可访问）。<br>        5、int flags主要是指对这段区域的映射方式，主要分为两种方式MAP_SHARE,MAP_PRIVATE.<br>            其中的MAP_SHARE是指对映射区域的写操作会更新到文件中，这样就相当于直接操作文件。这个较为常用。<br>            而MAP_PRIVATE通常采用一种称为”写时保护的机制”实现映射，对映射区的写操作不会更新到文件中，实现方法是将需要被写操作的页复制到重新分配的新页中，然后再对新的页进行写操作。<br>            原来的映射并没有改变，但是读操作并不会重新分配物理内存空间。（这段叨叨了半天，没看懂）<br>        6、int fd是指将被映射的文件描述符<br>        7、off_t offset是指从文件的具体位置开始映射，通常情况下可以设置为0，即从开头映射。<br>    例子代码：</----></p>
+<pre><code>#include&lt;fcntl.h&gt;
+#include&lt;unistd.h&gt;
+#include&lt;stdio.h&gt;
+#include&lt;stdlib.h&gt;
+#include&lt;sys/types.h&gt;
+#include&lt;sys/stat.h&gt;
+#include&lt;sys/mman.h&gt;
+#include&lt;string.h&gt;
+
+int main()
+{
+    int fd;
+    char *start;
+
+    char buf[2048];
+    strcpy(buf,&quot;This is a test!!!!&quot;);
+
+    fd = open(&quot;/dev/memdev0&quot;,O_RDWR);
+
+    if(fd == -1)
+    {
+        printf(&quot;Error!!\n&quot;);
+        exit(-1);
+    }
+    /*创建映射*/
+    start = mmap(NULL,2048,PROT_READ|PROT_WRITE,MAP_SHARED,fd,0);
+    /*必须检测是否成功*/
+    if(start == -1)
+    {
+        printf(&quot;mmap error!!!\n&quot;);
+        exit(-1);
+    }
+
+    strcpy(start,buf);
+
+    printf(&quot;start = %s,buf = %s\n&quot;,start,buf);
+
+    strcpy(start,&quot;Test is Test!!!\n&quot;);
+
+    printf(&quot;start = %s,buf = %s\n&quot;,start,buf);
+    /**/
+    strcpy(buf,start);
+
+    printf(&quot;start = %s,buf=%s\n&quot;,start,buf);
+    /*取消映射关系*/
+    munmap(start,2048);
+    /*关闭文件*/
+    close(fd);
+    exit(0);
+}
+相应的，在驱动中，file_operations{}里面，也有一个与系统调用相对应的mmap函数。原型是：int (*mmap) (struct file *, struct vm_area_struct *);
+    在驱动的module_init函数里面：
+    是需要用kmalloc实现分配好空间的，然后通过SetPageReserved(virt_to_page(buffer));将该段内存设置为保留 （比如一页）
+    在驱动的mmap函数里面：
+    通过virt_to_phys把kmalloc的地址转成物理的地址。
+    再通过remap_pfn_range，将mmap的入参struct vm_area_struct *vma，也就是用户空间的虚拟内存区，映射到刚刚获得的物理地址上。
+    struct vm_area_struct *vma，简称VMA，用于描述一个虚拟内存的区域。这个结构体，是内核根据应用程序的mmap的入参，自己填充好的。
+    举例如下：
+    /*主要是建立虚拟地址到物理地址的页表关系，其他的过程又内核自己完成*/
+    static int mem_mmap(struct file* filp,struct vm_area_struct *vma)
+    {
+        /*间接的控制设备*/
+        struct mem_dev *dev = filp-&gt;private_data;
+
+        /*标记这段虚拟内存映射为IO区域，并阻止系统将该区域包含在进程的存放转存中*/
+        vma-&gt;vm_flags |= VM_IO;
+        /*标记这段区域不能被换出*/
+        vma-&gt;vm_flags |= VM_RESERVED;
+
+        /**/
+        if(remap_pfn_range(vma,/*虚拟内存区域*/
+            vma-&gt;vm_start, /*虚拟地址的起始地址*/
+            virt_to_phys(dev-&gt;data)&gt;&gt;PAGE_SHIFT, /*物理存储区的物理页号。dev-&gt;data是之前用kmalloc事先分配好的空间。*/
+         dev-&gt;size,    /*映射区域大小*/        
+            vma-&gt;vm_page_prot /*虚拟区域保护属性*/    
+            ))
+            return -EAGAIN;
+
+        return 0;
+    }
+
+    vma-&gt;vm_flags |= VM_IO;
+    vma-&gt;vm_flags |= VM_RESERVED;
+    上面的两个保护机制就说明了被映射的这段区域具有映射IO的相似性，同时保证这段区域不能随便的换出。就是建立一个物理页与虚拟页之间的关联性。
+    具体原理是虚拟页和物理页之间是以页表的方式关联起来，虚拟内存通常大于物理内存，在使用过程中虚拟页通过页表关联一切对应的物理页，
+    当物理页不够时，会选择性的牺牲一些页，也就是将物理页与虚拟页之间切断，重现关联其他的虚拟页，保证物理内存够用。
+    在设备驱动中应该具体的虚拟页和物理页之间的关系应该是长期的，应该保护起来，不能随便被别的虚拟页所替换。具体也可参看关于虚拟存储器的文章。
+
+    接下来就是建立物理页与虚拟页之间的关系，即采用函数remap_pfn_range()创建页表项,具体的参数如下：
+
+    int remap_pfn_range(structvm_area_struct *vma, unsigned long addr,unsigned long pfn, unsigned long size, pgprot_t prot)
+
+    1、struct vm_area_struct是一个虚拟内存区域结构体，表示虚拟存储器中的一个内存区域。其中的元素vm_start是指虚拟存储器中的起始地址。
+
+    2、addr也就是虚拟存储器中的起始地址，通常可以选择addr = vma-&gt;vm_start。
+
+    3、pfn是指物理存储器的具体页帧号，通常通过物理地址得到对应的物理页号，具体采用virt_to_phys(dev-&gt;data)&gt;&gt;PAGE_SHIFT.首先将虚拟内存转换到物理内存，然后得到页号。&gt;&gt;PAGE_SHIFT通常
+    为12，这是因为每一页的大小刚好是4K,这样右移12相当于除以4096，得到页号。
+
+    4、size区域大小
+
+    5、区域保护机制。
+
+    这个函数的作用，就是把入参2也就是用户空间的地址unsigned long addr，和内核空间的地址unsigned long pfn，这两个地址关联起来。
+
+    另，还有别的API，是在remap_pfn_range上面又多包了一层。比如io_remap_pfn_range()和vm_iomap_memory()。
+
+mmap应用实例之framebuffer子系统的设备
+    /dev/fb0        major号是29。这个设备其实是drivers/video/fbmem.c这个驱动所注册的字符设备。那么这个字符设备，是写了mmap的函数的。
+    这个/dev/fb0，就是上层应用比如qt4会去访问的显示设备。
+    这个fb0就是framebuffer子系统所注册的统一的设备。具体某个平台cpu的framebuffer驱动，就会调用register_framebuffer()去向framebuffer子系统注册。但最终的设备还是/dev/fb0这个统一的接口。
+    这里分析下和mmap有关的函数：
+    static int fb_mmap(struct file *file, struct vm_area_struct * vma)
+    {
+        struct fb_info *info = file_fb_info(file);
+        struct fb_ops *fb;
+        unsigned long off;
+        unsigned long start;
+        u32 len;
+
+        if (!info)
+            return -ENODEV;
+        if (vma-&gt;vm_pgoff &gt; (~0UL &gt;&gt; PAGE_SHIFT))
+            return -EINVAL;
+        off = vma-&gt;vm_pgoff &lt;&lt; PAGE_SHIFT;
+        fb = info-&gt;fbops;
+        if (!fb)
+            return -ENODEV;
+        mutex_lock(&amp;info-&gt;mm_lock);
+        if (fb-&gt;fb_mmap) {
+            int res;
+            res = fb-&gt;fb_mmap(info, vma);
+            mutex_unlock(&amp;info-&gt;mm_lock);
+            return res;
+        }
+
+        /* frame buffer memory */
+        start = info-&gt;fix.smem_start;
+        len = PAGE_ALIGN((start &amp; ~PAGE_MASK) + info-&gt;fix.smem_len);
+        if (off &gt;= len) {
+            /* memory mapped io */
+            off -= len;
+            if (info-&gt;var.accel_flags) {
+                mutex_unlock(&amp;info-&gt;mm_lock);
+                return -EINVAL;
+            }
+            start = info-&gt;fix.mmio_start;
+            len = PAGE_ALIGN((start &amp; ~PAGE_MASK) + info-&gt;fix.mmio_len);
+        }
+        mutex_unlock(&amp;info-&gt;mm_lock);
+        start &amp;= PAGE_MASK;
+        if ((vma-&gt;vm_end - vma-&gt;vm_start + off) &gt; len)
+            return -EINVAL;
+        off += start;
+        vma-&gt;vm_pgoff = off &gt;&gt; PAGE_SHIFT;
+        /* This is an IO map - tell maydump to skip this VMA */
+        vma-&gt;vm_flags |= VM_IO | VM_RESERVED;
+        vma-&gt;vm_page_prot = vm_get_page_prot(vma-&gt;vm_flags);
+        fb_pgprotect(file, vma, off);
+        if (io_remap_pfn_range(vma, vma-&gt;vm_start, off &gt;&gt; PAGE_SHIFT,
+                     vma-&gt;vm_end - vma-&gt;vm_start, vma-&gt;vm_page_prot))
+            return -EAGAIN;
+        return 0;
+    }
+    注意此处的io_remap_pfn_range()，这个函数内部就是remap_pfn_range()
+
+另外，有些IO的区域，是要求不能打开cache的。
+此时需要用vma-&gt;vm_page_prot = pgprot_noncached(vma-&gt;vm_page_prot);来设定这个标志，然后再用remap_pfn_range(),保证映射出来的空间是不带cache的。
+pgprot_noncached()实际上同时禁止了cache和write buffer。
+
+参考    Linux 内存映射函数 mmap（）函数详解.pdf
+</code></pre><p>例子程序</p>
+<p>#include &lt;sys/stat.h&gt;    //包含S_IRUSR,S_IWUSR..etc</p>
+<p>#include &lt;fcntl.h&gt;        //包含O_CREAT,O_RDWR..etc</p>
+<p>#include &lt;stdio.h&gt;        //包含printf()</p>
+<p>#include &lt;string.h&gt;    //包含strlen()<br>//系统调用诸如open() write() close()等，本身是无需包含任何头文件即可编译的</p>
+<p>#define LENGTH 100<br>void main(void)<br>{<br>    int fd, len;<br>    char str[LENGTH];<br>    fd = open(“hello.txt”, O_CREAT | O_RDWR, S_IRUSR | S_IWUSR);<br>    if(fd)<br>        {<br>            write(fd, “Hello World”, strlen(“Hello World”));<br>            close(fd);<br>        }<br>    fd = open(“hello.txt”, O_RDWR);<br>    len = read(fd, str, LENGTH);<br>    str[len] = ‘\0’;<br>    printf(“%s\n”, str);<br>    close(fd);<br>}</p>
+<p>C库文件操作API：<br>    C库函数的文件操作是独立于具体的操作系统平台的，不管是再DOS、Windows、Linux还是在VxWorks中都是使用这些函数。<br>    FILE <em>fopen(const char </em>filename,const char <em>mode)<br>    size_t fread(void </em>ptr,size_t size,size_t n,FILE <em>stream)<br>    size_t fwrite(const void </em>ptr,size_t size,size_t n,FILE <em>stream)<br>    int fseek(FILE </em>stream,long offset,int whence)<br>    int mkdir(char <em>dir,int mode)            新建目录<br>    char </em>getcwd(char *buffer,size_t size)        获取路径</p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/07/28/socket/" rel="next" title="socket">
+                <i class="fa fa-chevron-left"></i> socket
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Semiyd</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives">
+                
+                    <span class="site-state-item-count">30</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">15</span>
+                    <span class="site-state-item-name">categories</span>
+                  </a>
+                </div>
+              
+
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Semiyd</span>
+
+  
+
+  
+</div>
+
+
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> v3.7.1</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://theme-next.org">NexT.Muse</a> v6.3.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+	
+    
+
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.3.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.3.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.3.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.3.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.3.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

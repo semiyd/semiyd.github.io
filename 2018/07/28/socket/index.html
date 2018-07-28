@@ -1,0 +1,829 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.3.0" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.3.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.3.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.3.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.3.0" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '6.3.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="socket">
+<meta property="og:type" content="article">
+<meta property="og:title" content="socket">
+<meta property="og:url" content="http://yoursite.com/2018/07/28/socket/index.html">
+<meta property="og:site_name" content="Semiyd&#39;s Blog">
+<meta property="og:description" content="socket">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2018-07-28T03:04:37.989Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="socket">
+<meta name="twitter:description" content="socket">
+
+
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/07/28/socket/"/>
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>socket | Semiyd's Blog</title>
+  
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Semiyd's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br />Home</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+    <a href="/categories/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-th"></i> <br />Categories</a>
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/07/28/socket/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Semiyd">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Semiyd's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">socket
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2018-07-28 11:03:22 / Modified: 11:04:37" itemprop="dateCreated datePublished" datetime="2018-07-28T11:03:22+08:00">2018-07-28</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Linux/" itemprop="url" rel="index"><span itemprop="name">Linux</span></a></span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Linux/Application/" itemprop="url" rel="index"><span itemprop="name">Application</span></a></span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Linux/Application/网络/" itemprop="url" rel="index"><span itemprop="name">网络</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><center><strong>socket</strong></center><br><a id="more"></a><br>=====================================基本概念===================================    </p>
+<p>1: Internel IP地址分类：<br>一个Internel Ip地址由两部分组成，网络地址和主机地址。<br>网路地址指定主机所在网络，而主机地址用来区分同一网络内不同主机。<br>一个IP地址由4个字节组成如：xxx.xxx.xxx.xxx。 那哪部分是网络地址，哪部分是主机地址呢？ 其实并不是固定的。而正式由于网络地址和主机地址所占位数的不同，而决定了地址的分类(A类，B类，C类)<br>A类地址：<br>第一个字节为：网路地址（最高位固定为０,所以网络地址7bit）。主机地址３个字节(24bit)<br>最低：0.0.0.0    最高：127.255.255.255（最高位固定为0，所以最大就是0111 1111，也就是127）<br>所以网络地址就是那个127，主机地址就是255.255.255<br>B类地址：<br>前两个字节中包含网络地址（最高两位固定为：10，所以网络地址14bit). 主机地址2字节(16bit)<br>最低：128.0.0.0  最高：191.255.255.255（最高两位固定为：10，所以最大就是1011 1111，也就是191）<br>所以网络地址就是那个191.255.，主机地址就是255.255<br>C类地址：<br>前三字节中放置网络地址(最高三位固定为：110。所以网络地址21bit). 主机地址1字节(16bit)<br>网络掩码：<br>网络掩码用于把网络地址从IP地址中提取出来。<br>IP地址与网络掩码按位相与。则得到网络地址。<br>比如255.255.255.0，相与后，就得到C类地址的网络地址。</p>
+<p>2.port端口号：<br>同一个ip地址，数据包发过来，到底是给主机里面的哪个应用程序的呢？<br>这个就是端口号的作用。<br>使用同一个端口号的不同主机的应用程序，才能互相通信。</p>
+<p>3.socket：<br>Linux 编程中所说的socket就如同一个端点,类比到电话网中，它就如同一个电话机。而Socket地址就如同电话网中的电话号码。。</p>
+<p>4.协议族(PF)和地址族(AF)：<br>理论上说<br>某个协议族中有一个或多个协议<br>某个协议中有一个或多个地址格式。<br>但一般来说，任何一个给定的协议族，都只有一种地址格式。<br>在Linux中，AF_INET和PF_INET相同。<br>具体的来说：协议族有一下一些：<br>AF_UNIX, AF_LOCAL   Local communication<br>       AF_INET             IPv4 Internet protocols<br>       AF_INET6            IPv6 Internet protocols<br>       AF_IPX              IPX - Novell protocols<br>       AF_NETLINK          Kernel user interface device<br>       AF_X25              ITU-T X.25 / ISO-8208 protocol<br>       AF_AX25             Amateur radio AX.25 protocol<br>       AF_ATMPVC           Access to raw ATM PVCs<br>       AF_APPLETALK        Appletalk<br>       AF_PACKET           Low level packet interface<br>       AF_IRDA<br>       AF_BLUETOOTH</p>
+<p>5.用户空间的int socket(int domain, int type, int protocol);    函数接口解释<br>第一个参数domain：<br>一般填AF_INET或者PF_INET<br>第二个参数type：<br>连接类型<br>常用的类型有以下几种：<br>SOCK_DGRAM :  提供一个数据报(非连接，不可靠)                                           —–&gt;UDP用这个<br>SOCK_STREAM：提供一个顺序确定的，可靠的，双向基于连接的socket endpoint.  支持带外数据(out-of-band data                —–&gt;TCP用这个<br>SOCK_SEQPACKET：  提供一个顺序确定的，可靠的，双向基于连接的socket endpoint. 与SOCK_STREAM不同的是，它保留消息边界。(表明发送两个数据包，只能分两次读入)<br>    所以SOCK_STREAM和SOCK_SEQPACKET的区别：<br>    本地endpoint 通过write(2)系统调用向远端发送了两组数据，一组20字节，一组10字节。<br>    远端通过read(2)读取数据，接收缓冲区设置256。则它一次性读取30个字节，完全不清楚对端是通过两个write(2)动作发送的数据。（如果使用SOCK_STREAM）<br>SOCK_RAW：提供Raw 数据 socket endpoint.<br>SOCK_RDM : 提供可靠的数据报socket endpoint. （顺序不确保）<br>第三个参数protocol：<br>一般直接填0（如果协议族只对应一种协议，如PF_INET。但蓝牙的情况要是要填具体的这个参数的。）</p>
+<p>6.各种字节序的转换<br>a.从主机序到网络序<br>Intel，ARM等均采用little-endian. 但Motorola和网络数据均采用Big-Endian方式。<br>换句话说，ARM下面的数据，要通过转换，才能变成网络数据的字节序。<br>下面是几个字节顺序转换函数：<br>　　htons()–”Host to Network Short” ; htonl()–”Host to Network Long”<br>　　ntohs()–”Network to Host Short” ; ntohl()–”Network to Host Long”<br>　　在这里， h表示”host”本机，n表示”network”网络，s 表示”short”16位数，l表示 “long”32位数。<br>    举例：<br>    addr_server.sin_addr.s_addr = htonl(INADDR_ANY);  //通配地址，当前机器所有IP都监控。<br>b.从点分十进制转换为网络序<br>就是把192.168.1.1这种格式，转换成网络序的地址格式。<br>最简单的方式是：<br>sock_addr.sin_addr.s_addr=inet_addr(“255.255.255.255”);<br>或者如果希望得到errno出错值，可以用这个API:<br>char sIp[16] = {0};<br>strcpy(sIp, “192.168.0.25”);<br>struct sockaddr_in  sock_addr;<br>memset((void<em>)&amp;sock_addr, 0 , sizeof(struct sockaddr_in));<br>iRet = inet_aton(sIp, &amp;sock_addr.sin_addr);<br>if(iRet = 0)<br>{<br>return -1;<br>}<br>因为已经是网络序，所以无需再使用htonl()转换<br>c.从点分十进制到主机序:<br>in_addr_t inet_network(const char </em>cp);<br>返回值为：in_addr_t类型，见附录。<br>host_addr =  inet_network(sIp);<br>if(host_addr == -1)<br>{<br>return -1;<br>}<br>d.从网络序到点分十进制（字符串）<br>char *inet_ntoa(struct in_addr in);<br>给定网络序的IP地址，返回字符串(点分十进制)。 这个返回值是个静态字符串Buffer。 下次调用前有效。<br>e.其它还有三个有用的函数：<br>in_addr_t inet_lnaof(struct in_addr in);<br>从IP地址中得到本地地址部分(local network address). 主机序<br>in_addr_t inet_netof(struct in_addr in);<br>从IP地址中得到网络地址部分(network number)主机序。返回值右端对其，主机部分被移除了。<br>struct in_addr inet_makeaddr(int net, int host);<br>从网路地址和主机地址(都是主机序)得到IP地址(网络序)</p>
+<p>=====================================结构体和API===================================    </p>
+<p>常见结构体：</p>
+<p>struct sockaddr {<br>               sa_family_t sa_family;   //地址族，2字节<br>               char        sa_data[14];   // 地址数据<br>           } </p>
+<p>IP V4结构体：<br>struct sockaddr_in {<br>               sa_family_t    sin_family; // address family: AF_INET  2字节<br>               in_port_t      sin_port;   // 用网路序(network byte order)存放端口号。一个16bit无符号数(见附录)，所以用的是htons(),ntohs();<br>                //小于1024的端口是系统保留的，供一些特殊服务使用。例如：21-FTP， 22-ssh, 23-telnet. 编程时最好不要在不了解得情况下使用这些端口，<br>                //否则会导致一些系统功能无法使用。<br>                //当希望内核自动分配port时，可以指定port =0.例如：addr_client.sin_port = htons(0);<br>               struct in_addr sin_addr;   //使用网络序存放IP地址<br>           };<br>/<em> Internet address. </em>/<br>struct in_addr {<br>               uint32_t       s_addr;<br>           };</p>
+<p>#define    INADDR_ANY              ((in_addr_t) 0x00000000)<br>作为接收端，当你调用bind()函数绑定IP时使用INADDR_ANY，表明接收来自任意IP、任意网卡的发给指定端口的数据。<br>作为发送端，当用调用bind()函数绑定IP时使用INADDR_ANY，表明使用网卡号最低的网卡进行发送数据，也就是UDP数据广播。</p>
+<p>API：</p>
+<p>int socket(int domain, int type, int protocol);<br>第一个参数domain：<br>一般填AF_INET或者PF_INET<br>第二个参数type：<br>连接类型<br>常用的类型有以下几种：<br>SOCK_DGRAM :  提供一个数据报(非连接，不可靠)                                           —–&gt;UDP用这个<br>SOCK_STREAM：提供一个顺序确定的，可靠的，双向基于连接的socket endpoint.  支持带外数据(out-of-band data                —–&gt;TCP用这个<br>SOCK_SEQPACKET：  提供一个顺序确定的，可靠的，双向基于连接的socket endpoint. 与SOCK_STREAM不同的是，它保留消息边界。(表明发送两个数据包，只能分两次读入)<br>    所以SOCK_STREAM和SOCK_SEQPACKET的区别：<br>    本地endpoint 通过write(2)系统调用向远端发送了两组数据，一组20字节，一组10字节。<br>    远端通过read(2)读取数据，接收缓冲区设置256。则它一次性读取30个字节，完全不清楚对端是通过两个write(2)动作发送的数据。（如果使用SOCK_STREAM）<br>SOCK_RAW：提供Raw 数据 socket endpoint.<br>SOCK_RDM : 提供可靠的数据报socket endpoint. （顺序不确保）<br>第三个参数protocol：<br>一般直接填0（如果协议族只对应一种协议，如PF_INET。但蓝牙的情况要是要填具体的这个参数的。）</p>
+<p>int setsockopt(int s, int level, int optname, const void * optval, ,socklen_toptlen);<br>函数说明：setsockopt()用来设置参数s 所指定的socket 状态. 参数level 代表欲设置的网络层, 一般设成SOL_SOCKET 以存取socket 层. 参数optname 代表欲设置的选项, 有下列几种数值:<br>   SO_DEBUG 打开或关闭排错模式<br>   SO_REUSEADDR 允许在bind ()过程中本地地址可重复使用<br>   SO_TYPE 返回socket 形态.<br>   SO_ERROR 返回socket 已发生的错误原因<br>   SO_DONTROUTE 送出的数据包不要利用路由设备来传输.<br>   SO_BROADCAST 使用广播方式传送<br>   SO_SNDBUF 设置送出的暂存区大小<br>   SO_RCVBUF 设置接收的暂存区大小<br>   SO_KEEPALIVE 定期确定连线是否已终止.<br>   SO_OOBINLINE 当接收到OOB 数据时会马上送至标准输入设备<br>   SO_LINGER 确保数据安全且可靠的传送出去.<br>参数 optval 代表欲设置的值, 参数optlen 则为optval 的长度.<br>返回值：成功则返回0, 若有错误则返回-1, 错误原因存于errno.</p>
+<p>int sendto(int s, const void <em> msg, int len, unsigned int flags, const struct sockaddr </em> to, int tolen);                    //UDP发送<br>函数说明：sendto() 用来将数据由指定的socket 传给对方主机. 参数s 为已建好连线的socket, 如果利用UDP协议则不需经过连线操作.<br>参数msg 指向欲连线的数据内容, 参数flags 一般设0, 详细描述请参考send(). 参数to 用来指定欲传送的网络地址, 结构sockaddr 请参考bind(). 参数tolen 为sockaddr 的结果长度.<br>返回值：成功则返回实际传送出去的字符数, 失败返回－1, 错误原因存于errno 中.<br>错误代码：<br>1、EBADF 参数s 非法的socket 处理代码.<br>2、EFAULT 参数中有一指针指向无法存取的内存空间.<br>3、WNOTSOCK canshu s 为一文件描述词, 非socket.<br>4、EINTR 被信号所中断.<br>5、EAGAIN 此动作会令进程阻断, 但参数s 的soket 为补课阻断的.<br>6、ENOBUFS 系统的缓冲内存不足.<br>7、EINVAL 传给系统调用的参数不正确.</p>
+<p>ssize_t recvfrom ( int s , void <em>buf , ssize_t len , int flags ,struct sockaddr </em> from , socklen_t *fromlen ) ;                    //UDP接收<br>参数 </p>
+<pre><code>1. s : 套接字描述符，client 端调用 socket 函数的返回值， server 端在调用
+          socket , bind  函数成功之后，socket 函数的返回值。
+2. buf: 指向在进程内存中存放来自于内核缓冲区接收到的数据，系统首先会从网络中收集数据，然后将
+            数据从内核缓冲区中移动到通讯进程的内存空间中， 而 buf 便是指向内存空间的指针。
+3. len : 该参数用来告诉内核内存空间的最大容量是多少，内核每次将内核缓冲区中的数据移到内存空间中的时候，
+            会根据内存空间的大小 len 来移动指定数目的数据
+4. flags : 该参数用来 控制或限制 接收数据一端，应该接收什么何种类型的数据，用法同 recv 中 flags 参数的的用法
+5. from : 该参数也是 值-结果 参数，用来指向一块空闲空间，在 recvfrom 方法调用之后，该空闲空间中将会
+               被写入发送数据的通信端的网络地址信息，如果数据接收端需要知道数据发送端的网络地址信息，
+              将写入该指针指向的空间中的数据便可获知
+</code></pre><ol start="6">
+<li>fromlen : 参数 5 地址指针所指向的空间中，有效数据的长度是多少</li>
+</ol>
+<p>int listen(int s, int backlog);                                                    //TCP阻塞监听<br>函数说明：listen()用来等待参数s 的socket 连线. 参数backlog 指定同时能处理的最大连接要求, 如果连接数目达此上限则client 端将收到ECONNREFUSED 的错误.<br>Listen()并未开始接收连线, 只是设置socket 为listen 模式, 真正接收client 端连线的是accept(). 通常listen()会在socket(), bind()之后调用, 接着才调用accept().<br>返回值：成功则返回0, 失败返回-1, 错误原因存于errno<br>附加说明：listen()只适用SOCK_STREAM 或SOCK_SEQPACKET 的socket 类型. 如果socket 为AF_INET 则参数backlog 最大值可设至128.<br>错误代码：<br>   EBADF 参数sockfd 非合法socket 处理代码<br>   EACCESS 权限不足<br>   EOPNOTSUPP 指定的socket 并未支援listen 模式.<br>一般listen函数之后，默认会阻塞进程，直到有一个客户请求连接</p>
+<p>int accept(int s, struct sockaddr <em> addr, int </em> addrlen);<br>函数说明：accept()用来接受参数s 的socket 连线. 参数s 的socket 必需先经bind()、listen()函数处理过, 当有连线进来时accept()会返回一个新的socket 处理代码,<br>往后的数据传送与读取就是经由新的socket处理, 而原来参数s 的socket 能继续使用accept()来接受新的连线要求.<br>连线成功时, 参数addr 所指的结构会被系统填入远程主机的地址数据, 参数addrlen 为scokaddr 的结构长度.<br>返回值：成功则返回新的socket 处理代码, 失败返回-1, 错误原因存于errno 中.<br>错误代码：<br>1、EBADF 参数s 非合法socket 处理代码.<br>2、EFAULT 参数addr 指针指向无法存取的内存空间.<br>3、ENOTSOCK 参数s 为一文件描述词, 非socket.<br>4、EOPNOTSUPP 指定的socket 并非SOCK_STREAM.<br>5、EPERM 防火墙拒绝此连线.<br>6、ENOBUFS 系统的缓冲内存不足.<br>7、ENOMEM 核心内存不足.</p>
+<p>ssize_t read(int filedes, void *buf, size_t nbytes);<br>// 返回：若成功则返回读到的字节数，若已到文件末尾则返回0，若出错则返回-1<br>// filedes：文件描述符<br>// buf:读取数据缓存区<br>// nbytes:要读取的字节数</p>
+<p>ssize_t write(int filedes, void *buf, size_t nbytes);<br>// 返回：若成功则返回写入的字节数，若出错则返回-1<br>// filedes：文件描述符<br>// buf:待写入数据缓存区<br>// nbytes:要写入的字节数</p>
+<p>read和write阻塞的情形：<br>先从write说起：<br>首先，write成功返回，只是buf中的数据被复制到了kernel中的TCP发送缓冲区。至于数据什么时候被发往网络，什么时候被对方主机接收，什么时候被对方进程读取，系统调用层面不会给予任何保证和通知。<br>write在什么情况下会阻塞？当kernel的该socket的发送缓冲区已满时。对于每个socket，拥有自己的send buffer和receive buffer。<br>从Linux 2.6开始，两个缓冲区大小都由系统来自动调节（autotuning），但一般在default和max之间浮动。</p>
+<h1 id="获取socket的发送-接受缓冲区的大小：（后面的值是在Linux-2-6-38-x86-64上测试的结果）"><a href="#获取socket的发送-接受缓冲区的大小：（后面的值是在Linux-2-6-38-x86-64上测试的结果）" class="headerlink" title="获取socket的发送/接受缓冲区的大小：（后面的值是在Linux 2.6.38 x86_64上测试的结果）"></a>获取socket的发送/接受缓冲区的大小：（后面的值是在Linux 2.6.38 x86_64上测试的结果）</h1><p>sysctl net.core.wmem_default       #126976<br>sysctl net.core.wmem_max　　　　    #131071<br>已经发送到网络的数据依然需要暂存在send buffer中，只有收到对方的ack后，kernel才从buffer中清除这一部分数据，为后续发送数据腾出空间。<br>接收端将收到的数据暂存在receive buffer中，自动进行确认。但如果socket所在的进程不及时将数据从receive buffer中取出，最终导致receive buffer填满，由于TCP的滑动窗口和拥塞控制，<br>接收端会阻止发送端向其发送数据。这些控制皆发生在TCP/IP栈中，对应用程序是透明的，应用程序继续发送数据，最终导致send buffer填满，write调用阻塞。<br>一般来说，由于接收端进程从socket读数据的速度跟不上发送端进程向socket写数据的速度，最终导致发送端write调用阻塞。<br>read调用的行为相对容易理解，从socket的receive buffer中拷贝数据到应用程序的buffer中。read调用阻塞，通常是发送端的数据没有到达。</p>
+<p>如何设置sendto/recvfrom/read/write阻塞？<br>1 // 设置一个文件描述符为nonblock<br>2 int set_nonblocking(int fd)<br>3 {<br>4     int flags;<br>5     if ((flags = fcntl(fd, F_GETFL, 0)) == -1)<br>6         flags = 0;<br>7     return fcntl(fd, F_SETFL, flags | O_NONBLOCK);<br>8 }<br>一般默认情况下，是阻塞，除非设置为O_NONBLOCK非阻塞。<br>几个重要的结论：</p>
+<ol>
+<li>read总是在接收缓冲区有数据时立即返回，而不是等到给定的read buffer填满时返回。<br>只有当receive buffer为空时，blocking模式才会等待，而nonblock模式下会立即返回-1（errno = EAGAIN或EWOULDBLOCK）<br>　　注：阻塞模式下，当对方socket关闭时，read会返回0。</li>
+<li>blocking的write只有在缓冲区足以放下整个buffer时才返回（与blocking read并不相同）<br>nonblock write则是返回能够放下的字节数，之后调用则返回-1（errno = EAGAIN或EWOULDBLOCK）<br>对于blocking的write有个特例：当write正阻塞等待时对面关闭了socket，则write则会立即将剩余缓冲区填满并返回所写的字节数，再次调用则write失败（connection reset by peer），这正是下个小节要提到的：</li>
+</ol>
+<p>read/write对连接异常的反馈行为<br>详见Unix-Linux中的read和write函数.mht，后面有时间再研究</p>
+<p>========================================实例====================================<br>实例：</p>
+<p>1.初始化一个指定的Internet地址：<br>short port = 9001;<br>struct sockaddr_in   addr_server;<br>char server_ip[16] = {0};<br>strcpy(server_ip, “10.0.0.2”);<br>memset((void<em>)&amp;addr_server, 0, (size_t)sizeof(struct sockaddr_in));<br>addr_server.sin_family = AF_INET;<br>addr_server.sin_port = htons(port);<br>inet_aton(server_ip, (struct in_addr </em>)&amp;addr_server.sin_addr);</p>
+<p>2.TCP传输<br>Server 端实例：<br>int main(int argc, char<strong> argv)<br>{<br>int iSocket_server = 0;<br>struct sockaddr_in addr_server;<br>struct sockaddr_in addr_peer;<br>uint16_t port = 9001;<br>int iRet = 0;<br>int iSocket_Data = 0;<br>char buffer[1024] = {0};<br>int iData_length = 0;<br>char Message[12] = {0};<br>unsigned int len = 0;<br>// 1. 创建socket<br>iSocket_server = socket(PF_INET, SOCK_STREAM, 0);<br>if(iSocket_server == -1)<br>{<br>perror(“socket()”);<br>return -1;<br>}<br>// 2. 绑定<br>memset(&amp;addr_server, 0, sizeof(struct sockaddr_in));<br>addr_server.sin_family = AF_INET;<br>addr_server.sin_port = htons(port);<br>addr_server.sin_addr.s_addr = htonl(INADDR_ANY);<br>iRet = bind(iSocket_server, (struct sockaddr <em>)&amp;addr_server, sizeof(struct sockaddr_in));<br>if(iRet == -1)<br>{<br>perror(“bind()”);<br>return -1;<br>}<br>// 3. listen<br>iRet = listen(iSocket_server, 10);<br>if(iRet == -1)<br>{<br>perror(“listen()”);<br>return -1;<br>}<br>for(;;)<br>{<br>printf(“\n################Waiting for connect#######################\n”);<br>memset(&amp;addr_peer, 0, sizeof(struct sockaddr_in));<br>// 4. accept<br>len = sizeof(struct sockaddr_in);<br>iSocket_Data = accept(iSocket_server, (struct sockaddr </em>)&amp;addr_peer, &amp;len);<br>if(iSocket_Data == -1)<br>{<br>perror(“accept()”);<br>continue;<br>}<br>printf(“\nAccept connect from : [%s:%d]\n”, inet_ntoa(addr_peer.sin_addr), ntohs(addr_peer.sin_port));<br>//sleep(5);<br>iData_length = read(iSocket_Data, buffer, 1024);<br>if(iData_length == -1)<br>{<br>perror(“read()”);<br>close(iSocket_Data);<br>continue;<br>}<br>printf(“\nReceive Message:[%s]. Data length:[%d]\n”, buffer, iData_length);<br>memset(buffer, 0, 1024);<br>iData_length = read(iSocket_Data, buffer, 1024);<br>if(iData_length == -1)<br>{<br>perror(“read()”);<br>close(iSocket_Data);<br>continue;<br>}<br>printf(“\nReceive Message:[%s]. Data length:[%d]\n”, buffer, iData_length);<br>strcpy(Message, “bye”);<br>//sleep(5);<br>iData_length = write(iSocket_Data, Message, 3);<br>if(iData_length == -1)<br>{<br>perror(“write()”);<br>close(iSocket_Data);<br>continue;<br>}<br>printf(“\nsend Message:[%d]\n”, iData_length);<br>close(iSocket_Data);<br>}<br>return 0;<br>}<br>分析如下：<br>A. 创建socket endpoint:<br>iSocket_server = socket(PF_INET, SOCK_STREAM, 0);<br>协议族是IPv4—-PF_INET<br>类型是stream.<br>B. 为socket绑定地址：<br>没有绑定地址的socket endpoint就如同没有号码的电话机，别人无法申请连接。所以需要先行绑定。<br>memset(&amp;addr_server, 0, sizeof(struct sockaddr_in));<br>addr_server.sin_family = AF_INET;<br>addr_server.sin_port = htons(port);  //指定端口<br>addr_server.sin_addr.s_addr = htonl(INADDR_ANY);  //通配地址，当前机器所有IP都监控。<br>iRet = bind(iSocket_server, (struct sockaddr <em>)&amp;addr_server, sizeof(struct sockaddr_in));<br>bind(2)所指定的socket 当前必须处于无名状态(还未指定地址)。不能为一个已有地址的socket 重新bind一个新的地址。<br>bind(2)的另一个意义在于：它利用给socket endpoint指定socket 地址的方式限定用于通讯的接口。<br>例如：某主机有多个IP地址：<br>127.0.0.1<br>10.0.0.2<br>192.168.0.2<br>当利用bind(2)为socket-A绑定了10.0.0.2:9000,则Socket-A只能接收10.0.0.x网段发送给10.0.0.2:9000的信息。<br>而socket-B绑定了192.168.0.2:19001,则Socke-B只能接收192.168.0.x网段发送给192.168.0.2:19001的信息。<br>C: listen<br>listen(2)的作用是：通知Kernel当前程序愿意在指定的socket上监听并接收连接请求。(此socket即成为监听socket)<br>int listen(int sockfd, int backlog);<br>listen(2)的参数二值得注意，这个值是指所建立的监听队列的长度。<br>当有一个连接请求发生时，这个请求被放入监听队列，由accept(2) 处理这个请求，在此期间，有其它请求时，他们被放入监听队列。等待accept()处理。<br>backlog的取值：不能为负数，也别为0(在某些系统中，0表示不接受连接). 如果连接很繁忙，建议10-20. 如果程序的设计模式使accept()的间隔较大，则backlog这个值应该稍大。<br>D: accept:<br>接受监听socket所接收的连接请求，并创建一个新的连接来处理与对方的数据沟通。<br>int accept(int sockfd, struct sockaddr </em>addr, socklen_t *addrlen);<br>参数一：一定是一个监听socket（listen(2)把一个socket endpoint声明为监听socket）<br>参数二：申请连接的对端socket地址。<br>参数三：输入输出参数。输入时为地址最大值，输出时为地址实际长度。<br>返回值：所创建的一个新socket endpoint. 它与申请连接的对端socket endpoint已经连接起来了。数据交换其实是通过这个新socket完成的，而非监听socket.<br>E: 数据交换：<br>read(2), write(2)<br>F：close 连接socket:<br>int close(int fd);<br>关闭accept(2)新创建的socket.<br>G: close 监听socket：<br>关闭监听socket<br>总之其实server需要两个socket.一个是监听socket。一个是建立连接后，传输数据用的socket。<br>Client实例：<br>int main(int argc, char</strong> argv)<br>{<br>int iSocket_Client = 0;<br>struct sockaddr_in addr_server;<br>uint16_t port = 9001;<br>char server_ip[16] = “10.0.0.2”;<br>unsigned int addr_len = 0;<br>int iRet = 0;<br>char Message[108] = {0}; //<br>unsigned int uiLen_Data = 0;<br>char buffer[1024] = {0};<br>iSocket_Client = socket(PF_INET, SOCK_STREAM, 0);<br>if(iSocket_Client == -1)<br>{<br>perror(“socket()”);<br>return -1;<br>}<br>int on = 1;<br>setsockopt( iSocket_Client, SOL_SOCKET, SO_REUSEADDR, &amp;on, sizeof(on));<br>memset(&amp;addr_server, 0 , sizeof(struct sockaddr_in));<br>addr_server.sin_family = AF_INET;<br>inet_aton(server_ip, (struct in_addr <em>)(&amp;addr_server.sin_addr));<br>addr_server.sin_port = htons(port);<br>addr_len = sizeof(struct sockaddr_in );<br>iRet = connect(iSocket_Client, (struct sockaddr </em>)&amp;addr_server, addr_len);<br>if(iRet == -1)<br>{<br>perror(“connect()”);<br>return -1;<br>}<br>printf(“\n############################Connect Server Success##############################\n”);</p>
+<p>#if 1<br>strcpy(Message, “Client Send Message to Server.”);<br>uiLen_Data = write(iSocket_Client, Message, strlen(Message));<br>if(uiLen_Data == -1)<br>{<br>perror(“write()”);<br>return -1;<br>}<br>printf(“\nSend [%d] Data Success.[%s]\n”, uiLen_Data, Message);<br>strcat(Message, “++”);<br>uiLen_Data = write(iSocket_Client, Message, strlen(Message));<br>if(uiLen_Data == -1)<br>{<br>perror(“write()”);<br>return -1;<br>}<br>printf(“\nSend [%d] Data Success.[%s]\n”, uiLen_Data, Message);<br>sleep(1);</p>
+<p>#endif</p>
+<p>#if 0<br>uiLen_Data = read(iSocket_Client, buffer, 1024);<br>if(uiLen_Data == -1)<br>{<br>perror(“read()”);<br>return -1;<br>}<br>printf(“\nReceive Message:[%s]\n”, buffer);</p>
+<p>#endif<br>for(int i = 0; i &lt; 10; i++)<br>{<br>printf(“.”);<br>fflush(stdout);<br>sleep(1);<br>}<br>close(iSocket_Client);<br>return 0;<br>}<br>分析如下：<br>连接请求：<br>int connect(int sockfd, const struct sockaddr *addr,　socklen_t addrlen);<br>参数二：想要连接的socket地址。</p>
+<p>3.UDP传输<br>IPv4 非连接的通讯，就是在通信前不需要建立连接，它的优点如下：<br>A: 更加简单。不需要建立连接。<br>B: 更有弹性，每一次的消息发送都可以定向到不同的接收者。<br>C: 更高效。因为不需要建立和拆除连接，所以就避免了大量网络开销。<br>D: 具备广播能力。可以将一个消息同时向多个接收者发送。<br>UDP的缺点则是：<br>A: 通信过程不可靠。<br>B: 多数据报的无序性。<br>C: 消息的尺寸有限制。<br>消息尺寸：<br>虽然理论上UDP的数据报最大尺寸可以略小于64K，但实际上很多UNIX主机之提供接近32K甚至8K 的最大尺寸. 为了保险起见，UDP消息尺寸为512B 或者小于512字节比较合适。<br>Server 端实例：<br>int main(int argc, char<strong> argv)<br>{<br>int iSocket_Server = 0;<br>int iRet = 0;<br>struct sockaddr_in addr_server;<br>struct sockaddr_in addr_peer;<br>uint16_t port = 9001;<br>char server_ip[16] = {0};<br>socklen_t addr_len = 0;<br>char buffer[1024] = {0};<br>unsigned int uiPeer_addr_len = 0;<br>iSocket_Server = socket(PF_INET, SOCK_DGRAM, 0);<br>if(iSocket_Server == -1)<br>{<br>perror(“socket()”);<br>return -1;<br>}<br>memset((void<em>)&amp;addr_server, 0, sizeof(struct sockaddr_in));<br>strcpy(server_ip, “10.0.0.2”);<br>addr_server.sin_family = AF_INET;<br>addr_server.sin_port = htons(port);<br>inet_aton(server_ip, &amp;addr_server.sin_addr);<br>addr_len = sizeof(struct sockaddr);<br>iRet = bind(iSocket_Server, (struct sockaddr </em>)&amp;addr_server, addr_len);<br>if(iRet == -1)<br>{<br>perror(“bind()”);<br>return -1;<br>}<br>for(;;)<br>{<br>uiPeer_addr_len = sizeof(struct sockaddr_in);<br>printf(“\nWaiting for Message from client…..\n”);<br>iRet = recvfrom(iSocket_Server, buffer, sizeof(buffer), 0, (struct sockaddr <em>)&amp;addr_peer, &amp;uiPeer_addr_len);<br>if(iRet == -1)<br>{<br>perror(“recvfrom()”);<br>continue;<br>}<br>printf(“Get [%d] data from: [%s:%d]. [%s]”, iRet, inet_ntoa(addr_peer.sin_addr), ntohs(addr_peer.sin_port), buffer);<br>}<br>close(iSocket_Server);<br>return 0;<br>}<br>分析如下：<br>建立Socket后，为它bind(2)地址，利用recvfrom(2) 获取任何人向这个地址发送的数据报。<br>ssize_t recvfrom(int sockfd, void </em>buf, size_t len, int flags,struct sockaddr <em>src_addr, socklen_t </em>addrlen);<br>其中参数src_addr中会填充发送此数据的socket地址。<br>它使我们在接受到数据的同时，也得到这个数据发送者的地址。<br>Client实例：<br>int main(int argc, char</strong> argv)<br>{<br>int iSocket_client = 0;<br>struct sockaddr_in addr_server;<br>uint16_t port = 9001;<br>char server_ip[16] = {0};<br>char Message[256] = {0};<br>int iRet = 0;<br>socklen_t addr_len = 0;<br>iSocket_client = socket(PF_INET, SOCK_DGRAM, 0);<br>if(iSocket_client == -1)<br>{<br>perror(“socket()”);<br>return -1;<br>}<br>strcpy(Message, “Hello Server. This Message form Client!”);<br>memset((void<em>)&amp;addr_server, 0, sizeof(struct sockaddr_in));<br>strcpy(server_ip, “10.0.0.2”);<br>addr_server.sin_family = AF_INET;<br>addr_server.sin_port = htons(port);<br>inet_aton(server_ip, &amp;addr_server.sin_addr);<br>addr_len = sizeof(struct sockaddr);<br>iRet = sendto(iSocket_client, Message, strlen(Message), 0, (struct sockaddr </em>)&amp;addr_server, sizeof(struct sockaddr_in));<br>if(iRet == -1)<br>{<br>perror(“sendto()”);<br>return -1;<br>}<br>printf(“\nSend Message Success\n”);<br>close(iSocket_client);<br>return 0;<br>}<br>利用sendto(2)向指定的socket地址发送数据报。它只管发送，对端是否接收，不在考虑范围内。<br>ssize_t sendto(int sockfd, const void <em>buf, size_t len, int flags,<br>                      const struct sockaddr </em>dest_addr, socklen_t addrlen);<br>参数dest_addr为此次发送的目标socket地址。</p>
+<p>4.UDP广播<br>广播的应用：<br>在某个子网内，有一台特定设备，但我们不清楚这台设备的地址，可以通过发送UDP广播，设备接收到此特定广播后回复。则可以得到设备的地址。<br>频繁的广播会加大网络负载，因为它会发送数据到每个地址。<br>IP地址由两部分组成，NetID(网络地址)和HostID(主机地址)。<br>网络掩码用于把网络地址从IP地址中提取出来。<br>主机地址每个bit置1. 则此IP即为网络内广播地址。<br>ifconfig中，会显示广播地址信息：<br>inet 10.0.0.2  netmask 255.255.255.0  broadcast 10.0.0.255<br>当向广播地址的某个端口发送数据报时，即相当于向本网内每个设备的这个端口发送数据报。<br>发送广播消息：<br>要发送广播消息，需要两个基本条件。<br>a. 建立的socket 激活SO_BROADCAST选项。使socket endpoint成为一个可发送广播的socket.<br>b. 利用sendto(2) 向广播地址的特定port发送数据报。<br>也就是说：这个socket 必须能够进行广播。且目的地址必须为一个广播地址。<br>int main(int argc, char*<em> argv)<br>{<br>int iSocket_Send = 0;<br>int iRet = 0;<br>static int so_broadcast = 1;<br>char ip_Server[16] = {0};<br>struct sockaddr_in addr_server;<br>struct sockaddr_in addr_broadcast;<br>uint16_t port = 0;<br>char Message[36] = “Air raid this is not a drill”;<br>iSocket_Send = socket(PF_INET, SOCK_DGRAM, 0);<br>if(iSocket_Send == -1)<br>{<br>perror(“socket()”);<br>return -1;<br>}<br>iRet = setsockopt(iSocket_Send, SOL_SOCKET, SO_BROADCAST, &amp;so_broadcast, sizeof(so_broadcast));<br>if(iRet == -1)<br>{<br>perror(“setsockopt()”);<br>return -1;<br>}<br>memset(&amp;addr_server, 0, sizeof(struct sockaddr_in));<br>strcpy(ip_Server, “10.0.0.2”);<br>addr_server.sin_family = AF_INET;<br>addr_server.sin_port = htons(port);<br>inet_aton(ip_Server, (struct in_addr </em>)&amp;addr_server.sin_addr);</p>
+<p>#if 0<br>iRet = bind(iSocket_Send, (const struct sockaddr *)&amp;addr_server, sizeof(struct sockaddr_in));<br>if(iRet == -1)<br>{<br>perror(“bind()”);<br>return -1;<br>}</p>
+<p>#endif<br>memset(&amp;addr_broadcast, 0, sizeof(struct sockaddr_in));<br>strcpy(ip_Server, “10.0.0.255”);<br>addr_broadcast.sin_family = AF_INET;<br>addr_broadcast.sin_port = htons(9090);<br>inet_aton(ip_Server, (struct in_addr <em>)&amp;addr_broadcast.sin_addr);<br>for(;;)<br>{<br>sendto(iSocket_Send, Message, strlen(Message), 0, (const struct sockaddr </em>)&amp;addr_broadcast, sizeof(struct sockaddr_in));<br>sleep(1);<br>}<br>return 0;<br>}<br>接收广播消息：<br>理论上，接收广播消息和接收通常的ＵＤＰ消息不应该有不同。就是接收指定Port上的数据。<br>int main(int argc, char<strong> argv)<br>{<br>int iSocket_Send = 0;<br>int iRet = 0;<br>uint16_t port = 9090;<br>struct sockaddr_in addr_local;<br>struct sockaddr_in addr_server;<br>char buffer[256] = {0};<br>socklen_t addr_len = 0;<br>iSocket_Send = socket(PF_INET, SOCK_DGRAM, 0);<br>if(iSocket_Send == -1)<br>{<br>perror(“socket()”);<br>return -1;<br>}<br>memset(&amp;addr_local, 0, sizeof(struct sockaddr_in));<br>addr_local.sin_family = AF_INET;<br>addr_local.sin_port = htons(port);<br>addr_local.sin_addr.s_addr = htonl(INADDR_ANY);<br>iRet = bind(iSocket_Send, (const struct sockaddr <em>)&amp;addr_local, sizeof(struct sockaddr_in));<br>if(iRet == -1)<br>{<br>perror(“bind()”);<br>return -1;<br>}<br>for(;;)<br>{<br>memset(buffer, 0, 256);<br>memset(&amp;addr_server, 0, sizeof(struct sockaddr_in));<br>addr_len = sizeof(struct sockaddr_in);<br>iRet = recvfrom(iSocket_Send, buffer, 256, 0, (struct sockaddr </em>)&amp;addr_server, &amp;addr_len);<br>if(iRet == -1)<br>{<br>perror(“recvfrom()”);<br>continue;<br>}<br>printf(“\nReceive Message from : [%s:%d].\n”, inet_ntoa(addr_server.sin_addr), ntohs(addr_server.sin_port));<br>printf(“\nMessage:[%s]. length:[%d]\n”, buffer, iRet);<br>}<br>return 0;<br>}<br>但看了不少例子，在接收端，它是把广播地址绑定到接收socket上去。<br>需要两个sockaddr_in的原因        *</strong><br>=====================================相关命令===================================<br>netstat -anp                     ***<br>apt-get install tcp_dump，可以看网络情况，代替fireshark.</p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/07/28/内存泄漏/" rel="next" title="内存泄漏">
+                <i class="fa fa-chevron-left"></i> 内存泄漏
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/07/28/系统调用API/" rel="prev" title="系统调用API">
+                系统调用API <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Semiyd</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives">
+                
+                    <span class="site-state-item-count">30</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">15</span>
+                    <span class="site-state-item-name">categories</span>
+                  </a>
+                </div>
+              
+
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#获取socket的发送-接受缓冲区的大小：（后面的值是在Linux-2-6-38-x86-64上测试的结果）"><span class="nav-number">1.</span> <span class="nav-text">获取socket的发送/接受缓冲区的大小：（后面的值是在Linux 2.6.38 x86_64上测试的结果）</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Semiyd</span>
+
+  
+
+  
+</div>
+
+
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> v3.7.1</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://theme-next.org">NexT.Muse</a> v6.3.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+	
+    
+
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.3.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.3.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.3.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.3.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.3.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
