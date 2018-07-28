@@ -1,0 +1,788 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.3.0" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.3.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.3.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.3.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.3.0" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '6.3.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="异步通知和异步IO">
+<meta property="og:type" content="article">
+<meta property="og:title" content="异步通知和异步IO">
+<meta property="og:url" content="http://yoursite.com/2018/07/28/异步通知和异步IO/index.html">
+<meta property="og:site_name" content="Semiyd&#39;s Blog">
+<meta property="og:description" content="异步通知和异步IO">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2018-07-28T08:16:42.378Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="异步通知和异步IO">
+<meta name="twitter:description" content="异步通知和异步IO">
+
+
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/07/28/异步通知和异步IO/"/>
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>异步通知和异步IO | Semiyd's Blog</title>
+  
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Semiyd's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br />Home</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+    <a href="/categories/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-th"></i> <br />Categories</a>
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/07/28/异步通知和异步IO/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Semiyd">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Semiyd's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">异步通知和异步IO
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2018-07-28 16:08:41 / Modified: 16:16:42" itemprop="dateCreated datePublished" datetime="2018-07-28T16:08:41+08:00">2018-07-28</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Linux/" itemprop="url" rel="index"><span itemprop="name">Linux</span></a></span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Linux/Kernel/" itemprop="url" rel="index"><span itemprop="name">Kernel</span></a></span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Linux/Kernel/异步通知和异步IO/" itemprop="url" rel="index"><span itemprop="name">异步通知和异步IO</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><center><strong>异步通知和异步IO</strong></center><br><a id="more"></a></p>
+<p>这块分为两大内容。</p>
+<p>1.异步通知：<br>使用方法：</p>
+<p>基于misc设备<br>注册.fasync函数，也就是向系统注册fasync_struct<br>然后在中断处理函数里面，调用kill_fasync异步通知应用。<br>此时，应用会相应的去执行初始化的时候用signal()注册的回调函数。在这个回调函数里面，再使用read()方法去读取需要的数据。</p>
+<p>所以和传统的阻塞方式相比，阻塞会迫使应用程序睡眠。而fasync方式，则让应用程序可以做自己的事情，只是在有异步通知过来的时候，类似中断可以打断，从而处理中断。</p>
+<p>=====================================================例子代码=============================================<br>驱动部分：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line">/*中断事件标志*/</span><br><span class="line">static volatile int ev_press = 0;</span><br><span class="line"></span><br><span class="line">/*异步通知结构体</span><br><span class="line"> *根据里面的值确定kill_fasync发送的对象</span><br><span class="line"> */</span><br><span class="line">static struct fasync_struct *button_async;</span><br><span class="line"></span><br><span class="line">/*确定按键值*/</span><br><span class="line">static irqreturn_t buttons_irq(int irq, void *dev_id)</span><br><span class="line">&#123; </span><br><span class="line">	/*读取按键按下的引脚的值*/</span><br><span class="line"></span><br><span class="line">	/*表示中断发生了*/</span><br><span class="line">	ev_press = 1;   </span><br><span class="line">	/*异步通知应用*/ </span><br><span class="line">	kill_fasync(&amp;button_async, SIGIO, POLL_IN);</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">/*系统调用read的底层实现*/</span><br><span class="line">ssize_t button_read(struct file *file, char __user *buf, size_t size, loff_t *ppos)</span><br><span class="line">&#123;</span><br><span class="line">	/*如果有按键动作, 返回键值 */</span><br><span class="line">	copy_to_user(buf, &amp;key_val, 1);</span><br><span class="line">	ev_press = 0;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">static int button_fasync(int fd, struct file *filp, int on)</span><br><span class="line">&#123;</span><br><span class="line">	printk(&quot;fasync_helper is calling\n&quot;);</span><br><span class="line">        /*应用程序的fcntl(fd, F_SETOWN, getpid())告诉了文件和哪个进程关联</span><br><span class="line">         *fasync_helper用这个fd初始化button_async</span><br><span class="line">         *内核以链表的方式统一管理button_async</span><br><span class="line">         */</span><br><span class="line">	return fasync_helper(fd,filp,on,&amp;button_async);</span><br><span class="line">&#125;</span><br><span class="line">static struct file_operations dev_fops = &#123;</span><br><span class="line">  .owner     =  THIS_MODULE,  </span><br><span class="line">  .open      =  button_open,     </span><br><span class="line">  .read	     =	button_read,	   </span><br><span class="line">  .release   =  button_close,</span><br><span class="line">  .fasync    =  button_fasync,</span><br><span class="line">&#125;;</span><br><span class="line">static struct miscdevice misc = &#123;</span><br><span class="line">	.minor = MISC_DYNAMIC_MINOR,</span><br><span class="line">	.name  = DEVICE_NAME,</span><br><span class="line">	.fops  = &amp;dev_fops,</span><br><span class="line">&#125;;</span><br><span class="line">static int __init dev_init(void)</span><br><span class="line">&#123;</span><br><span class="line">	 misc_register(&amp;misc);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>应用部分：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;sys/types.h&gt;</span><br><span class="line">#include &lt;sys/stat.h&gt;</span><br><span class="line">#include &lt;fcntl.h&gt;</span><br><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">#include &lt;poll.h&gt;</span><br><span class="line">#include &lt;signal.h&gt;</span><br><span class="line">#include &lt;sys/types.h&gt;</span><br><span class="line">#include &lt;unistd.h&gt;</span><br><span class="line">#include &lt;fcntl.h&gt;</span><br><span class="line"></span><br><span class="line">int fd;</span><br><span class="line"></span><br><span class="line">/*信号处理函数*/</span><br><span class="line">void my_signal_fun(int signum)</span><br><span class="line">&#123;</span><br><span class="line">	unsigned char key_val;</span><br><span class="line">	read(fd, &amp;key_val, 1);</span><br><span class="line">	printf(&quot;key_val: 0x%x\n&quot;, key_val);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">int main(int argc, char **argv)</span><br><span class="line">&#123;</span><br><span class="line">	unsigned char key_val;</span><br><span class="line">	int ret;</span><br><span class="line">	int Oflags;</span><br><span class="line">  /*设置信号处理函数*/</span><br><span class="line">	signal(SIGIO, my_signal_fun);</span><br><span class="line">	/*打开设备*/</span><br><span class="line">	fd = open(&quot;/dev/buttons_fasync&quot;, O_RDWR);</span><br><span class="line">	if (fd &lt; 0)</span><br><span class="line">	&#123;</span><br><span class="line">		printf(&quot;can&apos;t open!\n&quot;);</span><br><span class="line">	&#125;</span><br><span class="line">  /*将filp-&gt;owner设置为当前的进程*/</span><br><span class="line">	fcntl(fd, F_SETOWN, getpid());</span><br><span class="line">	/*获得该设备额标志*/</span><br><span class="line">	Oflags = fcntl(fd, F_GETFL); </span><br><span class="line">	/*设置该文件的标志为FASYNC*/</span><br><span class="line">	fcntl(fd, F_SETFL, Oflags | FASYNC);</span><br><span class="line">	while (1)</span><br><span class="line">	&#123;</span><br><span class="line">		sleep(1);</span><br><span class="line">		printf(&quot;no data!\n&quot;);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>2.异步IO：<br>参考 ：<a href="https://www.ibm.com/developerworks/linux/library/l-async/" target="_blank" rel="noopener">https://www.ibm.com/developerworks/linux/library/l-async/</a><br>异步IO的基本作用，就是app在请求某种IO操作的时候，无需阻塞或者非阻塞轮询，而是直接走人，自己继续干自己的活，然后异步接收通知，类似上面的异步通知。<br>只不过上面异步的是通知，这里异步的其实是IO操作。<br>比较常见的应用场景，是有多个异步的IO需要处理。那么单一的进程，可以在某个IO在内核态自己处理的时候，去关注和处理别的已经完成的IO。</p>
+<p>数据结构：<br>aiocb (AIO I/O Control Block)结构体<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">struct aiocb &#123;</span><br><span class="line"> </span><br><span class="line">  int aio_fildes;               // File Descriptor</span><br><span class="line">  int aio_lio_opcode;           // Valid only for lio_listio (r/w/nop)</span><br><span class="line">  volatile void *aio_buf;       // Data Buffer</span><br><span class="line">  size_t aio_nbytes;            // Number of Bytes in Data Buffer</span><br><span class="line">  struct sigevent aio_sigevent; // Notification Structure</span><br><span class="line"> </span><br><span class="line">  /* Internal fields */</span><br><span class="line">  ...</span><br><span class="line"> </span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<p>那么异步IO分成两大类使用的方法：</p>
+<p>一是基于glibc的接口：<br>参考    Boost application performance using asynchronous I_O.pdf<br>aio_read    Request an asynchronous read operation<br>aio_error    Check the status of an asynchronous request<br>aio_return    Get the return status of a completed asynchronous request<br>aio_write    Request an asynchronous operation<br>aio_suspend    Suspend the calling process until one or more asynchronous requests have completed (or failed)<br>aio_cancel    Cancel an asynchronous I/O request<br>lio_listio    Initiate a list of I/O operations</p>
+<p>下面是具体的介绍：<br>int aio_read( struct aiocb *aiocbp );<br>此函数调用后立即返回，表示申请已经排入了处理队列中。<br>关键是要填充他的入参，aiocb结构体。<br>举例如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;aio.h&gt;</span><br><span class="line"> </span><br><span class="line">...</span><br><span class="line"> </span><br><span class="line">  int fd, ret;</span><br><span class="line">  struct aiocb my_aiocb;</span><br><span class="line"> </span><br><span class="line">  fd = open( &quot;file.txt&quot;, O_RDONLY );</span><br><span class="line">  if (fd &lt; 0) perror(&quot;open&quot;);</span><br><span class="line"> </span><br><span class="line">  /* Zero out the aiocb structure (recommended) */</span><br><span class="line">  bzero( (char *)&amp;my_aiocb, sizeof(struct aiocb) );</span><br><span class="line"> </span><br><span class="line">  /* Allocate a data buffer for the aiocb request */</span><br><span class="line">  my_aiocb.aio_buf = malloc(BUFSIZE+1);</span><br><span class="line">  if (!my_aiocb.aio_buf) perror(&quot;malloc&quot;);</span><br><span class="line"> </span><br><span class="line">  /* Initialize the necessary fields in the aiocb */</span><br><span class="line">  my_aiocb.aio_fildes = fd;</span><br><span class="line">  my_aiocb.aio_nbytes = BUFSIZE;</span><br><span class="line">  my_aiocb.aio_offset = 0;</span><br><span class="line"> </span><br><span class="line">  ret = aio_read( &amp;my_aiocb );</span><br><span class="line">  if (ret &lt; 0) perror(&quot;aio_read&quot;);</span><br><span class="line"> </span><br><span class="line">  while ( aio_error( &amp;my_aiocb ) == EINPROGRESS ) ;</span><br><span class="line"> </span><br><span class="line">  if ((ret = aio_return( &amp;my_iocb )) &gt; 0) &#123;</span><br><span class="line">    /* got ret bytes on the read */</span><br><span class="line">  &#125; else &#123;</span><br><span class="line">    /* read failed, consult errno */</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure></p>
+<p>二是基于内核本身的系统调用接口：<br>参考 ：<a href="http://lse.sourceforge.net/io/aio.html" target="_blank" rel="noopener">http://lse.sourceforge.net/io/aio.html</a></p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/07/28/调度和抢占/" rel="next" title="调度和抢占">
+                <i class="fa fa-chevron-left"></i> 调度和抢占
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/07/28/中断/" rel="prev" title="中断">
+                中断 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Semiyd</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives">
+                
+                    <span class="site-state-item-count">57</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">27</span>
+                    <span class="site-state-item-name">categories</span>
+                  </a>
+                </div>
+              
+
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Semiyd</span>
+
+  
+
+  
+</div>
+
+
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> v3.7.1</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://theme-next.org">NexT.Muse</a> v6.3.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+	
+    
+
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.3.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.3.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.3.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.3.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.3.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
