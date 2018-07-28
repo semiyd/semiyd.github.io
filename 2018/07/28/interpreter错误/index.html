@@ -108,24 +108,24 @@
 
 
 
-  <meta name="description" content="main函数入参的处理  如何给一个应用加执行的参数？比如./abc –verbose 主要是依靠getopt_long来获取和解析入参。举例如下： #include  #include &amp;lt;time.h&amp;gt; #include &amp;lt;string.h&amp;gt; #include &amp;lt;stdio.h&amp;gt; #include “System.h” #include “version.h”">
+  <meta name="description" content="interpreter错误">
 <meta property="og:type" content="article">
-<meta property="og:title" content="main函数入参的处理">
-<meta property="og:url" content="http://yoursite.com/2018/07/23/main函数入参的处理/index.html">
+<meta property="og:title" content="interpreter错误">
+<meta property="og:url" content="http://yoursite.com/2018/07/28/interpreter错误/index.html">
 <meta property="og:site_name" content="Semiyd&#39;s Blog">
-<meta property="og:description" content="main函数入参的处理  如何给一个应用加执行的参数？比如./abc –verbose 主要是依靠getopt_long来获取和解析入参。举例如下： #include  #include &amp;lt;time.h&amp;gt; #include &amp;lt;string.h&amp;gt; #include &amp;lt;stdio.h&amp;gt; #include “System.h” #include “version.h”">
+<meta property="og:description" content="interpreter错误">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-07-23T14:10:01.270Z">
+<meta property="og:updated_time" content="2018-07-28T02:44:08.202Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="main函数入参的处理">
-<meta name="twitter:description" content="main函数入参的处理  如何给一个应用加执行的参数？比如./abc –verbose 主要是依靠getopt_long来获取和解析入参。举例如下： #include  #include &amp;lt;time.h&amp;gt; #include &amp;lt;string.h&amp;gt; #include &amp;lt;stdio.h&amp;gt; #include “System.h” #include “version.h”">
+<meta name="twitter:title" content="interpreter错误">
+<meta name="twitter:description" content="interpreter错误">
 
 
 
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/07/23/main函数入参的处理/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/07/28/interpreter错误/"/>
 
 
 
@@ -135,7 +135,7 @@
   };
 </script>
 
-  <title>main函数入参的处理 | Semiyd's Blog</title>
+  <title>interpreter错误 | Semiyd's Blog</title>
   
 
 
@@ -280,7 +280,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/07/23/main函数入参的处理/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/07/28/interpreter错误/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Semiyd">
@@ -297,7 +297,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">main函数入参的处理
+          <h1 class="post-title" itemprop="name headline">interpreter错误
               
             
           </h1>
@@ -322,7 +322,7 @@
                 
               
 
-              <time title="Created: 2018-07-23 22:07:57 / Modified: 22:10:01" itemprop="dateCreated datePublished" datetime="2018-07-23T22:07:57+08:00">2018-07-23</time>
+              <time title="Created: 2018-07-28 10:43:17 / Modified: 10:44:08" itemprop="dateCreated datePublished" datetime="2018-07-28T10:43:17+08:00">2018-07-28</time>
             
 
             
@@ -352,6 +352,13 @@
                 
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Linux/Application/" itemprop="url" rel="index"><span itemprop="name">Application</span></a></span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Linux/Application/调试/" itemprop="url" rel="index"><span itemprop="name">调试</span></a></span>
 
                 
                 
@@ -385,35 +392,9 @@
       
 
       
-        <center><strong>main函数入参的处理</strong></center>
-
-<p><br><br>如何给一个应用加执行的参数？<br>比如<br>./abc –verbose</p>
-<p>主要是依靠getopt_long来获取和解析入参。<br>举例如下：</p>
-<p>#include <iostream></iostream></p>
-<p>#include &lt;time.h&gt;</p>
-<p>#include &lt;string.h&gt;</p>
-<p>#include &lt;stdio.h&gt;</p>
-<p>#include “System.h”</p>
-<p>#include “version.h”</p>
-<p>#include &lt;getopt.h&gt;</p>
-<p>static void print_usage(void)<br>{<br>    (void)fprintf(stderr,<br>“Usage: NetController \n”);<br>    (void)fprintf(stderr,<br>“\t\t[ -v ] for verbose output on ring management library\n”);<br>}</p>
-<p>#define SHORTOPTS “hv”</p>
-<p>static const struct option longopts[] = {<br>    { “help”, no_argument, NULL, ‘h’ },<br>    { “verbose”, no_argument, NULL, ‘v’ },<br>    { NULL, 0, NULL, 0 }<br>};</p>
-<p>int main(int argc, char*<em> argv) {<br>    time_t rawtime;<br>    struct tm </em> timeinfo;<br>    char buffer[30];<br>    time (&amp;rawtime);<br>    timeinfo = localtime(&amp;rawtime);<br>    strftime(buffer, 30, “%F %T”,timeinfo);<br>    register int op;</p>
-<pre><code>while (
-    (op = getopt_long(argc, argv, SHORTOPTS, longopts, NULL)) != -1)
-    switch (op) {
-        case &apos;v&apos;:
-            ring_mgmt_debug = true;
-            break;
-
-        default:
-            print_usage();
-            return 0;
-    }
-
-//开始正式干活
-</code></pre><p>}</p>
+        <p><center><strong>interpreter错误</strong></center><br><a id="more"></a></p>
+<p>eN-Display执行后，显示-sh: ./eN-Display@: No such file or directory        什么鬼？！<br>在pc机上，可以使用ldd查看应用依赖的库。<br>在嵌入式平台上，如果没有现成的ldd的话，其实不用交叉编译，这样就可以：<br>                arm-none-linux-gnueabi-readelf -a xxx_app | grep “Shared library:”<br>                所以结果是：<br>                arm-poky-linux-gnueabi-readelf -a wiggly | grep “Shared library:”<br>                 0x00000001 (NEEDED)                     Shared library: [libts.so.0]<br>                 0x00000001 (NEEDED)                     Shared library: [libQtGui.so.4]<br>                 0x00000001 (NEEDED)                     Shared library: [libQtNetwork.so.4]<br>                 0x00000001 (NEEDED)                     Shared library: [libQtCore.so.4]<br>                 0x00000001 (NEEDED)                     Shared library: [libpthread.so.0]<br>                 0x00000001 (NEEDED)                     Shared library: [libstdc++.so.6]<br>                 0x00000001 (NEEDED)                     Shared library: [libm.so.6]<br>                 0x00000001 (NEEDED)                     Shared library: [libgcc_s.so.1]<br>                 0x00000001 (NEEDED)                     Shared library: [libc.so.6]<br>                但问题是，以上的库，搜了下，其实都是有的。而且其实就算某个库没有，那应该报错缺某个库才对。<br>                并且排除了LD_LIBRARY_PATH的设置问题，设置了也没用。<br>                根据dyj搜到的信息，其实可以进一步看interpreter的依赖情况：<br>                arm-poky-linux-gnueabi-readelf -a wiggly | grep “interpreter”显示：<br>                      [Requesting program interpreter: /lib/ld-linux.so.3]<br>检查了下，其实ld-linux.so.3，和ld-linux-armhf.so.3这类名字一样，一般都需要做软链接指向ld-x.xx.so<br>如下：<br>root@myd-y6ull14x14:/home# ls -l /lib/ld*<br>-rwxr-xr-x    1 root     root        134400 May 31 16:03 /lib/ld-2.23.so<br>lrwxrwxrwx    1 root     root            10 Jan  1  1970 /lib/ld-linux-armhf.so.3 -&gt; ld-2.23.so<br>lrwxrwxrwx    1 root     root            10 Jul  5 16:18 /lib/ld-linux.so.3 -&gt; ld-2.23.so<br>但实际上米尔的rootfs没做这个链接，导致interpreter失败。<br>同样，eN-Display也是依赖这个ld-linux.so.3，所以也不能跑。<br>而4.8.7的mainwindows，其interpreter是ld-linux-armhf.so.3，正好米尔的板子上有，所以可以跑。<br>并且am3354的板子正好只有ld-linux.so.3而没有ld-linux-armhf.so.3，所以跑eN-Display是可以的。</p>
+<p>其实之前运行pvrsrvctl的时候，遇到过缺ld-linux-armhf.so.3的情况，也是非常难查。<br>运行的时候，直接报错：-sh: ./pvrsrvctl: not found<br>最后strings pvrsrvctl | grep lib才grep到这个库的。</p>
 
       
     </div>
@@ -441,8 +422,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/07/23/boot-img的解包与打包/" rel="next" title="boot.img的解包与打包">
-                <i class="fa fa-chevron-left"></i> boot.img的解包与打包
+              <a href="/2018/07/28/GDB调试方法/" rel="next" title="GDB调试方法">
+                <i class="fa fa-chevron-left"></i> GDB调试方法
               </a>
             
           </div>
@@ -450,10 +431,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/07/25/4-8-6-qt库-编译命令/" rel="prev" title="4.8.6 qt库 编译命令">
-                4.8.6 qt库 编译命令 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>

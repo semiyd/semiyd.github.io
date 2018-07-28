@@ -1,0 +1,850 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.3.0" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.3.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.3.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.3.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.3.0" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '6.3.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="如何使用core dump查看backtrace======================================================================================">
+<meta property="og:type" content="article">
+<meta property="og:title" content="GDB调试方法">
+<meta property="og:url" content="http://yoursite.com/2018/07/28/GDB调试方法/index.html">
+<meta property="og:site_name" content="Semiyd&#39;s Blog">
+<meta property="og:description" content="如何使用core dump查看backtrace======================================================================================">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2018-07-28T02:42:35.408Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="GDB调试方法">
+<meta name="twitter:description" content="如何使用core dump查看backtrace======================================================================================">
+
+
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/07/28/GDB调试方法/"/>
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>GDB调试方法 | Semiyd's Blog</title>
+  
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Semiyd's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br />Home</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+    <a href="/categories/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-th"></i> <br />Categories</a>
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/07/28/GDB调试方法/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Semiyd">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Semiyd's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">GDB调试方法
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2018-07-28 10:40:25 / Modified: 10:42:35" itemprop="dateCreated datePublished" datetime="2018-07-28T10:40:25+08:00">2018-07-28</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Linux/" itemprop="url" rel="index"><span itemprop="name">Linux</span></a></span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Linux/Application/" itemprop="url" rel="index"><span itemprop="name">Application</span></a></span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Linux/Application/调试/" itemprop="url" rel="index"><span itemprop="name">调试</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>如何使用core dump查看backtrace======================================================================================<br><a id="more"></a><br>产生core的条件：<br>            How are they generated: user side<br>            ● Need to activate the ELF_CORE option in kernel        这个目前iq8的.config里面可以看到ELF_CORE已打开。<br>            ● Need to set the core_pattern<br>                – $&gt; echo “core” &gt; /proc/sys/kernel/core_pattern    这个目前iq8的cat /proc/sys/kernel/core_pattern可以看到确实已经是core了。<br>            ● Need to set ulimit<br>                – $&gt; ulimit -c unlimited                这个目前iq8的busybox已经支持这个命令了。执行busybox sh -c ‘ulimit -c unlimited’<br>            ● Special care for busybox systems<br>            – Activate: FEATURE_INIT_COREDUMPS            这个目前iq8的busybox的.config已经支持这个宏了。<br>            – A special file .init_enable_core must be present in /        需要新建一个空文件.init_enable_core在/</p>
+<pre><code>模拟seg fault的方法：
+    kill -s SIGSEGV pid     用segmentation fault的名义杀掉任意一个app。
+
+经过上面配置。在kill -s SIGSEGV pid以后，会有Segmentation fault (core dumped)，能看到app的同路径，有个叫core的文件生成了。        
+产生core以后，如何使用core得到debug信息？
+    下载个gdb到C:\Document\Document\Linux\Kernel\应用程序\gdb-7.11.tar.gz
+    gdb exefile /tmp/exefile.xxxxx.core
+
+    编译：
+    ./configure -target=arm-linux -host=arm-linux -program-prefix=arm-linux- -prefix=/home/yandong/IQ8/app-debug/gdb-build
+    make
+    make install
+    然后把arm-linux-gdb拷入arm板子，即可。        --&gt;I&apos;m here now
+    [root@Honeywell test_applications]# arm-linux-gdb core_dump_app /usr/test_applications/core
+    GNU gdb (GDB) 7.11
+        中间省去一些无用的控制台信息
+        [New LWP 157]
+        Core was generated by `./core_dump_app&apos;.
+        Program terminated with signal SIGSEGV, Segmentation fault.
+        #0  0x40183c9c in nanosleep () from /lib/libc.so.6
+        (gdb) where
+        #0  0x40183c9c in nanosleep () from /lib/libc.so.6
+        #1  0x40183a68 in sleep () from /lib/libc.so.6
+        #2  0x00008408 in main (argc=1, argv=0xbee62d14) at core_dump_app.c:12
+    进入(gdb)控制台后，像上面一样，输入where，就可以看到segmentation fault的问题点。
+</code></pre><p>=============================================================================================<br>有时候会遇到：<br>(gdb) bt</p>
+<p>#0  0x4022b178 in ?? ()</p>
+<p>#1  0x4022b134 in ?? ()</p>
+<p>#2  0x4022b134 in ?? ()<br>有一种可能是，相应的库的symbol没有被读入。<br>用info sharedlibrary可以列出需要读入的库的symbol<br>再用这两个命令来设定库的位置：<br>set solib-absolute-prefix     – Set prefix for loading absolute shared library symbol files<br>set solib-search-path     – Set the search path for loading non-absolute shared library symbol files<br>例如：<br>(gdb) bt</p>
+<p>#0  0x0150ac58 in PCHandler::FlagCreate (this=<optimized out="">) at CSP/Src/PCTask.cpp:660</optimized></p>
+<p>#1  0xa96a3460    in ?? ()</p>
+<p>#2  0xa96a3460    in ?? ()<br>Backtrace stopped: previous frame identical to this frame (corrupt stack?)<br>(gdb) set solib-search-path .                                                #拷贝libMiniSmartHubApp.so 到当前目录下。<br>Reading symbols from /home/sundh/GolfP_0943/REL/DTV_Samsung/T-GFPDEUC/Build/BIN/SymbolFiles/mtd_exe/libMiniSmartHubApp.so…done.<br>Loaded symbols for /home/sundh/GolfP_0943/REL/DTV_Samsung/T-GFPDEUC/Build/BIN/SymbolFiles/mtd_exe/libMiniSmartHubApp.so<br>(gdb) bt</p>
+<p>#0  0x0150ac58 in PCHandler::FlagCreate (this=<optimized out="">) at CSP/Src/PCTask.cpp:660</optimized></p>
+<p>#1  0xa96a3460 in CMNMiniHubView::StartViewTimer (this=<optimized out="">) at /home/sundh/GolfP/CSP/BP_CSP_Public/CSP-4.0/Inc/PCAlarm.h:102</optimized></p>
+<h1 id="…"><a href="#…" class="headerlink" title="…"></a>…</h1><p>有时候会遇到：<br>Backtrace stopped: previous frame identical to this frame (corrupt stack?)<br>类似这种：<br>(gdb) bt</p>
+<p>#0  0xb7886424 in __kernel_vsyscall ()</p>
+<p>#1  0xb7559163 in ?? () from /lib/i686/cmov/libc.so.6</p>
+<p>#2  0xb74f1387 in ?? () from /lib/i686/cmov/libc.so.6<br>Backtrace stopped: previous frame identical to this frame (corrupt stack?)<br>core dump只能看到比如libc.so的内容，却看不到app的代码的函数名，提示栈被损坏。<br>这种情况可能栈真的被野指针破坏了。<br>但也可能是栈指针的问题。<br>如果是栈指针的问题，处理方法如下：<br>(gdb) info registers<br>eax            0xfffffe00    -512<br>ecx            0x80    128<br>edx            0x2    2<br>ebx            0xb75c33a0    -1218694240<br>esp            0xbfe55018    0xbfe55018    &lt;= stack pointer on x86 。x86是叫esp，具体ARM架构上，这个sp的名字就是sp<br>ebp            0xbfe55048    0xbfe55048<br>esi            0x0    0<br>edi            0x0    0<br>eip            0xb7886424    0xb7886424 &lt;__kernel_vsyscall+16&gt;<br>eflags         0x202    [ IF ]<br>cs             0x73    115<br>ss             0x7b    123<br>ds             0x7b    123<br>es             0x7b    123<br>fs             0x0    0<br>gs             0x33    51<br>(gdb) x/64x $sp<br>0xbfe55018:    0xbfe55048    0x00000002    0x00000080    0xb7559163<br>0xbfe55028:    0xb75c33a0    0xb75c1ff4    0x09ec0470    0xb74f1387<br>0xbfe55038:    0xb77c4afd    0xb782199c    0xb782199c    0x09ec0478<br>0xbfe55048:    0xbfe55078    0xb77c4bf4    0x09ec0478    0xb782199c<br>0xbfe55058:    0x0000ffff    0xb75c3438    0xbfe55098    0xb789a240<br>0xbfe55068:    0x00000000    0xb782199c    0x0000ffff    0xb75c3438<br>0xbfe55078:    0xbfe55098    0xb7818736    0x09ec0478    0x00000000<br>0xbfe55088:    0xb77c50cd    0xb782199c    0xb7818709    0xb782199c<br>0xbfe55098:    0xbfe550b8    0xb77c54ad    0x00000000    0x00000000<br>0xbfe550a8:    0x0000000b    0xb75c3438    0xb77c5449    0xb782199c<br>0xbfe550b8:    0xbfe550c8    0xb77bb7dd    0xb782199c    0x0000000b<br>0xbfe550c8:    0xbfe550e8    0xb77bb84e    0x0000ffff    0xb789a240<br>0xbfe550d8:    0x00000000    0xb77bb830    0xb77bb839    0xb782199c<br>0xbfe550e8:    0xbfe55108    0xb77bc08f    0x0000000b    0x00000000<br>0xbfe550f8:    0x00000000    0x00000010    0xb75c1ff4    0x3efafafb<br>0xbfe55108:    0xbfe556c8    0xb7886400    0x0000000b    0x00000033<br>左侧一列为地址值<br>类似第一行的0xbfe55048这个值，指向具体sp地址值的，成为frame pointer<br> forming a linked list back up the stack. 注意编译的时候不能用-fomit-frame-pointer，否则非常难找。<br>目前这个案例的情形，栈明显没有被破坏（为什么？）只是gdb有点懵逼。</p>
+<p>所以选一个比当前sp值稍远一格的值，比如这个第一行的0xbfe55048这个值</p>
+<p>(gdb) set $sp=0xbfe55048<br>(gdb) bt</p>
+<p>#0  0xb7886424 in __kernel_vsyscall ()</p>
+<p>#1  0xb782199c in ?? () from /usr/lib/libSDL-1.2.so.0</p>
+<p>#2  0xb7818736 in ?? () from /usr/lib/libSDL-1.2.so.0</p>
+<p>#3  0xb77c54ad in ?? () from /usr/lib/libSDL-1.2.so.0</p>
+<p>#4  0xb77bb7dd in SDL_QuitSubSystem () from /usr/lib/libSDL-1.2.so.0</p>
+<p>#5  0xb77bb84e in SDL_Quit () from /usr/lib/libSDL-1.2.so.0</p>
+<p>#6  0xb77bc08f in ?? () from /usr/lib/libSDL-1.2.so.0</p>
+<p>#7  </p>
+<p>#8  0xb74ede80 in ?? () from /lib/i686/cmov/libc.so.6</p>
+<p>#9  0xb74efc8c in malloc () from /lib/i686/cmov/libc.so.6</p>
+<p>#10 0xb7764eec in ?? () from /usr/lib/libSDL_mixer-1.2.so.0</p>
+<p>#11 0xb7765b98 in Mix_SetPanning () from /usr/lib/libSDL_mixer-1.2.so.0</p>
+<p>#12 0x080828b1 in I_SDL_StartSound (id=-1218694088, channel=-1218699276,<br>    vol=120, sep=38) at i_sdlsound.c:671</p>
+<p>#13 0x08073e9b in S_StartSound (origin_p=0xb624f990, sfx_id=22)<br>    at s_sound.c:656</p>
+<p>#14 0x08061459 in T_MoveFloor (floor=0xb63271b8) at p_floor.c:220</p>
+<p>#15 0x0806d0ea in P_RunThinkers () at p_tick.c:119</p>
+<p>#16 0x0806d161 in P_Ticker () at p_tick.c:153</p>
+<p>#17 0x08052fb6 in G_Ticker () at g_game.c:1151</p>
+<p>#18 0x0804dbf4 in D_DoomLoop () at d_main.c:437</p>
+<p>#19 0x0804ecc0 in D_DoomMain () at d_main.c:1506</p>
+<p>#20 0x08054d1c in main (argc=5, argv=0xbfe55d04) at i_main.c:152<br>这样就有显示了<br>这里还有个办法，就是<br>(gdb) x /2000a $sp<br>来打印堆栈里面的一些函数名信息，对推测哪里出错也有帮助。<br>(gdb) x /2000a $sp<br>0xbefff9c8:     0xfffffe00      0x0     0x0     0x0<br>0xbefff9d8:     0x400006a4      0xc0    0x0     0x82b0<br>0xbefff9e8:     0x0     0x0     0x40030f50      0xfffffe00<br>0xbefff9f8:     0x40024000      0x400246b8      0x0     0x40<br>0xbefffa08:     0xfffffe00      0x40024000      0x400246b8      0x0<br>0xbefffa18:     0x40003664 &lt;dl_main+5520&gt;       0x0     0x0     0x0</p>
+<p>==============================================================================================<br>Backtrace stopped: previous frame identical to this frame (corrupt stack?)的另一种可能<br>就是多线程程序，导致看不了<br>暂无解决办法</p>
+<p>==============================================================================================<br>有关用gdb调试，编译的时候要不要加-g参数的问题。<br>不加-g，gdb也是可以打印出函数名的。<br>(gdb) bt</p>
+<p>#0  0x00000000004007c2 in IsUnique() ()</p>
+<p>#1  0x0000000000400845 in main ()<br>那么加-g：<br>(gdb) bt</p>
+<p>#0  0x00000000004007c2 in IsUnique () at 1.1.cpp:7                  //多了文件名和行数</p>
+<h1 id="1-0x0000000000400845-in-main-at-1-1-cpp-14"><a href="#1-0x0000000000400845-in-main-at-1-1-cpp-14" class="headerlink" title="#1  0x0000000000400845 in main () at 1.1.cpp:14"></a>#1  0x0000000000400845 in main () at 1.1.cpp:14</h1><p>Those bogus adresses (0x00000002 and the like) are actually PC values, not SP values.<br>Now, when you get this kind of SEGV, with a bogus (very small) PC address, 99% of the time it’s due to calling through a bogus function pointer.<br>Note that virtual calls in C++ are implemented via function pointers, so any problem with a virtual call can manifest in the same way.</p>
+<p>An indirect call instruction just pushes the PC after the call onto the stack and then sets the PC to the target value (bogus in this case), so if this is what happened,<br> you can easily undo it by manually popping the PC off the stack. In 32-bit x86 code you just do:</p>
+<p>(gdb) set $pc = *(void **)$esp<br>(gdb) set $esp = $esp + 4<br>With 64-bit x86 code you need</p>
+<p>(gdb) set $pc = *(void **)$rsp<br>(gdb) set $rsp = $rsp + 8<br>Then, you should be able to do a bt and figure out where the code really is.</p>
+<p>The other 1% of the time, the error will be due to overwriting the stack, usually by overflowing an array stored on the stack. </p>
+<h1 id="In-this-case-you-might-be-able-to-get-more-clarity-on-the-situation-by-using-a-tool-like-valgrind"><a href="#In-this-case-you-might-be-able-to-get-more-clarity-on-the-situation-by-using-a-tool-like-valgrind" class="headerlink" title="In this case, you might be able to get more clarity on the situation by using a tool like valgrind"></a>In this case, you might be able to get more clarity on the situation by using a tool like valgrind</h1><p>多进程调试<br>info threads<br>多线程调式必须知道正在执行程序的进程号，这个用下面的命令就可以获得：<br>ps s | grep 程序名<br>l  1：先运行程序，这时候会有程序的进程test在运行。<br>l  2：查询gui进程当前的进程号： ps s | grep test<br>n  假如进程号是11325<br>l  3：attach 进程<br>n  gdb attach 11325<br>l  4：设置断点<br>n  我们知道test有函数start。<br>n  b start(int&amp; param)<br>l  5：进行相应操作</p>
+<h1 id="l-6：如果我们进行Record操作，那么程序就会在test的start方法停留，然后可以进行参数的查看或者其他的操作。"><a href="#l-6：如果我们进行Record操作，那么程序就会在test的start方法停留，然后可以进行参数的查看或者其他的操作。" class="headerlink" title="l  6：如果我们进行Record操作，那么程序就会在test的start方法停留，然后可以进行参数的查看或者其他的操作。"></a>l  6：如果我们进行Record操作，那么程序就会在test的start方法停留，然后可以进行参数的查看或者其他的操作。</h1><p>单步调试和断点：<br>把c源文件和可执行文件，放在同一目录<br>[root@Honeywell test_applications]# arm-linux-gdb core_dump_app<br>GNU gdb (GDB) 7.11<br>Copyright (C) 2016 Free Software Foundation, Inc.<br>License GPLv3+: GNU GPL version 3 or later <a href="http://gnu.org/licenses/gpl.html" target="_blank" rel="noopener">http://gnu.org/licenses/gpl.html</a><br>This is free software: you are free to change and redistribute it.<br>There is NO WARRANTY, to the extent permitted by law.  Type “show copying”<br>and “show warranty” for details.<br>This GDB was configured as “arm-linux”.<br>Type “show configuration” for configuration details.<br>For bug reporting instructions, please see:<br><a href="http://www.gnu.org/software/gdb/bugs/" target="_blank" rel="noopener">http://www.gnu.org/software/gdb/bugs/</a>.<br>Find the GDB manual and other documentation resources online at:<br><a href="http://www.gnu.org/software/gdb/documentation/" target="_blank" rel="noopener">http://www.gnu.org/software/gdb/documentation/</a>.<br>For help, type “help”.<br>Type “apropos word” to search for commands related to “word”…<br>Reading symbols from core_dump_app…done.<br>(gdb) l<br>warning: Source file is more recent than executable.<br>1       #include &lt;sys/types.h&gt;<br>2       #include &lt;sys/stat.h&gt;<br>3       #include &lt;fcntl.h&gt;<br>4       #include &lt;stdio.h&gt;<br>5       #include &lt;poll.h&gt;<br>6       #include &lt;unistd.h&gt;<br>7       int main(int argc, char **argv)<br>8       {<br>9           while (1)<br>10          {<br>(gdb)        &lt;——————– 直接回车表示，重复上一次命令<br>11                      printf(“simulate SEGMEMTATION FAULT!\n”);<br>12                      sleep(10);<br>13          }<br>14      }<br>(gdb)        &lt;——————– 直接回车表示，重复上一次命令<br>Line number 15 out of range; core_dump_app.c has 14 lines.<br>(gdb) break 11    &lt;——————– 设置断点，在源程序第11行处。<br>Breakpoint 1 at 0x83f4: file core_dump_app.c, line 11.<br>(gdb) info break     &lt;——————– 查看断点信息。<br>Num     Type           Disp Enb Address    What<br>1       breakpoint     keep y   0x000083f4 in main at core_dump_app.c:11<br>(gdb) run        &lt;——————— 运行程序<br>Starting program: /usr/test_applications/core_dump_app</p>
+<p>Breakpoint 1, main (argc=1, argv=0xbefffce4) at core_dump_app.c:11    &lt;———- 在断点处停住。<br>11                      printf(“simulate SEGMEMTATION FAULT!\n”);<br>(gdb) n        &lt;——————— 单步语句执行<br>simulate SEGMEMTATION FAULT!<br>12                      sleep(10);<br>(gdb) c        &lt;——————— 继续运行程序，continue命令简写。<br>Continuing.</p>
+<p>Breakpoint 1, main (argc=1, argv=0xbefffce4) at core_dump_app.c:11<br>11                      printf(“simulate SEGMEMTATION FAULT!\n”);<br>(gdb) quit<br>A debugging session is active.</p>
+<pre><code>Inferior 1 [process 134] will be killed.
+</code></pre><p>Quit anyway? (y or n) y<br>[root@Honeywell test_applications]#<br>另外，有关如何设置gdb搜素源码路径的问题。</p>
+<h1 id="看同目录下面的-GDB指定和修改搜素源码文件的路径（set-substitute-path）-mht"><a href="#看同目录下面的-GDB指定和修改搜素源码文件的路径（set-substitute-path）-mht" class="headerlink" title="看同目录下面的    GDB指定和修改搜素源码文件的路径（set substitute-path）.mht"></a>看同目录下面的    GDB指定和修改搜素源码文件的路径（set substitute-path）.mht</h1>
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/07/28/errno/" rel="next" title="errno">
+                <i class="fa fa-chevron-left"></i> errno
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/07/28/interpreter错误/" rel="prev" title="interpreter错误">
+                interpreter错误 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Semiyd</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives">
+                
+                    <span class="site-state-item-count">26</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">13</span>
+                    <span class="site-state-item-name">categories</span>
+                  </a>
+                </div>
+              
+
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#…"><span class="nav-number">1.</span> <span class="nav-text">…</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#1-0x0000000000400845-in-main-at-1-1-cpp-14"><span class="nav-number">2.</span> <span class="nav-text">#1  0x0000000000400845 in main () at 1.1.cpp:14</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#In-this-case-you-might-be-able-to-get-more-clarity-on-the-situation-by-using-a-tool-like-valgrind"><span class="nav-number">3.</span> <span class="nav-text">In this case, you might be able to get more clarity on the situation by using a tool like valgrind</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#l-6：如果我们进行Record操作，那么程序就会在test的start方法停留，然后可以进行参数的查看或者其他的操作。"><span class="nav-number">4.</span> <span class="nav-text">l  6：如果我们进行Record操作，那么程序就会在test的start方法停留，然后可以进行参数的查看或者其他的操作。</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#看同目录下面的-GDB指定和修改搜素源码文件的路径（set-substitute-path）-mht"><span class="nav-number">5.</span> <span class="nav-text">看同目录下面的    GDB指定和修改搜素源码文件的路径（set substitute-path）.mht</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Semiyd</span>
+
+  
+
+  
+</div>
+
+
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> v3.7.1</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://theme-next.org">NexT.Muse</a> v6.3.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+	
+    
+
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.3.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.3.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.3.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.3.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.3.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
