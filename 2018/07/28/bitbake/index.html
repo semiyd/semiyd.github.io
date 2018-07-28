@@ -1,0 +1,850 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.3.0" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.3.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.3.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.3.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.3.0" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '6.3.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="bitbake">
+<meta property="og:type" content="article">
+<meta property="og:title" content="bitbake">
+<meta property="og:url" content="http://yoursite.com/2018/07/28/bitbake/index.html">
+<meta property="og:site_name" content="Semiyd&#39;s Blog">
+<meta property="og:description" content="bitbake">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2018-07-28T06:40:02.131Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="bitbake">
+<meta name="twitter:description" content="bitbake">
+
+
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/07/28/bitbake/"/>
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>bitbake | Semiyd's Blog</title>
+  
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Semiyd's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br />Home</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+    <a href="/categories/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-th"></i> <br />Categories</a>
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/07/28/bitbake/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Semiyd">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Semiyd's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">bitbake
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2018-07-28 14:39:18 / Modified: 14:40:02" itemprop="dateCreated datePublished" datetime="2018-07-28T14:39:18+08:00">2018-07-28</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Linux/" itemprop="url" rel="index"><span itemprop="name">Linux</span></a></span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Linux/Application/" itemprop="url" rel="index"><span itemprop="name">Application</span></a></span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Linux/Application/Build/" itemprop="url" rel="index"><span itemprop="name">Build</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><center><strong>bitbake</strong></center><br><a id="more"></a><br>bitbake是一个任务执行引擎，基于python书写。<br>可以并行运行多个任务，并考虑到任务之间的依赖性限制<br>bitbake的运用就是用在openembedded里面，用来以task的方式，来编译嵌入式软件</p>
+<p>bitbake和makefile的大的功能上一致，都是用来编译代码。但细节上，bitbake的特点是：<br>1.bitbake基于metadata来执行任务。所谓metadata，就是在recipe (.bb), configuration (.conf), and class (.bbclass) 这三种文件中的指令。<br>    这些指令告诉bitbake，要执行哪些任务，任务间的依赖性如何<br>2.bitbake支持fetch的功能，也就是能够从某个网址比如git，来远程获取代码.获取代码以后，可以自动解压，打补丁。<br>3.对于每个软件包，其build的执行集，被称为recipe。recipe会包含编译所需的所有信息，比如依赖性，源代码地址，校验码，描述，等。在定位上类似于make系统的MakeFile</p>
+<p>Recipe文件详解：<br>    recipe以.bb作为文件后缀名。<br>    包含下面的内容：<br>    1.软件package的描述信息<br>    2.recipe版本信息<br>    3.存在的依赖关系<br>    4.源码位置<br>    5.源码是否要打补丁<br>    6.如何编译源码<br>    7.编译好的源码，安装到哪个位置<br>    recipe文件包含的一些常见元素有：<br>    SUMMERY<br>    DESCRIPTION<br>    HOMEPAGE<br>    LICENSE<br>    DEPENDS        依赖于哪个原件包。如果编译这个recipe，bitbake会保证先去编译其依赖的软件包。<br>    SRC_URI        这个目的是告诉bitbake从哪里下载软件源码    这里面如何涉及${PV}，意为package version。取自bb文件名里面的版本号。比如ethtool_2.6.36.bb。那么PV就是2.6.36</p>
+<pre><code>        同时SRC_URI里面，也可以指明，如果要打patch的话，patch文件是哪一个。patch文件通常放在meta/recipes-xxx/yyy-applicaiton/yyy-application-z.z/*.patch
+inherit autotools    告诉bitbake使用autotools.bbclass来编译整个代码。
+inherit gettext    支持localization
+inherit update-rc.d
+        意味着当前的软件，是个init阶段的daemon。
+        在后面，可以使用INITSCRIPT_NAME和INITSCRIPT_PARAMS来配置启动的脚本名称，运行级别等信息。
+inherit pkgconfig
+        用来定位当前软件包使用的库的位置        
+do_install
+    因为autotools已经包含了常用的步骤比如do_install
+    那么如果在recipe文件里面，再定义do_install，会覆盖autotool的默认do_install
+do_configure_prepend
+    这里面的内容，会被加在do_configure步骤之前执行。
+do_install_append
+    这里面的内容，会被加在do_install步骤之后执行。
+BBCLASSEXTEND
+</code></pre><p>Conf文件详解：<br>    conf文件以.conf作为文件的后缀名。<br>    负责配置各种选项，包括：<br>    1.machine configuration options<br>    2.distribution configuration options<br>    3.compiler tuning options<br>    4.general common configuration options<br>    5.user configuration options<br>    一些重要的conf文件包括<br>    1.build/conf/local.conf    能配置bitbake使用几个thread，MACHINE。等等<br>    2.build/conf/bblayer.conf    能配置要使用哪几个layer</p>
+<p>Class文件详解：<br>    class文件以.bbclass作为文件的后缀名。<br>    基类的名字是base.bbclass。在基类的基础上，可以扩展出新的类。<br>    class是针对个体recipe的总的管理。<br>    base.bbclass包含以下基本任务的定义：<br>    fetching, unpacking, configuring (empty by default), compiling (runs any Makefile present), installing (empty by default) and packaging (empty by default)</p>
+<p>Append文件详解：<br>    Append文件以.bbapend作为文件的后缀名。<br>    append文件，是针对任何已有的recipe文件，在它的基础上，再追加build信息。<br>    所以append文件，一定要有一个已有的recipe文件。<br>    命名方式是：<br>    xxx.bb的append文件应该命名为xxx.bbappend<br>    bbappend文件里面的内容，会覆盖掉原有的同名bb文件的内容。<br>    bbappend同时可以针对一批bb文件进行追加。格式是：<br>    busybox_1.21.%.bbappend<br>    这个文件会对以下的文件都生效：<br>    busybox_1.21.1.bb<br>    busybox_1.21.2.bb<br>        busybox_1.21.3.bb</p>
+<p>Include文件详解：<br>    Include files (.inc) are sometimes used to provide a common set of definitions, which can be customized for a particular version of the software.<br>    These files are included into a recipe using a ‘require’ command.<br>    在include文件里面，会包括PACKAGECONFIG的参数，用来配置包含哪些组件</p>
+<p>获取bitbake：<br>    git clone git://git.openembedded.org/bitbake</p>
+<p>bitbake参数：<br>     $ bitbake -h<br>     Usage: bitbake [options] [recipename/target …]</p>
+<pre><code>    Executes the specified task (default is &apos;build&apos;) for a given set of target recipes (.bb files).
+    It is assumed there is a conf/bblayers.conf available in cwd or in BBPATH which
+    will provide the layer, BBFILES and other configuration information.
+
+Options:
+  --version             show program&apos;s version number and exit
+  -h, --help            show this help message and exit
+  -b BUILDFILE, --buildfile=BUILDFILE
+                        Execute tasks from a specific .bb recipe directly.
+                        WARNING: Does not handle any dependencies from other
+                        recipes.
+  -k, --continue        Continue as much as possible after an error. While the
+                        target that failed and anything depending on it cannot
+                        be built, as much as possible will be built before
+                        stopping.
+  -a, --tryaltconfigs   Continue with builds by trying to use alternative
+                        providers where possible.
+  -f, --force           Force the specified targets/task to run (invalidating
+                        any existing stamp file).
+  -c CMD, --cmd=CMD     Specify the task to execute. The exact options
+                        available depend on the metadata. Some examples might
+                        be &apos;compile&apos; or &apos;populate_sysroot&apos; or &apos;listtasks&apos; may
+                        give a list of the tasks available.
+  -C INVALIDATE_STAMP, --clear-stamp=INVALIDATE_STAMP
+                        Invalidate the stamp for the specified task such as
+                        &apos;compile&apos; and then run the default task for the
+                        specified target(s).
+  -r PREFILE, --read=PREFILE
+                        Read the specified file before bitbake.conf.
+  -R POSTFILE, --postread=POSTFILE
+                        Read the specified file after bitbake.conf.
+  -v, --verbose         Output more log message data to the terminal.
+  -D, --debug           Increase the debug level. You can specify this more
+                        than once.
+  -n, --dry-run         Don&apos;t execute, just go through the motions.
+  -S DUMP_SIGNATURES, --dump-signatures=DUMP_SIGNATURES
+                        Dump out the signature construction information, with
+                        no task execution. Parameters are passed to the
+                        signature handling code, use &apos;none&apos; if no specific
+                        handler is required.
+  -p, --parse-only      Quit after parsing the BB recipes.
+  -s, --show-versions   Show current and preferred versions of all recipes.
+  -e, --environment     Show the global or per-package environment complete
+                        with information about where variables were
+                        set/changed.
+  -g, --graphviz        Save dependency tree information for the specified
+                        targets in the dot syntax.
+  -I EXTRA_ASSUME_PROVIDED, --ignore-deps=EXTRA_ASSUME_PROVIDED
+                        Assume these dependencies don&apos;t exist and are already
+                        provided (equivalent to ASSUME_PROVIDED). Useful to
+                        make dependency graphs more appealing
+  -l DEBUG_DOMAINS, --log-domains=DEBUG_DOMAINS
+                        Show debug logging for the specified logging domains
+  -P, --profile         Profile the command and save reports.
+  -u UI, --ui=UI        The user interface to use (e.g. knotty, hob, depexp).
+  -t SERVERTYPE, --servertype=SERVERTYPE
+                        Choose which server to use, process or xmlrpc.
+  --revisions-changed   Set the exit code depending on whether upstream
+                        floating revisions have changed or not.
+  --server-only         Run bitbake without a UI, only starting a server
+                        (cooker) process.
+  -B BIND, --bind=BIND  The name/address for the bitbake server to bind to.
+  --no-setscene         Do not run any setscene tasks. sstate will be ignored
+                        and everything needed, built.
+  --remote-server=REMOTE_SERVER
+                        Connect to the specified server.
+  -m, --kill-server     Terminate the remote server.
+  --observe-only        Connect to a server as an observing-only client.
+  --status-only         Check the status of the remote bitbake server.
+</code></pre><p>针对单一的recipe，执行一个任务：<br>    bitbake -b foo_1.0.bb<br>    如果要clean清空编译结果的话：<br>    bitbake -b foo.bb -c clean</p>
+<p>针对复杂的多任务多recipe编译的步骤：<br>    $ bitbake <target></target></p>
+<p>编译生成的镜像，在：<br>    build/tmp/deploy/images</p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/07/28/Arago/" rel="next" title="Arago">
+                <i class="fa fa-chevron-left"></i> Arago
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/07/28/Cmake-sysroot-setting/" rel="prev" title="Cmake sysroot setting">
+                Cmake sysroot setting <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Semiyd</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives">
+                
+                    <span class="site-state-item-count">35</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">16</span>
+                    <span class="site-state-item-name">categories</span>
+                  </a>
+                </div>
+              
+
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Semiyd</span>
+
+  
+
+  
+</div>
+
+
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> v3.7.1</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://theme-next.org">NexT.Muse</a> v6.3.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+	
+    
+
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.3.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.3.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.3.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.3.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.3.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
