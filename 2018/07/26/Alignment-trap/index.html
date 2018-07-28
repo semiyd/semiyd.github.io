@@ -1,0 +1,815 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.3.0" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.3.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.3.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.3.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.3.0" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '6.3.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="方法1：            gdb+gdb server调试：">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Alignment trap">
+<meta property="og:url" content="http://yoursite.com/2018/07/26/Alignment-trap/index.html">
+<meta property="og:site_name" content="Semiyd&#39;s Blog">
+<meta property="og:description" content="方法1：            gdb+gdb server调试：">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2018-07-26T13:40:56.429Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Alignment trap">
+<meta name="twitter:description" content="方法1：            gdb+gdb server调试：">
+
+
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/07/26/Alignment-trap/"/>
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>Alignment trap | Semiyd's Blog</title>
+  
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Semiyd's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br />Home</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+    <a href="/categories/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-th"></i> <br />Categories</a>
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/07/26/Alignment-trap/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Semiyd">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Semiyd's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Alignment trap
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2018-07-26 21:37:03 / Modified: 21:40:56" itemprop="dateCreated datePublished" datetime="2018-07-26T21:37:03+08:00">2018-07-26</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Linux/" itemprop="url" rel="index"><span itemprop="name">Linux</span></a></span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Linux/Application/" itemprop="url" rel="index"><span itemprop="name">Application</span></a></span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Linux/Application/调试/" itemprop="url" rel="index"><span itemprop="name">调试</span></a></span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Linux/Application/调试/Alignment-trap/" itemprop="url" rel="index"><span itemprop="name">Alignment trap</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>方法1：            gdb+gdb server调试：<br><a id="more"></a></p>
+<pre><code>[root@Honeywell /]# cat /proc/cpu/alignment
+User:           0
+System:         0
+Skipped:        0
+Half:           0
+Word:           0
+DWord:          0
+Multi:          0
+User faults:    2 (fixup)
+0 - ignore
+1 - warn
+2 - fixup
+3 - fixup+warn
+4 - signal
+5 - signal+warn (需要这个)
+
+echo 5 &gt; /proc/cpu/alignment
+然后用gdb调试，
+这样就会给内核一个SIGBUS信号。再在gdb下面重新运行出错的应用，
+gdb捕获到该信息,然后bt,查看出现问题的代码
+</code></pre><p>方法2：            arm-linux-gdb+core查看core dump：<br>    echo 5 &gt; /proc/cpu/alignment<br>    参考调试segmentation fault的方法<br>    alignment trap会产生SIGBUS，从而产生core文件，然后用arm-linux-gdb（交叉编译在板子上运行的）去查看，打where看哪里出错的。</p>
+<p>方法3：            增加编译的警告信息：<br>    编译时, 增加 -Wcast-align -Wpadded -Wpacked<br>        修正所有编译时出现的 Warning 如果程序代码不小, 那这可能会需要相当多的时间修正, 及重新编译, 有些地方 也可能修了之后, 打坏了原本的架构,<br>        而且, 这功能只能告诉你, “这样的程 式码, 有可能会发生这个问题”, 不保证能指出真正发生问题的地方.但仍然值得一试。</p>
+<p>方法4：            backtrace+addr2line：<br>    原理是，自定义一个signal handler，来处理SIGBUS信号。<br>    在这个signal handler里面，使用backtrack()函数。<br>    然后运行出错的app后，backtrace会打出出错的地址信息<br>    然后用addr2line把地址转换成行号，然后自己再去代码里面找对应的语句。(可以直接用交叉编译工具链里面的arm-linux-addr2line？)</p>
+<pre><code>echo 5 &gt; /proc/cpu/alignment
+</code></pre><p>需要利用 #include 里的 backtrace(). 如果 source code 分成很多 .c 或 .cpp 的话, 请找出 main() 所在的那个 档案来增加以下的 code, —————————————————————–<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">#include</span><br><span class="line">#include</span><br><span class="line">#include</span><br><span class="line">/* 此为 signal handler */</span><br><span class="line">static void catch_sig(int sig) &#123;</span><br><span class="line">void *trace[128];</span><br><span class="line">int n = backtrace(trace, sizeof(trace) / sizeof(trace[0]));</span><br><span class="line">backtrace_symbols_fd(trace, n, 1);</span><br><span class="line">exit(0);</span><br><span class="line">&#125;</span><br><span class="line">/* 此函式指定 SIGBUS 的 handler 为 catch_sig() */</span><br><span class="line">static void set_signals(void) &#123;</span><br><span class="line">struct sigaction act;</span><br><span class="line">sigemptyset(&amp;act.sa_mask);</span><br><span class="line">act.sa_flags = 0;</span><br><span class="line">act.sa_handler = catch_sig;</span><br><span class="line">sigaction(SIGBUS, &amp;act, NULL);</span><br><span class="line">&#125;</span><br><span class="line">/* 在你的 main() 的前头, 呼叫 set_signals() */</span><br><span class="line">int main() &#123;</span><br><span class="line">set_signals();</span><br><span class="line"> :</span><br><span class="line">:</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<hr>
+<p>编译时, 务必增加 -g -rdynamic 选项.<br>例: gcc -o prog -g -rdynamic prog.c</p>
+<p>重新编译及执行后, 若发生 Alignment trap, kernel 会送给这个 process 一个 SIGBUS 的 signal, 而我们在 set_signal() 里, 设定了收到 SIGBUS 时要执行 catch_sig(), 而在 catch_sig() 里,<br>我们利用 backtrace() 来 取得 stack frame 的地址之后, 用 backtrace_symbols_fd() 来印出比较 看得懂的信息 (但还是得配合 addr2line 来解读), 印出的内容看起来像是 以下这样:</p>
+<h1 id="prog"><a href="#prog" class="headerlink" title="./prog"></a>./prog</h1><p>./prog[0x8048743] –+—&gt; 前面这两行必指向 catch_sig(), 可以忽略 [0xffffe420] ——-+<br>./prog(func+0x1d)[0x804878c] –&gt; 问题发生在这里<br>./prog(main+0xa3)[0x804883d] –&gt; main() 呼叫了 func() /lib/i686/cmov/libc.so.6(__libc_start_main+0xe5)[0xb7e21455]<br>./prog[0x8048691]</p>
+<p>从这儿, 我们可以看到问题出现的地方在 func() 的 0x1d, 接下来, 下面 将介绍 addr2line 来更进一步解析问题出现的位置.</p>
+<ol start="3">
+<li>addr2line<br>addr2line 的用法很简单, 如下所示:<br>用法: addr2line -e 执行文件 -f 地址<br>承上例:<h1 id="addr2line-e-prog-f-0x804878c"><a href="#addr2line-e-prog-f-0x804878c" class="headerlink" title="addr2line -e prog -f 0x804878c"></a>addr2line -e prog -f 0x804878c</h1>func ———————&gt; 函式名称<br>/home/haha/prog.c:312 —-&gt; 档案及行数</li>
+</ol>
+<p>最后, 只要再注意一件事即可, 就是 312 这个行数, 还不是问题发生的正确位置, 要如何取得确切的位置呢? 假设以下内容为 prog.c 的一部份,<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">309 void func() &#123;</span><br><span class="line">310    unsigned char *data = (unsigned char *)malloc(16);</span><br><span class="line">-&gt; 311     struct st_bug *ptr = (struct st_bug *)data;</span><br><span class="line">* 312 printf(&quot;Hi, I am here\n&quot;);</span><br><span class="line">:</span><br><span class="line">387 &#125;</span><br></pre></td></tr></table></figure></p>
+<p>我们发现到, 刚才addr2line解析出来的行数是312, 但是问题其实不在312, 而是 311, 那是因为呼叫 function 时, 要把返回的地址记录在 Stack 里的缘故, 因此当程序执行到有问题的 311 行时,<br>process 会接到 kernel 送来的 SIGBUS, 然而, 在呼叫 signal handler – catch_sig() 前, 因为 catch_sig() 执行完后, 要回到的地址就是 312, 所以会先把 312 的地址 先存在 Stack 里,<br>再呼叫 catch_sig(), 而我们在 catch_sig() 里呼叫 backtrace() 时, 它只是忠实的告诉我们每一个 function 被呼叫时, Stack 里所预存的返回地址是什么而已.<br>(亦即每一个 stack frame 当时所纪录的 地址). 因此, addr2line 看到的行数, 需要上移一行, 才是真正问题发生的 地方. (在此例也就是指 311 行)</p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/07/26/随机数/" rel="next" title="随机数">
+                <i class="fa fa-chevron-left"></i> 随机数
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/07/28/errno/" rel="prev" title="errno">
+                errno <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Semiyd</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives">
+                
+                    <span class="site-state-item-count">24</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">13</span>
+                    <span class="site-state-item-name">categories</span>
+                  </a>
+                </div>
+              
+
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#prog"><span class="nav-number">1.</span> <span class="nav-text">./prog</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#addr2line-e-prog-f-0x804878c"><span class="nav-number">2.</span> <span class="nav-text">addr2line -e prog -f 0x804878c</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Semiyd</span>
+
+  
+
+  
+</div>
+
+
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> v3.7.1</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://theme-next.org">NexT.Muse</a> v6.3.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+	
+    
+
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.3.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.3.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.3.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.3.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.3.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
