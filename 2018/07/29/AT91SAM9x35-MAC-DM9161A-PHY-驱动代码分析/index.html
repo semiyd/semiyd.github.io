@@ -1,0 +1,852 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.3.0" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.3.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.3.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.3.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.3.0" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '6.3.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="基于kernel 2.6.39">
+<meta property="og:type" content="article">
+<meta property="og:title" content="AT91SAM9x35 MAC + DM9161A PHY 驱动代码分析">
+<meta property="og:url" content="http://yoursite.com/2018/07/29/AT91SAM9x35-MAC-DM9161A-PHY-驱动代码分析/index.html">
+<meta property="og:site_name" content="Semiyd&#39;s Blog">
+<meta property="og:description" content="基于kernel 2.6.39">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2018-07-29T02:41:54.698Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="AT91SAM9x35 MAC + DM9161A PHY 驱动代码分析">
+<meta name="twitter:description" content="基于kernel 2.6.39">
+
+
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/07/29/AT91SAM9x35-MAC-DM9161A-PHY-驱动代码分析/"/>
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>AT91SAM9x35 MAC + DM9161A PHY 驱动代码分析 | Semiyd's Blog</title>
+  
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Semiyd's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br />Home</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+    <a href="/categories/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-th"></i> <br />Categories</a>
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/07/29/AT91SAM9x35-MAC-DM9161A-PHY-驱动代码分析/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Semiyd">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Semiyd's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">AT91SAM9x35 MAC + DM9161A PHY 驱动代码分析
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2018-07-29 10:29:23 / Modified: 10:41:54" itemprop="dateCreated datePublished" datetime="2018-07-29T10:29:23+08:00">2018-07-29</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Linux/" itemprop="url" rel="index"><span itemprop="name">Linux</span></a></span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Linux/Kernel/" itemprop="url" rel="index"><span itemprop="name">Kernel</span></a></span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Linux/Kernel/驱动/" itemprop="url" rel="index"><span itemprop="name">驱动</span></a></span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Linux/Kernel/驱动/ethernet/" itemprop="url" rel="index"><span itemprop="name">ethernet</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><center><strong>基于kernel 2.6.39</strong></center><br><a id="more"></a></p>
+<p>硬件背景知识<br>MAC:<br>AT91SAM9x35 CPU的MAC模块功能包括：<br>RMII接口<br>支持10M/100M全双工<br>MAC模块内自带DMA<br>数据接收和发送完成均会产生中断<br>发送字节自动填充PAD，计算发送帧的CRC<br>发送接收均有FIFO 128字节（用户不可见）<br>专门的统计寄存器，用来提供以太网传输的统计数据<br>PHY：<br>使用的是DAVICOM的DM9161A。<br>RMII接口，10M/100M全双工<br>变量定义和数据结构<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">ek_macb0_data&#123;&#125;		定义MAC0是否是RMII，phy的irq引脚是哪个</span><br><span class="line">at91sam9x5_eth0_device&#123;&#125;	platform_device结构体</span><br><span class="line">eth0_resources&#123;&#125;		resource结构体</span><br><span class="line">eth0_data&#123;&#125;		等于ek_macb0_data&#123;&#125;，并被赋到platform_device-&gt;dev-&gt;platform_data</span><br><span class="line">eth0_dmamask		设备DMA能访问的内存范围（寻址范围），具体什么作用不明</span><br><span class="line">macb0_clk&#123;&#125;		网卡私有的自定义的clk结构体</span><br><span class="line">macb_driver&#123;&#125;		platform_driver结构体、</span><br><span class="line">ring_info&#123;&#125;</span><br><span class="line">struct ring_info &#123;</span><br><span class="line">	struct sk_buff		*skb;</span><br><span class="line">	dma_addr_t		mapping;</span><br><span class="line">&#125;;</span><br><span class="line">macb&#123;&#125;			网卡私有的自定义结构体</span><br><span class="line">struct macb &#123;</span><br><span class="line">	void __iomem		*regs;	存放映射过的寄存器的虚拟地址</span><br><span class="line">	unsigned int		rx_tail;	</span><br><span class="line">	struct dma_desc		*rx_ring;	DMA接收描述符虚拟地址</span><br><span class="line">	void			*rx_buffers;	DMA接收缓冲区虚拟地址</span><br><span class="line">	unsigned int		tx_head, tx_tail;	环形缓冲区的序号，比如1，2，3，表示在缓冲区里的位置</span><br><span class="line">	struct dma_desc		*tx_ring;	DMA发送描述符虚拟地址</span><br><span class="line">	struct ring_info	*tx_skb;	发送用的sk_buff&#123;&#125;</span><br><span class="line">	spinlock_t		lock;	自旋锁</span><br><span class="line">	struct platform_device	*pdev;	指向MAC的platform_device</span><br><span class="line">	struct clk		*pclk;	指向pclk结构体，无实际作用。</span><br><span class="line">	struct clk		*hclk;	无实际作用。</span><br><span class="line">	struct net_device	*dev;	指向net_device结构体</span><br><span class="line">	struct napi_struct	napi;	指向napi结构体</span><br><span class="line">	struct net_device_stats	stats;	网络统计数据信息结构体net_device_stats，如发了几个包收了几个包等</span><br><span class="line">	struct macb_stats	hw_stats;	配合上面的net_device_stats使用，涉及后面统计信息API的具体再看</span><br><span class="line">	dma_addr_t		rx_ring_dma;	DMA接收描述符物理地址</span><br><span class="line">	dma_addr_t		tx_ring_dma;	DMA发送描述符物理地址</span><br><span class="line">	dma_addr_t		rx_buffers_dma;	DMA接收缓冲区物理地址</span><br><span class="line">	unsigned int		rx_pending, tx_pending;	固定的值，没什么用</span><br><span class="line">	struct mii_bus		*mii_bus;		指向mii_bus&#123;&#125;结构体</span><br><span class="line">	struct phy_device	*phy_dev;		指向phy_device&#123;&#125;结构体</span><br><span class="line">	unsigned int 		link;	连接状态，up还是down。</span><br><span class="line">	unsigned int 		speed;	连接速度，10M 100M</span><br><span class="line">	unsigned int 		duplex;	全双工半双工</span><br><span class="line">&#125;;</span><br><span class="line">macb_netdev_ops&#123;&#125;	net_device的net_device_ops定义</span><br></pre></td></tr></table></figure></p>
+<p>有关数据发送部分的涉及的数据结构的说明：<br>在macb{}里面，和发送数据有关的数据结构有：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">unsigned int		tx_head, tx_tail;	环形缓冲区的序号，比如1，2，3，表示在缓冲区里的位置</span><br><span class="line">struct dma_desc		*tx_ring;		DMA发送描述符虚拟地址</span><br><span class="line">struct ring_info		*tx_skb;		包含指向sk_buff&#123;&#125;的指针，还有skb-&gt;data的映射出的DMA的物理地址</span><br><span class="line">dma_addr_t		tx_ring_dma;	DMA发送描述符物理地址</span><br><span class="line">unsigned int		tx_pending;	目前写死为127</span><br></pre></td></tr></table></figure></p>
+<p>总体来说，发送数据结构由两部分组成。<br>一部分是内存里面的存放发送数据缓冲(Transmit Buffer)，实际上就是sk_buff{}的data成员的物理地址。另一部分是一系列DMA描述符入口(Transmit BufferQueue，也称为descriptor entries)，这些入口会指向sk_buff{}的data成员的物理地址，这个描述符实际上是一个环形缓冲区，每个单元里面同时包含了地址和控制信息，用来管理数据，64bit一个单元。如下图所示意：</p>
+<p>此处的struct dma_desc，就是DMA描述符，包含了地址和控制字两部分。对于dma_desc的细节，在SAM9X35 reference manual.pdf的Table 45-2，每个bit的含义有详细的解释。描述符一共是64bit.<br>第一个32个bit是DMA的取发送的数据的缓冲的地址<br>第二个32个bit，每个bit都有自己的含义。包括长度bit[10:0]，是否是最后的buffer bit[15]，是否绕回wrap bit[30]，是否被DMA使用过used bit[31]等。<br>有关数据接收部分的涉及的数据结构的说明：<br>在macb{}里面，和接收数据有关的数据结构有：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">unsigned int		rx_tail;	</span><br><span class="line">struct dma_desc		*rx_ring;		DMA接收描述符虚拟地址</span><br><span class="line">void			*rx_buffers;	DMA接收缓冲区虚拟地址</span><br><span class="line">dma_addr_t		rx_ring_dma;	DMA接收描述符物理地址</span><br><span class="line">dma_addr_t		rx_buffers_dma;	DMA接收缓冲区物理地址</span><br><span class="line">unsigned int		rx_pending;	未使用</span><br></pre></td></tr></table></figure></p>
+<p>总体来说，接收数据结构由两部分组成。<br>一部分是内存里面的存放发送数据缓冲(Receive Buffer)，这个是由dma_alloc_coherent()在macb_open()-&gt;macb_alloc_consistent()的时候分配好的。大小是512个x每个128字节（一个正常的以太网帧不会超过128字节，所以这里设定的是128字节。另外CPU的DMA硬件上最多支持到1024个描述符，这里的512用了其中一半的容量）。另一部分是一系列DMA描述符入口(Transmit BufferQueue，也称为descriptor entries)，这些入口会指向sk_buff{}的data成员的物理地址，这个描述符实际上是一个环形缓冲区，每个单元里面同时包含了地址和控制信息，用来管理数据，64bit一个单元。如下图所示意：</p>
+<p>此处的struct dma_desc，就是DMA描述符，包含了地址和控制字两部分。对于dma_desc的细节，在SAM9X35 reference manual.pdf的Table 45-1，，每个bit的含义有详细的解释。描述符一共是64bit.<br>第一个32个bit：bit[31:2]是缓冲区地址。bit[1]是wrap位，标记是不是当前的缓冲是整个环形缓冲的最后一个，bit[0]是所有权，1表示给软件，0表示可以再次给DMA操作。DMA操作完会把它置1，软件读完则把这个bit清零。如果DMA要操作之前发现是1也就是还没被软件读过，则要产生报错的中断。<br>第二个32个bit：每个bit都有自己的含义。<br>bit[15]End of Frame，帧结束标志<br>bit[14]Start of Frame，帧开始标志<br>和发送的数据结构的区别：没有tx_skb,没有tx_head，原因是：<br>tx_skb首先他是保存了sk_buff{}的地址和dma_map_single()后得到的虚地址。其作用相当于临时保存了sk_buff{}的这两个地址，以便其他地方可以使用。具体的说就是：<br>sk_buff{}用dma_map_single()产生的映射关系，在macb_tx()里面，发送收尾工作的时候，需要用dma_unmap_single()取消映射，这就要用到sk_buff{}的长度和虚拟地址。另外macb_close()关闭网卡的时候也涉及用dma_unmap_single()取消sk_buff{}映射。<br>而接收数据不需要直接把sk_buff{}的地址映射成dma用的物理地址。（因为用作接收的DMA是从FIFO直接搬运数据到receive buffer，再直接拷入自己分配出来的sk_buff{}）<br>tx_head没有的原因，是因为对于接收数据的情况，往缓冲区里面写数据的指针（也就是相当于发送数据的tx_head），是由DMA硬件完成的，所以DMA本身会保存有这种指针的信息，但是没有寄存器的接口可以看到，也不用去知道DMA的这个写的指针的位置。<br>初始化<br>MII部分<br>mii_bus{}注册<br>对MII总线的一个抽象，包含了MDIO的操作函数，MII总线上挂载的PHY的信息等。<br>mii_bus{}从结构体的成员来看，是属于device的。定义位于kernel的PHY子系统的phy.h。<br>    先通过mdiobus_alloc()分配一个mii_ bus{}<br>定义read,write,reset的具体的操作函数。（通过MDIO操作）这些读写操作函数，在后续的mdiobus_scan()注册phy设备的时候，会把mii_bus{}直接传递进去调用<br>调用mdiobus_register()注册mii_bus{}，这个函数最终还是用device_register()来注册mii_bus{}。<br>不过和一般的device不同的是，这个mii_bus{}没有bus成员，也不会被和任何device_driver相匹配。所以我实际试下了，其实即使没有用device_register()来注册，也不影响网卡的工作的。给人感觉就是PHY子系统内部使用的结构体。<br>PHY部分<br>phy_device {}注册<br>    这块没有现成的静态的phy_device结构体事先定义。<br>是在mdiobus_register()里面扫描mdio总线的时候，最后通过phy_device_create()动态生成的。<br>phy_driver{}注册 <br>这块是独立于本文关注的MAC部分驱动的另外的驱动模块。所以有自己的module_init()。用到了很多linux的PHY子系统的API。<br>module_init(davicom_init)<br>phy_driver_register()注册事先定义好的phy_driver{}结构体。<br>这个phy_driver{}结构体里面，需要事先定义的成员有：<br>phy_id：后面mdiobus_register()扫描mdiio总线匹配id的时候要用<br>name：phy的名字字符串<br>features：功能组合，一般选PHY_BASIC_FEATURES<br>config_init()：phy的初始化配置<br>config_aneg(): phy的速度双工，自动协商设定<br>read_status():phy读取连接状态<br>以上的函数有通用的版本可以直接使用。如genphy_read_status。<br>另外，所有的phy_driver的probe,remove,bus成员都是固定的通用的函数，没法自定义也不需要自定义。<br>系统初始化的时候，除了用户自己的phy驱动，还会自己注册一个通用的叫genphy_driver的phy_driver。后面会提到用处。</p>
+<p>总来的说，phy这部分的配置操作，不同的芯片之间，是比较通用的。kernel提供了如phy_state_machine()这种通用接口，具体的芯片只要填充注册phy_driver{}结构体就可以。<br>参见Documentation\networking\ phy.txt<br>MAC部分<br>platform_device 注册<br>调用在MACHINE_START里面定义的.init_machine= ek_board_init<br>ek_board_init<br>at91_add_device_eth(0, &amp;ek_macb0_data);<br>    初始化MII接口所涉及的gpio（根据ek_macb0_data{}这个platform_data里面的信息）<br>    at91_clock_associate()<br>（由mach-at91文件夹里的clock.h自定义的一系列clock相关API）clk_get把macb0_clk这个clock结构体，clock的func成员赋值为”macb_clk”，clock的dev成员赋值为platform_device的device。<br>具体的操作clock的作用是什么？<br>首先尝试把clk-&gt;function = func;和clk-&gt;dev = dev;，随便哪句注掉，都会导致kernel无法启动。如果两句话同时注掉，则会没有eth0设备了。说明是必须的。<br>下面来具体分析下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">struct clk *clk = clk_get(NULL, id);</span><br><span class="line">at91_clock_associate()代码里一上来就是用clk_get()来获取id名为&quot;macb0_clk&quot;的clk结构体。</span><br><span class="line">		而这个clk结构体，声明如下：</span><br><span class="line">struct clk &#123;</span><br><span class="line">	struct list_head node;</span><br><span class="line">	const char	*name;		/* unique clock name */</span><br><span class="line">	const char	*function;	/* function of the clock */</span><br><span class="line">	struct device	*dev;		/* device associated with function */</span><br><span class="line">	unsigned long	rate_hz;</span><br><span class="line">	struct clk	*parent;</span><br><span class="line">	u32		pmc_mask;</span><br><span class="line">	void		(*mode)(struct clk *, int);</span><br><span class="line">	unsigned	id:3;		/* PCK0..4, or 32k/main/a/b */</span><br><span class="line">	unsigned	type;		/* clock type */</span><br><span class="line">	u16		users;</span><br><span class="line">&#125;;</span><br><span class="line">static struct clk macb0_clk = &#123;</span><br><span class="line">		.name		= &quot;macb0_clk&quot;,</span><br><span class="line">		.pmc_mask	= 1 &lt;&lt; AT91SAM9X5_ID_EMAC0,</span><br><span class="line">		.type		= CLK_TYPE_PERIPHERAL,</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<p>是由setup_arch() -&gt; paging_init() -&gt; devicemaps_init()-&gt;cm_map_io ()（由MACHINE_START定义）-&gt;at91sam9x5_initialize()-&gt;at91sam9x5_register_clocks()-&gt; clk_register(&amp;macb0_clk)所注册的。<br>if (!dev || !clk || !IS_ERR(clk_get(dev, func)))<br>        return;<br>如果dev是NULL，或者clk是NULL，或者是IS_ERR所判断出来的错误指针，就直接返回。<br>clk-&gt;function = func;<br>clock的function成员赋值为”macb_clk”<br>根据刚才的struct clk定义，function成员其实只是一个字符串的常量，不是真的什么函数名。这个function的名字，后来的macb_probe()里面的clk_get()用到了（也是唯一一处用到的地方），作用是寻找匹配到正确的clk结构体。所以这就解释了，如果先前做试验的时候，不给这个function赋值的话，macb_probe()就不会成功，后续的clk_enable()等初始化也无法进行。<br>clk-&gt;dev = dev;<br>clock的dev成员赋值为platform_device的device。<br>这个clk-&gt;dev，和上面的function一样，也是唯一一处用到了，在macb_open()里面的clk_get()用到了。<br>所以就是，这个function”macb_clk”其实和name成员也就是”macb0_clk”作用是一样的，都是用来取出所想要的clk结构体。根据arch\arm\mach-at91\clock.c里面clk_get()函数的设计，取出clk结构体的方式有两个：1.提供正确的name成员。2.提供正确的function，且提供正确的dev成员。至于为什么这样设计，不清楚。<br>尝试了下，不赋值dev或者function的话，会死在booting kernel后就没信息了，为什么？<br>原因是at91_clock_associate()不只是以太网驱动使用，很多别的驱动也用。你这样一改，所有驱动的clk的dev或者function都没了，导致kernel不能启动。其实如果仅仅是去除at91_add_device_eth()所调用的at91_clock_associate()，只会导致probe的时候找不到clk结构体而无法完成初始化。<br>所以at91_clock_associate()这个函数的作用，就是取出先前注册的macb0_clk这个clk结构体，并且更新function和dev成员。这两个成员在后续的macb_probe()函数里面，用clk_get()的时候会用到的，用来取出macb0_clk这个clk结构体。基本上来说可以说是多此一举，因为仅通过clk的name成员一样可以找到clk结构体。<br>platform_device_register()注册platform_device{}（同时会注册自定义的私有的platform_data）</p>
+<p>platform_driver注册<br>module_init(macb_init)<br>platform_driver_probe()<br>macb_probe()（上面注册的probe()函数）<br>platform_get_resource()取得resource<br>alloc_etherdev()分配net_device{}结构体，并将一个自定义的私有的驱动结构体macb{}的大小传入，这样分配的时候可以一并分配。<br>SET_NETDEV_DEV把分配到的net_device{}的parent成员指向platform_device，用于生成sysfs链接<br>因为上面alloc_etherdev()的时候，已经把自定义的私有的驱动结构体macb{}的空间分配出来了，把macb{}的platform_device成员赋值为probe的入参传入进来的platform_device。并且把macb{}的net_device成员赋值为刚刚分配出来的这个net_device{}。<br>初始化spinlock.<br>clk_get获取clock, clk_enable使能clock（但实际上什么都没做。因为macb0_clk{}的mode函数未定义）<br>ioremap()映射虚拟内存地址<br>platform_get_irq()从resource里面得到irq中断号<br>request_irq()注册中断回调函数macb_interrupt().<br>net_device{}的net_device_ops被赋值定义好的给相应的操作函数（具体这里是macb_netdev_ops）<br>netif_napi_add()加入NAPI支持，注册poll函数<br>net_device{}的ethtool_ops被赋值定义好的给相应的操作函数（具体这里是macb_ethtool_ops）<br>    net_device{}的base_addr被赋值resource里面取出来的起始地址（物理地址）<br>clk_get_rate()获取PCLK的频率。（macb0_clk{}并未直接定义这个频率，但是clk_get_rate()会遍历macb0_clk{}的父节点，一路往上查祖宗十八代，查到有一个总clk结构体有这个频率信息为止）<br>    根据PCLK的频率来配置NCFGR（Network Configuration Register）<br>读取cpu的MAC地址寄存器EMAC_SA1B和EMAC_SA1T，然后把地址写入net_device{}的dev_addr成员。<br>通过platform_data里面包含的是否是RMII的信息，来配置相应的寄存器EMAC_USRIO<br>私有的驱动结构体macb{}的tx_pending成员赋值为DEF_TX_RING_PENDING也就是127。<br>register_netdev()注册net_device{}<br>macb_mii_init()（所有mii和phy相关的初始化）<br>    EMAC_NCR的MPE位使能MDIO<br>    mdiobus_alloc()分配一个mii_bus{}结构体，放到私有结构体macb{}里面去<br>    注册mii_bus{}的操作函数，读写，reset函数。<br>    分配了32个字节的空间给mii_bus-&gt;irq，并把32个字节每个都赋为-1.<br>        作用是声明mii总线是没有中断驱动的。<br>    mdiobus_register()（注册mii_bus{}和phy_device{}）<br>包含device_register()先注册mii_bus{}设备<br>mdiobus_scan()（扫描phy并注册phy_device{}）<br>    get_phy_device()<br>        get_phy_id()<br>用过get_phy_id()调用刚刚注册的mii_bus{}的读操作函数来获取phy的id，<br>                    phy_device_create()<br>基于刚刚取得的phy_id，创建phy_device{}。初始化成员例如bus为mii_bus{}，dev.bus为mdio_bus_type。<br>INIT_DELAYED_WORK初始化phy的状态机phy_state_machine()，将来一秒运行一次维护状态机<br>request_module直接加载名为<br>    mdio:”phy_id组成的bit”的模块。<br>试了下注掉这句request_module，网卡还是可以正常工作的。实际上在rootfs下搜mdio*，也没找到这种命名的模块。具体为什么要这样做不清楚。<br>                phy_device_register()<br>使用新创建的phy_device{}赋值给mii_bus-&gt;phy_map。最后用device_register()注册phy_device{}设备，来和之前已注册的phy_driver也就是dm9161_driver{}的phy_id成员匹配。这里和一般的比如platform_device和platform_driver的注册顺序是反的。platform是先注册device，后注册driver，最后probe。device_register()具体是怎么通过phy_id匹配的？其实device_register()里面，会调用到device_attach()，这个函数的作用就是，如果device的driver成员存在，就绑定device和driver；如果driver成员不存在，也就是现在的情况，则遍历bus。对于phy 来说，之前phy_driver注册的时候，就把自己挂到mdio_bus_type这个bus类型，这和phy_device的dev.bus类型是一致的，所以以此为依据，尝试两步的方法来探测。首先是调用bus注册的match函数。具体到这里就是mdio_bus_match()。这个match就是对phy_id进行匹配的地方了。然后调用phy_driver的phy_probe()来探测。（这个phy_probe()是phy子系统的通用函数，不是自己写的）<br>macb_mii_probe()（绑定net_device{}和phy_device{},初始化phy）<br>phy_find_first()（在mii_bus-&gt;phy_map[addr]遍历刚刚注册的phy_device{}）<br>phy_connect_direct()<br>    phy_attach_direct()（绑定net_device{}和phy_device{}，初始化phy）<br>如果之前mdiobus_register()中，执行device_register()时候，phy_id不匹配，还会发现kernel还会继续调用phy_probe()探测，是因为：phy_connect_direct()会调用phy_attach_direct(),而这个函数会检查，如果phy_device的driver成员为空，就分配一个通用的phy_driver给他：也就是genphy_driver这个driver.而genphy_driver的probe函数，也是phy_probe()这个通用函数。（之前提到所有的phy_driver的probe都是同一个phy_probe()）。<br>所谓绑定，就是把net_device{}和phy_device{}的相关成员互。相指向对方<br>        phy_device-&gt;attached_dev = net_device;<br>        net_device-&gt;phydev = phy_device;<br>phy_device-&gt;interface = RMII或者MII;<br>phy_device-&gt;state = PHY_READY;<br>另外这个phy_attach_direct()还会调用phy_init_hw()，最终会调用phy_driver{}事先注册好的config_init()来对phy进行初始化。<br>phy_prepare_link()<br>注册回调函数macb_handle_link_change()来处理link up和link down<br>phy_start_machine()<br>用schedule_delayed_work启动phy_device{}的状态机，一秒维护一次状态。一直循环运行下去。<br>phy_start_interrupts()<br>注册有关phy的中断。具体这个phy芯片没有中断的，不注册中断。<br>platform_set_drvdata()把net_device{}作为私有成员赋值进platform_device。<br>macb_open()    （ifconfig eth0 up会调用的初始化）<br>macb_open()属于net_device{}的net_device_ops的ndo_open方法。在MAC的platform_driver  probe()的时候被注册。当用户用比如ifconfig  eth0  up这个命令的时候，该命令(ioctl()的SIOCSIFFLAGS命令)通过dev_change_flags()调用dev_open()，最终会调用到ops-&gt;ndo_open()，也就是macb_open()<br>具体实现了：<br>用netdev_priv()取出私有的macb{}结构体。<br>检查MAC地址是否有效<br>macb_alloc_consistent()（分配一堆DMA使用的内存，能保证分配到物理上连续的内存）<br>kmalloc分配macb-&gt;tx_skb    用于发送的128个的sk_buff{}的地址和128个mapping地址<br>dma_alloc_coherent分配macb-&gt;rx_ring        512个dma_desc大小的DMA描述符，返回虚拟地址传给macb-&gt;rx_ring，物理地址传给macb-&gt;rx_ring_dma<br>dma_alloc_coherent分配macb-&gt;tx_ring        128个dma_desc大小的DMA描述符，返回虚拟地址传给macb-&gt;tx_ring，物理地址传给macb-&gt;tx_ring_dma<br>dma_alloc_coherent分配macb-&gt;rx_buffers    512x128字节大小的DMA缓冲区内存空间，返回虚拟地址传给macb-&gt;rx_buffers，物理地址传给macb-&gt;rx_buffers_dma<br>napi_enable()使能NAPI支持。<br>macb_init_rings()（初始化环形缓冲区）<br>接收环形缓冲区的大小是512x128=64KB.一共512个单元，每个单元128个字节。<br>每个单元分配一个rx_ring描述符。每个描述符的addr指向相应的接收缓冲区单元的首地址。<br>这样rx_ring描述符的序号就是0~511号。<br>第511号的rx_ring描述符的addr，bit0置1.（MACB_RX_WRAP_OFFSET）。因为这是最后一个单元格，所以要给个wrap标志位。<br>把128个tx_ring描述符的addr全部置0.并且把ctrl的bit32全部置1.tx_ring的addr成员这里先初始化为0，后面真正xmit的时候会被赋成sk_buff{}-&gt;data的物理地址的。<br>把127号的tx_ring描述符的ctrl的bit30置1.<br>rx_tail，tx_head，tx_tail都置0.<br>macb_init_hw()（初始化MAC硬件寄存器）<br>    macb_reset_hw()<br>        wmb()禁止乱序和保证对内存的volatile访问<br>        EMAC_NCR寄存器关闭RX和TX。<br>        EMAC_NCR寄存器清除统计信息。<br>        EMAC_TSR清除发送的Transmit Status<br>        EMAC_RSR清除接收的Receive Status<br>        EMAC_IDR关中断<br>        EMAC_ISR读取一下中断状态（读了就清零了）<br>    __macb_set_hwaddr()<br>根据之前macb_probe()的时候macb_get_hwaddr得到的MAC地址，把这个地址取出来写入EMAC_SA1B和EMAC_SA1T寄存器<br>        设置EMAC_NCFGR网络配置寄存器<br>            PAuse Enable，Discard Rx FCS，Receive oversized frames<br>            根据net_device{}的flag标志，决定是否Copy All Frames和No BroadCast<br>                这个flag在哪里设置的？<br>        把刚刚分配的rx_ring_dma和tx_ring_dma分别写入EMAC_RBQP和EMAC_TBQP<br>        往EMAC_NCR网络控制寄存器使能TX和RX<br>        开启中断EMAC_IER寄存器。包括这些中断的bit位：<br>(MACB_BIT(RCOMP)<br>                  | MACB_BIT(RXUBR)<br>                  | MACB_BIT(ISR_TUND)<br>                  | MACB_BIT(ISR_RLE)<br>                  | MACB_BIT(TXERR)<br>                  | MACB_BIT(TCOMP)<br>                  | MACB_BIT(ISR_ROVR)<br>                  | MACB_BIT(HRESP)));<br>    phy_start()<br>把phy_device{}的state状态机更改为PHY_UP或者PHY_RESUMING或者PHY_PENDING。这个状态机在phy_state_machine()里面有自动维护。<br>netif_start_queue()<br>    告诉协议层，使能传输队列</p>
+<p>数据发送流程<br>参考45.4.2.3 Transmit Buffer<br>macb_start_xmit()    一次发送一帧以太网帧，也就是一个sk_buff{}，大小取决于sk_buff{}-&gt;len<br>这个发送函数的原型来自于net_device{}-&gt;net_device_ops{}的成员。<br>netdev_tx_t(<em>ndo_start_xmit) (struct sk_buff </em>skb,struct net_device *dev);<br>入参有两个，一个是sk_buff{}，一个是net_device{}.<br>具体流程如下：<br>取出sk_buff{}的len成员。<br>spin_lock_irqsave()关中断获取macb{}结构体的spinlock<br>TX_BUFFS_AVAIL()检查是否如果发送的buff已满，如果已满：<br>    netif_stop_queue告诉协议层，停止传输队列<br>    spin_unlock_irqrestore释放锁<br>    返回NETDEV_TX_BUSY错误码。<br>    具体如何判断发送buff已满？<br>    TX_BUFFS_AVAIL()是个宏定义，展开后如下：<br>    (((bp)-&gt;tx_tail &lt;= (bp)-&gt;tx_head) ?            \<br>     (bp)-&gt;tx_tail + (bp)-&gt;tx_pending - (bp)-&gt;tx_head :    \<br>     (bp)-&gt;tx_tail - (bp)-&gt;tx_head - (TX_RING_SIZE - (bp)-&gt;tx_pending))<br>    这里的bp实际的参数就是macb{}结构体。<br>    这里的tx_head，应该就是环形缓冲区的写指针，tx_tail是读指针。<br>    根据环形缓冲区原理，tx_head=tx_tail,意味着缓冲区是空的。<br>当tx_head&gt;tx_tail，意味着缓冲区有数据，tx_head还没翻转过来到达tx_tail的尾部。<br>当tx_head&lt;tx_tail，则意味着快要追上tx_tail了。<br>为了理解这个宏，先看一个比这个结构简单一些的宏。<br>我看了8139cp.c里面定义的，TX_BUFFS_AVAIL()，是很明显的返回环形缓冲区的可以用空间个数。<br>#define TX_BUFFS_AVAIL(CP)                    \<br>    (((CP)-&gt;tx_tail &lt;= (CP)-&gt;tx_head) ?            \<br>      (CP)-&gt;tx_tail + (CP_TX_RING_SIZE - 1) - (CP)-&gt;tx_head :    \<br>      (CP)-&gt;tx_tail - (CP)-&gt;tx_head - 1)</p>
+<p>&emsp;如上图所示。<br>&emsp;&emsp;那么此处的TX_BUFFS_AVAIL()如何理解？<br>此处的TX_BUFFS_AVAIL()，其实和8139cp.c里面的那个作用一样的，都是返回环形缓冲区可用大小。因为tx_pending这个成员，只在macb_probe()的时候被初始化为127了，后来就没人改过了。所以导致这个宏其实和8139cp.c里面的那个作用一模一样的。<br>把bp-&gt;tx_head（开机状态的时候为0）赋值给entry变量。<br>dma_map_single（用来把sk_buff{}的data指针映射成dma使用的物理地址）<br>    函数原型：<br>    dma_map_single(struct device <em>dev,void </em>buffer,size_t size,<br>enum dma_data_direction direction)<br>    这个函数的入参有：<br>    <em>dev:被赋为网卡的platform_device的device
+    </em>buffer: macb_start_xmit()传进来的sk_buff{}的data指针<br>    size: macb_start_xmit()传进来的sk_buff{}的len<br>    direction: DMA_TO_DEVICE也就是从内存到设备<br>    这个函数返回总线地址，可以用来传递给设备。</p>
+<p>macb{}-&gt;tx_skb[tx_head].skb 被赋值为macb_start_xmit()传进来的sk_buff{}（开机状态的时候entry=0）<br>macb{}-&gt;tx_skb[tx_head].mapping被赋值为刚刚dma_map_single返回的总线地址<br>以上两步，更新了tx_skb成员，这个成员其实包含指向sk_buff{}的指针，以及skb-&gt;data的物理地址。<br>需要发送的数据长度，是sk_buff{}的len，这个值被赋值到ctrl控制字的bit[10:0]里面。<br>将ctrl字的last buffer的标志位置位<br>根据是否绕回决定要不要置位ctrl的wrap bit。<br>具体可以参考此文档前面变量定义和数据结构部分对ctrl字的解释。<br>macb{}-&gt;tx_ring[tx_head].addr被赋值为刚刚dma_map_single返回的skb-&gt;data的总线地址<br>macb{}-&gt;tx_ring[tx_head].ctrl这个DMA描述符的控制字，根据sk_buff{}的len和是否tx_head在环形缓冲区已经折回进行修改。具体生成ctrl的方法如下：<br>    ctrl = (((len) &amp; ((1 &lt;&lt;11) - 1))&lt;&lt;0)<br>    ctrl |= (1 &lt;&lt;15)<br>    if (entry == (TX_RING_SIZE - 1))如果tx_head到顶了。<br>        ctrl |= (1 &lt;&lt;30)<br>    不过基本上应该是就len和是否折回在ctrl里面做相应的标记位。<br>以上两步，描述符的更新就完成了。</p>
+<p>wmb为访问寄存器做准备。<br>entry往前加1<br>tx_head也加1，但tx_tail保持不动。也就是相当于写指针往前走一格，读指针还没动。<br>配置Network Control Register，也就是EMAC_NCR，置位bit9，含义是TSTART: Start transmission<br>为什么发送函数需要环形缓冲区？还要用TX_BUFFS_AVAIL检查？发送不就是直接发了就完了？<br>这个问题涉及，tx_tail在哪里使用了？因为刚刚看到xmit里面，tx_head确实是使用了（++了），但这个函数里面没有用tx_tail。而具体用到这个tx_tail的地方，就是macb_tx()。当有数据要发送的时候，先移动的是tx_head。在发送完以后，产生中断，在中断里面，macb_tx()会检查发送的状态，如果成功发送的话，再把tx_tail追上tx_head。有可能是，xmit这种函数，会执行的很快，但实际DMA发送却很慢，所以在连续发送的情况下，tx_head会领先tx_tail很多的。（需要实际用一个app来验证一下这个观点）在发送完成以后，macb_tx()里面的会慢慢把tx_tail追上来的。所以总之需要一个环形的缓冲来管理这个发送的数据流。对于单次ping的应用，根据打印出的消息，可以看到每次调用xmit发送，tx_tail和tx_head都同时+1，且都相等（所以表明发送环形缓冲是空的），因为发送的很慢。<br>怎么没看到具体开启DMA的操作？<br>    驱动里面并没有直接操作DMA的指令，应该是这个DMA是MAC内置的，所以开始发送bit被置位，就是启动了内置的DMA。<br>DMA取数据，从哪里取？取的长度多少？<br>    从哪里取：tx_ring_dma这个物理地址<br>    长度：长度就是sk_buff{}的len，被放在ctrl控制字里面。<br>    以上的信息的物理地址在macb_open()的时候已经早已写进EMAC_TBQP寄存器了。<br>macb_interrupt()中有关发送的部分<br>    读取中断状态寄存器EMAC_ISR<br>    获取spinlock<br>如果是Transmit Complete，Transmit Buffer Underrun，Retry Limit Exceeded这三种中断，调用macb_tx()<br>继续读EMAC_ISR，如果不为0，说明还有中断，知道读的EMAC_ISR为0为止<br>释放spinlock<br>返回IRQ_HANDLED<br>macb_tx()<br>    读取EMAC_TSR发送状态寄存器<br>    把读出的东西在原样写进发送状态寄存器里面（用来清除EMAC_TSR的状态，这个寄存器就是这样设计的，某个位写1，就是清零的效果。后面的EMAC_RSR也是类似）<br>    此时读出的EMAC_TSR分3种情况处理。<br>1.就如刚刚在macb_interrupt()里面所提到，如果现在是Transmit Buffer Underrun或Retry Limit Exceeded的情况：<br>    Transmit Buffer Underrun意思是发送DMA没能从内存把数据读走。<br>    Retry Limit Exceeded意思是尝试次数超出范围了。(CPU spec未对这个bit详细解释)<br>    如果目前传输正在进行(bit3 TGO为1)<br>对EMAC_NCR控制寄存器的bit3 TE 也就是transmit enable位清零，也就是停止发送。目的是to avoid confusion<br>所有128个tx_ring[].ctrl的控制字都置位bit31也就是USED.这个bit31，正常情况下，应该是由EMAC硬件在传输成功以后自动置1的。此处置1是为了避免发出去a lost buffer。<br>tx_tail此时会在tx_head后方。弄一个for循环，让tx_tail++，逐步追上tx_head。<br>在循环内部做如下的工作：<br>rmb();<br>        dma_unmap_single把当前tail编号对应的sk_buff{}的映射释放掉。<br>        并把macb{}-&gt;sk_buff{}置NULL<br>dev_kfree_skb_irq(macb{}-&gt;tx_skb[tail]-&gt;skb)<br>这个函数是dev_kfree_skb()在中断里面使用的一个变种。加入发送软中断的完成队列,再激活发送软中断对sk_buff{}进行释放<br>        把tx_tail和tx_head全部置0，也就是缓冲区清空。<br>    如果目前传输正在进行(bit3 TGO为1)<br>对EMAC_NCR控制寄存器的bit3 TE 也就是transmit enable位置一，重新使能发送。<br>2.如果此时Transmit Complete未被置位，则直接返回。（不常见的情况，不知用意。）<br>3.如果是Transmit Complete的情况：（重点在这里）<br>tx_tail此时会在tx_head后方。弄一个for循环，让tx_tail++，逐步追上tx_head为止。<br>在循环内部做如下的工作：<br>rmb();<br>检查tx_ring[tail].ctrl也就是tail的描述符的控制字，如果bit31也就是USED为0，跳出整个循环。这个bit31，正常情况下，应该是由EMAC硬件在传输成功以后自动置1的，表示DMA数据拷好了，传输完了。如果是0，是不正常的情况，表示这一格缓冲区DMA没有传出去，这时候则break，作用是立即停止tail的往前追赶head的动作。但我觉得这是个bug的写法。也许正常情况下，其实根本不会有used bit没有被dma置位的情况。但假设有，则这样break有两个问题。一是下次再进macb_tx的时候，还是老早地方break，tail永远追不上head；二是break就放弃了dma_unmap_single和dev_kfree_skb_irq，会有内存泄漏的问题。<br>我觉得正确的做法似乎应该是先释放资源dma_unmap_single和dev_kfree_skb_irq，然后跳过这个继续处理下一个tail。无论什么原因dma没有能把那个出问题的tail发送出去，把这种丢包的情况交给协议层上层比如tcp层来解决。<br>进行一些清理工作：<br>dma_unmap_single()取消sk_buff{}的data和物理地址的映射。<br>macb{}-&gt;stats.tx_packets加一。属于net_device_stats{}的网络统计信息。<br>macb{}-&gt;stats.tx_bytes被增加sk_buff{}-&gt;len，也是统计信息。<br>macb{}-&gt;tx_skb[tail]-&gt;skb置为 NULL，不再指向sk_buff{}<br>dev_kfree_skb_irq(macb{}-&gt;tx_skb[tail]-&gt;skb)<br>这个函数是dev_kfree_skb()在中断里面使用的一个变种。加入发送软中断的完成队列,再激活发送软中断对sk_buff{}进行释放<br>netif_queue_stopped()检查如果传输队列已停止，且发送环形缓冲区的剩余空间&gt;1/4的发送环形缓冲总大小，则用netif_wake_queue()唤醒传输队列，重启传输。<br>函数结束时，tx_head应该和tx_tail一样，也就是整个环形缓冲为空。<br>实测如果我ping一下，收到的EMAC_TSR的值是0x21。也就是100001<br>也就是    Transmit Complete和Used Bit Read（意思是transmit buffer descriptor已被读，并且used bit被置位）<br>所以总结一下，这个macb_tx其实并没有做什么涉及数据传输的事情，其实就是做一些收尾和处理异常的工作。实际的数据发送，在进入中断，Transmit Complete被置位的时候，已经完成了。</p>
+<p>发送流程小结：                (参见SAM9x35 spec    45.5.1.6 Transmitting Frames)<br>1.在network control register里面使能发送。<br>        对应macb_open()-&gt;macb_init_hw()的<br>/<em> Enable TX and RX </em>/<br>        macb_writel(bp, NCR, MACB_BIT(RE) | MACB_BIT(TE) | MACB_BIT(MPE));<br>    2.分配发送所用的内存区域。<br>        对应macb_open()-&gt;macb_alloc_consistent()的<br>bp-&gt;tx_ring = dma_alloc_coherent(&amp;bp-&gt;pdev-&gt;dev, size,<br>                    &amp;bp-&gt;tx_ring_dma, GFP_KERNEL);<br>    3.建立Transmit Buffer List<br>        对应 macb_open()-&gt;macb_init_hw()的<br>        macb_writel(bp, TBQP, bp-&gt;tx_ring_dma);<br>        TBQP即Transmit Buffer Queue Pointer Register，里面写的是<br>transmit buffer queue (descriptor list)。而tx_ring_dma就是DMA描述符。</p>
+<ol start="4">
+<li>在network control register使能中断<br>&emsp;对应 macb_open()-&gt;macb_init_hw()的<pre><code>/* Enable interrupts */
+macb_writel(bp, IER, (MACB_BIT(RCOMP)
+      | MACB_BIT(RXUBR)
+      | MACB_BIT(ISR_TUND)
+      | MACB_BIT(ISR_RLE)
+      | MACB_BIT(TXERR)
+      | MACB_BIT(TCOMP)
+      | MACB_BIT(ISR_ROVR)
+      | MACB_BIT(HRESP)));
+</code></pre> 5.往之前分配的内存区域里面填充需要发送的数据<br>实际没填充，只是把sk_buff{}的data映射到总线地址，然后把总线地址赋给tx_ring的addr成员，也就是刚刚已经给EMAC_ TBQP寄存器的tx_ring_dma。<br>对应macb_start_xmit()的<br>mapping = dma_map_single(&amp;bp-&gt;pdev-&gt;dev, skb-&gt;data,<pre><code>len, DMA_TO_DEVICE);
+</code></pre> 6.把分配好的内存区域的头地址赋给transmit buffer descriptor queue pointer寄存器。<br>对应macb_start_xmit()的<br>bp-&gt;tx_ring[entry].addr = mapping;<br> 7.Write control and length to word one of the transmit buffer descriptor entry.<br>对应macb_start_xmit()的<pre><code>ctrl = MACB_BF(TX_FRMLEN, len);
+ctrl |= MACB_BIT(TX_LAST);
+if (entry == (TX_RING_SIZE - 1))
+    ctrl |= MACB_BIT(TX_WRAP);
+bp-&gt;tx_ring[entry].ctrl = ctrl;
+</code></pre><ol start="8">
+<li>在network control register里面使能开始传输的bit。<br>对应macb_start_xmit()的<br> macb_writel(bp, NCR, macb_readl(bp, NCR) | MACB_BIT(TSTART));<br>9.传输完成以后，会产生中断进入macb_interrupt()<br>读取EMAC_ISR中断状态寄存器，如果是Transmit Buffer Underrun或Retry Limit Exceeded，或者transmit complete的情况，进入macb_tx()处理。<br>10.macb_tx()<br>处理传输完成的各种异常，处理环形缓冲区的指针位置。<br>数据接收流程<br>参考45.4.2.2 Receive Buffers    45.5.1.2 Receive Buffer List<br>macb_interrupt()<br>如果是EMAC_ISR的bit符合下面条件之一的，进入处理接收的流程。<br>Receive Complete    MAC完成一帧的接收，并用DMA存入了receive buffer。<br>Receive Used Bit ReadDMA发现它想写入的receive buffer的used bit是1，也就是没有被软件给清零，没有被软件读出来过，需要产生一个中断来报错<br>Receive Overrun接收溢出    这种情况下，当前DMA正在写入的receiver buffer会被还原回原来的内容，也就是放弃写入当前的receive buffer。<br>关闭以上3中情况的接收中断。（complete,used bit,overrun）<br>napi_schedule_prep()<br>检查NAPI是不是已经在运行了，如果不是则标记为运行。如果是就不用调用后面的<strong>napi_schedule()了，主要是为了保证只有一个NAPI轮询的程序运行。
+</strong>napi_schedule()<br> 把NAPI的轮询程序（mach_poll()）加入调度的队列。<br>macb_poll()<br>用container_of()获得入参napi_struct{}的上一级结构体macb{}<br>把EMAC_RSR寄存器读出来保存好，然后把刚刚读出的再写进去，以清零。<br>调用macb_rx()来具体处理接收数据，入参是budget，返回workdone。<br>当workdone&lt;budget的时候，<br>调用napi_complete()，NAPI接收告一段落。<br>写入EMAC_IER中断使能寄存器，使能刚刚禁掉的那几个bit。<br>macb_rx()    用NAPI的方式处理收到的以太网帧<br>建立一个for循环，退出的条件是budget&gt;0。并且每次rx_tail都往前走一格。<br>budget是NAPI传进来的参数，意思是需要以太网帧的个数。NAPI基本的工作原理是：NAPI会告诉poll函数一个budget。如果收到的以太网帧的个数小于budget，代表在一个软中断里poll函数全处理完了，则关闭NAPI开硬件中断。如果收到的帧的个数等于budget，则不关闭NAPI，在下一次调用软中断的时候继续处理。所以NAPI的思想就是设定一个预期接收帧个数的门限值。如果实际情况比预期的要忙，则继续轮询，如果实际情况比预期的要空闲，则关闭NAPI转为硬件中断触发。具体到代码里面，用printk可以看到目前空闲状态下的budget是64个帧。<br>所以具体到这个for循环。传进来的budget参数，每次处理完一帧，就–，直到减到零为止。或者在减到零之前，已经没有可以用的缓冲(used bit未被置位)，则直接跳出循环。<br>如果budget到了，接收的数据处理到一半，还没遇到EOF，怎么处理？<br>不会有这个问题。因为budget针对的单位是以太网帧。不存在收到一半的问题，收到完整的帧才能把budget减一。<br>具体的代码如下：<br>rmb()<br>取出rx_ring[tail].addr和rx_ring[tail].ctrl。<br>如果addr的used bit不是1，意味着没缓冲区可以读了，则跳出整个for循环。<br>如果ctrl控制字里面，bit14 start of frame有效：<br>如果之前已经收到过start of frame了。表明之前收到的帧是破碎的。（不完整的帧的原因有：CRC错误/实际长度和宣称长度不符合的帧/过长的帧）调用discard_partial_frame()丢弃破碎帧。具体的做法是，从之前的SOF的位置，到现在再次读到现在这个SOF之前的所有缓冲区的ctrl，全部标为已读，也就是used bit清零。也就是等于把这区域的数据标记为已读，但实则丢弃并未处理。<br>否则将当前的rx_tail循环缓冲序列号记录下来，以标记为已经有Start of frame了。后面再次循环到这里的时候，就知道刚刚已经收到过start of frame了。<br>另外，虽然说之前产生中断的条件是收到一个帧。但实际上帧是不断被接收的。所以在收到中断以后，去检查receive buffer的SOF的时候。遇到两个或者更多SOF是正常的，因为在cpu处理中断的时候，dma仍然在不停的工作。<br> 如果ctrl控制字里面，bit15 end of frame有效：<pre><code>如果发现之前没有收到过start of frame，则用BUG_ON()让内核panic。
+</code></pre> 用macb_rx_frame()来处理接收的帧。<br> 把之前收到过start of frame的记录清空。<br> 如果没有dropped丢包的话，收到的包的记录++，budget–。<br>实际tail的位置已经发生了变化。所以把for循环之后的tail位置，更新到rx_tail上。<br>（但如果这次的帧是不完整的，只有start of frame却没有结尾，后面环形缓冲就没数据了，则把tail位置更新为start of frame的位置）<br>因为现在是NAPI的方式。所以不是说收到一帧的数据，产生中断，读出一帧给上层协议栈，就完事了。现在的NAPI的做法就体现在macb_rx()里面，就是收到中断，去读数据，如果不止一帧，继续要读，直到读空或者budget用完为止。<br>实际用printk去观察，在以太网空闲的时候，也能经常看到macb_rx()里面有处理帧的数量多于一帧的情况（即有多个SOF,EOF组合。实际是经常看到连着处理两帧），虽然此时的budget其实没用完（只有两帧，因为是空闲的情况），但其实NAPI的机制还是对帧的处理还是有一定影响，这种情况就等于一次处理两帧。按以前的老的中断处理的方法，那要进两次中断了。<br>discard_partial_frame()<br>把begin和end之间的所有缓冲区的ctrl，全部标为已读，也就是used bit清零。也就是等于把这区域的数据标为已读了。<br>macb_rx_frame()    处理一帧完整的以太网帧，并传给一个sk_buff{}然后送到上层<br>有3个输入参数：macb{}，first_frag也就是SOF的位置序号，tail也就是EOF的位置<br>取出传进来的tail的帧长度，这个数值表示了此帧的长度。<br>在这个帧长度基础上+2（让IP头word对齐）<br>以这个帧长度用dev_alloc_skb()分配sk_buff{}<br>如果未能分配到sk_buff{}（dev_alloc_skb()返回NULL）<br> macb{}-&gt;stats.rx_dropped++;<br> 把SOF和EOF之间所有的缓冲区单元都标为已读。<br> 返回1也就是告诉macb_rx()丢包了。<br>skb_reserve()为skb_buff缓存结构预留足够的空间来存放各层网络协议的头信息<br>skb_checksum_none_assert()检查sk_buff{}的ip_summed成员被设为CHECKSUM_NONE了<br>skb_put()向后扩大数据区空间，tailroom空间减少，skb-&gt;data指针不变，skb-&gt;tail指针下移。<br>建立一个for循环，从SOF帧头开始，每次循环往后移一格，直到帧尾（重点在这里）<br>因为接收缓冲区的每一格，是128字节，一共512格<br>所以每一格的有数据的长度，一般情况下自然为128字节。除了最后一格，是总的帧的大小-（（第n格 -1）x128）。总之就是此处先要准确算出每一格rx_buffer的实际有效大小。<br>刚刚得出的每一格接收缓冲区的大小frag_len，用memcpy的方式拷入sk_buff{}-&gt;data+offset。系统给这里的memcpy加了一个包装，也就是skb_copy_to_linear_data_offset()<br>memcpy(skb-&gt;data + offset, (bp-&gt;rx_buffers + (RX_BUFFER_SIZE * frag)), frag_len);<br>offset往前走128个字节。<br>当前的接收缓冲区的used bit置为已读。<br>为了帮助理解见下图：</li>
+</ol>
+</li>
+</ol>
+<p>for循环结束的时候，总之就是把rx_buffer里面，把此次帧头到帧尾之间的所有数据，都倒腾到sk_buff{}-&gt;data里面去<br>eth_type_trans()来确定协议id，来赋给sk_buff{}-&gt;protocol<br>macb{}-&gt;stats.rx_packets加一。<br>macb{}-&gt;stats.rx_bytes 增加len长度。<br>netif_receive_skb()通知协议层处理sk_buff{}<br>进一步解释接收环形缓冲区的使用：<br>怎么知道例如中断来的时候，dma更新的哪块区域的buffer？<br>有关这个问题，从软件这边，有macb{}-&gt;rx_tail，即表示目前在接收缓冲区里面，处理到哪个位置了。在DMA这边，DMA有自己的指针（应该是软件不可见的），作用相当于发送数据里面的tx_head。只要DMA的指针指向的缓冲是已读，有数据进来的情况下，DMA就会在这个区域继续往下写数据。所以rx_tail和DMA写的位置是异步的，他们的关系和tx_head/tx_tail的关系是一样的，tail追赶head(DMA)的关系。所以确切的说，不需要知道dma更新的是哪款区域的receiver buffer，只管用rx_tail一格一格往后读就是了。<br>macb{}-&gt;rx_tail的值，一开始是0.是软件自己维护的。当执行macb_rx()的时候，根据start of frame和end of frame的信息，更新macb{}-&gt;rx_tail.具体的做法是，如果macb_rx()能在receive buffer里面收到一个完整的帧，则更新macb{}-&gt;rx_tail到现在这帧的尾部。或者发现此帧残缺（只有头部），则无视残缺的的帧，更新到下一个SOF的位置继续遍历收到的帧。<br>DMA写一帧，产生一个中断，是根据什么决定写的长度的？<br>首先根据cpu spec page1080对中断状态寄存器的RCOMP bit的解释，中断发送的条件之一是“A frame has been stored in memory”。所以正常情况下，是写完完整的一帧，产生一个中断。长度自然是一帧的长度。<br>有时候遇到异常的太长的帧，就是实际的长度大于以太网帧声明的长度，则数据在进入DMA模块之前，就会被CPU的receive block发现，并且告诉DMA立即停止往receive buffer写数据。这种情况下，就会得到一个只有SOF而没有EOF的帧。这种情况也会进中断，处理接收数据的函数就会发现一个只有头没有尾的废帧。</p>
+<p>接收流程小结：                (参见SAM9x35 spec    45.5.1.7 Receiving Frames)<br>    数据进入MAC，先会被写入输入FIFO，然后由filter block来过滤一下，决定要不要把FIFO的数据用DMA拷入内存。<br>1.如果符合下列条件，cpu会让DMA把数据写入内存：<br>        a.MAC地址符合<br>        b.if it matches the hash address function.（不懂。。）<br>        c.是广播地址并且广播被使能<br>        d.如果MAC模块被配置成copy all frames.<br>    如果DMA遇到wrap bit，就会从EMAC_RBQP的头地址开始绕回来拷入。<br>2.根据Receive Buffer Queue Pointer寄存器，DMA会往这个寄存器所指向的地址写入数据。<br>    3.写完数据以后，把相应的Receive Buffer Descriptor更新，并且标志为未读（也就是used bit=1）<br>    4.产生中断<br>    5.中断处理函数里面，启动NAPI的调度，执行事先注册号的poll函数。在poll函数里面，处理收到的以太网帧，并根据budget不停的处理后续的帧，处理完以后，把Receive Buffer Descriptor标志为已读。（ownership bit back to 0）<br>    6.在上述过程中，如果系统软件取数据取太慢，会产生一个receive overrun中断。如果没有成功收到一个帧，statistic register统计寄存器会++，帧会被丢弃，但不会用中断通知系统软件。</p>
+<p>配置和状态变化和统计等这些杂项的对外开放的API<br>配置<br>macb_set_rx_mode    net_device_ops-&gt;ndo_set_multicast_list()<br>    此函数在组播地址列表变化的时候会被调用。</p>
+<p>Dev.c (c:\document\code\mdk9x5-ek\linux-2.6.39\net\core):        if (ops-&gt;ndo_set_multicast_list)<br>Dev.c (c:\document\code\mdk9x5-ek\linux-2.6.39\net\core):            ops-&gt;ndo_set_multicast_list(dev);<br>Dev.c (c:\document\code\mdk9x5-ek\linux-2.6.39\net\core):        if ((!ops-&gt;ndo_set_multicast_list &amp;&amp; !ops-&gt;ndo_set_rx_mode) ||<br>Dev.c (c:\document\code\mdk9x5-ek\linux-2.6.39\net\core):        if ((!ops-&gt;ndo_set_multicast_list &amp;&amp; !ops-&gt;ndo_set_rx_mode) ||
+ </p>
+<p>eth_change_mtu    net_device_ops-&gt;ndo_change_mtu</p>
+<ul>
+<li>Called when a user wants to change the Maximum Transfer Unit<ul>
+<li>of a device. If not defined, any request to change MTU will</li>
+<li>will return an error.<br>eth_mac_addr        net_device_ops-&gt;ndo_set_mac_address</li>
+</ul>
+</li>
+<li>This function  is called when the Media Access Control address<ul>
+<li>needs to be changed. If this interface is not defined, the</li>
+<li>mac address can not be changed.<br>macb_ioctl        net_device_ops-&gt;ndo_do_ioctl</li>
+</ul>
+</li>
+<li>Called when a user request an ioctl which can’t be handled by<ul>
+<li>the generic interface code. If not defined ioctl’s return</li>
+<li>not supported error code.<br>eth_validate_addr    net_device_ops-&gt;ndo_validate_addr<br>Test if Media Access Control address is valid for the device.<br>macb_poll_controller    net_device_ops-&gt;ndo_poll_controller<br>macb_get_settings    ethtool_ops-&gt;get_settings<br>macb_set_settings    ethtool_ops-&gt;set_settings<br>macb_get_drvinfo    ethtool_ops-&gt;get_drvinfo<br>ethtool_op_get_link    ethtool_ops-&gt;get_link<br>统计<br>macb_get_stats    net_device_ops-&gt;ndo_get_stats<br>网络状态变化<br>macb_handle_link_change</li>
+</ul>
+</li>
+</ul>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/07/29/ethernet-driver/" rel="next" title="ethernet driver">
+                <i class="fa fa-chevron-left"></i> ethernet driver
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Semiyd</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives">
+                
+                    <span class="site-state-item-count">63</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">33</span>
+                    <span class="site-state-item-name">categories</span>
+                  </a>
+                </div>
+              
+
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Semiyd</span>
+
+  
+
+  
+</div>
+
+
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> v3.7.1</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://theme-next.org">NexT.Muse</a> v6.3.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+	
+    
+
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.3.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.3.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.3.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.3.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.3.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

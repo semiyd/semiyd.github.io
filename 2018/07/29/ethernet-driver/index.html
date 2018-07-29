@@ -1,0 +1,814 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.3.0" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.3.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.3.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.3.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.3.0" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '6.3.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="ethernet driver">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ethernet driver">
+<meta property="og:url" content="http://yoursite.com/2018/07/29/ethernet-driver/index.html">
+<meta property="og:site_name" content="Semiyd&#39;s Blog">
+<meta property="og:description" content="ethernet driver">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2018-07-29T02:20:28.400Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="ethernet driver">
+<meta name="twitter:description" content="ethernet driver">
+
+
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/07/29/ethernet-driver/"/>
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>ethernet driver | Semiyd's Blog</title>
+  
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Semiyd's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br />Home</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+    <a href="/categories/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-th"></i> <br />Categories</a>
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/07/29/ethernet-driver/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Semiyd">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Semiyd's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">ethernet driver
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2018-07-29 10:16:51 / Modified: 10:20:28" itemprop="dateCreated datePublished" datetime="2018-07-29T10:16:51+08:00">2018-07-29</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Linux/" itemprop="url" rel="index"><span itemprop="name">Linux</span></a></span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Linux/Kernel/" itemprop="url" rel="index"><span itemprop="name">Kernel</span></a></span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Linux/Kernel/驱动/" itemprop="url" rel="index"><span itemprop="name">驱动</span></a></span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Linux/Kernel/驱动/ethernet/" itemprop="url" rel="index"><span itemprop="name">ethernet</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><center><strong>ethernet driver</strong></center><br><a id="more"></a></p>
+<p>总的来说网卡的驱动就是发送数据和接受数据两大部分。</p>
+<p>从设备角度分类，分为网卡驱动和phy驱动两部分</p>
+<p>=================================================================================================<br>常用结构体<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">sk_buff&#123;&#125;</span><br><span class="line">网络数据结构体。用于在驱动和协议栈之间传输数据。</span><br><span class="line">	在协议栈的各层传输的过程中，sk_buff&#123;&#125;的data成员会移动到具体的比如ip头部，或者指向tcp头部，与此同时len成员也会相应的变化，实现解包/封包。</span><br><span class="line">net_device&#123;&#125;</span><br><span class="line">网卡设备结构体</span><br><span class="line">	net_device_ops&#123;&#125;要实现几个具体的操作函数，提供给kernel。</span><br><span class="line">	ethtool_ops&#123;&#125;要实现支持用户空间ethtool工具的查询功能。</span><br><span class="line">mii_bus&#123;&#125;</span><br><span class="line">	mii总线的设备结构体</span><br><span class="line">phy_device&#123;&#125;</span><br><span class="line">	phy的设备结构体</span><br><span class="line">phy_driver&#123;&#125;</span><br><span class="line">	phy的驱动结构体</span><br></pre></td></tr></table></figure></p>
+<p>================================================================================================<br>常用API    </p>
+<p>skb_buff{}相关：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">alloc_skb()</span><br><span class="line">skb_reserve()	例如：skb_reserve(skb, 2); 该函数可在数据包前保留2个字节，这样14字节的以太网头就变成16字节，可以和IP头（16字节）对齐。</span><br><span class="line">dev_alloc_skb()	类似alloc_skb，在申请好缓冲区后，保留16字节的帧头空间。主要用在Ethernet驱动程序。可在中断上下文运行。</span><br><span class="line">netdev_alloc_skb_ip_align()	是上两个API的结合体，分配skb的同时，完成skb_reserve()的align的工作。</span><br><span class="line">kfree_skb()	释放一个sk_buff。</span><br><span class="line">skb_clone() 	复制一个sk_buff，但不复制数据部分。</span><br><span class="line">skb_copy()	完全复制一个sk_buff。</span><br><span class="line">skb_dequeue() 	从一个sk_buff链表里取出第一个元素。返回取出的sk_buff</span><br><span class="line">skb_dequeue() 	从一个sk_buff链表里取出第一个元素。返回取出的sk_buff，如果链表空则返回NULL。这是常用的一个操作。</span><br><span class="line">skb_queue_head() 在一个sk_buff链表头放入一个元素。</span><br><span class="line">skb_queue_tail() 	在一个sk_buff链表尾放入一个元素。这也是常用的一个操作。网络数据的处理主要是对一个先进先出队列的管理，skb_queue_tail()和skb_dequeue()完成这个工作。</span><br><span class="line">skb_insert() 	在链表的某个元素前插入一个元素。</span><br><span class="line">skb_append() 	在链表的某个元素后插入一个元素。一些协议(如TCP)对没按顺序到达的数据进行重组时用到skb_insert()和skb_append()。</span><br><span class="line">skb_reserve() 	调整整个缓冲区的头部。这个调整的空间一般是用做下一层协议的头空间的。</span><br><span class="line">skb_put() 	把sk_buff&#123;&#125;放入末尾。在alloc_skb以后，申请到的sk_buff的缓冲区都是处于空(free)状态，有一个tail指针指向free空间，实际上开始时tail就指向缓冲区头</span><br><span class="line">skb_reserve()	在free空间里申请协议头空间，skb_put()申请数据空间。见下面的图。</span><br><span class="line">skb_push() 	在缓冲区开头增加数据</span><br><span class="line">skb_pull() 	在缓冲区开头移除数据</span><br></pre></td></tr></table></figure></p>
+<p>net_device{}相关：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">alloc_etherdev()	分配一个net_device&#123;&#125;</span><br><span class="line">register_netdev()	</span><br><span class="line">netdev_priv()	访问net_device&#123;&#125;priv成员</span><br></pre></td></tr></table></figure></p>
+<p>和上层协议栈相关：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">ether_setup()</span><br><span class="line">netif_start_queue()		告诉协议层，使能传输队列</span><br><span class="line">netif_stop_queue()		告诉协议层，停止传输队列</span><br><span class="line">netif_carrier_off()</span><br><span class="line">netif_carrier_on()</span><br><span class="line">netif_carrier_ok()</span><br><span class="line">netif_rx()</span><br><span class="line">netif_rx_schedule_prep()</span><br><span class="line">__netif_rx_schedule()</span><br></pre></td></tr></table></figure></p>
+<p>NAPI相关：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">netif_napi_add()</span><br><span class="line">napi_enable()</span><br><span class="line">napi_schedule()</span><br><span class="line">netif_receive_skb()</span><br></pre></td></tr></table></figure></p>
+<p>PHY相关：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">mdiobus_alloc()		分配一个mii_bus&#123;&#125;结构体，实际是device&#123;&#125;结构体的扩展。</span><br><span class="line">mdiobus_register()		注册mii_bus&#123;&#125;结构体。实际包含device_register(),并且调用刚刚注册的注册mii_bus&#123;&#125;的读操作函数,来获取phy的id，更新mii_bus-&gt;phy_map</span><br><span class="line">phy_find_first()		遍历mii_bus-&gt;phy_map[addr]，找到第一个有效的以后返回</span><br><span class="line">phy_connect_direct()	绑定net_device&#123;&#125;和phy_device&#123;&#125;，注册回调函数来处理link up和link down，并指明是MII还是RMII。</span><br><span class="line">phy_driver_register()	driver_register()的phy的变种</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">disable_nic_interrupt()</span><br><span class="line">printk_ratelimit()		调试的时候可以用，因为网络数据量大，防止有过多printk()一下子输出</span><br></pre></td></tr></table></figure></p>
+<p>================================================================================================<br>注册初始化流程<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">alloc_etherdev()</span><br><span class="line">	在分配到的net_device&#123;&#125;，定义成员open,stop,ioctl,hard_start_xmit,poll,weight,tx_timeout,watchdog_timeo,</span><br><span class="line">					get_stats,ethtool_ops,set_mac_address,change_mtu,mem_start,mem_end</span><br><span class="line">register_netdev()</span><br></pre></td></tr></table></figure></p>
+<p>在open()方法里面：<br>    在ifconfig eth0 up的时候，open()被调用<br>    此时初始化DMA，申请中断request_irq()，<br>    分配环形DMA缓冲区<br>    申请sk_buff{}<br>    netif_start_queue{}</p>
+<p>================================================================================================<br>工作流程：</p>
+<p>中断处理：<br>    中断的两种重要的事务就是：接收中断新数据包的到达，发送中断外发数据包的传输完成。<br>    发送中断：<br>        cpu一般处理能力较快，经常会遇到系统有数据要发，但上一包数据网络设备还没发送完<br>        以必须要有一个机制在硬件不忙时及时通知系统接着发送下面的数据。<br>    接收中断：<br>        此时MAC应该已经把数据用DMA传到了之前open时候分配的sk_buff{}了。<br>        skb_put()把sk_buff{}放入末尾<br>        非NAPI方式：<br>            netif_rx<br>        NAPI方式：<br>            在网卡驱动的中断处理函数中调用napi_schedule()来使用NAPI。<br>            进行轮询（支持NAPI的情况）。<br>            如果系统中存在处理大流量的高速接口时，每个时候都有大量的数据包需要处理，这时候就没有必要用中断了，利用轮询反而效率更高，<br>            也就是linux中的NAPI.轮询完了，调用netif_rx_complete()开中断</p>
+<p>数据发送：<br>    hard_start_xmit()<br>    如果上一包的数据还没发完，直接通知系统说发送不成功。<br>    检查这个要发送的数据包的长度，如果它达不到以太网帧的长度，必须采取措施进行填充。<br>    把包的数据拷贝到我们已经建立好的发送缓存中。<br>    把这个包的长度和一些控制信息一起写进了状态寄存器，使网卡的工作有了依据。<br>    判断发送缓存是否已经满了，如果满了在发就覆盖数据了，要停发。<br>数据接收：<br>    这个函数是一个大循环，循环条件是只要接收缓存不为空就还可以继续读取数据，循环不会停止，读空了之后就跳出。计算出要接收的包的长度。<br>    根据这个长度来分配包的数据结构（sk_buff）<br>    如果分配成功就把数据从接收缓存中拷贝到这个包中，判断收到帧的协议类型，填入skb-&gt;protocol(多协议的支持)。<br>    设置skb-&gt;pkt_type如PACKET_BROADCAST<br>    记录一些统计的信息，如rx_packets++;用户在bash&gt; cat /sys/class/net/eth0/statistics/rx_packets的时候就能看到。<br>    调用netif_rx()把这个包送到Linux协议栈去进行下一步处理<br>    dev_alloc_skb()（需组成环形缓冲区？）<br>    skb_reserve()（以太网帧头是14字节的，为了性能优化，增加2个字节到16字节，data指针往下移）<br>    memcpy()（实际由DMA完成）<br>    skb_put()<br>    netif_rx()<br>        完成了对中断下半部分的调度，相当于schedule一个tasklet<br>        关中断，调度中断下半部分<br>        而在这个下半部分，驱动需要实现一个poll()，在进行轮询（支持NAPI的情况）。轮询完了，调用netif_rx_complete()开中断</p>
+<p>有关NAPI的内容</p>
+<p>还有一些要实现的功能：<br>硬件帧头(hard_header)<br>地址解析(xarp)<br>流量控制(Flow Control)<br>&emsp;这个有一部分是由上层协议完成的。也就是根据缓冲区的大小，流量大到一定程度，或者根据网卡的状态，决定要不要停止发送/接收<br>&emsp;驱动层主要是用netif_start_queue()和netif_stop_queue()来通知协议层启动/停止传输。<br>有时候驱动在填充数据结构的时候无法收发数据，或者驱动正在关闭网卡，这种情况都会用到这些流量控制的API netif_start_queue()和netif_stop_queue()。</p>
+<p>================================================================================================<br>网卡驱动的性能评估和优化：<br>    性能评估：<br>        netperf工具<br>    优化：<br>        在主要的数据通道所经过的路径，代码的步骤要尽量少。<br>        不能让驱动部分称为网线速度的瓶颈<br>        优化DMA一次传输的大小</p>
+<p>================================================================================================<br>Loopback驱动分析：</p>
+<p>初始化：<br>subsys_initcall<br>net_dev_init<br>register_pernet_device<br>loopback_net_init<br>loopback_xmit<br>    实际没有发送，把数据直接扔给netif_rx()接收了。</p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/07/29/DMA/" rel="next" title="DMA">
+                <i class="fa fa-chevron-left"></i> DMA
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/07/29/AT91SAM9x35-MAC-DM9161A-PHY-驱动代码分析/" rel="prev" title="AT91SAM9x35 MAC + DM9161A PHY 驱动代码分析">
+                AT91SAM9x35 MAC + DM9161A PHY 驱动代码分析 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Semiyd</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives">
+                
+                    <span class="site-state-item-count">63</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">33</span>
+                    <span class="site-state-item-name">categories</span>
+                  </a>
+                </div>
+              
+
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Semiyd</span>
+
+  
+
+  
+</div>
+
+
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> v3.7.1</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://theme-next.org">NexT.Muse</a> v6.3.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+	
+    
+
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.3.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.3.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.3.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.3.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.3.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
