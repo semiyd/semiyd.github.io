@@ -1,0 +1,873 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.3.0" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.3.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.3.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.3.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.3.0" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '6.3.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="坏块管理">
+<meta property="og:type" content="article">
+<meta property="og:title" content="坏块管理">
+<meta property="og:url" content="http://yoursite.com/2018/08/01/坏块管理/index.html">
+<meta property="og:site_name" content="Semiyd&#39;s Blog">
+<meta property="og:description" content="坏块管理">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2018-08-01T13:15:17.584Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="坏块管理">
+<meta name="twitter:description" content="坏块管理">
+
+
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/08/01/坏块管理/"/>
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>坏块管理 | Semiyd's Blog</title>
+  
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Semiyd's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br />Home</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+    <a href="/categories/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-th"></i> <br />Categories</a>
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/01/坏块管理/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Semiyd">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Semiyd's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">坏块管理
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2018-08-01 21:03:42 / Modified: 21:15:17" itemprop="dateCreated datePublished" datetime="2018-08-01T21:03:42+08:00">2018-08-01</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Linux/" itemprop="url" rel="index"><span itemprop="name">Linux</span></a></span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Linux/Kernel/" itemprop="url" rel="index"><span itemprop="name">Kernel</span></a></span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Linux/Kernel/驱动/" itemprop="url" rel="index"><span itemprop="name">驱动</span></a></span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Linux/Kernel/驱动/FLASH/" itemprop="url" rel="index"><span itemprop="name">FLASH</span></a></span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Linux/Kernel/驱动/FLASH/NAND/" itemprop="url" rel="index"><span itemprop="name">NAND</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><center><strong>坏块管理</strong></center><br><a id="more"></a></p>
+<p>NAND每个page都有OOB，通常是64字节。<br>一般一个page是2k.<br>一个block一般是64个page.</p>
+<p>drivers\mtd\nand\nand_bbt.c    就是内核管理坏块的代码了。<br>里面开放出来的接口，主要是nand_default_bbt()</p>
+<p>bbt有两种存储方式，一种是把bbt存储在NAND芯片中，另一种是把bbt存储在内存中。<br>对于前者，好处是驱动加载更快，因为它只会在第一次加载NAND驱动时扫描整个NAND芯片，然后在NAND芯片的某个block中建立bbt，坏处是需要至少消耗NAND芯片一个block的存储容量；<br>而对于后者，好处是不会耗用NAND芯片的容量，坏处是驱动加载稍慢，因为存储在内存中的bbt每次断电后都不会保存，所以在每次加载NAND驱动时，都会扫描整个NAND芯片，以便建立bbt。  </p>
+<p>如果你系统中的NAND芯片容量不是太大的话，我建议还是把bbt存储在内存中比较好，因为根据本人的使用经验，对一块容量为2G bits的NAND芯片，分别采用这两种存储方式的驱动的加载速度相差不大，<br>甚至几乎感觉不出来。  </p>
+<h2 id="1、MTD中与bbt相关的结构体"><a href="#1、MTD中与bbt相关的结构体" class="headerlink" title="1、MTD中与bbt相关的结构体  "></a>1、MTD中与bbt相关的结构体  </h2><p>在struct nand_chip中与bbt相关的结构体如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">struct nand_chip &#123;</span><br><span class="line">    ……</span><br><span class="line">    uint8_t     *bbt</span><br><span class="line">    struct nand_bbt_descr    *bbt_td;</span><br><span class="line">    struct nand_bbt_descr    *bbt_md;</span><br><span class="line">    struct nand_bbt_descr    *badblock_pattern;</span><br><span class="line">    ……</span><br><span class="line"></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<p>bbt指向一块在nand_default_bbt函数中分配的内存，若options中没有定义NAND_USE_FLASH_BBT，MTD就直接在bbt指向的内存中建立bbt，<br>否则就会先从NAND芯片中查找bbt是否存在，<br>若存在，就把bbt的内容读出来并保存到bbt指向的内存中，<br>若不存在，则在bbt指向的内存中建立bbt，最后把它写入到NAND芯片中去。<br>bbt_td、bbt_md和badblock_pattern就是在nand_default_bbt函数中赋值的3个结构体。它们虽然是相同的结构体类型，但却有不同的作用和含义。<br>bbt_td和bbt_md是主bbt和镜像bbt的描述符(镜像bbt主要用来对bbt的update和备份)，它们只在把bbt存储在NAND芯片的情况下使用，用来从NAND芯片中查找bbt。（为了防止存放bbt的block本身坏，需要冗余）<br>这就是为什么kernel启动时，总是一扫描就扫出来两个bbt。一个是主，一个是镜像。<br>若bbt存储在内存中，bbt_td和bbt_md将会被赋值为NULL。<br>badblock_pattern就是坏块信息的pattern，其中定义了坏块信息在oob中的存储位置，以及内容(即用什么值表示这个block是个坏块)。<br>通常用1或2个字节来标志一个block是否为坏块，这1或2个字节就是坏块信息，如果这1或2个字节的内容是0xff，那就说明这个block是好的，否则就是坏块。（同OOB的规则）<br>对于坏块信息在NAND芯片中的存储位置，small page(每页512 Byte)和big page(每页2048 Byte)的两种NAND芯片不尽相同。<br>一般来说，small page的NAND芯片，坏块信息存储在每个block的第一个page的oob的第六个字节中，而big page的NAND芯片，坏块信息存储在每个block的第一个page的oob的第1和第2个字节中。<br>nand_bbt_descr的结构体类型定义如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">struct nand_bbt_descr &#123;</span><br><span class="line">    int    options;</span><br><span class="line">    int    pages[NAND_MAX_CHIPS];</span><br><span class="line">    int    offs;</span><br><span class="line">    int    veroffs;</span><br><span class="line">    uint8_t    version[NAND_MAX_CHIPS];</span><br><span class="line">    int    len;</span><br><span class="line">    int    maxblocks;</span><br><span class="line">    int    reserved_block_code;</span><br><span class="line">    uint8_t    *pattern;</span><br><span class="line"></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<p>options：<br>有如下的选择：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line">/* Options for the bad block table descriptors */</span><br><span class="line"></span><br><span class="line">/* The number of bits used per block in the bbt on the device */</span><br><span class="line">#define NAND_BBT_NRBITS_MSK	0x0000000F</span><br><span class="line">#define NAND_BBT_1BIT		0x00000001</span><br><span class="line">#define NAND_BBT_2BIT		0x00000002</span><br><span class="line">#define NAND_BBT_4BIT		0x00000004</span><br><span class="line">#define NAND_BBT_8BIT		0x00000008</span><br><span class="line">/* The bad block table is in the last good block of the device */</span><br><span class="line">#define NAND_BBT_LASTBLOCK	0x00000010</span><br><span class="line">/* The bbt is at the given page, else we must scan for the bbt */</span><br><span class="line">#define NAND_BBT_ABSPAGE	0x00000020</span><br><span class="line">/* The bbt is at the given page, else we must scan for the bbt */</span><br><span class="line">#define NAND_BBT_SEARCH		0x00000040</span><br><span class="line">/* bbt is stored per chip on multichip devices */</span><br><span class="line">#define NAND_BBT_PERCHIP	0x00000080</span><br><span class="line">/* bbt has a version counter at offset veroffs */</span><br><span class="line">#define NAND_BBT_VERSION	0x00000100</span><br><span class="line">/* Create a bbt if none exists */</span><br><span class="line">#define NAND_BBT_CREATE		0x00000200</span><br><span class="line">/*</span><br><span class="line"> * Create an empty BBT with no vendor information. Vendor&apos;s information may be</span><br><span class="line"> * unavailable, for example, if the NAND controller has a different data and OOB</span><br><span class="line"> * layout or if this information is already purged. Must be used in conjunction</span><br><span class="line"> * with NAND_BBT_CREATE.</span><br><span class="line"> */</span><br><span class="line">#define NAND_BBT_CREATE_EMPTY	0x00000400</span><br><span class="line">/* Search good / bad pattern through all pages of a block */</span><br><span class="line">#define NAND_BBT_SCANALLPAGES	0x00000800</span><br><span class="line">/* Scan block empty during good / bad block scan */</span><br><span class="line">#define NAND_BBT_SCANEMPTY	0x00001000</span><br><span class="line">/* Write bbt if neccecary */</span><br><span class="line">#define NAND_BBT_WRITE		0x00002000</span><br><span class="line">/* Read and write back block contents when writing bbt */</span><br><span class="line">#define NAND_BBT_SAVECONTENT	0x00004000</span><br><span class="line">/* Search good / bad pattern on the first and the second page */</span><br><span class="line">#define NAND_BBT_SCAN2NDPAGE	0x00008000</span><br><span class="line">/* Search good / bad pattern on the last page of the eraseblock */</span><br><span class="line">#define NAND_BBT_SCANLASTPAGE	0x00010000</span><br><span class="line">/*</span><br><span class="line"> * Use a flash based bad block table. By default, OOB identifier is saved in</span><br><span class="line"> * OOB area. This option is passed to the default bad block table function.</span><br><span class="line"> */</span><br><span class="line">#define NAND_BBT_USE_FLASH	0x00020000</span><br><span class="line">/* Do not store flash based bad block table in OOB area; store it in-band */</span><br><span class="line">#define NAND_BBT_NO_OOB		0x00040000</span><br><span class="line"></span><br><span class="line">/*</span><br><span class="line"> * Flag set by nand_create_default_bbt_descr(), marking that the nand_bbt_descr</span><br><span class="line"> * was allocated dynamicaly and must be freed in nand_release(). Has no meaning</span><br><span class="line"> * in nand_chip.bbt_options.</span><br><span class="line"> */</span><br><span class="line">#define NAND_BBT_DYNAMICSTRUCT	0x80000000</span><br></pre></td></tr></table></figure></p>
+<p>pages：<br>在查找bbt的时候，若找到了bbt，就把bbt所在的page号保存在这个成员变量中。<br>若没找到bbt，就会把新建立的bbt的保存位置赋值给它。<br>因为系统中可能会有多个NAND芯片，我们可以为每一片NAND芯片建立一个bbt，也可以只在其中一片NAND芯片中建立唯一的一个bbt，<br>所以这里的pages是个维数为NAND_MAX_CHIPS的数值，用来保存每一片NAND芯片的bbt位置。</p>
+<p>offs、len和pattern：<br>MTD会从oob的offs中读出len长度的内容，然后与pattern指针指向的内容做比较，若相等，则表示这个block是好的。<br>通常pattern就是0xff这个字节。或者有的是两个字节表示的，就是0xff,0xff两个字节。用来决定如何从oob获取坏块信息。</p>
+<p>veroffs和version：MTD会从oob的veroffs偏移中读出一个字节的内容，作为bbt的版本值保存在version中。 </p>
+<p>maxblocks：MTD在查找bbt的时候，不会查找NAND芯片中所有的block，而是最多查找maxblocks个block。 </p>
+<h2 id="2、bbt存储在RAM中时的工作流程"><a href="#2、bbt存储在RAM中时的工作流程" class="headerlink" title="2、bbt存储在RAM中时的工作流程 "></a>2、bbt存储在RAM中时的工作流程 </h2><p>不管bbt是存储在NAND芯片中，还是存储在内存中，nand_default_bbt函数都会调用nand_scan_bbt函数。<br>nand_scan_bbt函数会判断bbt_td的值，若是NULL，则表示bbt存储在内存中，它就在调用nand_memory_bbt函数后返回。<br>nand_memory_bbt函数的主要工作就是在内存中建立bbt，其实就是调用了create_bbt函数。<br>create_bbt函数的工作方式很简单，就是扫描NAND芯片所有的block，读取每个block中第一个page的oob内容，然后根据oob中的坏块信息建立起bbt<br>代码如下：<br>    if (!td) {<br>        if ((res = nand_memory_bbt(mtd, bd))) {<br>            pr_err(“nand_bbt: can’t scan flash and build the RAM-based BBT\n”);<br>            kfree(this-&gt;bbt);<br>            this-&gt;bbt = NULL;<br>        }<br>        return res;<br>    }</p>
+<p>3、bbt存储在NAND芯片时的工作流程<br>nand_scan_bbt函数首先从NAND芯片中读取bbt的内容，它读取的方式分为两种：<br>其一是如果nand_bbt_descr的options里面有NAND_BBT_ABSPAGE这个标志。<br>则调用read_abs_bbts函数直接从给定的page地址读取<br>假如你为bbt_td和bbt_md的options成员变量定义了NAND_BBT_ABSPAGE，同时又把你的bbt所在的page地址保存在bbt_td和bbt_md的pages成员变量中，MTD就可以直接在这个page地址中读取bbt了。<br>但在实际使用时一般不这么干，因为你不能保证你保存bbt的那个block就永远不会坏。<br>其二是调用那个search_read_bbts函数试着在NAND芯片的maxblocks个block中查找bbt是否存在，若找到，就可以读取bbt了。 search_read_bbts()其实就是调用search_bbt()<br>search_bbt()查找bbt的过程为：<br>如果你在bbt_td和bbt_md的options 成员变量中定义了 NAND_BBT_LASTBLOCK，那么MTD就会从NAND芯片的最后一个block开始查找(在default情况下，MTD就是这么干的)，否则就从第一个block开始查找。<br>确定是不是每个nand芯片都有自己的bbt，通过检查NAND_BBT_PERCHIP标志。<br>确定在bbt里面，每个block用多少bit表示。<br>search_bbt()会从所查找block的第一个page的oob中读取内容(注意每个block有很多page，每个page都有oob。而此处只检查每个block的第一个page。)<br>首先通过scan_read_raw()，调用mtd设备的read_oob回调函数，读出oob信息。<br>然后调用check_create()<br>最后，mark_bbt_region以防止误擦误写。</p>
+<p>代码如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">verify_bbt_descr(mtd, td);</span><br><span class="line">verify_bbt_descr(mtd, md);</span><br><span class="line"></span><br><span class="line">/* Allocate a temporary buffer for one eraseblock incl. oob */</span><br><span class="line">len = (1 &lt;&lt; this-&gt;bbt_erase_shift);</span><br><span class="line">len += (len &gt;&gt; this-&gt;page_shift) * mtd-&gt;oobsize;</span><br><span class="line">buf = vmalloc(len);</span><br><span class="line">if (!buf) &#123;</span><br><span class="line">	kfree(this-&gt;bbt);</span><br><span class="line">	this-&gt;bbt = NULL;</span><br><span class="line">	return -ENOMEM;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">/* Is the bbt at a given page? */</span><br><span class="line">if (td-&gt;options &amp; NAND_BBT_ABSPAGE) &#123;</span><br><span class="line">	read_abs_bbts(mtd, buf, td, md);</span><br><span class="line">&#125; else &#123;</span><br><span class="line">	/* Search the bad block table using a pattern in oob */</span><br><span class="line">	search_read_bbts(mtd, buf, td, md);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">res = check_create(mtd, buf, bd);</span><br><span class="line"></span><br><span class="line">/* Prevent the bbt regions from erasing / writing */</span><br><span class="line">mark_bbt_region(mtd, td);</span><br><span class="line">if (md)</span><br><span class="line">	mark_bbt_region(mtd, md);</span><br><span class="line"></span><br><span class="line">vfree(buf);</span><br><span class="line">return res;</span><br></pre></td></tr></table></figure></p>
+<h2 id="AM3354平台的3-2-0-4-4-32内核分析："><a href="#AM3354平台的3-2-0-4-4-32内核分析：" class="headerlink" title="AM3354平台的3.2.0/4.4.32内核分析："></a>AM3354平台的3.2.0/4.4.32内核分析：</h2><p>drivers/mtd/nand/omap2.c<br>这个函数，会在nand_base.c里面，被nand_set_defaults()设置成默认的扫描坏块的回调函数：<br>chip-&gt;scan_bbt = nand_default_bbt;<br>同时在nand_scan_tail里面，如果nand驱动里面没有使能NAND_SKIP_BBTSCAN标志位的话，就在开机的时候扫描寻找坏块表？</p>
+<p>am3354的NAND_SKIP_BBTSCAN使能了，开机直接死掉了。而且也不对。出现了Scanning device for bad blocks这句话。imx并无这句话。<br>并且不管是3.2内核，还是4.4内核，都没有在nand_scan_tail()后面去scan_bbt。</p>
+<p>u-boot里面压根没建bbt？<br>    考虑到比如imx平台，其实kernel能扫描到bbt，也就是说，bbt早就建好了。<br>    检查u-boot里面nand-bbt.c的调用情况。<br>    check_create()调用了没有？（作用是create and write bbt(s) if necessary）<br>        没有调用<br>        作为对比，看看imx平台，这个函数调用了没有？<br>            居然也没有。<br>    先看看网上的资料<br>    尝试建个ram上的bbt。（注意要配置nand_bbt_descr,以及bbt_td置为NULL等，还有NAND_BBT_1BIT）</p>
+<p>现在观察到的问题是：<br>3.2.0内核：<br>直接写死info-&gt;nand.options    |= NAND_SKIP_BBTSCAN;<br>导致跳过坏块表扫描。</p>
+<p>4.4.32内核：<br>即使dts里面配置了nand-on-flash-bbt;也没有卵用。<br>因为omap_get_dt_info()里面：<br>next:<br>      of_get_nand_on_flash_bbt(child);<br>直接把nand-on-flash-bbt;是否定义这个返回值返回的结果，给扔了。<br>结果就是同样是NAND_SKIP_BBTSCAN</p>
+<p>搞毛？！am335x平台，完全放弃了nand-on-flash-bbt;？！<br>根据ti官方的回答，ti的nand驱动，根本没使用bbt。仅仅使用了老的方法，就是看看OOB区是否有标记。</p>
+<p>不过因为OOB本就有标记。其实BBT又有何用？除了把信息汇总下？<br>如果仅仅依赖OOB，遇到坏块，就跳过，好像也没什么问题？<br>如果有BBT，那么会针对当前要擦除的块，去BBT里面查询是不是坏块。<br>如果是坏块，则跳过。<br>但如果没有BBT，那也有OOB信息。读到OOB是坏块，自然不会去尝试擦除。<br>感觉没啥差别。</p>
+<p>相关帖子：<br><a href="https://e2e.ti.com/support/arm/sitara_arm/f/791/t/394167" target="_blank" rel="noopener">https://e2e.ti.com/support/arm/sitara_arm/f/791/t/394167</a><br><a href="http://e2e.ti.com/support/arm/sitara_arm/f/791/t/661393" target="_blank" rel="noopener">http://e2e.ti.com/support/arm/sitara_arm/f/791/t/661393</a></p>
+<h2 id="imx6ull平台的4-1-15内核分析："><a href="#imx6ull平台的4-1-15内核分析：" class="headerlink" title="imx6ull平台的4.1.15内核分析："></a>imx6ull平台的4.1.15内核分析：</h2><p>drivers/mtd/nand/mxc_nand.c<br>gpmi_nand_probe()（也就是imx的nand驱动文件）-&gt;gpmi_nand_init()<br>然后在这个函数里面：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">chip-&gt;options |= NAND_SKIP_BBTSCAN;</span><br><span class="line">ret = nand_scan_tail(mtd);</span><br><span class="line">if (ret)</span><br><span class="line">	goto err_out;</span><br><span class="line"></span><br><span class="line">ret = nand_boot_init(this);</span><br><span class="line">if (ret)</span><br><span class="line">	goto err_out;</span><br><span class="line">ret = chip-&gt;scan_bbt(mtd);</span><br><span class="line">if (ret)</span><br><span class="line">	goto err_out;</span><br></pre></td></tr></table></figure></p>
+<p>先跳过了nand_scan_tail里面的内核自带的scan_bbt。<br>然后做了些准备工作，也就是nand_boot_init()，然后才开始scan_bbt的</p>
+<p>dts:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&amp;gpmi &#123;</span><br><span class="line">	pinctrl-names = &quot;default&quot;;</span><br><span class="line">	pinctrl-0 = &lt;&amp;pinctrl_gpmi_nand_1&gt;;</span><br><span class="line">	status = &quot;okay&quot;;</span><br><span class="line">	nand-on-flash-bbt;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<p>mxc_nand.c通过of_get_nand_on_flash_bbt，得到这个配置，最终使能NAND_BBT_USE_FLASH标记</p>
+<h2 id="nuvoton平台的3-10-101内核分析："><a href="#nuvoton平台的3-10-101内核分析：" class="headerlink" title="nuvoton平台的3.10.101内核分析："></a>nuvoton平台的3.10.101内核分析：</h2><p>drivers/mtd/nand/nuc970_nand.c<br>同样有信息打出：<br>Bad block table found at page 65472, version 0x01<br>Bad block table found at page 65408, version 0x01<br>通过<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">chip-&gt;bbt_options =	NAND_BBT_USE_FLASH | NAND_BBT_NO_OOB;</span><br><span class="line">//chip-&gt;options		|= NAND_SKIP_BBTSCAN;</span><br></pre></td></tr></table></figure></p>
+<p>依靠nand_scan_tail()自身来扫坏块表。</p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/08/01/An-overview-of-the-DMAEngine-subsystem/" rel="next" title="An overview of the DMAEngine subsystem">
+                <i class="fa fa-chevron-left"></i> An overview of the DMAEngine subsystem
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/08/01/内核启动后升级或者读出kernel办法/" rel="prev" title="内核启动后升级或者读出kernel办法">
+                内核启动后升级或者读出kernel办法 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Semiyd</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives">
+                
+                    <span class="site-state-item-count">87</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">42</span>
+                    <span class="site-state-item-name">categories</span>
+                  </a>
+                </div>
+              
+
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1、MTD中与bbt相关的结构体"><span class="nav-number">1.</span> <span class="nav-text">1、MTD中与bbt相关的结构体  </span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2、bbt存储在RAM中时的工作流程"><span class="nav-number">2.</span> <span class="nav-text">2、bbt存储在RAM中时的工作流程 </span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#AM3354平台的3-2-0-4-4-32内核分析："><span class="nav-number">3.</span> <span class="nav-text">AM3354平台的3.2.0/4.4.32内核分析：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#imx6ull平台的4-1-15内核分析："><span class="nav-number">4.</span> <span class="nav-text">imx6ull平台的4.1.15内核分析：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#nuvoton平台的3-10-101内核分析："><span class="nav-number">5.</span> <span class="nav-text">nuvoton平台的3.10.101内核分析：</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Semiyd</span>
+
+  
+
+  
+</div>
+
+
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> v3.7.1</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://theme-next.org">NexT.Muse</a> v6.3.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+	
+    
+
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.3.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.3.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.3.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.3.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.3.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

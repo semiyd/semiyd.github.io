@@ -1,0 +1,830 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.3.0" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.3.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.3.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.3.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.3.0" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '6.3.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="NAND伪坏块问题调试记录">
+<meta property="og:type" content="article">
+<meta property="og:title" content="伪坏块问题调试记录">
+<meta property="og:url" content="http://yoursite.com/2018/08/01/伪坏块问题调试记录/index.html">
+<meta property="og:site_name" content="Semiyd&#39;s Blog">
+<meta property="og:description" content="NAND伪坏块问题调试记录">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2018-08-01T13:31:25.568Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="伪坏块问题调试记录">
+<meta name="twitter:description" content="NAND伪坏块问题调试记录">
+
+
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/08/01/伪坏块问题调试记录/"/>
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>伪坏块问题调试记录 | Semiyd's Blog</title>
+  
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Semiyd's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br />Home</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+    <a href="/categories/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-th"></i> <br />Categories</a>
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/01/伪坏块问题调试记录/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Semiyd">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Semiyd's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">伪坏块问题调试记录
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2018-08-01 21:18:31 / Modified: 21:31:25" itemprop="dateCreated datePublished" datetime="2018-08-01T21:18:31+08:00">2018-08-01</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Linux/" itemprop="url" rel="index"><span itemprop="name">Linux</span></a></span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Linux/Kernel/" itemprop="url" rel="index"><span itemprop="name">Kernel</span></a></span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Linux/Kernel/驱动/" itemprop="url" rel="index"><span itemprop="name">驱动</span></a></span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Linux/Kernel/驱动/FLASH/" itemprop="url" rel="index"><span itemprop="name">FLASH</span></a></span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Linux/Kernel/驱动/FLASH/NAND/" itemprop="url" rel="index"><span itemprop="name">NAND</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><center><strong>NAND伪坏块问题调试记录</strong></center><br><a id="more"></a></p>
+<p>出错log是：<br>yaffs: yaffs: Block struck out<br>nand_erase_nand: attempt to erase a bad block at page 0x0004c140<br>yaffs: yaffs: Failed to mark bad and erase block 4786<br>yaffs: **&gt;&gt; Block 4786 retired</p>
+<p>df看，发现空间占用很大，80-90%都被占用。<br>全部被标记为坏块了.重新erase的时候，果然发现大量的都是坏块。不对。</p>
+<p>如果yaffs_verify_chunk_written出错，则dump_stack<br>可以看到，一上来就有，后面逐渐开始刷屏。但此时其实还尚未有块被标记为坏块。<br>也就是说这个yaffs_verify_chunk_written出错，从一开始就有了，并且可以作为问题是否出现的一个标志，不用等到retired才算复现。同时也证明老板子其实完全没问题。<br>另外，试了下，单单dd的时候，没出错。单单db读写的时候，也没有出错。说明db读写+dd测试确实是触发问题的必要条件。<br>凡是涉及写的，都会出错。例如vfs_write-&gt;…-&gt;yaffs_write_new_chunk-&gt;yaffs_verify_chunk_written<br>或者：filp_close-&gt;yaffs_file_flush-&gt;…-&gt;yaffs_write_new_chunk-&gt;yaffs_verify_chunk_written<br>现在奇怪的地方在于。yaffs_write_new_chunk中，反映出write_ok确实等于YAFFS_FAIL<br>但其实在yaffs_verify_chunk_written内部，显示write_ok每次都是YAFFS_OK。<br>并且yaffs_verify_chunk_written返回失败的条件有4个：<br>memcmp(buffer, data, dev-&gt;data_bytes_per_chunk)<br>temp_tags.obj_id != tags-&gt;obj_id<br>temp_tags.chunk_id != tags-&gt;chunk_id<br>temp_tags.n_bytes != tags-&gt;n_bytes<br>但yaffs_verify_chunk_written的打印信息表明，其实上面4个条件，无一满足的。<br>发现其实是更前面的yaffs_wr_chunk_tags_nand返回错误，大多数情况下，yaffs_verify_chunk_written并不运行。结果就是write_ok记录了yaffs_wr_chunk_tags_nand返回的错误结果。<br>偶尔也有时候，yaffs_wr_chunk_tags_nand返回错误，但yaffs_verify_chunk_written也运行了，但是检查结果并没有错。<br>所以做个实验，强制每次yaffs_wr_chunk_tags_nand以后，都必须yaffs_verify_chunk_written，看看是否会出现检查结果出错的情况？<br>结果是，检查没有出错。<br>也就是说，yaffs_wr_chunk_tags_nand返回了个假的错误？(也不一定。如果是verify的内容，并非刚刚写入的tag呢？)<br>这个所谓的yaffs_wr_chunk_tags_nand，chunk其实就是指数据块（page），而chunk tag是yaffs自己针对每个chunk做的标记，放在oob区（如果是inband则放在data区）。<br>yaffs_wr_chunk_tags_nand具体出错的函数是：<br>result = dev-&gt;param.write_chunk_tags_fn(dev, flash_chunk, buffer, tags);<br>也就是retval = mtd-&gt;write_oob(mtd, addr, &amp;ops);出错<br>也就是nand_write_oob（返回-5也就是EIO）-&gt;nand_do_write_ops-&gt;nand_write_page-&gt;omap_wait返回0x81（意思是NAND_STATUS_FAIL|NAND_STATUS_WP）有错<br>根据三星spec，page写最大时间是900us，block擦最大时间是16ms.但是其实omap_wait的时间针对擦和写，超时时间分别是400ms和20ms.其实足够的。<br>怀疑是不是这个omap_wait()函数还是有问题。<br>参考4.4内核的omap_wait()，发现return之前，少了一句读flash状态的语句。<br>大概是这么理解的：<br>代码：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">static int omap_wait(struct mtd_info *mtd, struct nand_chip *chip)</span><br><span class="line">&#123;</span><br><span class="line">struct nand_chip *this = mtd-&gt;priv;</span><br><span class="line">struct omap_nand_info *info = container_of(mtd, struct omap_nand_info,</span><br><span class="line">            mtd);</span><br><span class="line">unsigned long timeo = jiffies;</span><br><span class="line">int status = NAND_STATUS_FAIL, state = this-&gt;state;</span><br><span class="line"></span><br><span class="line">if (state == FL_ERASING)</span><br><span class="line">    timeo += (HZ * 400) / 1000;</span><br><span class="line">else</span><br><span class="line">    timeo += (HZ * 20) / 1000;</span><br><span class="line"></span><br><span class="line">gpmc_nand_write(info-&gt;gpmc_cs,</span><br><span class="line">        GPMC_NAND_COMMAND, (NAND_CMD_STATUS &amp; 0xFF));</span><br><span class="line">while (time_before(jiffies, timeo)) &#123;</span><br><span class="line">    status = gpmc_nand_read(info-&gt;gpmc_cs, GPMC_NAND_DATA);</span><br><span class="line">    if (status &amp; NAND_STATUS_READY)</span><br><span class="line">        break;</span><br><span class="line">    cond_resched();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>少了这句话<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">status = gpmc_nand_read(info-&gt;gpmc_cs, GPMC_NAND_DATA);</span><br><span class="line">return status;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>首先，问题只出现在FL_WRITING也就是write page的阶段。<br>1.第一次检查time_before的时候，当然满足条件，马上gpmc_nand_read读状态，此时多半是还没NAND_STATUS_READY的。所以cond_resched()让内核调度到别的进程。<br>2.因为db和dd两个一起操作，内核很忙，所以再次调度到上次的omap_wait的时候，其实时间早就超出了time_before，也就是不再满足while (time_before(jiffies, timeo))<br>或者虽然有机会进while循环，但是机会不多，此时芯片没ready。<br>实测的话，有时候进入while (time_before(jiffies, timeo))循环800多次。不少啊！<br>以其中实测的一次为例：<br>omap_wait state=7.initial_jiffie=4294939942,last jiffie=4294939944,enter_timers=833<br>进入833次，jiffie只走了2.<br>按照jiffies的定义：每发生一次tick interrupt，Jiffies变数会被加一。当前内核HZ=100（menuconfig配置），每个tick就是10ms。<br>所以jiffies走了2滴答，也就是20ms.和驱动配置的20ms超时，是一致的。（基于tick的延迟，最小精度就是10ms，要再精细，要靠指令死循环硬延迟）<br>只能解释说，这个芯片比较特别，有时候写入的速度偏慢.</p>
+<p>统计数据如下：<br>三星nand：<br>    平时正常的写，不超时的情况下，要循环多少次？<br>        880次<br>    db+dd高负荷的时候，写得到0x81错误时，循环次数的范围：<br>        几十到几百都有，大部分的次数，5，6百的为最多，不超过880。上下跳的厉害。<br>        也有循环一次就被调度走的    </p>
+<p>spansion nand：<br>    平时正常的写，不超时的情况下，要循环多少次？<br>        494次<br>    db+dd高负荷的时候，写，循环次数的范围：<br>        379和493居多，比较稳定。<br>20ms的超时，不考虑cond_resched()的情况下，等于2732399次循环，两百七十多万次呢。循环一次是7.32nS</p>
+<p>所以不管是三星的800多次，还是spansion的500多次，其实都是两百七十万次才开了个小头。<br>为什么，没有任何情况下，能够循环到例如200万次的呢？<br>也就是说，一旦开始while (time_before(jiffies, timeo))，没多久，就被schedule走了。而且再等schedule回来的时候，早就超时了。<br>前面几百次可能是当前进程所剩的时间片。<br>所以说白要要争取在第一次被schedule走之前就ready。否则其实就来不及的。</p>
+<p>注掉cond_resched()，排除cond_resched()的干扰。仅仅查看循环的次数：<br>三星nand：    880次。相当于6.4uS.<br>spansion nand：    515次.  相当于3.7uS.</p>
+<p>所以，即使是三星flash，也是远小于20ms的超时时间的。注掉cond_resched()，单靠死循环，三星flash需要877~1038次循环后，才能NAND_STATUS_READY<br>这种排除cond_resched()，完全死循环死等的情况，其实三星flash完全没机会报0x81的错。<br>一旦cond_resched()开启，高负荷的时候，，一般500上下的循环次数的时候，就会被调度走。其实这时候没一次能达到三星的880次的必须的次数。<br>现在问题在于，因为有了cond_resched().这个函数基本上没多久就会把程序调度走，而且一走基本上回不来。再回来的时候，也是20ms超时之外的。<br>所以唯一的机会，就是在被调度走之前的那几百次循环里，就达到NAND_STATUS_READY的状态。<br>这就能解释为什么三星不行。<br>db+dd高负荷的时候，cond_resched()会比空闲的时候更早调度。<br>这个早，会有多早呢？因为spansion并无0x81，也就是调度之前就已经达成NAND_STATUS_READY，看不出来。（被调度之前就break出去了。要不然等调度回来，肯定0x81错误）<br>那么去看三星，当0x81的时候，循环次数是：全部在880次以下，平均5，6百，也有很多100多，200多的。<br>调度的过早的话，早于880，其实都会引发程序逻辑上的错误。</p>
+<p>但针对不同的nand,最怪的地方在于，调度的情况也不一样。现在反观spansion的调度。<br>（不精确，因为spansion不出0x81错，所以肯定是break出去的，但也能说明至少等了多久时间才可能会发生调度）<br>空闲：379和493<br>db+dd高负荷：379和493，偶尔还有数字2（估计为写oob，时间本就短。）<br>也就是说，针对spansion，其实高负荷的情况下，调度至少并未提前到威胁它的493这个平均耗时的程度。奇怪吧。</p>
+<p>3.其结果就是直接return status.但问题是，这个status，timeout之前的status啊。其实这时候status也已经NAND_STATUS_READY。这时需要再去更新下status。而3.2内核没有这步！<br>4.return status;之前，需加一句status = gpmc_nand_read(info-&gt;gpmc_cs, GPMC_NAND_DATA);即可。这也解释了为什么yaffs_verify_chunk_written检查结果没错。<br>但为何老的nand芯片没问题呢？<br>需要分别打印下log，新的和老的芯片，omap_wait状态上看看有什么区别？<br>    写入速度上，新的nand慢。db+dd测试，才1.4mb/s，老的nand则有1.8mb/s</p>
+<p>原因总结：<br>首先三星的page write速度确实是比spansion要慢。但这不是决定因素。<br>最大的诱因是cond_resched()。这个函数，一旦真的发生调度，又因为超时又短（20ms），tick都要10ms，所以一去不回，再回来的时候已经超时。<br>所以在没有return函数之前更新nand状态寄存器的情况下，成功的硬条件在于，在被调度走之前，就赶紧进入NAND_STATUS_READY。<br>那么这个cond_resched()发生的时机就是关键。偏偏在cpu高负荷的情况下，cond_resched()会提前（仅针对三星flash）<br>所以，如果cpu空闲，三星有机会循环等待800多次，自己成功break出循环。但cpu一旦高负荷，cond_resched()会提前，三星还没到800多次，就被调度走，导致再回来的时候已超时。<br>又因为超时以后，并未在return函数之前更新nand状态寄存器，所以状态的值，是之前错误的值，当然不对。<br>对于spansion，不管是cpu高负荷还是空闲，统计显示，调度至少并未提前到威胁它的493这个平均耗时的程度。所以spansion总是能在调度发生之前就成功break走人。<br>其原因是spansion的情况，调度提前的不明显，不像三星。这个细节的原因是不明的。</p>
+<p>总之，现在的感觉，其实如果对于page write的情况，cond_resched()是多余的，只会导致效率低下,omap_wait如果真的被调度走，只会多浪费时间。<br>因为没被调度走之前，反正都是在轮询死等，会占cpu。这块时间是去不掉的。<br>当然对于erase的情况，超时的时间很久，调度回来，还会进while循环检查的，所以没问题。<br>这点在spansion身上没体现，但是对于三星，发生调度只会减慢write page的速度。<br>不过实测了下，对于三星，即使移除了cond_resched()，对平均写入速度影响其实看不出来。（dd统计的写入速度）<br>原因多半是发生调度的情形，占总的写入次数的比例，并不高。所以改善有限。</p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/08/01/内核启动后升级或者读出kernel办法/" rel="next" title="内核启动后升级或者读出kernel办法">
+                <i class="fa fa-chevron-left"></i> 内核启动后升级或者读出kernel办法
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Semiyd</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives">
+                
+                    <span class="site-state-item-count">87</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">42</span>
+                    <span class="site-state-item-name">categories</span>
+                  </a>
+                </div>
+              
+
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Semiyd</span>
+
+  
+
+  
+</div>
+
+
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> v3.7.1</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://theme-next.org">NexT.Muse</a> v6.3.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+	
+    
+
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.3.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.3.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.3.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.3.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.3.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
