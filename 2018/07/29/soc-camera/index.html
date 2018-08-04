@@ -423,7 +423,7 @@
 <p>In soc-camera there are two locations, where scaling and cropping can taks<br>place: in the camera driver and in the host driver. User ioctls are first passed<br>to the host driver, which then generally passes them down to the camera driver.<br>It is more efficient to perform scaling and cropping in the camera driver to<br>save camera bus bandwidth and maximise the framerate. However, if the camera<br>driver failed to set the required parameters with sufficient precision, the host<br>driver may decide to also use its own scaling and cropping to fulfill the user’s<br>request.</p>
 <p>Camera drivers are interfaced to the soc-camera core and to host drivers over<br>the v4l2-subdev API, which is completely functional, it doesn’t pass any data.<br>Therefore all camera drivers shall reply to .g_fmt() requests with their current<br>output geometry. This is necessary to correctly configure the camera bus.<br>.s_fmt() and .try_fmt() have to be implemented too. Sensor window and scaling<br>factors have to be maintained by camera drivers internally. According to the<br>V4L2 API all capture drivers must support the VIDIOC_CROPCAP ioctl, hence we<br>rely on camera drivers implementing .cropcap(). If the camera driver does not<br>support cropping, it may choose to not implement .s_crop(), but to enable<br>cropping support by the camera host driver at least the .g_crop method must be<br>implemented.</p>
 <p>User window geometry is kept in .user_width and .user_height fields in struct<br>soc_camera_device and used by the soc-camera core and host drivers. The core<br>updates these fields upon successful completion of a .s_fmt() call, but if these<br>fields change elsewhere, e.g., during .s_crop() processing, the host driver is<br>responsible for updating them.</p>
-<p>–<br>Author: Guennadi Liakhovetski <a href="mailto:&#x67;&#x2e;&#x6c;&#105;&#97;&#107;&#x68;&#111;&#x76;&#x65;&#x74;&#x73;&#x6b;&#105;&#64;&#103;&#x6d;&#120;&#x2e;&#x64;&#101;" target="_blank" rel="noopener">&#x67;&#x2e;&#x6c;&#105;&#97;&#107;&#x68;&#111;&#x76;&#x65;&#x74;&#x73;&#x6b;&#105;&#64;&#103;&#x6d;&#120;&#x2e;&#x64;&#101;</a></p>
+<p>–<br>Author: Guennadi Liakhovetski <a href="mailto:&#103;&#x2e;&#108;&#x69;&#x61;&#107;&#x68;&#111;&#x76;&#101;&#116;&#115;&#x6b;&#105;&#64;&#x67;&#109;&#x78;&#x2e;&#100;&#101;" target="_blank" rel="noopener">&#103;&#x2e;&#108;&#x69;&#x61;&#107;&#x68;&#111;&#x76;&#101;&#116;&#115;&#x6b;&#105;&#64;&#x67;&#109;&#x78;&#x2e;&#100;&#101;</a></p>
 
 
 	<div class="row">
@@ -557,7 +557,7 @@
                 
                   <a href="/archives">
                 
-                    <span class="site-state-item-count">102</span>
+                    <span class="site-state-item-count">103</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>

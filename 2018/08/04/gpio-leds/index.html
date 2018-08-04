@@ -108,24 +108,24 @@
 
 
 
-  <meta name="description" content="Linux下的Backlight子系统">
+  <meta name="description" content="gpio-leds">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Linux下的Backlight子系统">
-<meta property="og:url" content="http://yoursite.com/2018/07/29/Linux下的Backlight子系统/index.html">
+<meta property="og:title" content="gpio-leds">
+<meta property="og:url" content="http://yoursite.com/2018/08/04/gpio-leds/index.html">
 <meta property="og:site_name" content="Semiyd&#39;s Blog">
-<meta property="og:description" content="Linux下的Backlight子系统">
+<meta property="og:description" content="gpio-leds">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-07-29T09:22:53.954Z">
+<meta property="og:updated_time" content="2018-08-04T03:12:18.759Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Linux下的Backlight子系统">
-<meta name="twitter:description" content="Linux下的Backlight子系统">
+<meta name="twitter:title" content="gpio-leds">
+<meta name="twitter:description" content="gpio-leds">
 
 
 
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/07/29/Linux下的Backlight子系统/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/08/04/gpio-leds/"/>
 
 
 
@@ -135,7 +135,7 @@
   };
 </script>
 
-  <title>Linux下的Backlight子系统 | Semiyd's Blog</title>
+  <title>gpio-leds | Semiyd's Blog</title>
   
 
 
@@ -280,7 +280,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/07/29/Linux下的Backlight子系统/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/04/gpio-leds/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Semiyd">
@@ -297,7 +297,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Linux下的Backlight子系统
+          <h1 class="post-title" itemprop="name headline">gpio-leds
               
             
           </h1>
@@ -322,7 +322,7 @@
                 
               
 
-              <time title="Created: 2018-07-29 17:17:21 / Modified: 17:22:53" itemprop="dateCreated datePublished" datetime="2018-07-29T17:17:21+08:00">2018-07-29</time>
+              <time title="Created: 2018-08-04 11:10:14 / Modified: 11:12:18" itemprop="dateCreated datePublished" datetime="2018-08-04T11:10:14+08:00">2018-08-04</time>
             
 
             
@@ -365,7 +365,7 @@
                   , 
                 
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Linux/Kernel/驱动/Backlight/" itemprop="url" rel="index"><span itemprop="name">Backlight</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Linux/Kernel/驱动/GPIO/" itemprop="url" rel="index"><span itemprop="name">GPIO</span></a></span>
 
                 
                 
@@ -399,21 +399,9 @@
       
 
       
-        <p><center><strong>Linux下的Backlight子系统</strong></center><br><a id="more"></a><br>
-
-	<div class="row">
-    <embed src="./Linux下的Backlight子系统（一）.pdf" width="100%" height="550" type="application/pdf">
-	</div>
-
-
-<br>
-
-	<div class="row">
-    <embed src="./Linux下的Backlight子系统（二）.pdf" width="100%" height="550" type="application/pdf">
-	</div>
-
-
-</p>
+        <p><center><strong>gpio-leds</strong></center><br><a id="more"></a></p>
+<h2 id="gpio-leds-in-4-4-kernel"><a href="#gpio-leds-in-4-4-kernel" class="headerlink" title="gpio-leds in 4.4 kernel"></a>gpio-leds in 4.4 kernel</h2><p>Device Drivers  —&gt;[<em>] LED Support  —&gt;&lt;</em>&gt;   LED Support for GPIO connected LEDs        勾选</p>
+<p>同样，leds-gpio.c不同于3.2.0内核的版本，现在也支持dts了。所以有关配置的内容，应该移到dts而不是像以前那样hard coded在内核代码里。<br>参考am335x-evmsk.dts<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;dt-bindings/gpio/gpio.h&gt;</span><br><span class="line">leds &#123;</span><br><span class="line">    pinctrl-names = &quot;default&quot;;</span><br><span class="line">    pinctrl-0 = &lt;&amp;user_leds_default&gt;;</span><br><span class="line">    compatible = &quot;gpio-leds&quot;;</span><br><span class="line">    beep &#123;</span><br><span class="line">        label = &quot;etcs-beep&quot;;			这个相当于以前的gpio_led.name成员</span><br><span class="line">        gpios = &lt;&amp;gpio0 29 GPIO_ACTIVE_HIGH&gt;;</span><br><span class="line">        default-state = &quot;off&quot;;</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
 
       
     </div>
@@ -441,8 +429,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/07/29/4G模块上网方法/" rel="next" title="4G模块上网方法">
-                <i class="fa fa-chevron-left"></i> 4G模块上网方法
+              <a href="/2018/08/04/GPIO-driver/" rel="next" title="GPIO driver">
+                <i class="fa fa-chevron-left"></i> GPIO driver
               </a>
             
           </div>
@@ -450,10 +438,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/07/29/Video-for-Linux-Two驱动编写指南/" rel="prev" title="Video for Linux Two驱动编写指南">
-                Video for Linux Two驱动编写指南 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -498,8 +482,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -655,6 +648,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#gpio-leds-in-4-4-kernel"><span class="nav-number">1.</span> <span class="nav-text">gpio-leds in 4.4 kernel</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
