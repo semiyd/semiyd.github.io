@@ -1,0 +1,947 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.3.0" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.3.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.3.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.3.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.3.0" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '6.3.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="i2c 笔记">
+<meta property="og:type" content="article">
+<meta property="og:title" content="i2c 笔记">
+<meta property="og:url" content="http://yoursite.com/2018/08/04/i2c-笔记/index.html">
+<meta property="og:site_name" content="Semiyd&#39;s Blog">
+<meta property="og:description" content="i2c 笔记">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2018-08-04T13:01:14.957Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="i2c 笔记">
+<meta name="twitter:description" content="i2c 笔记">
+
+
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/08/04/i2c-笔记/"/>
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>i2c 笔记 | Semiyd's Blog</title>
+  
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Semiyd's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br />Home</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+    <a href="/categories/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-th"></i> <br />Categories</a>
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/04/i2c-笔记/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Semiyd">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Semiyd's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">i2c 笔记
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2018-08-04 20:55:16 / Modified: 21:01:14" itemprop="dateCreated datePublished" datetime="2018-08-04T20:55:16+08:00">2018-08-04</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Linux/" itemprop="url" rel="index"><span itemprop="name">Linux</span></a></span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Linux/Kernel/" itemprop="url" rel="index"><span itemprop="name">Kernel</span></a></span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Linux/Kernel/驱动/" itemprop="url" rel="index"><span itemprop="name">驱动</span></a></span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Linux/Kernel/驱动/I2C/" itemprop="url" rel="index"><span itemprop="name">I2C</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><center><strong>i2c 笔记</strong></center><br><a id="more"></a></p>
+<p>I2c的驱动架构图，见Linux\Kernel\驱动\I2C\i2c驱动层次图.png</p>
+<p>总的来说I2C的驱动分成三大部分。<br>一部分是向I2C子系统注册cpu的i2c控制器的驱动，也就是adapter。sysfs里面在/sys/class/i2c-adapter/下面可以看到已有的adapter。代码位于/drivers/i2c/buses<br>另一部分是针对具体的i2c外设的驱动，也就是client(有时在这个地方也被叫做device)。代码位于/drivers/i2c/chips<br>还有一个就是规定具体如何通信的协议部分，也就是algorithm。代码位于/drivers/i2c/algos</p>
+<h2 id="常用结构体"><a href="#常用结构体" class="headerlink" title="常用结构体"></a>常用结构体</h2><p>adapter类：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">platform_device&#123;&#125;	定义.name(和platform_driver的.name匹配)，.id，.platform_data（定义引脚，工作频率，超时时间等）			</span><br><span class="line">platform_driver&#123;&#125;	adapter的驱动结构体。											</span><br><span class="line">i2c_adapter&#123;&#125;	.owner（一般为THIS_MODULE）,.algo_data指向一个自定义的结构体（结构体内可以定义通信的算法和时延等细节，可从platform_data处取得）</span><br><span class="line">		.class（一般为I2C_CLASS_HWMON | I2C_CLASS_SPD），.dev.parent（一般为platform_device的.dev）	</span><br><span class="line">		.nr就是（一般为platform_device的.id），.list_head clients所连接的client的链表（已过时？）			</span><br><span class="line"></span><br><span class="line">client/device类：</span><br><span class="line">i2c_board_info&#123;&#125;	这个是client结构体</span><br><span class="line">		定义了client的名字.type,i2c从设备地址.addr，还有platform_data（不知这个有什么用）</span><br><span class="line">		这个不属于platform_device，因为不是片上的设备。</span><br><span class="line">i2c_client&#123;&#125;	定义client的id也就是.name，i2c从设备地址.addr，包含device结构体的定义。			</span><br><span class="line">		.adapter指向对应的adapter	</span><br><span class="line">		和i2c_board_info&#123;&#125;什么关系？关系就是，使用i2c_board_info&#123;&#125;调用i2c_register_board_info()，在这个过程中会创建相应的i2c_client&#123;&#125;</span><br><span class="line">i2c_driver&#123;&#125;	i2c_client&#123;&#125;的驱动结构体。</span><br><span class="line">		新版：</span><br><span class="line">			定义了client name，probe函数，remove函数，id_table用来匹配client，记录了client的id		</span><br><span class="line">			id_table包含了i2c_device_id结构体，里面的.name就是id。这个类似于platform_driver，只是这个是client的东西，不是adapter的。</span><br><span class="line">			这个id_table的id只是个名字，不是从设备的地址。这个名字只要和i2c_board_info&#123;&#125;里面的名字相同即可。</span><br><span class="line">		旧版：</span><br><span class="line">			定义.name，.id设备地址，.attach_adapter，.detach_adapter</span><br><span class="line">i2c_device_id&#123;&#125;</span><br></pre></td></tr></table></figure></p>
+<p>algorithm类：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">i2c_msg&#123;&#125;	具体的消息。定义设备地址.addr，.flags标志，.len消息长度，.buf消息数据						</span><br><span class="line">i2c_algorithm&#123;&#125;	定义master_xfer()</span><br><span class="line">和functionality()（返回适配器支持协议，如I2C_FUNC_I2C | I2C_FUNC_SMBUS_EMUL | I2C_FUNC_PROTOCOL_MANGLING ）</span><br></pre></td></tr></table></figure></p>
+<h2 id="常用API"><a href="#常用API" class="headerlink" title="常用API    "></a>常用API    </h2><p>adapter类：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">i2c_add_adapter()，i2c_add_numbered_adapter()（被 i2c_bit_add_numbered_bus()包含）和i2c_del_adapter()	注册adapter			</span><br><span class="line">platform_driver_register()													</span><br><span class="line">platform_add_devices()													</span><br><span class="line"></span><br><span class="line">client/device类：</span><br><span class="line">i2c_register_board_info()	用来注册client的信息。具体就是用来注册一个或者数个i2c_board_info&#123;&#125;的结构体作为这个函数的入参。</span><br><span class="line">i2c_new_device()		和i2c_register_board_info()平行的一个API,目的是一样的，都是注册client。</span><br><span class="line">			i2c_register_board_info()是静态注册，i2c_new_device()是动态注册client。</span><br><span class="line">			i2c_register_board_info()必须在编译内核的时候知道i2c的总线编号和物理的连接。</span><br><span class="line">			感觉这种动态的注册API不会常用，因为i2c的总线编号和物理的连接总是事先知道的。</span><br><span class="line">			http://blog.csdn.net/tangkegagalikaiwu/article/details/8563392</span><br><span class="line">I2C_BOARD_INFO()	在i2c_board_info&#123;&#125;里面定义的时候使用，定义type（就是个client名字）和addr（client地址）			</span><br><span class="line">i2c_add_driver()		注册client的驱动。				</span><br><span class="line">attach_adapter()旧版API。	在调用i2c_add_driver()会触发回调函数调用这个attach_adapter()	</span><br><span class="line">				若内核中注册了i2c适配器，就顺序调用这些适配器来连接i2c设备</span><br><span class="line">				如果可以访问相应地址的设备，则建立i2c的设备的文件节点MKDEV</span><br><span class="line">				用i2c_attach_client()来注册client</span><br><span class="line">				注册新的字符设备，和相应的fops</span><br><span class="line">detach_adapter()旧版API。</span><br></pre></td></tr></table></figure></p>
+<p>algorithm类：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line">master_xfer()	用于产生 I2C 访问周期需要的信号，以 i2c_msg&#123;&#125;为单位，将i2c_msg&#123;&#125;消息传给I2C设备</span><br><span class="line">		这个master_xfer()是如何被调用的？										</span><br><span class="line">			用户空间open()</span><br><span class="line">			ioctl()</span><br><span class="line">			i2c_transfer()</span><br><span class="line">			master_xfer()				</span><br><span class="line">		中断方式（s3c2410的）的具体的工作举例说明这个master_xfer()：</span><br><span class="line">			将适配器设置为主机发送状态</span><br><span class="line">			启动适配器的中断号，允许适配器发出中断</span><br><span class="line">			启动适配器的消息传输，发一个从机地址。</span><br><span class="line">			wait_event_timeout()等待超时或者中断函数在i2c-&gt;msg_num == 0时唤醒这里的等待队列</span><br><span class="line">			PS:具体中断函数的处理：</span><br><span class="line">				中断第一次进入在写入设备地址后（以s3c2410为例）</span><br><span class="line">				处理总线仲裁的异常</span><br><span class="line">				维护一个总线状态的状态机，不同的状态有IDLE,START,STOP,WRITE,READ	</span><br><span class="line">				传输一个个字节。</span><br><span class="line">				如果传输完毕，调用wake_up()唤醒master_xfer()，完成传输</span><br><span class="line">		普通方式的工作举例：</span><br><span class="line">			static int i2c_adapter_xxx_xfer(structi2c_adapter *adap, struct i2c_msg *msgs, int num)  </span><br><span class="line">			&#123;  </span><br><span class="line">   				for (i = 0; i &lt; num; i++)</span><br><span class="line">				&#123;  </span><br><span class="line">      					产生起始位();</span><br><span class="line">       					if (msgs[i]-&gt;flags &amp; I2C_M_RD)/*读取*/  </span><br><span class="line">						&#123;    </span><br><span class="line">           							i2c_adapter_xxx_setaddr((msg-&gt;addr &lt;&lt; 1) | 1);  /*发送从设备地址*/  </span><br><span class="line">           							获得从设备的ACK(); </span><br><span class="line">							i2c_adapter_xxx_readbytes(msgs[i]-&gt;buf,msgs[i]-&gt;len);  /*读取len长度的数据到buf中*/  </span><br><span class="line">       						&#125;</span><br><span class="line">					else/*写入*/  </span><br><span class="line">						&#123;  </span><br><span class="line">           							i2c_adapter_xxx_setaddr(msg-&gt;addr &lt;&lt; 1);  /*发送从设备地址*/  </span><br><span class="line">           							获得从设备的ACK(); </span><br><span class="line">           							i2c_adapter_xxx_writebytes(msgs[i]-&gt;buf, msgs[i]-&gt;len);  /*写入len长度的数据到buf中*/  </span><br><span class="line">       						&#125;  </span><br><span class="line">    				&#125;  </span><br><span class="line">   				产生停止位(); </span><br><span class="line">			&#125;  </span><br><span class="line">i2c_transfer()														</span><br><span class="line">	寻找到i2c_adapter对应的i2c_algorithm，并使用i2c_algorithm的master_xfer()函数完成传输。</span><br><span class="line">	这个函数，int i2c_transfer(struct i2c_adapter *adap, struct i2c_msg *msgs, int num)</span><br><span class="line">	i2c_transfer()的num，是指独立的i2c的包的个数。（一个START条件和一个结束条件）</span><br><span class="line">	如果说是想在一次连续的i2c传输里面传输数个字节。那么num应该=1，具体的字节数，反映在msgs[0].len</span><br><span class="line">i2c_master_send()														</span><br><span class="line">	i2c_master_send()内部会调用i2c_transfer()函数完成一条写消息。</span><br><span class="line">i2c_master_recv()														</span><br><span class="line">	i2c_master_recv()内部会调用i2c_transfer()函数完成一条读消息。</span><br></pre></td></tr></table></figure></p>
+<h2 id="一般的注册初始化流程"><a href="#一般的注册初始化流程" class="headerlink" title="一般的注册初始化流程"></a>一般的注册初始化流程</h2><p>adapter驱动注册流程：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line">MACHINE_START的.init_machine函数里面调用：</span><br><span class="line">platform_add_devices()					注册i2c的platform控制器设备</span><br><span class="line">platform_driver_register()					注册i2c的platform控制器驱动</span><br><span class="line">probe()</span><br><span class="line">	创建并初始化i2c_adapter结构体</span><br><span class="line">	初始化需要的spinlock和wait queue</span><br><span class="line">	使能i2c控制器的时钟</span><br><span class="line">	ioremap得到寄存器虚址</span><br><span class="line">	初始化i2c控制器的寄存器</span><br><span class="line">	注册中断处理函数</span><br><span class="line">	i2c_add_numbered_adapter()用来注册刚刚创建的i2c_adapter结构体，以添加到内核（此时会遍历client设备吗？）</span><br><span class="line">	用platform_set_drvdata()来把刚刚创建的i2c_adapter结构体保存成平台总线设备的私有数据</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">client驱动注册流程：</span><br><span class="line">	新版：</span><br><span class="line">		MACHINE_START的.init_machine函数，需要包含对i2c_register_board_info()的调用，注册i2c_client&#123;&#125;的信息</span><br><span class="line">		module_init</span><br><span class="line">		定义i2c_driver&#123;&#125;结构体，在里面定义.name .owner .probe .remove .id_table</span><br><span class="line">		i2c_add_driver()（此时会把i2c_driver-&gt;id_table-&gt;name和client-&gt;name来匹配）是否在此处具体实现了i2c_driver和i2c_client的一对多的关系？	</span><br><span class="line">		在调用i2c_add_driver()会触发回调函数调用.probe </span><br><span class="line">		比较client的名字和id_table中名字，如果相等，则探测到i2c设备，</span><br><span class="line">		则建立i2c的设备的文件节点MKDEV。</span><br><span class="line">			如果需要可以建立sysfs的节点sysfs_create_bin_file（作用是在/sys/bus/i2c/devices/会生成一个文件，操作文件就等于操作硬件）</span><br><span class="line">		注册新的字符设备，和相应的fops</span><br><span class="line">	旧版：</span><br><span class="line">		module_init</span><br><span class="line">		定义i2c_driver&#123;&#125;结构体，在里面定义.name，.id，.attach_adapter，.detach_adapter</span><br><span class="line">		i2c_add_driver()</span><br><span class="line">		在调用i2c_add_driver()会触发回调函数调用这个attach_adapter()	</span><br><span class="line">		attach_adapter()里面必须调用i2c_probe()来探测设备。而i2c_probe()有三个入参</span><br><span class="line">		一个是adapter信息，二是地址信息，三是自定义的attach的函数</span><br><span class="line">		如果地址信息与芯片对应不上，无法探测到设备，当探测到目标设备后，调用自定义的attach的函数，把探测到得地址作为参数传入。 </span><br><span class="line">		在自定义的attach函数里：</span><br><span class="line">		如果可以访问相应地址的设备，则建立i2c的设备的文件节点MKDEV</span><br><span class="line">		新建i2c_client&#123;&#125;结构体</span><br><span class="line">		用i2c_attach_client()来注册client</span><br><span class="line">		注册新的字符设备，和用cdev_init()注册相应的fops</span><br><span class="line">		同时要实现client的file_operations各个函数。填充i2c_client&#123;&#125;结构体，并赋给open()的时候的struct file的private_data成员</span><br><span class="line">		后续实现ioctl的时候，可以把i2c_client再从private_data调出来。用copy_from_user把消息从arg的参数里面拷到内核，读取的信息再用</span><br><span class="line">			copy_to_user返回用户空间</span><br></pre></td></tr></table></figure></p>
+<h2 id="client的驱动使用实例"><a href="#client的驱动使用实例" class="headerlink" title="client的驱动使用实例"></a>client的驱动使用实例</h2><pre><code>从用户空间：                                                
+    打开设备文件，然后用通用的open,ioctl等接口去访问
+从内核空间：                                                        
+    直接调用i2c_transfer()，最终会调用到实际传输的master_xfer()
+    读写一个字节：
+        参考文档：Documentation/i2c/smbus-protocol
+        s32 i2c_smbus_write_byte_data(const struct i2c_client *client, u8 command, u8 value)
+            参数：
+                client：传入的i2c_client
+                command：寄存器/命令字节
+                value：写入的字节的值
+            返回：    成功=0    不成功=负值
+
+            这个函数的效果就是发出三个字节。一个地址字节，一个是写入的寄存器/命令字节，一个是要写入的数值
+            This writes a single byte to a device, to a designated register. The
+            register is specified through the Comm byte. This is the opposite of
+            the Read Byte operation.
+            时序：（注意[]是指对方发出的。A是指ack）
+            S Addr Wr [A] Comm [A] Data [A] P
+
+        s32 i2c_smbus_read_byte_data(const struct i2c_client *client, u8 command)
+            参数：
+                client：传入的i2c_client
+                command：寄存器/命令字节
+            返回：    成功=读到的字节    不成功=负值
+
+            这个函数的效果就是发出地址，发出寄存器/命令值，然后再发出地址，再读入一个字节
+            This reads a single byte from a device, from a designated register.
+            The register is specified through the Comm byte.
+            时序：（注意[]是指对方发出的。A是指ack）
+            S Addr Wr [A] Comm [A] S Addr Rd [A] [Data] NA P
+
+        s32 i2c_smbus_read_byte(const struct i2c_client *client)
+            参数：
+                client：传入的i2c_client
+            返回：    成功=读到的字节    不成功=负值
+
+            这个函数的效果就是发出地址，再读入一个字节
+            This reads a single byte from a device, without specifying a device
+            register. Some devices are so simple that this interface is enough; for
+            others, it is a shorthand if you want to read the same register as in
+            the previous SMBus command.
+            时序：（注意[]是指对方发出的。A是指ack）
+            S Addr Rd [A] [Data] NA P
+
+        s32 i2c_smbus_write_byte(const struct i2c_client *client, u8 value)
+            参数：
+                client：传入的i2c_client
+                value：写入的字节的值
+            返回：    成功=0    不成功=负值
+
+            这个函数的效果就是发出两个字节。一个地址字节，一个是要写入的数值
+            This operation is the reverse of Receive Byte: it sends a single byte
+            to a device.  See Receive Byte for more information.
+            时序：（注意[]是指对方发出的。A是指ack）
+            S Addr Wr [A] Data [A] P                            
+
+        以上byte_data和byte的区别：
+            以write为例：
+                byte是发一个字节
+                byte_data是发一个命令，紧接着发一个字节
+            以read为例：
+                byte是收一个字节
+                byte_data是发一个命令，紧接着收一个字节
+    读写多个字节：
+        比如，一次读两个字节：
+            status = i2c_master_recv(client, buf, 2);
+            if (status &lt; 0)
+                return status;
+            return (buf[1] &lt;&lt; 8) | buf[0];
+</code></pre><h2 id="i2c-driver和设备注册实例"><a href="#i2c-driver和设备注册实例" class="headerlink" title="i2c_driver和设备注册实例"></a>i2c_driver和设备注册实例</h2><p>ch452：<br>在Board-am335xevm.c里：<br>I2C_BOARD_INFO(“ch452”, 0x37)<br>然后用i2c_register_board_info来注册<br>在ch452.c里：<br>ch452_driver{}这个i2c_driver结构体，声明了name是”ch452”<br>id_table也声明了id<br>最后通过i2c_add_driver注册i2c_driver<br>所以如果I2C_BOARD_INFO注册了比如”ch452”<br>那么因为和ch452_driver{}这个id_table结构体的name匹配<br>(注：必须是和i2c_driver.id_table.name匹配，而不是i2c_driver.driver.name。当然，这两者可能是相同的字段。)<br>所以就会调用i2c_driver的probe函数，也就是ch452_probe()</p>
+<h2 id="i2c-client保存和提取设备私有结构体的例子"><a href="#i2c-client保存和提取设备私有结构体的例子" class="headerlink" title="i2c_client保存和提取设备私有结构体的例子"></a>i2c_client保存和提取设备私有结构体的例子</h2><p>驱动通常需要保存写私有数据结构体<br>以ch452驱动为例。<br>假设有这么个私有结构体：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">struct ch452_data &#123;</span><br><span class="line">	struct i2c_client *client;</span><br><span class="line">	struct input_dev *input;</span><br><span class="line">	unsigned int irq;</span><br><span class="line">	unsigned short keycodes[ARRAY_SIZE(ch452_key2code)];</span><br><span class="line">	u8 last_code;</span><br><span class="line">	unsigned short last_key;</span><br><span class="line">	u8 power_mode;</span><br><span class="line">	struct timer_list timer;</span><br><span class="line">	struct semaphore	ch452_semaphore;</span><br><span class="line">	struct ch452_leds_priv *priv;//maybe not needed?</span><br><span class="line">	int reset_pin;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<p>probe的时候：<br>    就可以kzalloc一个ch452_data，然后把指针保存到i2c_client-&gt;device-&gt;p-&gt;driver_data里面去<br>    有API可以比较简单的保存和提取。<br>    保存：<br>    i2c_set_clientdata(client, data);    //client就是i2c_client，data就是这个struct ch452_data的指针</p>
+<p>使用的时候：<br>struct ch452_data *data = i2c_get_clientdata(client);<br>就可以直接得到私有数据结构体的内容了。</p>
+<h2 id="i2c-client保存和提取设备私有结构体的例子-1"><a href="#i2c-client保存和提取设备私有结构体的例子-1" class="headerlink" title="i2c_client保存和提取设备私有结构体的例子"></a>i2c_client保存和提取设备私有结构体的例子</h2><p>参考资料：<br><a href="http://code.taobao.org/p/rpi_build/src/trunk/linux-rpi-3.10.y/Documentation/i2c/" target="_blank" rel="noopener">http://code.taobao.org/p/rpi_build/src/trunk/linux-rpi-3.10.y/Documentation/i2c/</a>                </p>
+<h2 id="有关i2c操作，无法在中断上下文执行的问题"><a href="#有关i2c操作，无法在中断上下文执行的问题" class="headerlink" title="有关i2c操作，无法在中断上下文执行的问题"></a>有关i2c操作，无法在中断上下文执行的问题</h2><p>linux内核有个奇葩的地方。就是i2c子系统，会用到涉及睡眠的锁。<br>这样做直接就导致了i2c的操作，无法用于中断上下文（硬中断或软中断）</p>
+<p>例如：<br>1.不能在request_irq的中断处理函数里面，操作i2c</p>
+<p>2.不能在setup_timer注册的回调函数里面，操作i2c(软中断)</p>
+<p>否则，就会出各种crash。例如：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line">WARNING: CPU: 0 PID: 0 at kernel/locking/rtmutex.c:1472 rt_mutex_trylock+0x40/0xfc()</span><br><span class="line">Modules linked in: sha512_generic sha512_arm sha1_generic sha1_arm_neon sha1_arm md5 sha256_generic sha256_arm hmac drbg </span><br><span class="line">des_generic cbc bc_example(O) bluetooth ti_emif_sram pvrsrvkm(O) c_can_platform c_can can_dev ti_am335x_tsc omap_wdt sch_fq_codel cryptodev(O)</span><br><span class="line">CPU: 0 PID: 0 Comm: swapper Tainted: G        W  O    4.4.32-gadde2ca9f8 #69</span><br><span class="line">Hardware name: Generic AM33XX (Flattened Device Tree)</span><br><span class="line">Backtrace:</span><br><span class="line">[&lt;c00134e4&gt;] (dump_backtrace) from [&lt;c00136e0&gt;] (show_stack+0x18/0x1c)</span><br><span class="line"> r7:c06ada80 r6:000005c0 r5:00000009 r4:00000000</span><br><span class="line">[&lt;c00136c8&gt;] (show_stack) from [&lt;c02a3f28&gt;] (dump_stack+0x24/0x28)</span><br><span class="line">[&lt;c02a3f04&gt;] (dump_stack) from [&lt;c0031d0c&gt;] (warn_slowpath_common+0x88/0xb4)</span><br><span class="line">[&lt;c0031c84&gt;] (warn_slowpath_common) from [&lt;c0031ddc&gt;] (warn_slowpath_null+0x24/0x2c)</span><br><span class="line"> r8:00000000 r7:00000001 r6:c0963c80 r5:dc51fc60 r4:dc51fc50</span><br><span class="line">[&lt;c0031db8&gt;] (warn_slowpath_null) from [&lt;c06ada80&gt;] (rt_mutex_trylock+0x40/0xfc)</span><br><span class="line">[&lt;c06ada40&gt;] (rt_mutex_trylock) from [&lt;c04b9e20&gt;] (i2c_transfer+0x58/0xa4)</span><br><span class="line"> r5:dc51fc60 r4:dc51fc50</span><br><span class="line">[&lt;c04b9dc8&gt;] (i2c_transfer) from [&lt;c04ba118&gt;] (i2c_smbus_xfer+0x200/0x5d8)</span><br><span class="line"> r7:00000000 r6:dc516e00 r5:c0963c9b r4:dc51fc50</span><br><span class="line">[&lt;c04b9f18&gt;] (i2c_smbus_xfer) from [&lt;c04ba644&gt;] (i2c_smbus_read_byte+0x3c/0x4c)</span><br><span class="line"> r10:c09712c0 r9:c0970a9c r8:00000000 r7:dc563400 r6:dc516e00 r5:dc516e00</span><br><span class="line"> r4:c0963d26</span><br><span class="line">[&lt;c04ba608&gt;] (i2c_smbus_read_byte) from [&lt;c04b0368&gt;] (ch452_read+0x14/0x40)</span><br><span class="line"> r4:dc550880</span><br><span class="line">[&lt;c04b0354&gt;] (ch452_read) from [&lt;c04b07a8&gt;] (timer_thread+0x4c/0xe4)</span><br><span class="line"> r5:dc5508d0 r4:dc550880</span><br><span class="line">[&lt;c04b075c&gt;] (timer_thread) from [&lt;c0079f64&gt;] (call_timer_fn+0x30/0x9c)</span><br><span class="line"> r9:c0970a9c r8:00000200 r7:c04b075c r6:00000101 r5:c0962000 r4:ffffe000</span><br><span class="line">[&lt;c0079f34&gt;] (call_timer_fn) from [&lt;c007a880&gt;] (run_timer_softirq+0x1a4/0x28c)</span><br><span class="line"> r7:00000000 r6:c0970a80 r5:c0962000 r4:dc5508b4</span><br><span class="line">[&lt;c007a6dc&gt;] (run_timer_softirq) from [&lt;c0034ebc&gt;] (__do_softirq+0x110/0x258)</span><br><span class="line"> r10:40000001 r9:c09b3280 r8:00000101 r7:c0962000 r6:c09b3284 r5:00000001</span><br><span class="line"> r4:00000000</span><br><span class="line">[&lt;c0034dac&gt;] (__do_softirq) from [&lt;c0035304&gt;] (irq_exit+0xec/0x120)</span><br><span class="line"> r10:00000000 r9:0000003d r8:dc006000 r7:00000000 r6:00000000 r5:00000010</span><br><span class="line"> r4:c0987f84</span><br><span class="line">[&lt;c0035218&gt;] (irq_exit) from [&lt;c006afc4&gt;] (__handle_domain_irq+0x60/0xb0)</span><br><span class="line"> r5:00000010 r4:c0987f84</span><br><span class="line">[&lt;c006af64&gt;] (__handle_domain_irq) from [&lt;c0009468&gt;] (omap_intc_handle_irq+0x3c/0x98)</span><br><span class="line"> r9:0000003d r8:6b1906da r7:c0963ef4 r6:ffffffff r5:20030013 r4:c09e2b80</span><br><span class="line">[&lt;c000942c&gt;] (omap_intc_handle_irq) from [&lt;c0014194&gt;] (__irq_svc+0x54/0x90)</span><br><span class="line">Exception stack(0xc0963ec0 to 0xc0963f08)</span><br><span class="line">3ec0: 00000000 fffffffa 6b1bfdcd c096f188 0002f6f3 0000003d 00000000 dc462c00</span><br><span class="line">3ee0: 6b1906da 0000003d 00000000 c0963f4c c0963f10 c0963f10 c04fb76c c04fb774</span><br><span class="line">3f00: 20030013 ffffffff</span><br><span class="line"> r5:20030013 r4:c04fb774</span><br><span class="line">[&lt;c04fb5f4&gt;] (cpuidle_enter_state) from [&lt;c04fb8f0&gt;] (cpuidle_enter+0x1c/0x20)</span><br><span class="line"> r10:c0964124 r9:c09b18d2 r8:c096412c r7:c09a6028 r6:c09a6480 r5:dc462c00</span><br><span class="line"> r4:00000000</span><br><span class="line">[&lt;c04fb8d4&gt;] (cpuidle_enter) from [&lt;c005d368&gt;] (call_cpuidle+0x30/0x54)</span><br><span class="line">[&lt;c005d338&gt;] (call_cpuidle) from [&lt;c005d4ac&gt;] (cpu_startup_entry+0x120/0x1a8)</span><br><span class="line"> r5:dc462c00 r4:c0962000</span><br><span class="line">[&lt;c005d38c&gt;] (cpu_startup_entry) from [&lt;c06aa578&gt;] (rest_init+0x8c/0x90)</span><br><span class="line"> r7:c0964040</span><br><span class="line">[&lt;c06aa4ec&gt;] (rest_init) from [&lt;c090cd3c&gt;] (start_kernel+0x3b8/0x3c4)</span><br><span class="line"> r5:c09b24c0 r4:c09b2500</span><br><span class="line">[&lt;c090c984&gt;] (start_kernel) from [&lt;80008078&gt;] (0x80008078)</span><br><span class="line">---[ end trace ec81fd31e1a113ef ]---</span><br></pre></td></tr></table></figure></p>
+<p>或者类似这种crash：<br>BUG: scheduling while atomic: swapper/0/0x00010000<br>“Scheduling while atomic” indicates that you’ve tried to sleep somewhere that you shouldn’t - like within a spinlock-protected critical section or an interrupt handler.</p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/08/04/gpio-leds/" rel="next" title="gpio-leds">
+                <i class="fa fa-chevron-left"></i> gpio-leds
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/08/04/i2c-tools的使用方法及举例/" rel="prev" title="i2c-tools的使用方法及举例">
+                i2c-tools的使用方法及举例 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Semiyd</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives">
+                
+                    <span class="site-state-item-count">110</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">53</span>
+                    <span class="site-state-item-name">categories</span>
+                  </a>
+                </div>
+              
+
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#常用结构体"><span class="nav-number">1.</span> <span class="nav-text">常用结构体</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#常用API"><span class="nav-number">2.</span> <span class="nav-text">常用API    </span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#一般的注册初始化流程"><span class="nav-number">3.</span> <span class="nav-text">一般的注册初始化流程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#client的驱动使用实例"><span class="nav-number">4.</span> <span class="nav-text">client的驱动使用实例</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#i2c-driver和设备注册实例"><span class="nav-number">5.</span> <span class="nav-text">i2c_driver和设备注册实例</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#i2c-client保存和提取设备私有结构体的例子"><span class="nav-number">6.</span> <span class="nav-text">i2c_client保存和提取设备私有结构体的例子</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#i2c-client保存和提取设备私有结构体的例子-1"><span class="nav-number">7.</span> <span class="nav-text">i2c_client保存和提取设备私有结构体的例子</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#有关i2c操作，无法在中断上下文执行的问题"><span class="nav-number">8.</span> <span class="nav-text">有关i2c操作，无法在中断上下文执行的问题</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Semiyd</span>
+
+  
+
+  
+</div>
+
+
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> v3.7.1</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://theme-next.org">NexT.Muse</a> v6.3.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+	
+    
+
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.3.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.3.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.3.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.3.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.3.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
