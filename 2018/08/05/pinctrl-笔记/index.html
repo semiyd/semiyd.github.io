@@ -1,0 +1,891 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.3.0" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.3.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.3.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.3.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.3.0" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '6.3.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="pinctrl 笔记">
+<meta property="og:type" content="article">
+<meta property="og:title" content="pinctrl 笔记">
+<meta property="og:url" content="http://yoursite.com/2018/08/05/pinctrl-笔记/index.html">
+<meta property="og:site_name" content="Semiyd&#39;s Blog">
+<meta property="og:description" content="pinctrl 笔记">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2018-08-05T01:59:18.966Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="pinctrl 笔记">
+<meta name="twitter:description" content="pinctrl 笔记">
+
+
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/08/05/pinctrl-笔记/"/>
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>pinctrl 笔记 | Semiyd's Blog</title>
+  
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Semiyd's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br />Home</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+    <a href="/categories/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-th"></i> <br />Categories</a>
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/05/pinctrl-笔记/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Semiyd">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Semiyd's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">pinctrl 笔记
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2018-08-05 09:53:46 / Modified: 09:59:18" itemprop="dateCreated datePublished" datetime="2018-08-05T09:53:46+08:00">2018-08-05</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Linux/" itemprop="url" rel="index"><span itemprop="name">Linux</span></a></span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Linux/Kernel/" itemprop="url" rel="index"><span itemprop="name">Kernel</span></a></span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Linux/Kernel/驱动/" itemprop="url" rel="index"><span itemprop="name">驱动</span></a></span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Linux/Kernel/驱动/Pinctrl/" itemprop="url" rel="index"><span itemprop="name">Pinctrl</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><center><strong>pinctrl 笔记</strong></center><br><a id="more"></a></p>
+<p>pinctrl是一种新的用来配置gpio复用和引脚功能(上下拉，驱动能力，开漏)的内核中间层。</p>
+<h2 id="常用结构体-从最顶层往下逐渐展开说明"><a href="#常用结构体-从最顶层往下逐渐展开说明" class="headerlink" title="常用结构体(从最顶层往下逐渐展开说明):"></a>常用结构体(从最顶层往下逐渐展开说明):</h2><p>desc描述符的定义：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">pinctrl_desc&#123;&#125;		主要作用是包含cpu的所有引脚的列表pinctrl_pin_desc&#123;&#125;，并包含pinctrl_ops&#123;&#125;引脚分组信息（如：i2c的引脚组，spi的引脚组，等）</span><br><span class="line">	pinctrl_pin_desc&#123;&#125;		使用PINCTRL_PIN宏来定义所有引脚的列表。pinctrl_pin_desc&#123;&#125;有两个成员。number是编号，name是字符串命名的名字.</span><br><span class="line">	pinctrl_ops&#123;&#125;		定义get_groups_count()（得到引脚组个数），get_group_name()（得到引脚组名称），get_group_pins()（得到引脚组的引脚列表）函数。</span><br><span class="line">				这些函数，在驱动调用pinctrl通用API使能某一组的引脚的功能时，pinctrl子系统会调用这些函数的。</span><br><span class="line">	pinconf_ops&#123;&#125;		配置引脚上下拉或者高阻的回调函数。有针对单个引脚的配置，也有针对整个引脚组的配置的函数。(nuc970的代码未定义这一系列的回调函数)</span><br><span class="line">	pinmux_ops&#123;&#125;		包括设置mux的回调函数，enable()和disable()。enable()就是设置默认的mux，disable()就是设置成GPIO。</span><br><span class="line">				定义get_functions_count()（），get_function_name()（），get_function_groups()（）函数。</span><br><span class="line"></span><br><span class="line">	这就是整个pinctrl子系统最顶层的结构体，也就是pinctrl_desc&#123;&#125;，整个驱动probe的时候，需要用pinctrl_register()去注册这个pinctrl_desc&#123;&#125;</span><br><span class="line">	按照这个顶层结构体的成员函数，下面挨个说明各个成员函数所涉及的各个不同的内容。</span><br><span class="line">	pinctrl_pin_desc&#123;&#125;	这个比较简单，不单独解释了，就是列举所有的引脚并编号，上面已经解释了。</span><br><span class="line">	pinctrl_ops&#123;&#125;	对应：group引脚组</span><br><span class="line">	pinconf_ops&#123;&#125;	对应：pin configuration引脚模式</span><br><span class="line">	pinmux_ops&#123;&#125;	对应：pinmux引脚复用</span><br></pre></td></tr></table></figure></p>
+<h2 id="group引脚组："><a href="#group引脚组：" class="headerlink" title="group引脚组："></a>group引脚组：</h2><p>group            引脚组，也就是一组引脚<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">nuc970_pinctrl_group&#123;&#125;	这个是引脚组的结构体。用来提供给pinctrl_ops&#123;&#125;的。这个结构体没有内核统一规定的名字。每个平台略不相同。</span><br><span class="line">			nuc970_pinctrl_group&#123;&#125;就是NUC970平台自己定义的结构体名称</span><br><span class="line">			但共同点是，都有name，pins，num_pins这种成员。也会包含些平台特有的成员。</span><br><span class="line">			nuc970特有的成员就是.func，表示复用的模式号的选择</span><br><span class="line">			这里的pins成员，使用命名方式正是之前pinctrl_pin_desc&#123;&#125;里面定义的引脚号。</span><br><span class="line">			这个结构体的作用。就是把所有可能的引脚的组全部列出来。</span><br><span class="line">			例如，spi0，有可能由0,8,16,24脚复用。但也有可能由38,48,54,62脚复用。</span><br><span class="line">				static const unsigned spi0_0_pins[] = &#123; 0, 8, 16, 24 &#125;; </span><br><span class="line">				static const unsigned spi0_1_pins[] = &#123; 38, 46, 54, 62 &#125;;</span><br><span class="line">				static const struct nuc970_pinctrl_group nuc970_pinctrl_groups[] = &#123;</span><br><span class="line">					 &#123; .name = &quot;spi0_0_grp&quot;,</span><br><span class="line">						.pins = spi0_0_pins,</span><br><span class="line">						.num_pins = ARRAY_SIZE(spi0_0_pins), &#125;,</span><br><span class="line">					&#123; .name = &quot;spi0_1_grp&quot;,</span><br><span class="line">						.pins = spi0_1_pins,</span><br><span class="line">						.num_pins = ARRAY_SIZE(spi0_1_pins), &#125;,</span><br><span class="line">			这样就罗列了例如spi0所有可能的复用的情况。</span><br><span class="line">			</span><br><span class="line">			那么，nuc970_pinctrl_group&#123;&#125;的实例nuc970_pinctrl_groups[]，在下面几个地方会被用到：</span><br><span class="line">			1.pinctrl_ops&#123;&#125;			这个是上面提到的一组有关引脚组的回调函数，得到引脚组的信息。</span><br><span class="line">			2.pinmux_ops&#123;&#125;的enable&#123;&#125;和disable&#123;&#125;	用于按照引脚组来分类，来进行mux的初始化设定。</span><br><span class="line">xxx_pins[]			也就是上面nuc970_pinctrl_group&#123;&#125;的pins成员。明明规则就是xxx_pins[]，例如emac0_pins[]，lcd_0_pins[]</span><br><span class="line">			用来表示特定的引脚组</span><br><span class="line">此时再来看pinctrl_ops&#123;&#125;里面的成员函数，就比较清楚了：</span><br><span class="line">get_groups_count()		得到引脚组总个数           </span><br><span class="line">get_group_name()		得到某个特定的引脚组名称</span><br><span class="line">get_group_pins()		得到某个特定的引脚组的引脚列表和引脚数</span><br></pre></td></tr></table></figure></p>
+<hr>
+<p>pin configuration引脚模式：</p>
+<p>static struct pinconf_ops foo_pconf_ops = { .pin_config_get = foo_pin_config_get,<br>    .pin_config_set = foo_pin_config_set,<br>    .pin_config_group_get = foo_pin_config_group_get,<br>    .pin_config_group_set = foo_pin_config_group_set, };</p>
+<h2 id="pinmux引脚复用："><a href="#pinmux引脚复用：" class="headerlink" title="pinmux引脚复用："></a>pinmux引脚复用：</h2><p>一些概念：<br>&emsp;&emsp;&emsp;FUNCTIONS    也就是复用的具体功能，例如是复用成i2c/spi还是gpio。<br>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;每一种FUNCTIONS总是对应特定的引脚组。比如说i2c这个FUNCTIONS总是对应{A0,A1}这个引脚组，或者{B3,B5}这个另外的一个引脚组。<br>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;所以说FUNCTIONS和特定的引脚组的组合，即可定义具体引脚的复用情况。<br>&emsp;&emsp;&emsp;selector<br>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;也就是FUNCTIONS对应的复用的模式号。比如，i2c对应的号是0，spi对应的号是1.<br>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;将来选择复用的时候，选0作为selector，就是选择了i2c功能。<br>&emsp;&emsp;&emsp;mappings<br>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;上面说到，FUNCTIONS和特定的引脚组的组合，即可定义具体引脚的复用情况。<br>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;那么对于一块特定的板子，写清楚所有FUNCTIONS和特定的引脚组的组合，就能定义整块板子的复用情况。<br>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;这种FUNCTIONS和group的对应关系的集合，成为mappings。<br>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;例如：<br>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;{“map-spi0”, spi0, pinctrl0, fspi0, gspi0},<br>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;{“map-i2c0”, i2c0, pinctrl0, fi2c0, gi2c0}<br>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;这里面fspi0表示spi0的功能，gspi0表示spi0的一个引脚组<br>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;而这种可能存在的mappings，在驱动里面，需要被全部枚举出来。比如spi0这个功能，能对应哪几个引脚组，要全部列举出来。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">pinmux_ops&#123;&#125;</span><br><span class="line">	enable()		</span><br><span class="line">	disable()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">nuc970_pmx_func&#123;&#125;	这个结构体没有内核统一规定的名字。每个平台略不相同。但共同点是，都有name，groups，num_groups这种成员。</span><br><span class="line">			这里的groups，把之前nuc970_pinctrl_group&#123;&#125;里面声明的组，进一步归类。</span><br><span class="line">			作用是给pinmux_ops&#123;&#125;的get_functions_count()，get_function_name()，get_function_groups()函数用的</span><br><span class="line">			但实际真的有什么作用，不明。</span><br><span class="line">nuc970_pinmap&#123;&#125;		作用不明。</span><br><span class="line"></span><br><span class="line">nuc970_functions&#123;&#125;</span><br><span class="line">			这个是引脚组的结构体。用来提供给pinctrl_ops&#123;&#125;的。奇怪的地方在于，这个结构体没有内核统一规定的名字。每个平台略不相同。</span><br><span class="line">pinctrl_gpio_range&#123;&#125;	用于建立gpio_chip实例和pinctrl引脚定义之间的映射关系</span><br></pre></td></tr></table></figure></p>
+<h2 id="常用API"><a href="#常用API" class="headerlink" title="常用API    "></a>常用API    </h2><p>pinctrl驱动内部注册用的API:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">pinctrl_register()	向pinctrl子系统注册特定的pinctrl_desc&#123;&#125;</span><br><span class="line">pinctrl_add_gpio_range()	用来建立gpio_chip实例和pinctrl引脚的对应关系。这样的话，在gpio_request()的时候，gpio子系统会调用pinctrl_request_gpio()来检查引脚的复用情况。</span><br><span class="line">	不过在nuc970的BSP里面，没实现这个功能。检查复用是在gpio_request()里面自己用代码写了几句来完成的。</span><br><span class="line">pinctrl_register_mappings()</span><br></pre></td></tr></table></figure></p>
+<p>开放给别的驱动调用的API:（需包含consumer.h）<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">pin_config_set()	用于在某驱动里，用来设置引脚上下拉(3.10.101内核里面，暂未看到有实际代码调用这个接口.)</span><br><span class="line">xxx_driver_probe()-&gt;devm_pinctrl_get_select()</span><br><span class="line">devm_pinctrl_get()</span><br><span class="line">pinctrl_lookup_state()</span><br><span class="line">pinctrl_select_state()</span><br></pre></td></tr></table></figure></p>
+<p>pinctrl_bind_pins()的代码流程：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">1.kzalloc一个device-&gt;pins的成员实例。</span><br><span class="line">2.devm_pinctrl_get()也就是resource mananged版pinctrl_get()（resource mananged就是说driver detach的时候资源会自动释放）</span><br><span class="line">	pinctrl_get()		</span><br><span class="line">		find_pinctrl()查找是否pinctrl_list链表里面已经有注册的句柄，有则返回，</span><br><span class="line">		无则调用create_pinctrl()			--&gt;I&apos;m here</span><br><span class="line">	create_pinctrl()</span><br><span class="line">		尝试从device tree里面获取pinctrl_map</span><br><span class="line">		加入链表pinctrl_list</span><br><span class="line">3.pinctrl_lookup_state	如果之前有可用的pinctrl.</span><br><span class="line">4.pinctrl_select_state</span><br></pre></td></tr></table></figure></p>
+<h2 id="修改并使用pinctrl的实例"><a href="#修改并使用pinctrl的实例" class="headerlink" title="修改并使用pinctrl的实例"></a>修改并使用pinctrl的实例</h2><p>具体的修改并使用pinctrl的实例：<br>    这个例子是nuc970平台，增加gpio的pinctrl，然后在gpio驱动里面去配置它们。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line">在pinctrl-nuc970.c：</span><br><span class="line">1.新增pins</span><br><span class="line">static const unsigned fci_lcd_v10_gpio_pins[] = &#123;0x63,0x74,0x75,0x76,0x77,0x78,0x79,0x7A,0x7B,0x13,</span><br><span class="line">	0x19,0x1A,0x1B,0x1C,0x1D,0x1E,0x1F,0x64,0x65,0x43,0x44,0x45,0x46,0x47,0x48,0x49,0x4A,0x4B&#125;;</span><br><span class="line">2.新增引脚组结构体nuc970_pinctrl_group nuc970_pinctrl_groups[]的成员</span><br><span class="line">&#123;</span><br><span class="line">	.name = &quot;fci_lcd_v10_gpio_grp&quot;,</span><br><span class="line">	.pins = fci_lcd_v10_gpio_pins,</span><br><span class="line">	.num_pins = ARRAY_SIZE(fci_lcd_v10_gpio_pins),</span><br><span class="line">	.func = 0x0,</span><br><span class="line">&#125;,</span><br><span class="line">3.新增fci_lcd_v10_gpio_groups[]	</span><br><span class="line">	作用：就是同一种功能，有哪几种可能的复用脚的组合。</span><br><span class="line">	例如i2c1的引脚组，可能有4种选择：&#123;0x10, 0x11&#125;或者&#123;0x62, 0x63&#125;或者&#123;0x72, 0x73&#125;或者&#123;0x83, 0x84&#125;</span><br><span class="line">	这4种选择，就组成了i2c1_groups[] 也就是&#123;&quot;i2c1_0_grp&quot;, &quot;i2c1_1_grp&quot;, &quot;i2c1_2_grp&quot;, &quot;i2c1_3_grp&quot;&#125;;</span><br><span class="line">	gpio这里只有一种复用脚的组合。</span><br><span class="line">	static const char * const fci_lcd_v10_gpio_groups[] = &#123;&quot;fci_lcd_v10_gpio_grp&quot;&#125;;</span><br><span class="line">4.新增复用函数结构体nuc970_pmx_func nuc970_functions[]的成员</span><br><span class="line">&#123;</span><br><span class="line">	.name = &quot;fci_lcd_v10_gpio&quot;,</span><br><span class="line">	.groups = fci_lcd_v10_gpio_groups,</span><br><span class="line">	.num_groups = ARRAY_SIZE(fci_lcd_v10_gpio_groups),</span><br><span class="line">&#125;,</span><br><span class="line">5.新增引脚映射结构体pinctrl_map nuc970_pinmap[]的成员</span><br><span class="line">此处注意，和新增fci_lcd_v10_gpio_groups[]一样，需要枚举出所有可能的组合。以i2c1为例</span><br><span class="line">就有3个成员，代表i2c1的3中mux的组合方法：</span><br><span class="line">&quot;i2c1-PB&quot;，&quot;i2c1-PG&quot;，&quot;i2c1-PH&quot;</span><br><span class="line">gpio这里只有一种复用脚的组合。</span><br><span class="line">&#123;</span><br><span class="line">	.dev_name = &quot;nuc970-gpio&quot;,			//这个是platform_device和platform_driver的名字。可在特定的platform_driver里面调用。</span><br><span class="line">	.name = PINCTRL_STATE_DEFAULT,		//因为只有一种映射组合，所以不特别起名字，就用默认名字的宏</span><br><span class="line">	.type = PIN_MAP_TYPE_MUX_GROUP,	//这个意思是这个mapping是配置mux组的。（而不是config pin或者config group）</span><br><span class="line">	.ctrl_dev_name = &quot;pinctrl-nuc970&quot;,		//这个是固定的，不用改</span><br><span class="line">	.data.mux.function = &quot;fci_lcd_v10_gpio&quot;,	//这个就是刚刚定义的nuc970_pmx_func类型的成员的name</span><br><span class="line">	.data.mux.group = &quot;fci_lcd_v10_gpio_grp&quot;,	//这个就是刚刚定义的nuc970_pinctrl_group类型的某一种引脚组</span><br><span class="line">&#125;,</span><br><span class="line">所以pinctrl_map，即可以管mux，也可以管config，都是通过这个pinctrl_map来配置的。</span><br><span class="line">具体配置mux还是config，哪种mux或者哪种config，只需要devm_pinctrl_get_select()的时候根据pinctrl_map的name来区分即可。</span><br><span class="line"></span><br><span class="line">在gpio-nuc970.c：</span><br><span class="line">1.nuc970_gpio_probe()的最后，加入：</span><br><span class="line">//config gpio mux setting</span><br><span class="line">p = devm_pinctrl_get_select(&amp;pdev-&gt;dev, PINCTRL_STATE_DEFAULT);</span><br><span class="line"></span><br><span class="line">if(IS_ERR(p)) &#123;</span><br><span class="line">	dev_err(&amp;pdev-&gt;dev, &quot;unable to reserve pin\n&quot;);</span><br><span class="line">	printk(&quot;unable to reserve pin in %s  \n&quot;,__func__);</span><br><span class="line">	goto err_nuc970_gpio_port;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>以NUC970平台为例。具体真正去配置pin mux信息的地方，其实是调用nuc970_enable()<br>pinctrl_select_state()-&gt;pinmux_enable_setting()-&gt;nuc970_enable()</p>
+<p>具体配置mux并最后调用nuc970_enable()的途径有这么几个：<br>    1.probe()-&gt;really_probe()-&gt;pinctrl_bind_pins()-&gt;devm_pinctrl_get()-&gt;pinctrl_get()-&gt;find_pinctrl()来查找kernel代码里是否有pinctrl_register注册过的pinctrl<br>    2.如果上一步find_pinctrl()没找到代码里面已pinctrl_register注册过的pinctr，则用create_pinctrl()-&gt;pinctrl_dt_to_map()尝试从device tree加载pinctrl<br>    3.根据上面两步得到的pinctrl，调用probe()-&gt;really_probe()-&gt;pinctrl_bind_pins()-&gt;pinctrl_select_state()，<br>        需匹配device的名字和pinctrl_map[]的dev_name，且为PINCTRL_STATE_DEFAULT<br>        则会继续设置pinmux。<br>        如果没有pinctrl或者没有PINCTRL_STATE_DEFAULT，则什么也不做。<br>    4.probe()里面手动用devm_pinctrl_get_select()（使用于pinctrl定义中无PINCTRL_STATE_DEFAULT，且所用的非PINCTRL_STATE_DEFAULT的情况）<br>        例如nuc970-fmi这种，其实没有PINCTRL_STATE_DEFAULT</p>
+<h2 id="如何在dts里面使用pinctrl"><a href="#如何在dts里面使用pinctrl" class="headerlink" title="如何在dts里面使用pinctrl"></a>如何在dts里面使用pinctrl</h2><p>就现在遇到的两种情况，有以下两种方式在dts里面去使用pinctrl：<br>1.使用pinctrl-single的方式：(注：此方式仅适用于ti的芯片，pinctrl-single其实是ti搞的一个简单的pinctrl驱动。但名字极具迷惑性，乍一看以为是内核核心层的东西！)<br>实例：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">dtsi定义：（am33xx.dtsi）</span><br><span class="line">			am33xx_pinmux: pinmux@800 &#123;</span><br><span class="line">				compatible = &quot;pinctrl-single&quot;;</span><br><span class="line">				reg = &lt;0x800 0x238&gt;;</span><br><span class="line">				#address-cells = &lt;1&gt;;</span><br><span class="line">				#size-cells = &lt;0&gt;;</span><br><span class="line">				pinctrl-single,register-width = &lt;32&gt;;</span><br><span class="line">				pinctrl-single,function-mask = &lt;0x7f&gt;;</span><br><span class="line">			&#125;;</span><br><span class="line">dts定义：（am335x-evm.dts）</span><br><span class="line">			&amp;am33xx_pinmux &#123;</span><br><span class="line">				pinctrl-names = &quot;default&quot;;</span><br><span class="line">				pinctrl-0 = &lt;&amp;clkout2_pin &amp;touchscreen_pins&gt;;</span><br><span class="line">				touchscreen_pins: pinmux_touchscreen_pins &#123;</span><br><span class="line">					pinctrl-single,pins = &lt;</span><br><span class="line">						0x68 (PIN_OUTPUT | MUX_MODE7)	/* gpmc_a10.gpio1_26 touch_reset */</span><br><span class="line">						0x48 (PIN_INPUT | MUX_MODE7)	/* gpmc_a2.gpio1_18 touch_int */</span><br><span class="line">					&gt;;</span><br><span class="line">				&#125;;</span><br><span class="line">这种方式的特点就是，每个引脚都去单独配置下，配置的过程类似pinctrl出现之前的那种原始方式。</span><br><span class="line">具体的节点名称，比如touchscreen_pins，首先要写好touchscreen_pins的具体内容，放入&amp;am33xx_pinmux</span><br><span class="line">然后使之生效，有两种方式：</span><br><span class="line">a.直接把touchscreen_pins这个节点名放入&amp;am33xx_pinmux的pinctrl-0 = &lt;...&gt;;里面，这样就是默认生效了。</span><br><span class="line">b.让别的节点去引用这个touchscreen_pins，例如：</span><br><span class="line">	i2c0_pins: pinmux_i2c0_pins &#123;</span><br><span class="line">		pinctrl-single,pins = &lt;</span><br><span class="line">			0x188 (PIN_INPUT_PULLUP | MUX_MODE0)	/* i2c0_sda.i2c0_sda */</span><br><span class="line">			0x18c (PIN_INPUT_PULLUP | MUX_MODE0)	/* i2c0_scl.i2c0_scl */</span><br><span class="line">		&gt;;</span><br><span class="line">	&#125;;</span><br><span class="line">	&amp;i2c0 &#123;</span><br><span class="line">		pinctrl-names = &quot;default&quot;;</span><br><span class="line">		pinctrl-0 = &lt;&amp;i2c0_pins&gt;;</span><br><span class="line">		status = &quot;okay&quot;;</span><br><span class="line">		clock-frequency = &lt;400000&gt;;</span><br><span class="line">		&#125;;</span><br><span class="line">	&#125;;</span><br><span class="line">	这样i2c0节点初始化的时候，就等于使用了i2c0_pins的配置了。</span><br></pre></td></tr></table></figure></p>
+<p>2.使用pinctrl默认的方式：<br>实例：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line">dtsi定义：（tegra20.dtsi）</span><br><span class="line">	pinmux: pinmux@70000014 &#123;</span><br><span class="line">		compatible = &quot;nvidia,tegra20-pinmux&quot;;</span><br><span class="line">		reg = &lt;0x70000014 0x10   /* Tri-state registers */</span><br><span class="line">		       0x70000080 0x20   /* Mux registers */</span><br><span class="line">		       0x700000a0 0x14   /* Pull-up/down registers */</span><br><span class="line">		       0x70000868 0xa8&gt;; /* Pad control registers */</span><br><span class="line">	&#125;;</span><br><span class="line">pinctrl代码的定义：（pinctrl-tegra20.c）</span><br><span class="line">	static const struct of_device_id tegra20_pinctrl_of_match[] = &#123;</span><br><span class="line">		&#123; .compatible = &quot;nvidia,tegra20-pinmux&quot;, &#125;,		&lt;-------可以看到这个和dtsi里面的compatible字段是一致的</span><br><span class="line">		&#123; &#125;,</span><br><span class="line">	&#125;;</span><br><span class="line">	static struct platform_driver tegra20_pinctrl_driver = &#123;</span><br><span class="line">		.driver = &#123;</span><br><span class="line">			.name = &quot;tegra20-pinctrl&quot;,</span><br><span class="line">			.of_match_table = tegra20_pinctrl_of_match,</span><br><span class="line">		&#125;,</span><br><span class="line">		.probe = tegra20_pinctrl_probe,</span><br><span class="line">		.remove = tegra_pinctrl_remove,</span><br><span class="line">	&#125;;</span><br><span class="line"></span><br><span class="line">static struct tegra_function tegra20_functions[] = &#123;</span><br><span class="line">	...</span><br><span class="line">	FUNCTION(vi_sensor_clk),</span><br><span class="line">&#125;;</span><br><span class="line">static const struct tegra_pingroup tegra20_groups[] = &#123;</span><br><span class="line">	/*     name,   f0,        f1,        f2,        f3,            tri r/b,  mux r/b,  pupd r/b */</span><br><span class="line">	...</span><br><span class="line">	MUX_PG(csus,   PLLC_OUT1, PLLP_OUT2, PLLP_OUT3, VI_SENSOR_CLK, 0x14, 6,  0x88, 6,  0xac, 24),</span><br><span class="line">	&#125;;</span><br><span class="line">dts定义：（tegra20-whistler.dts）</span><br><span class="line">	pinmux@70000014 &#123;</span><br><span class="line">		pinctrl-names = &quot;default&quot;;</span><br><span class="line">		pinctrl-0 = &lt;&amp;state_default&gt;;</span><br><span class="line">		state_default: pinmux &#123;</span><br><span class="line">			csus &#123;</span><br><span class="line">				nvidia,pins = &quot;csus&quot;;		&lt;-------可以看到这个和pinctrl-tegra20.c里面的tegra20_groups[]引脚组定义是一致的</span><br><span class="line">				nvidia,function = &quot;vi_sensor_clk&quot;;	&lt;-------可以看到这个和pinctrl-tegra20.c里面的tegra20_functions[]mux功能定义是一致的</span><br><span class="line">			&#125;;</span><br><span class="line">以上的方式，就可以在dts里面，根据具体的pinctrl代码事先的定义，配置引脚组的选择和引脚组功能的选择了。</span><br></pre></td></tr></table></figure></p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/08/05/编写SDMMC-Host驱动/" rel="next" title="编写SDMMC Host驱动">
+                <i class="fa fa-chevron-left"></i> 编写SDMMC Host驱动
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/08/05/基于linux-3-10-49内核的pinctrl流程分析/" rel="prev" title="基于linux 3_10_49内核的pinctrl流程分析">
+                基于linux 3_10_49内核的pinctrl流程分析 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Semiyd</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives">
+                
+                    <span class="site-state-item-count">127</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">61</span>
+                    <span class="site-state-item-name">categories</span>
+                  </a>
+                </div>
+              
+
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#常用结构体-从最顶层往下逐渐展开说明"><span class="nav-number">1.</span> <span class="nav-text">常用结构体(从最顶层往下逐渐展开说明):</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#group引脚组："><span class="nav-number">2.</span> <span class="nav-text">group引脚组：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#pinmux引脚复用："><span class="nav-number">3.</span> <span class="nav-text">pinmux引脚复用：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#常用API"><span class="nav-number">4.</span> <span class="nav-text">常用API    </span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#修改并使用pinctrl的实例"><span class="nav-number">5.</span> <span class="nav-text">修改并使用pinctrl的实例</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#如何在dts里面使用pinctrl"><span class="nav-number">6.</span> <span class="nav-text">如何在dts里面使用pinctrl</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Semiyd</span>
+
+  
+
+  
+</div>
+
+
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> v3.7.1</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://theme-next.org">NexT.Muse</a> v6.3.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+	
+    
+
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.3.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.3.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.3.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.3.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.3.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
