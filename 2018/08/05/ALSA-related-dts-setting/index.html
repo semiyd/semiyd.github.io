@@ -1,0 +1,893 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.3.0" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.3.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.3.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.3.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.3.0" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '6.3.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="ALSA related dts setting">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ALSA related dts setting">
+<meta property="og:url" content="http://yoursite.com/2018/08/05/ALSA-related-dts-setting/index.html">
+<meta property="og:site_name" content="Semiyd&#39;s Blog">
+<meta property="og:description" content="ALSA related dts setting">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2018-08-05T03:17:38.586Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="ALSA related dts setting">
+<meta name="twitter:description" content="ALSA related dts setting">
+
+
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/08/05/ALSA-related-dts-setting/"/>
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>ALSA related dts setting | Semiyd's Blog</title>
+  
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Semiyd's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br />Home</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+    <a href="/categories/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-th"></i> <br />Categories</a>
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/05/ALSA-related-dts-setting/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Semiyd">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Semiyd's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">ALSA related dts setting
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2018-08-05 11:16:14 / Modified: 11:17:38" itemprop="dateCreated datePublished" datetime="2018-08-05T11:16:14+08:00">2018-08-05</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Linux/" itemprop="url" rel="index"><span itemprop="name">Linux</span></a></span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Linux/Kernel/" itemprop="url" rel="index"><span itemprop="name">Kernel</span></a></span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Linux/Kernel/驱动/" itemprop="url" rel="index"><span itemprop="name">驱动</span></a></span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Linux/Kernel/驱动/ALSA/" itemprop="url" rel="index"><span itemprop="name">ALSA</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><center><strong>ALSA related dts setting</strong></center><br><a id="more"></a></p>
+<h2 id="codec-driver-dts"><a href="#codec-driver-dts" class="headerlink" title="codec driver dts:"></a>codec driver dts:</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&amp;i2c1 &#123;</span><br><span class="line">	pinctrl-names = &quot;default&quot;;</span><br><span class="line">	pinctrl-0 = &lt;&amp;i2c1_pins&gt;;</span><br><span class="line"></span><br><span class="line">	status = &quot;okay&quot;;</span><br><span class="line">	clock-frequency = &lt;100000&gt;;</span><br><span class="line"></span><br><span class="line">	tlv320aic32x4: tlv320aic32x4@18 &#123; </span><br><span class="line">		#sound-dai-cells = &lt;0&gt;;</span><br><span class="line">		compatible = &quot;ti,tlv320aic32x4&quot;;</span><br><span class="line">		reg = &lt;0x18&gt;;</span><br><span class="line">	&#125;; </span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>这个的设置很简单，就是直接用tlv320aic32x4.c里面的of_device_id去注册<br>但其实真正原版的tlv320aic32x4.c，是要求针对mclk进行设置的，否则代码会报错 ：<br>                tlv320aic32x4 1-0018: Failed getting the mclk. The current implementation does not support the usage of this codec without mclk<br>                tlv320aic32x4: probe of 1-0018 failed with error -2</p>
+<p>有关固定的时钟，参考：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">/ &#123;</span><br><span class="line">	clk_mcasp0_fixed: clk_mcasp0_fixed &#123;</span><br><span class="line">		#clock-cells = &lt;0&gt;;</span><br><span class="line">		compatible = &quot;fixed-clock&quot;;</span><br><span class="line">		clock-frequency = &lt;24576000&gt;;</span><br><span class="line">	&#125;;</span><br><span class="line"></span><br><span class="line">	clk_mcasp0: clk_mcasp0 &#123;</span><br><span class="line">		#clock-cells = &lt;0&gt;;</span><br><span class="line">		compatible = &quot;gpio-gate-clock&quot;;</span><br><span class="line">		clocks = &lt;&amp;clk_mcasp0_fixed&gt;;</span><br><span class="line">		enable-gpios = &lt;&amp;gpio1 27 0&gt;; /* BeagleBone Black Clk enable on GPIO1_27 */</span><br><span class="line">	&#125;;</span><br><span class="line"></span><br><span class="line">	sound &#123;</span><br><span class="line">		compatible = &quot;simple-audio-card&quot;;</span><br><span class="line">		simple-audio-card,name = &quot;TI BeagleBone Black&quot;;</span><br><span class="line">		simple-audio-card,format = &quot;i2s&quot;;</span><br><span class="line">		simple-audio-card,bitclock-master = &lt;&amp;dailink0_master&gt;;</span><br><span class="line">		simple-audio-card,frame-master = &lt;&amp;dailink0_master&gt;;</span><br><span class="line"></span><br><span class="line">		dailink0_master: simple-audio-card,cpu &#123;</span><br><span class="line">			sound-dai = &lt;&amp;mcasp0&gt;;</span><br><span class="line">			clocks = &lt;&amp;clk_mcasp0&gt;;</span><br><span class="line">		&#125;;</span><br><span class="line"></span><br><span class="line">		simple-audio-card,codec &#123;</span><br><span class="line">			sound-dai = &lt;&amp;tda19988&gt;;</span><br><span class="line">		&#125;;</span><br><span class="line">	&#125;;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<p>另外，原版的tlv320aic32x4.c，还包含针对供电的管理部分的代码，所以会要求dts里面也加入相关的配置。<br>因为实际板子是固定连接电源的，所以删除了这些代码。<br>否则的话，会报这个错误：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">1-0018 supply iov not found, using dummy regulator</span><br><span class="line">tlv320aic32x4 1-0018: Missing supply &apos;dv&apos; or &apos;ldoin&apos;</span><br><span class="line">tlv320aic32x4 1-0018: Failed to setup regulators</span><br><span class="line">这个的本意，是可以动态管理电源。可以通过指明，各个电压是怎么供给的（比如由pmic提供），然后通过regulator_enable()，来开关电源</span><br><span class="line">参考aic3106的dts设置:</span><br><span class="line">	/* Regulators */</span><br><span class="line">	AVDD-supply = &lt;&amp;vaux2_reg&gt;;</span><br><span class="line">	IOVDD-supply = &lt;&amp;vaux2_reg&gt;;</span><br><span class="line">	DRVDD-supply = &lt;&amp;vaux2_reg&gt;;</span><br><span class="line">	DVDD-supply = &lt;&amp;vbat&gt;;</span><br><span class="line">那么上面这个例子，其实vaux2_reg，是dts中tps65910的一个功能。对应电路上，tps65910确实有个VAUX2输出。</span><br><span class="line">不过实际情况是，3254的电压并非由tps所提供。是直接由24v通过几个ldo降压过来的，且并不可关闭。</span><br></pre></td></tr></table></figure></p>
+<h2 id="platform-driver-dts"><a href="#platform-driver-dts" class="headerlink" title="platform driver dts:"></a>platform driver dts:</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&amp;mcasp0	&#123;</span><br><span class="line">	#sound-dai-cells = &lt;0&gt;;</span><br><span class="line">	pinctrl-names = &quot;default&quot;;</span><br><span class="line">	pinctrl-0 = &lt;&amp;mcasp0_pins&gt;;</span><br><span class="line">	status = &quot;okay&quot;;</span><br><span class="line">	op-mode = &lt;0&gt;;	/* MCASP_IIS_MODE */</span><br><span class="line">	tdm-slots = &lt;2&gt;;	/* Indicates number of channels transmitted or received over one serializer.双声道所以是2 */</span><br><span class="line">	serial-dir = &lt;	/* 0: INACTIVE, 1: TX, 2: RX */</span><br><span class="line">			1 2 0 0</span><br><span class="line">		&gt;;</span><br><span class="line">	tx-num-evt = &lt;32&gt;;</span><br><span class="line">	rx-num-evt = &lt;32&gt;;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>serial-dir 的1 2 0 0就是分别对应AXR0 AXR1 AXR2 AXR3</p>
+<p>有关tx-num-evt和rx-num-evt的设定的解释：<br>ALSA period size must be aligned with the FIFO depth (tx/rx numevt)<br>To decrease audio caused stress on the system the AFIFO is enabled and the depth is set to 32 for McASP.<br>If the ALSA period size is not aligned with this FIFO setting constant ‘trrrrr’ can be heard on the output. This is caused by eDMA not able to handle fragment sizenot aligned<br>with burst size (AFIFO depth).<br>Application need to make sure that period_size / FIFO depthis even number.</p>
+<h2 id="machine-driver-dts"><a href="#machine-driver-dts" class="headerlink" title="machine driver dts:"></a>machine driver dts:</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">sound &#123;</span><br><span class="line">	compatible = &quot;ti,da830-evm-audio&quot;;	</span><br><span class="line">	ti,model = &quot;ETCS&quot;;			声卡命名</span><br><span class="line">	ti,audio-codec = &lt;&amp;tlv320aic32x4&gt;;	表示连接的codec dai</span><br><span class="line">	ti,mcasp-controller = &lt;&amp;mcasp0&gt;;	表示连接的cpu dai</span><br><span class="line">	ti,codec-clock-rate = &lt;12288000&gt;;	主时钟频率</span><br><span class="line">	ti,audio-routing =			dapm的routing</span><br><span class="line">		&quot;Headphone Jack&quot;,	&quot;HPLOUT&quot;,</span><br><span class="line">		&quot;Headphone Jack&quot;,	&quot;HPROUT&quot;,</span><br><span class="line">		&quot;LINE1R&quot;,               &quot;Line In&quot;,</span><br><span class="line">		&quot;LINE1L&quot;,		&quot;Line In&quot;;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/08/05/不同sample-rate的音乐，wclk和bclk分频的细节/" rel="next" title="不同sample rate的音乐，wclk和bclk分频的细节">
+                <i class="fa fa-chevron-left"></i> 不同sample rate的音乐，wclk和bclk分频的细节
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/08/05/有关snd-soc-dai-link-dai-fmt如何配置的解释/" rel="prev" title="有关snd_soc_dai_link->dai_fmt如何配置的解释">
+                有关snd_soc_dai_link->dai_fmt如何配置的解释 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Semiyd</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives">
+                
+                    <span class="site-state-item-count">134</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">66</span>
+                    <span class="site-state-item-name">categories</span>
+                  </a>
+                </div>
+              
+
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#codec-driver-dts"><span class="nav-number">1.</span> <span class="nav-text">codec driver dts:</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#platform-driver-dts"><span class="nav-number">2.</span> <span class="nav-text">platform driver dts:</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#machine-driver-dts"><span class="nav-number">3.</span> <span class="nav-text">machine driver dts:</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Semiyd</span>
+
+  
+
+  
+</div>
+
+
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> v3.7.1</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://theme-next.org">NexT.Muse</a> v6.3.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+	
+    
+
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.3.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.3.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.3.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.3.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.3.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

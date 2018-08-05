@@ -1,0 +1,876 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.3.0" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.3.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.3.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.3.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.3.0" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '6.3.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="ALSA 概述">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ALSA 概述">
+<meta property="og:url" content="http://yoursite.com/2018/08/05/ALSA-概述/index.html">
+<meta property="og:site_name" content="Semiyd&#39;s Blog">
+<meta property="og:description" content="ALSA 概述">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2018-08-05T03:03:36.642Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="ALSA 概述">
+<meta name="twitter:description" content="ALSA 概述">
+
+
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/08/05/ALSA-概述/"/>
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>ALSA 概述 | Semiyd's Blog</title>
+  
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Semiyd's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br />Home</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+    <a href="/categories/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-th"></i> <br />Categories</a>
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/05/ALSA-概述/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Semiyd">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Semiyd's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">ALSA 概述
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2018-08-05 10:58:30 / Modified: 11:03:36" itemprop="dateCreated datePublished" datetime="2018-08-05T10:58:30+08:00">2018-08-05</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Linux/" itemprop="url" rel="index"><span itemprop="name">Linux</span></a></span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Linux/Kernel/" itemprop="url" rel="index"><span itemprop="name">Kernel</span></a></span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Linux/Kernel/驱动/" itemprop="url" rel="index"><span itemprop="name">驱动</span></a></span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Linux/Kernel/驱动/ALSA/" itemprop="url" rel="index"><span itemprop="name">ALSA</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><center><strong>ALSA 概述</strong></center><br><a id="more"></a></p>
+<p>ALSA是Advanced Linux Sound Architecture 的缩写</p>
+<p>主页：<br><a href="http://www.alsa-project.org/main/index.php/Main_Page" target="_blank" rel="noopener">http://www.alsa-project.org/main/index.php/Main_Page</a></p>
+<p>概述：<br>    linux的音频系统<br>    从硬件架构上看，分为下面几个部分：<br>        1.最底层为audio DAC/ADC，复杂一些的如声卡芯片，集成了DAC/ADC和DSP。这类芯片总称codec。<br>        2.codec和cpu之间的音频数据，最常见的由i2s连接，也有用usb连接的。还有些控制命令，通常由另外一路i2c或者spi来连接。有时候codec也会由cpu来提供主时钟信号，或者自接一个晶振。<br>        3.cpu这端，通常需要一个i2s的控制器。具体到am335x，是mcasp硬件控制器。<br>    从软件架构上看，从最顶层往下，分为下面几个部分：（详见同目录下的”软件架构图.png“）<br>        1.ALSA应用程序，例如aplay或者其他自己写的基于ALSA API的应用程序。另外还包括顶层的多媒体框架比如GStreamer和PulseAudio。<br>        2.ALSA库<br>        3.ALSA内核子系统<br>        4.ALSA SOC子系统<br>        5.codec驱动，machine驱动（连接codec和platform的中间层驱动），platform驱动（即i2s控制器驱动）</p>
+<p>ALSA有四部分组成：<br>1.最底层的基于ALSA的设备驱动<br>    包括Codec driver，比如TLV320AIC3254的驱动，如sound/soc/codecs/tlv320aic3x.c<br>    包括Platform driver，比如ti平台的mcasp也就是i2s的驱动，如sound/soc/davinci/davinci-mcasp.c<br>    还包括Machine driver，作用是将codec和i2s驱动连接，并且提供一些平台相关的操作比如开始播放时打开功放，如sound/soc/davinci/davinci-evm.c，或者更通用的sound\soc\generic\Simple-card.c<br>2.内核的ALSA子系统<br>    为了更好的支持嵌入式系统，现在有了一个叫ASoC层的东西。<br>    ASoC目的是<br>        让codec驱动摆脱对特定平台代码的依赖，在ASoC之前，每个codec在每个平台都需要有分别对应的驱动。<br>        对Dynamic Audio Power Management (DAPM)的支持，就是说让codec的电源消耗更优化更少<br>        dapm,就是Dynamic Audio Power Management。即动态音频电源管理，是针对移动设备的。<br>            dapm和内核的电源管理子系统是相互独立的。<br>            dapm相对于应用程序，是透明的，应用无需知道任何dapm细节。dapm会根据音频的播放/采集的活动等，决定电源开关。<br>            任何影响到电源消耗的音频组件被称为widgets<br>        消除噗噗声（优化codec内部开关顺序）<br>        等<br>3.用户空间的ALSA库        alsa-lib<br>4.用户空间的ALSA应用程序</p>
+<p>移植大致过程：<br>    1.调试好codec的驱动（dts+改代码）<br>        也就是audio DAC的驱动<br>        详见Linux\Kernel\驱动\Sound\Codec driver\<br>    2.配置好platform的驱动（通常是通过dts）<br>        也就是i2s控制器的驱动，比如ti的mcasp<br>        详见Linux\Kernel\驱动\Sound\Platform driver\<br>    3.配置好machine驱动（dts+改代码）<br>        也就是codec-platform的中间层驱动，比如simple-card.c<br>        详见Linux\Kernel\驱动\Sound\Machine driver\<br>    4.测试方法<br>        aplay xxx.wav<br>        arecord xxx.wav</p>
+<p>缩写解释<br>Mixer      - Mixes several analog signals into a single analog signal.混音<br>Mux        - An analog switch that outputs only one of many inputs.<br>PGA        - A programmable gain amplifier or attenuation widget.<br>ADC        - Analog to Digital Converter<br>DAC        - Digital to Analog Converter<br>DAI    - Digital Audio Interfaces 分为3种总线：AC97 I2S PCM<br>DAI Link   - DAI Link between two DAI structures */<br>PCM      - Pulse Code Modulation<br>TDM      - Time Division Multiplexing<br>I2S      - Inter-IC Sound<br>McASP      - Multi-channel Audio Serial Port </p>
+<p>=============/dev接口======================<br>/dev/snd/controlC0      Control devices (i.e. mixer, etc)<br>/dev/snd/pcmC0D0c      PCM Card 0 Device 0 Capture device<br>/dev/snd/pcmC0D0p      PCM Card 0 Device 0 Playback device </p>
+<p>=============/proc接口======================<br>/proc/asound下面有这些内容：<br>cards          List of registered cards<br>version          Version and date the driver was built on<br>devices          List of registered ALSA devices<br>pcm          The list of allocated PCM streams<br>cardX/ (X = 0-7)      The card specific directory<br>cardX/pcm0p     The directory of the given PCM playback stream<br>cardX/pcm0c      The directory of the given PCM capture stream</p>
+<p>=============用户空间API==================================<br>snd_pcm_open  Opens a PCM stream<br>snd_pcm_close  Closes a previously opened PCM stream<br>snd_pcm_hw_params_any  Fill params with a full configuration space for a PCM<br>snd_pcm_hw_params_test_&lt;<parameter>&gt;     Test the availability of important parameters like number of channels, sample rate etc. For e.g. snd_pcm_hw_params_test_format, snd_pcm_hw_params_test_rate<br>snd_pcm_hw_params_set_&lt;<parameter>&gt;     Set the different configuration parameters. For e.g. snd_pcm_hw_params_set_format, snd_pcm_hw_params_set_rate etc.<br>snd_pcm_hw_params     Install one PCM hardware configuration chosen from a configuration space<br>snd_pcm_writei  Write interleaved frames to a PCM<br>snd_pcm_readi  Read interleaved frames from a PCM<br>snd_pcm_prepare  Prepare PCM for use<br>snd_pcm_drop  Stop a PCM dropping pending frames<br>snd_pcm_drain  Stop a PCM preserving pending frames </parameter></parameter></p>
+<p>=============用户空间程序==================================<br>aplay -l         list the available sound cards and PCMs for playback<br>arecord -l        list the available sound cards and PCMs for capture<br>aplay -Dplughw:0,0 <path to="" wav="" file=""></path>        In most cases -Dplughw:0,0is the device we want to use for audio    播放wav文件<br>arecord -Dplughw:0,0 -t wav <path to="" wav="" file=""></path>        录音wav文件<br>arecord -Dplughw:0,0 | aplay -Dplughw:0,0    全双工，边放边录</p>
+<p>arecord -Dhw:0,0 -fdat -t wav record_48K_stereo_16bit.wav    record 48KHz, stereo 16bit audio<br>arecord -Dhw:0,0 -fS24_LE -c2 -r96000 -t wav record_96K_stereo_24bit.wav         record record 96KHz, stereo 24bit audio<br>alsactl -f board.aconf store    保存mixer setting<br>alsactl -f board.aconf restore    调用mixer setting（通常是开机时）</p>
+<p>amixer -c AM335xEVM sset PCM 90             # Master Playback volume</p>
+<p>For audio capture trough stereo microphones:<br>amixer sset ‘Right PGA Mixer Line1R’ on<br>amixer sset ‘Right PGA Mixer Line1L’ on<br>amixer sset ‘Left PGA Mixer Line1R’ on<br>amixer sset ‘Left PGA Mixer Line1L’ on </p>
+<p>To increase the volume for capture and playback<br>$ amixer cset name=’PCM Playback Volume’ x%,x% (x between 0-100)<br>$ amixer cset name=’PGA Capture Volume’ x%,x%<br>amixer cset name=’PGA Capture Volume’ 30%,30% </p>
+<p>=============用户空间程序==================================<br>In case of XRUN (under or overrun)<br>The underrun can happen when an application does not feed new samples in time to alsa-lib(due CPU usage). The overrun can happen when an application does not take new<br>captured samples in time from alsa-lib.<br>There could be several reasons for XRUN to happen but it is usually points to system latency issues connected to CPU utilization or latency caused by the storage device.<br>Things to try:<br>1.increase the buffer size (ALSA buffer and period size)<br>2.try to cache the file to be played in memory<br>3.try to use application which use threads for interacting with ALSA and with the filesystem</p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/08/05/RTC-笔记/" rel="next" title="RTC 笔记">
+                <i class="fa fa-chevron-left"></i> RTC 笔记
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/08/05/如何写一个纯audio-DAC的驱动/" rel="prev" title="如何写一个纯audio DAC的驱动">
+                如何写一个纯audio DAC的驱动 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Semiyd</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives">
+                
+                    <span class="site-state-item-count">134</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">66</span>
+                    <span class="site-state-item-name">categories</span>
+                  </a>
+                </div>
+              
+
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Semiyd</span>
+
+  
+
+  
+</div>
+
+
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> v3.7.1</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://theme-next.org">NexT.Muse</a> v6.3.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+	
+    
+
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.3.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.3.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.3.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.3.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.3.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

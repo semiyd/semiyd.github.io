@@ -1,0 +1,910 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.3.0" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.3.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.3.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.3.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.3.0" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '6.3.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="如何写一个纯audio DAC的驱动">
+<meta property="og:type" content="article">
+<meta property="og:title" content="如何写一个纯audio DAC的驱动">
+<meta property="og:url" content="http://yoursite.com/2018/08/05/如何写一个纯audio-DAC的驱动/index.html">
+<meta property="og:site_name" content="Semiyd&#39;s Blog">
+<meta property="og:description" content="如何写一个纯audio DAC的驱动">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2018-08-05T03:15:28.930Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="如何写一个纯audio DAC的驱动">
+<meta name="twitter:description" content="如何写一个纯audio DAC的驱动">
+
+
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/08/05/如何写一个纯audio-DAC的驱动/"/>
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>如何写一个纯audio DAC的驱动 | Semiyd's Blog</title>
+  
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Semiyd's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br />Home</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+    <a href="/categories/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-th"></i> <br />Categories</a>
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/05/如何写一个纯audio-DAC的驱动/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Semiyd">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Semiyd's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">如何写一个纯audio DAC的驱动
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2018-08-05 10:58:59 / Modified: 11:15:28" itemprop="dateCreated datePublished" datetime="2018-08-05T10:58:59+08:00">2018-08-05</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Linux/" itemprop="url" rel="index"><span itemprop="name">Linux</span></a></span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Linux/Kernel/" itemprop="url" rel="index"><span itemprop="name">Kernel</span></a></span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Linux/Kernel/驱动/" itemprop="url" rel="index"><span itemprop="name">驱动</span></a></span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Linux/Kernel/驱动/ALSA/" itemprop="url" rel="index"><span itemprop="name">ALSA</span></a></span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Linux/Kernel/驱动/ALSA/Codec/" itemprop="url" rel="index"><span itemprop="name">Codec</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><center><strong>如何写一个纯audio DAC的驱动</strong></center><br><a id="more"></a></p>
+<h2 id="以PCM5102a为例"><a href="#以PCM5102a为例" class="headerlink" title="以PCM5102a为例"></a>以PCM5102a为例</h2><p>PCM5102a是简单的纯DAC，不带i2c/spi控制总线。对于音频格式，是自适应的。</p>
+<p><strong>Codec driver:</strong><br>基于sound/soc/codecs/spdif_transmitter.c改动<br>1.新建一个sound/soc/codecs/pcm5102a.c，把spdif_transmitter.c的内容拷进来<br>2.改动snd_soc_dai_driver的结构体定义：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line">原始的spdif_transmitter.c的定义：</span><br><span class="line">static struct snd_soc_dai_driver dit_stub_dai = &#123;</span><br><span class="line">	.name		= &quot;dit-hifi&quot;,</span><br><span class="line">	.playback 	= &#123;</span><br><span class="line">		.stream_name	= &quot;Playback&quot;,</span><br><span class="line">		.channels_min	= 1,</span><br><span class="line">		.channels_max	= 384,</span><br><span class="line">		.rates		= STUB_RATES,</span><br><span class="line">		.formats	= STUB_FORMATS,</span><br><span class="line">	&#125;,</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">改动rates和formats</span><br><span class="line">	#define STUB_RATES	SNDRV_PCM_RATE_8000_192000	改为	#define RATES SNDRV_PCM_RATE_8000_96000 </span><br><span class="line">	这个SNDRV_PCM_RATE_8000_96000的定义的意思是，支持从8000到96000之间的所有可能的采样频率</span><br><span class="line">	具体见代码定义include\sound\pcm.h：</span><br><span class="line">	#define SNDRV_PCM_RATE_8000_96000	(SNDRV_PCM_RATE_8000_48000|SNDRV_PCM_RATE_64000|\</span><br><span class="line">						 SNDRV_PCM_RATE_88200|SNDRV_PCM_RATE_96000)</span><br><span class="line">	#define SNDRV_PCM_RATE_8000_48000	(SNDRV_PCM_RATE_8000_44100|SNDRV_PCM_RATE_48000)</span><br><span class="line">	#define SNDRV_PCM_RATE_8000_44100	(SNDRV_PCM_RATE_8000|SNDRV_PCM_RATE_11025|\</span><br><span class="line">						 SNDRV_PCM_RATE_16000|SNDRV_PCM_RATE_22050|\</span><br><span class="line">						 SNDRV_PCM_RATE_32000|SNDRV_PCM_RATE_44100)</span><br><span class="line">	那么PCM5102a的spec上，写着：</span><br><span class="line">	Sampling frequency 	8 kHz to 384 kHz</span><br><span class="line">	另外，诸如PT8211的spec上，会写：</span><br><span class="line">	word select input frequency 	384KHz最大值</span><br><span class="line">	我的理解是，平时说的比如192KHz采样频率。是指一秒钟之内，有192k个采样点，而每个采样点，其实包含左声道+右声道两个数据。</span><br><span class="line">	所以这个word select input frequency，其实就是Sampling frequency。</span><br><span class="line">	所以理论上支持到384khz也是可以的。目前4.4内核默认的代码，最高可以支持到192khz.</span><br><span class="line">	所以不改也可以的（保持SNDRV_PCM_RATE_8000_192000）。重点是通过spec确认DAC支持的采样频率。</span><br><span class="line"></span><br><span class="line">	#define STUB_FORMATS	(SNDRV_PCM_FMTBIT_S16_LE | \</span><br><span class="line">				SNDRV_PCM_FMTBIT_S20_3LE | \</span><br><span class="line">				SNDRV_PCM_FMTBIT_S24_LE)</span><br><span class="line">	改为</span><br><span class="line">	#define FORMATS (SNDRV_PCM_FMTBIT_S16_LE | \ </span><br><span class="line">	 SNDRV_PCM_FMTBIT_S24_3LE | SNDRV_PCM_FMTBIT_S32_LE) </span><br><span class="line">	因为pcm5102a的spec说：</span><br><span class="line">	Accepts 16-, 24-, and 32-Bit Audio Data和PCM Data Formats: I2S, Left-Justified</span><br><span class="line">	所以支持16，24，32bit的采样精度。</span><br><span class="line">	另外，这里的LE是指little endian，相应的其实还有SNDRV_PCM_FORMAT_S16_BE这种宏，BE就是big endian。</span><br><span class="line"></span><br><span class="line">改动channels_min和channels_max</span><br><span class="line">	.channels_min = 1, </span><br><span class="line">	.channels_max = 2,</span><br><span class="line">	就是双声道立体声，最小单声道，最大双声道。</span><br><span class="line"></span><br><span class="line">改动name</span><br><span class="line">	.name = &quot;pcm5102a-hifi&quot;,</span><br></pre></td></tr></table></figure></p>
+<p>3.改动snd_soc_codec_driver的结构体定义<br>    这个结构体主要是针对，audio dac有i2c/spi控制总线的情况下，针对dapm等电源管理相关配置。<br>    snd_soc_codec_driver包含snd_soc_dapm_widget和snd_soc_dapm_route结构体，仅和电源管理有关。对于纯audio DAC，可以删干净snd_soc_codec_driver。<br>    如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">static struct snd_soc_codec_driver soc_codec_pcm5102a = &#123; </span><br><span class="line"> </span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<p>4.由platform_driver的probe，调用snd_soc_register_codec去同时注册snd_soc_dai_driver和snd_soc_codec_driver</p>
+<p>5.dts相关代码：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">static const struct of_device_id pcm5102a_dt_ids[] = &#123; </span><br><span class="line">	&#123; .compatible = &quot;ti,pcm5102a&quot;, &#125;, </span><br><span class="line">	&#123; &#125; </span><br><span class="line">&#125;; </span><br><span class="line">MODULE_DEVICE_TABLE(of, pcm5102a_dt_ids); </span><br><span class="line"></span><br><span class="line">static struct platform_driver pcm5102a_driver = &#123; </span><br><span class="line">	.probe = pcm5102a_probe, </span><br><span class="line">	.remove = pcm5102a_remove, </span><br><span class="line">	.driver = &#123; </span><br><span class="line">	.name = DRV_NAME, </span><br><span class="line">	.owner = THIS_MODULE, </span><br><span class="line">	.of_match_table = of_match_ptr(pcm5102a_dt_ids), </span><br><span class="line">	&#125;, </span><br><span class="line">&#125;; </span><br><span class="line"></span><br><span class="line">module_platform_driver(pcm5102a_driver);</span><br><span class="line"></span><br><span class="line">DTS里面配置：</span><br><span class="line">pcm5102a:pcm5102a &#123;</span><br><span class="line">	compatible = &quot;ti,pcm5102a&quot;;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<p><strong>machine driver:</strong><br>    基于sound\soc\davinci\davinci-evm.c改动<br>1.改动snd_soc_dai_link的结构体定义<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br></pre></td><td class="code"><pre><span class="line">static struct snd_soc_dai_link evm_dai_pcm5102a = &#123;</span><br><span class="line">	.name = &quot;PCM5102A&quot;, //This is chosen arbitrarily. Can be anything.</span><br><span class="line">	.stream_name = &quot;Playback&quot;, //This comes from the PCM5102a driver create previously.</span><br><span class="line">	.codec_dai_name = &quot;pcm5102a-hifi&quot;, //This comes from the PCM5102a driver create previously</span><br><span class="line">	.ops = &amp;pcm5102a_ops, //This is a structure that we will create later.</span><br><span class="line">	.dai_fmt = (SND_SOC_DAIFMT_CBS_CFS |SND_SOC_DAIFMT_I2S |</span><br><span class="line">	SND_SOC_DAIFMT_IB_NF),</span><br><span class="line">&#125;;	</span><br><span class="line"></span><br><span class="line">改动name:</span><br><span class="line">	&quot;PCM5102A&quot;。随便写。</span><br><span class="line">改动stream_name：</span><br><span class="line">	&quot;Playback&quot;，这个需要和snd_soc_dai_driver的stream_name一致。</span><br><span class="line">改动codec_dai_name ：</span><br><span class="line">	&quot;pcm5102a-hifi&quot;，这个需要和snd_soc_dai_driver的name一致。</span><br><span class="line">改动ops：</span><br><span class="line">	基于davinci-evm.c原有的tatic structsnd_soc_ops evm_ops修改</span><br><span class="line">	static struct snd_soc_ops evm_ops = &#123;</span><br><span class="line">		.startup =evm_startup,</span><br><span class="line">		.shutdown =evm_shutdown,</span><br><span class="line">		.hw_params =evm_hw_params,</span><br><span class="line">	&#125;;</span><br><span class="line">	原有的startup和shutdown直接沿用。</span><br><span class="line">	hw_params需要更改。</span><br><span class="line">	static int pcm5102a_hw_params(struct snd_pcm_substream *substream, </span><br><span class="line">		struct snd_pcm_hw_params *params) </span><br><span class="line">	&#123; </span><br><span class="line">		struct snd_soc_pcm_runtime *rtd = substream-&gt;private_data; </span><br><span class="line">		struct snd_soc_dai *cpu_dai = rtd-&gt;cpu_dai; </span><br><span class="line">		struct snd_soc_codec *codec = rtd-&gt;codec; </span><br><span class="line">		struct snd_soc_card *soc_card = codec-&gt;card; </span><br><span class="line">		struct platform_device *pdev = to_platform_device(soc_card-&gt;dev); </span><br><span class="line">		unsigned int bclk_freq = evm_get_bclk(params); </span><br><span class="line">		unsigned sysclk = ((struct snd_soc_card_drvdata_davinci *) </span><br><span class="line">		snd_soc_card_get_drvdata(soc_card))-&gt;sysclk; </span><br><span class="line">		int ret; </span><br><span class="line"></span><br><span class="line">		ret = snd_soc_dai_set_clkdiv(cpu_dai, 1, sysclk/bclk_freq); </span><br><span class="line">		if (ret &lt; 0) &#123; </span><br><span class="line">			dev_err(&amp;pdev-&gt;dev, &quot;can&apos;t set CPU DAI clock divider %d\n&quot;, </span><br><span class="line">			ret); </span><br><span class="line">			return ret; </span><br><span class="line">		&#125; </span><br><span class="line">		printk(&quot;PCM5102a hw params\n&quot;); </span><br><span class="line">		printk(&quot;sysclk=%d\n&quot;, sysclk); </span><br><span class="line">		printk(&quot;bclk_freq=%d\n&quot;, bclk_freq); </span><br><span class="line">		ret = snd_soc_dai_set_sysclk(cpu_dai, 0, sysclk, SND_SOC_CLOCK_OUT); </span><br><span class="line">		if (ret &lt; 0) </span><br><span class="line">			return ret; </span><br><span class="line"></span><br><span class="line">		return ret; </span><br><span class="line">	&#125; </span><br><span class="line">	涉及的函数：</span><br><span class="line">	snd_soc_dai_set_clkdiv(cpu_dai, 1, sysclk/bclk_freq);</span><br><span class="line">		这个函数总的意思是根据当前音乐的采样率和格式，决定bclk的分频系数</span><br><span class="line">		入参1：</span><br><span class="line">			为cpu_dai，意思是配置mcasp</span><br><span class="line">		入参2：</span><br><span class="line">			为1</span><br><span class="line">			对应davinci_mcasp_set_clkdiv(struct snd_soc_dai *dai, int div_id, int div)的第二个参数div_id</span><br><span class="line">			也就是告诉mcasp，是配置BCLK的分频系数，如下：</span><br><span class="line">			static int davinci_mcasp_set_clkdiv(structsnd_soc_dai *dai, int div_id, int div)</span><br><span class="line">			&#123;</span><br><span class="line">				struct	davinci_mcasp *mcasp =snd_soc_dai_get_drvdata(dai);</span><br><span class="line">				switch (div_id) &#123;</span><br><span class="line">				case 0: /* MCLK divider */</span><br><span class="line">					mcasp_mod_bits(mcasp,DAVINCI_MCASP_AHCLKXCTL_REG,</span><br><span class="line">						AHCLKXDIV(div - 1),AHCLKXDIV_MASK);</span><br><span class="line">					mcasp_mod_bits(mcasp,DAVINCI_MCASP_AHCLKRCTL_REG,</span><br><span class="line">						AHCLKRDIV(div - 1),AHCLKRDIV_MASK);</span><br><span class="line">					break;</span><br><span class="line">				case 1: /* BCLK divider */</span><br><span class="line">					mcasp_mod_bits(mcasp,DAVINCI_MCASP_ACLKXCTL_REG,</span><br><span class="line">						ACLKXDIV(div - 1),ACLKXDIV_MASK);</span><br><span class="line">					mcasp_mod_bits(mcasp,DAVINCI_MCASP_ACLKRCTL_REG,</span><br><span class="line">						ACLKRDIV(div - 1),ACLKRDIV_MASK);</span><br><span class="line">					break;</span><br><span class="line">				case 2: /* BCLK/LRCLK ratio */</span><br><span class="line">					mcasp-&gt;bclk_lrclk_ratio = div;</span><br><span class="line">					break;</span><br><span class="line">				default:</span><br><span class="line">					return -EINVAL;</span><br><span class="line">				&#125;</span><br><span class="line">				return 0;</span><br><span class="line">			&#125;</span><br><span class="line">			这其中的div_id为0或者2的情况，无需关心。</span><br><span class="line">		入参3：</span><br><span class="line">			为sysclk/bclk_freq</span><br><span class="line">			sysclk是mcasp的内部主时钟，固定为24MHz</span><br><span class="line">			bclk_freq是ALSA根据提供的采样率和格式，算出来的所需的bit clock（也就是i2c的BCLK主时钟）</span><br><span class="line">			最后两者相除，得到分频系数。</span><br><span class="line">				例如：</span><br><span class="line">				对于44.1 kHz stereo 16 bit音频：</span><br><span class="line">				44.1 kHz × 16 × 2 = 1.4112 MHz</span><br><span class="line">			具体写成函数，方法如下：</span><br><span class="line">			static unsigned int evm_get_bclk(struct snd_pcm_hw_params *params)</span><br><span class="line">			&#123;</span><br><span class="line">				int sample_size = snd_pcm_format_width(params_format(params));</span><br><span class="line">				int rate = params_rate(params);</span><br><span class="line">				int channels = params_channels(params);</span><br><span class="line"></span><br><span class="line">				return sample_size * channels * rate;</span><br><span class="line">			&#125;</span><br><span class="line">	 snd_soc_dai_set_sysclk(cpu_dai, 0, sysclk, SND_SOC_CLOCK_OUT); </span><br><span class="line">		这个函数总的意思是告诉ALSA，mcasp用的是24MHz的内部时钟。</span><br><span class="line">		这个函数最终实际上是调用的static int davinci_mcasp_set_sysclk(struct snd_soc_dai *dai, int clk_id, unsigned int freq, int dir)，如下：</span><br><span class="line">		static int davinci_mcasp_set_sysclk(struct snd_soc_dai *dai, int clk_id,</span><br><span class="line">						    unsigned int freq, int dir)</span><br><span class="line">		&#123;</span><br><span class="line">			struct davinci_mcasp *mcasp = snd_soc_dai_get_drvdata(dai);</span><br><span class="line"></span><br><span class="line">			pm_runtime_get_sync(mcasp-&gt;dev);</span><br><span class="line"></span><br><span class="line">			if (dir == SND_SOC_CLOCK_IN) &#123;</span><br><span class="line">				switch (clk_id) &#123;</span><br><span class="line">					case MCASP_CLK_HCLK_AHCLK:</span><br><span class="line">						mcasp_clr_bits(mcasp, DAVINCI_MCASP_AHCLKXCTL_REG,</span><br><span class="line">						       AHCLKXE);</span><br><span class="line">						mcasp_clr_bits(mcasp, DAVINCI_MCASP_AHCLKRCTL_REG,</span><br><span class="line">						       AHCLKRE);</span><br><span class="line">						mcasp_clr_bits(mcasp, DAVINCI_MCASP_PDIR_REG, AHCLKX);</span><br><span class="line">						break;</span><br><span class="line">					case MCASP_CLK_HCLK_AUXCLK:</span><br><span class="line">						mcasp_set_bits(mcasp, DAVINCI_MCASP_AHCLKXCTL_REG,</span><br><span class="line">						       AHCLKXE);</span><br><span class="line">						mcasp_set_bits(mcasp, DAVINCI_MCASP_AHCLKRCTL_REG,</span><br><span class="line">						       AHCLKRE);</span><br><span class="line">						break;</span><br><span class="line">					default:</span><br><span class="line">						dev_err(mcasp-&gt;dev, &quot;Invalid clk id: %d\n&quot;, clk_id);</span><br><span class="line">						goto out;</span><br><span class="line">				&#125;</span><br><span class="line">			&#125; else &#123;</span><br><span class="line">				/* Select AUXCLK as HCLK */</span><br><span class="line">				mcasp_set_bits(mcasp, DAVINCI_MCASP_AHCLKXCTL_REG, AHCLKXE);</span><br><span class="line">				mcasp_set_bits(mcasp, DAVINCI_MCASP_AHCLKRCTL_REG, AHCLKRE);</span><br><span class="line">				mcasp_set_bits(mcasp, DAVINCI_MCASP_PDIR_REG, AHCLKX);</span><br><span class="line">			&#125;</span><br><span class="line">			/*</span><br><span class="line">			 * When AHCLK X/R is selected to be output it means that the HCLK is</span><br><span class="line">			 * the same clock - coming via AUXCLK.</span><br><span class="line">			 */</span><br><span class="line">			mcasp-&gt;sysclk_freq = freq;</span><br><span class="line">		out:</span><br><span class="line">			pm_runtime_put(mcasp-&gt;dev);</span><br><span class="line">			return 0;</span><br><span class="line">		&#125;</span><br><span class="line">		入参1：</span><br><span class="line">			为cpu_dai，意思是配置mcasp</span><br><span class="line">		入参2：</span><br><span class="line">			0意味着MCASP_CLK_HCLK_AHCLK，也就是主时钟</span><br><span class="line">		入参3：</span><br><span class="line">			sysclk，也就是24MHz，ALSA早就获知的</span><br><span class="line">		入参4：</span><br><span class="line">			SND_SOC_CLOCK_OUT代表时钟是由soc也就是mcasp发出的。</span><br><span class="line">	另外，作为对比，分析下tlv320aic3254的machine driver在此处的写法：</span><br><span class="line">		#define AIC3254_AUDIO_FORMAT (SND_SOC_DAIFMT_I2S  | SND_SOC_DAIFMT_CBM_CFM | SND_SOC_DAIFMT_NB_NF)</span><br><span class="line">		static int aic3254_hw_params(struct snd_pcm_substream *substream,</span><br><span class="line">					 struct snd_pcm_hw_params *params)</span><br><span class="line">		&#123;</span><br><span class="line">			struct snd_soc_pcm_runtime *rtd = substream-&gt;private_data;</span><br><span class="line">			struct snd_soc_dai *codec_dai = rtd-&gt;codec_dai;</span><br><span class="line">			struct snd_soc_dai *cpu_dai = rtd-&gt;cpu_dai;</span><br><span class="line">			struct snd_soc_card *soc_card = rtd-&gt;card;</span><br><span class="line">			int ret = 0;</span><br><span class="line">			unsigned sysclk = 12288000;</span><br><span class="line"></span><br><span class="line">			// set codec DAI configuration</span><br><span class="line">			ret = snd_soc_dai_set_fmt(codec_dai, AIC3254_AUDIO_FORMAT);</span><br><span class="line">			if(ret &lt; 0)</span><br><span class="line">				return ret;</span><br><span class="line"></span><br><span class="line">			// set cpu DAI configuration</span><br><span class="line">			ret = snd_soc_dai_set_fmt(cpu_dai,  AIC3254_AUDIO_FORMAT);</span><br><span class="line">			if(ret &lt; 0)</span><br><span class="line">				return ret;</span><br><span class="line"></span><br><span class="line">			/* set the codec system clock */</span><br><span class="line">			ret = snd_soc_dai_set_sysclk(codec_dai, 0, sysclk, SND_SOC_CLOCK_OUT);</span><br><span class="line">			if (ret &lt; 0)</span><br><span class="line">				return ret;</span><br><span class="line"></span><br><span class="line">			return 0;</span><br><span class="line">		&#125;</span><br><span class="line">		首先，sysclk=12288000，这个时钟是codec的外部时钟，因为和上面的pcm5102a相反，aic3254会主动提供i2s的时钟。所以以aic3254为基础配置。</span><br><span class="line">		snd_soc_dai_set_fmt分别设置了codec_dai和cpu_dai（也就是分别配置了aic3254和mcasp驱动里面的set_fmt()回调函数）的音频格式参数：</span><br><span class="line">		具体是：</span><br><span class="line">		#define AIC3254_AUDIO_FORMAT (SND_SOC_DAIFMT_I2S  | SND_SOC_DAIFMT_CBM_CFM | SND_SOC_DAIFMT_NB_NF)</span><br><span class="line">		SND_SOC_DAIFMT_I2S		代表是i2s格式</span><br><span class="line">		SND_SOC_DAIFMT_CBM_CFM	CBM是指codec bit clock master，CFM是指codec frame clock master</span><br><span class="line">						因为snd_soc_dai_set_fmt分别设置了codec_dai和cpu_dai</span><br><span class="line">						就是说同时告诉codec和mcasp，codec作为bit clock 和frame clock的master使用。</span><br><span class="line">						当然，对于codec和mcasp，两个驱动的set_fmt()针对CBM_CFM的处理是不同的。</span><br><span class="line">						因为CBM_CFM对于codec意味着要作为”主“，而对于mcasp要作为”从“，来配置。</span><br><span class="line">		SND_SOC_DAIFMT_NB_NF		指normal bit clock + normal frame。相应的还有invert BCLK + invert FRM，也就是SND_SOC_DAIFMT_IB_IF</span><br><span class="line">						具体细节解释见include\sound\soc-dai.h</span><br><span class="line">		snd_soc_dai_set_sysclk和pcm5102a类似，只是配置的对象是codec而不是mcasp，时钟为12288000，codec时钟输出。</span><br><span class="line">		那么这个音频格式的设置，其实对于pcm5102a，也已经配置好。也就是之前的snd_soc_dai_link里面已经配好。ASOC层会去调用生效的。</span><br><span class="line">			static struct snd_soc_dai_link evm_dai_pcm5102a = &#123;</span><br><span class="line">				...</span><br><span class="line">				.dai_fmt = (SND_SOC_DAIFMT_CBS_CFS |SND_SOC_DAIFMT_I2S |</span><br><span class="line">				SND_SOC_DAIFMT_IB_NF),</span><br><span class="line">			&#125;;	</span><br><span class="line">			当然，可以看到此处是CBS_CFS，也就是codec这边，时钟全是slave的。</span><br></pre></td></tr></table></figure></p>
+<p>2.dts的配置：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">sound &#123;</span><br><span class="line">	compatible = &quot;ti,pcm5102a-evm-audio&quot;;</span><br><span class="line">	ti,model = &quot;TI PCM5102A&quot;;</span><br><span class="line">	ti,audio-codec = &lt;&amp;pcm5102a&gt;;</span><br><span class="line">	ti,mcasp-controller = &lt;&amp;mcasp0&gt;;</span><br><span class="line">	ti,codec-clock-rate = &lt;24000000&gt;;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<p><strong>Platform driver:</strong><br>    直接使用sound\soc\davinci\davinci-mcasp.c<br>    但是需要配置dts相关的信息：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">&amp;mcasp0 &#123;</span><br><span class="line">	pinctrl-names = &quot;default&quot;;</span><br><span class="line">	pinctrl-0 = &lt;&amp;mcasp0_pins&gt;;</span><br><span class="line">	status = &quot;okay&quot;;</span><br><span class="line">	op-mode = &lt;0&gt;; /* MCASP_IIS_MODE */</span><br><span class="line">	tdm-slots = &lt;2&gt;;</span><br><span class="line">	/* 16 serializer */</span><br><span class="line">	serial-dir = &lt; /* 0: INACTIVE, 1: TX, 2: RX */</span><br><span class="line">	1 0 0 0</span><br><span class="line">	&gt;;</span><br><span class="line">	tx-num-evt = &lt;32&gt;;</span><br><span class="line">	rx-num-evt = &lt;32&gt;;</span><br><span class="line">&#125;;</span><br><span class="line">对比3254的dts配置：</span><br><span class="line">&amp;mcasp0	&#123;</span><br><span class="line">	#sound-dai-cells = &lt;0&gt;;</span><br><span class="line">	pinctrl-names = &quot;default&quot;;</span><br><span class="line">	pinctrl-0 = &lt;&amp;mcasp0_pins&gt;;</span><br><span class="line">	status = &quot;okay&quot;;</span><br><span class="line">	op-mode = &lt;0&gt;;	/* MCASP_IIS_MODE */</span><br><span class="line">	tdm-slots = &lt;2&gt;;	/* Indicates number of channels transmitted or received over one serializer. */</span><br><span class="line">	serial-dir = &lt;	/* 0: INACTIVE, 1: TX, 2: RX */</span><br><span class="line">			1 2 0 0</span><br><span class="line">		&gt;;</span><br><span class="line">	tx-num-evt = &lt;32&gt;;</span><br><span class="line">	rx-num-evt = &lt;32&gt;;</span><br><span class="line">&#125;;</span><br><span class="line">这个dts，唯一的不同是serial-dir的配置</span><br><span class="line">serial-dir 的0 0 0 0就是分别对应AXR0 AXR1 AXR2 AXR3</span><br><span class="line">硬件电路上，如果AXR0连接的是cpu的TX，那么pcm5102a就应该配置成1 0 0 0。当然这个是平台硬件相关的配置，换个cpu平台，又会是别的方法来配置这个方向了。</span><br></pre></td></tr></table></figure></p>
+<h2 id="PT8211-TM8211-TDA1311实践篇"><a href="#PT8211-TM8211-TDA1311实践篇" class="headerlink" title="PT8211/TM8211/TDA1311实践篇"></a>PT8211/TM8211/TDA1311实践篇</h2><p><strong>    codec driver配置：</strong><br>&emsp;&emsp;&emsp;1.新建一个sound/soc/codecs/pt8211.c，把spdif_transmitter.c的内容拷进来。改动makefile kconfig .config，编译进来。</p>
+<p>&emsp;&emsp;&emsp;2.改动snd_soc_dai_driver的结构体定义：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line">原始的spdif_transmitter.c的定义：</span><br><span class="line">static struct snd_soc_dai_driver dit_stub_dai = &#123;</span><br><span class="line">	.name		= &quot;dit-hifi&quot;,</span><br><span class="line">	.playback 	= &#123;</span><br><span class="line">		.stream_name	= &quot;Playback&quot;,</span><br><span class="line">		.channels_min	= 1,</span><br><span class="line">		.channels_max	= 384,</span><br><span class="line">		.rates		= STUB_RATES,</span><br><span class="line">		.formats	= STUB_FORMATS,</span><br><span class="line">	&#125;,</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">改动rates和formats</span><br><span class="line">	#define STUB_RATES	SNDRV_PCM_RATE_8000_192000</span><br><span class="line">	这个SNDRV_PCM_RATE_8000_192000的定义的意思是，支持从8000到192000之间的所有可能的采样频率</span><br><span class="line">	具体见代码定义include\sound\pcm.h：</span><br><span class="line">	#define SNDRV_PCM_RATE_8000_96000	(SNDRV_PCM_RATE_8000_48000|SNDRV_PCM_RATE_64000|\</span><br><span class="line">						 SNDRV_PCM_RATE_88200|SNDRV_PCM_RATE_96000)</span><br><span class="line">	#define SNDRV_PCM_RATE_8000_48000	(SNDRV_PCM_RATE_8000_44100|SNDRV_PCM_RATE_48000)</span><br><span class="line">	#define SNDRV_PCM_RATE_8000_44100	(SNDRV_PCM_RATE_8000|SNDRV_PCM_RATE_11025|\</span><br><span class="line">						 SNDRV_PCM_RATE_16000|SNDRV_PCM_RATE_22050|\</span><br><span class="line">						 SNDRV_PCM_RATE_32000|SNDRV_PCM_RATE_44100)</span><br><span class="line">	那么pt8211的spec上，写着：</span><br><span class="line">	word select input frequency 	384KHz最大值</span><br><span class="line">	我的理解是，平时说的比如192KHz采样频率。是指一秒钟之内，有192k个采样点，而每个采样点，其实包含左声道+右声道两个数据。</span><br><span class="line">	所以这个word select input frequency，其实就是Sampling rate frequency。所以测量wclk的频率，就能测量到sample rate。</span><br><span class="line">	所以理论上支持到384khz也是可以的。目前4.4内核默认的代码，最高可以支持到192khz.</span><br><span class="line">	所以不改也可以的（保持SNDRV_PCM_RATE_8000_192000）。重点是通过spec确认DAC支持的采样频率。</span><br><span class="line"></span><br><span class="line">	#define STUB_FORMATS	(SNDRV_PCM_FMTBIT_S16_LE | \</span><br><span class="line">				SNDRV_PCM_FMTBIT_S20_3LE | \</span><br><span class="line">				SNDRV_PCM_FMTBIT_S24_LE)</span><br><span class="line">	改为</span><br><span class="line">	#define STUB_FORMATS 	SNDRV_PCM_FMTBIT_S16_LE</span><br><span class="line">	因为pt8211的spec说：</span><br><span class="line">	Wide dynamic range (16-bit resolution)</span><br><span class="line"></span><br><span class="line">改动channels_min和channels_max</span><br><span class="line">	.channels_min = 1, </span><br><span class="line">	.channels_max = 2,</span><br><span class="line">	就是双声道立体声，最小单声道，最大双声道。</span><br><span class="line"></span><br><span class="line">改动name</span><br><span class="line">	.name = &quot;pt8211-lofi&quot;,</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;&emsp;3.改动snd_soc_codec_driver的结构体定义<br>    这个结构体主要是针对，audio dac有i2c/spi控制总线的情况下，针对dapm等电源管理相关配置。<br>    snd_soc_codec_driver包含snd_soc_dapm_widget和snd_soc_dapm_route结构体，仅和电源管理有关。对于纯audio DAC，可以删干净snd_soc_codec_driver。<br>    如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">static struct snd_soc_codec_driver soc_codec_pcm5102a = &#123; </span><br><span class="line"> </span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;&emsp;4.由platform_driver的probe，调用snd_soc_register_codec去同时注册snd_soc_dai_driver和snd_soc_codec_driver</p>
+<p>&emsp;&emsp;&emsp;5.dts相关代码：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">#ifdef CONFIG_OF</span><br><span class="line">static const struct of_device_id pt8211_dt_ids[] = &#123;</span><br><span class="line">	&#123; .compatible = &quot;pt8211&quot;, &#125;,</span><br><span class="line">	&#123; &#125;</span><br><span class="line">&#125;;</span><br><span class="line">MODULE_DEVICE_TABLE(of, pt8211_dt_ids);</span><br><span class="line">#endif</span><br><span class="line"></span><br><span class="line">static struct platform_driver pt8211_driver = &#123;</span><br><span class="line">	.probe		= pt8211_probe,</span><br><span class="line">	.remove		= pt8211_remove,</span><br><span class="line">	.driver		= &#123;</span><br><span class="line">		.name	= DRV_NAME,</span><br><span class="line">		.of_match_table = of_match_ptr(pt8211_dt_ids),</span><br><span class="line">	&#125;,</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">module_platform_driver(pt8211_driver);</span><br><span class="line"></span><br><span class="line">DTS里面配置：</span><br><span class="line">	pt8211:pt8211 &#123;</span><br><span class="line">		compatible = &quot;pt8211&quot;;</span><br><span class="line">	&#125;;</span><br></pre></td></tr></table></figure></p>
+<p><strong>Machine driver配置：</strong>            </p>
+<p>&emsp;&emsp;&emsp;基于sound\soc\davinci\davinci-evm.c改动<br>&emsp;&emsp;&emsp;1.改动snd_soc_dai_link的结构体定义<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br><span class="line">235</span><br><span class="line">236</span><br><span class="line">237</span><br><span class="line">238</span><br><span class="line">239</span><br><span class="line">240</span><br><span class="line">241</span><br><span class="line">242</span><br><span class="line">243</span><br><span class="line">244</span><br><span class="line">245</span><br><span class="line">246</span><br><span class="line">247</span><br><span class="line">248</span><br><span class="line">249</span><br><span class="line">250</span><br><span class="line">251</span><br><span class="line">252</span><br><span class="line">253</span><br><span class="line">254</span><br><span class="line">255</span><br><span class="line">256</span><br><span class="line">257</span><br><span class="line">258</span><br><span class="line">259</span><br><span class="line">260</span><br><span class="line">261</span><br><span class="line">262</span><br><span class="line">263</span><br><span class="line">264</span><br><span class="line">265</span><br><span class="line">266</span><br><span class="line">267</span><br><span class="line">268</span><br><span class="line">269</span><br><span class="line">270</span><br><span class="line">271</span><br><span class="line">272</span><br><span class="line">273</span><br><span class="line">274</span><br><span class="line">275</span><br><span class="line">276</span><br><span class="line">277</span><br><span class="line">278</span><br><span class="line">279</span><br><span class="line">280</span><br><span class="line">281</span><br><span class="line">282</span><br><span class="line">283</span><br><span class="line">284</span><br><span class="line">285</span><br><span class="line">286</span><br><span class="line">287</span><br><span class="line">288</span><br><span class="line">289</span><br><span class="line">290</span><br><span class="line">291</span><br><span class="line">292</span><br><span class="line">293</span><br><span class="line">294</span><br><span class="line">295</span><br><span class="line">296</span><br><span class="line">297</span><br><span class="line">298</span><br><span class="line">299</span><br><span class="line">300</span><br><span class="line">301</span><br><span class="line">302</span><br><span class="line">303</span><br><span class="line">304</span><br><span class="line">305</span><br><span class="line">306</span><br><span class="line">307</span><br><span class="line">308</span><br><span class="line">309</span><br><span class="line">310</span><br><span class="line">311</span><br><span class="line">312</span><br><span class="line">313</span><br><span class="line">314</span><br><span class="line">315</span><br><span class="line">316</span><br><span class="line">317</span><br><span class="line">318</span><br><span class="line">319</span><br><span class="line">320</span><br><span class="line">321</span><br><span class="line">322</span><br><span class="line">323</span><br><span class="line">324</span><br><span class="line">325</span><br><span class="line">326</span><br><span class="line">327</span><br><span class="line">328</span><br><span class="line">329</span><br><span class="line">330</span><br><span class="line">331</span><br><span class="line">332</span><br><span class="line">333</span><br><span class="line">334</span><br><span class="line">335</span><br><span class="line">336</span><br><span class="line">337</span><br><span class="line">338</span><br><span class="line">339</span><br><span class="line">340</span><br><span class="line">341</span><br><span class="line">342</span><br><span class="line">343</span><br><span class="line">344</span><br><span class="line">345</span><br><span class="line">346</span><br><span class="line">347</span><br><span class="line">348</span><br><span class="line">349</span><br><span class="line">350</span><br></pre></td><td class="code"><pre><span class="line">static struct snd_soc_dai_link evm_dai_pcm5102a = &#123;</span><br><span class="line">	.name = &quot;PCM5102A&quot;, //This is chosen arbitrarily. Can be anything.</span><br><span class="line">	.stream_name = &quot;Playback&quot;, //This comes from the PCM5102a driver create previously.</span><br><span class="line">	.codec_dai_name = &quot;pcm5102a-hifi&quot;, //This comes from the PCM5102a driver create previously</span><br><span class="line">	.ops = &amp;pcm5102a_ops, //This is a structure that we will create later.</span><br><span class="line">	.dai_fmt = (SND_SOC_DAIFMT_CBS_CFS |SND_SOC_DAIFMT_I2S |</span><br><span class="line">	SND_SOC_DAIFMT_IB_NF),</span><br><span class="line">&#125;;	</span><br><span class="line"></span><br><span class="line">改动name:</span><br><span class="line">	&quot;PCM5102A&quot;。随便写。</span><br><span class="line">改动stream_name：</span><br><span class="line">	&quot;Playback&quot;，这个需要和snd_soc_dai_driver的stream_name一致。</span><br><span class="line">改动codec_dai_name ：</span><br><span class="line">	&quot;pt8211-lofi&quot;，这个需要和snd_soc_dai_driver的name一致。</span><br><span class="line">改动ops：</span><br><span class="line">	基于davinci-evm.c原有的tatic structsnd_soc_ops evm_ops修改</span><br><span class="line">	static struct snd_soc_ops evm_ops = &#123;</span><br><span class="line">		.startup =evm_startup,</span><br><span class="line">		.shutdown =evm_shutdown,</span><br><span class="line">		.hw_params =evm_hw_params,</span><br><span class="line">	&#125;;</span><br><span class="line">	原有的startup和shutdown直接沿用。</span><br><span class="line">	hw_params需要更改。</span><br><span class="line">	static int aic3254_hw_params(struct snd_pcm_substream *substream,</span><br><span class="line">				 struct snd_pcm_hw_params *params)</span><br><span class="line">	&#123;</span><br><span class="line">		struct snd_soc_pcm_runtime *rtd = substream-&gt;private_data;</span><br><span class="line">		struct snd_soc_dai *codec_dai = rtd-&gt;codec_dai;</span><br><span class="line">		struct snd_soc_dai *cpu_dai = rtd-&gt;cpu_dai;</span><br><span class="line">		struct snd_soc_card *soc_card = rtd-&gt;card;</span><br><span class="line">		unsigned int bclk_freq = evm_get_bclk(params); </span><br><span class="line"></span><br><span class="line">		int ret = 0;</span><br><span class="line">		unsigned sysclk = ((struct snd_soc_card_drvdata_davinci *) </span><br><span class="line">				snd_soc_card_get_drvdata(soc_card))-&gt;sysclk; </span><br><span class="line"></span><br><span class="line">		// set codec DAI configuration</span><br><span class="line">		ret = snd_soc_dai_set_fmt(codec_dai, AIC3254_AUDIO_FORMAT);</span><br><span class="line">		if(ret &lt; 0)</span><br><span class="line">			return ret;</span><br><span class="line"></span><br><span class="line">		// set cpu DAI configuration</span><br><span class="line">		ret = snd_soc_dai_set_fmt(cpu_dai,  AIC3254_AUDIO_FORMAT);</span><br><span class="line">		if(ret &lt; 0)</span><br><span class="line">			return ret;</span><br><span class="line"></span><br><span class="line">		ret = snd_soc_dai_set_clkdiv(cpu_dai, 1, sysclk/bclk_freq); </span><br><span class="line">		if (ret &lt; 0) &#123; </span><br><span class="line">			printk(&quot;can&apos;t set CPU DAI clock divider %d\n&quot;, ret); </span><br><span class="line">			return ret; </span><br><span class="line">		&#125; </span><br><span class="line">		printk(&quot;pt8211 hw params\n&quot;); </span><br><span class="line">		printk(&quot;sysclk=%d\n&quot;, sysclk); </span><br><span class="line">		printk(&quot;bclk_freq=%d\n&quot;, bclk_freq); </span><br><span class="line"></span><br><span class="line">		/* set the CPU system clock */</span><br><span class="line">		ret = snd_soc_dai_set_sysclk(cpu_dai, 0, sysclk, SND_SOC_CLOCK_OUT);</span><br><span class="line">		if (ret &lt; 0)</span><br><span class="line">			return ret;</span><br><span class="line">	</span><br><span class="line">		return 0;</span><br><span class="line">	&#125;</span><br><span class="line">对于这个音频格式的设置，在snd_soc_dai_link里面配好。ASOC层会去调用生效的。</span><br><span class="line">	static struct snd_soc_dai_link evm_dai_pcm5102a = &#123;</span><br><span class="line">		...</span><br><span class="line">		.dai_fmt = (SND_SOC_DAIFMT_CBS_CFS | SND_SOC_DAIFMT_LEFT_J | SND_SOC_DAIFMT_NB_NF),</span><br><span class="line">	&#125;;	</span><br><span class="line">	这个参数细节的确定，本来对于aic3254，其实要同时确定3254和am335x mcasp的配置。</span><br><span class="line">	但是因为现在是连接固定的pt8211，没法去配置pt8211，只能根据pt8211的时序，来配置mcasp。</span><br><span class="line">	以前aic3254的设置是：</span><br><span class="line">		#define AIC3254_AUDIO_FORMAT (SND_SOC_DAIFMT_I2S  | SND_SOC_DAIFMT_CBM_CFM | SND_SOC_DAIFMT_NB_NF)</span><br><span class="line"></span><br><span class="line">		SND_SOC_DAIFMT_I2S		代表是i2s格式。但实际上pt8211是Its digital input timing format is Least Significant Bit Justified (LSBJ)。选SND_SOC_DAIFMT_LEFT_J</span><br><span class="line">			pcm5102a是同时支持i2s和left_j</span><br><span class="line">			pt8211只支持left_j</span><br><span class="line">			left_j和i2s的区别在于：</span><br><span class="line">			1.虽然都是先传输左声道，但i2s左声道是低电平，left_j是高电平</span><br><span class="line">			2.i2s，在bclk/wclk下降沿来了以后，往后第一个下降沿打数据，第二个上升沿采数据。(I2S/LEFT_J都是下降沿发，上升沿采)</span><br><span class="line">			left_j则是wclk上升沿/bclk下降沿来的同时，打数据，接下来bclk第一个上升沿就采数据</span><br><span class="line">				说白了就是i2s的offset=0，left_j的offset=1</span><br><span class="line">		SND_SOC_DAIFMT_CBM_CFM	需改为SND_SOC_DAIFMT_CBS_CFS，也就是pt8211 codec的bclk和fclk都是slave</span><br><span class="line">		SND_SOC_DAIFMT_NB_NF		这个不变。</span><br><span class="line">		上面三个dai_fmt的参数，为什么这么设置，见下面的详解davinci_mcasp_set_dai_fmt()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">详解platform_driver的snd_soc_dai_ops-&gt;set_fmt()，也就是mcasp的davinci_mcasp_set_dai_fmt()代码：					</span><br><span class="line">switch (fmt &amp; SND_SOC_DAIFMT_FORMAT_MASK) &#123;</span><br><span class="line">case SND_SOC_DAIFMT_DSP_A:</span><br><span class="line">	mcasp_clr_bits(mcasp, DAVINCI_MCASP_TXFMCTL_REG, FSXDUR);</span><br><span class="line">	mcasp_clr_bits(mcasp, DAVINCI_MCASP_RXFMCTL_REG, FSRDUR);</span><br><span class="line">	/* 1st data bit occur one ACLK cycle after the frame sync */</span><br><span class="line">	data_delay = 1;</span><br><span class="line">	break;</span><br><span class="line">case SND_SOC_DAIFMT_DSP_B:</span><br><span class="line">case SND_SOC_DAIFMT_AC97:</span><br><span class="line">	mcasp_clr_bits(mcasp, DAVINCI_MCASP_TXFMCTL_REG, FSXDUR);</span><br><span class="line">	mcasp_clr_bits(mcasp, DAVINCI_MCASP_RXFMCTL_REG, FSRDUR);</span><br><span class="line">	/* No delay after FS */</span><br><span class="line">	data_delay = 0;</span><br><span class="line">	break;</span><br><span class="line">case SND_SOC_DAIFMT_I2S:</span><br><span class="line">	/* configure a full-word SYNC pulse (LRCLK) */</span><br><span class="line">	mcasp_set_bits(mcasp, DAVINCI_MCASP_TXFMCTL_REG, FSXDUR);</span><br><span class="line">	mcasp_set_bits(mcasp, DAVINCI_MCASP_RXFMCTL_REG, FSRDUR);</span><br><span class="line">	/* 1st data bit occur one ACLK cycle after the frame sync */</span><br><span class="line">	data_delay = 1;		//在bclk/wclk下降沿来了以后，往后第一个下降沿打数据，第二个上升沿才能采数据，就是所谓的data_delay = 1;</span><br><span class="line">	/* FS need to be inverted */</span><br><span class="line">	inv_fs = true;</span><br><span class="line">	break;</span><br><span class="line">case SND_SOC_DAIFMT_LEFT_J:</span><br><span class="line">	/* configure a full-word SYNC pulse (LRCLK) */</span><br><span class="line">	mcasp_set_bits(mcasp, DAVINCI_MCASP_TXFMCTL_REG, FSXDUR);</span><br><span class="line">	mcasp_set_bits(mcasp, DAVINCI_MCASP_RXFMCTL_REG, FSRDUR);</span><br><span class="line">	/* No delay after FS */</span><br><span class="line">	data_delay = 0;		//wclk上升沿/bclk下降沿来的同时，打数据，接下来bclk第一个上升沿就采数据，就是所谓的data_delay = 0;</span><br><span class="line">	break;</span><br><span class="line">default:</span><br><span class="line">	ret = -EINVAL;</span><br><span class="line">	goto out;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">mcasp_mod_bits(mcasp, DAVINCI_MCASP_TXFMT_REG, FSXDLY(data_delay),</span><br><span class="line">	       FSXDLY(3));</span><br><span class="line">mcasp_mod_bits(mcasp, DAVINCI_MCASP_RXFMT_REG, FSRDLY(data_delay),</span><br><span class="line">	       FSRDLY(3));</span><br><span class="line">分析：</span><br><span class="line">a.针对DAVINCI_MCASP_TXFMCTL_REG，也就是transmit frame sync control register 的，以及DAVINCI_MCASP_RXFMCTL_REG，也就是receive frame sync control register </span><br><span class="line">	这两个寄存器的bit4（FSXDUR/FSRDUR）进行置1和置0</span><br><span class="line">	有关bit4的解释是：</span><br><span class="line">		Transmit frame sync width select bit indicates the width of the</span><br><span class="line">		transmit frame sync (AFSX) during its active period.</span><br><span class="line">		0x0 = Single bit.</span><br><span class="line">		0x1 = Single word.</span><br><span class="line">		也就是说，这个决定的是wclk的宽度。</span><br><span class="line">		那么对于DSP协议来说，其实wclk的宽度就是1个bit.</span><br><span class="line">		而对于i2s/left-j协议来说，其实wclk就是整个数据字的宽度。</span><br><span class="line">		这个设定主要用于区分dsp协议和i2s/left-j协议。</span><br><span class="line">b.data_delay的设置</span><br><span class="line">	mcasp针对data_delay的设置，是一种绝对的偏移量</span><br><span class="line">	dsp_a：		不清楚为什么dsp还分a,b两种，不管它</span><br><span class="line">	dsp_b/ac97:	不清楚为什么dsp还分a,b两种，不管它。ac97较为复杂，且多为pc上使用，不管它。</span><br><span class="line">	I2S：	根据i2s协议要求，需要延后一个周期再开始收发数据</span><br><span class="line">	left-j：	根据left justified协议要求，延迟0个周期，立即开始发数据</span><br><span class="line">	操作寄存器DAVINCI_MCASP_TXFMT_REG/DAVINCI_MCASP_RXFMT_REG，也就是：</span><br><span class="line">	 transmit bit stream format register 和receive bit stream format register </span><br><span class="line">	操作的是bit16-17。解释如下：</span><br><span class="line">		Transmit sync bit delay.</span><br><span class="line">		0x0 = 0-bit delay. The first transmit data bit, AXRn, occurs in same</span><br><span class="line">		ACLKX cycle as the transmit frame sync (AFSX).</span><br><span class="line">		0x1 = 1-bit delay. The first transmit data bit, AXRn, occurs one</span><br><span class="line">		ACLKX cycle after the transmit frame sync (AFSX).</span><br><span class="line">		0x2 = 2-bit delay. The first transmit data bit, AXRn, occurs two</span><br><span class="line">		ACLKX cycles after the transmit frame sync (AFSX).</span><br><span class="line">		0x3 = Reserved.</span><br><span class="line">	说白了就是，AXRn，也就是i2s的数据线，在AFSX(对应i2s里面的wclk)有效后，几个ACLKX周期（对应i2s是bclk）后，才出现。</span><br><span class="line">c.inv_fs的设置</span><br><span class="line">	i2s的wclk，是低有效，一开始低，传送的是左声道。而别的协议如left-j等，都是高有效。</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">switch (fmt &amp; SND_SOC_DAIFMT_MASTER_MASK) &#123;</span><br><span class="line">case SND_SOC_DAIFMT_CBS_CFS:</span><br><span class="line">	/* codec is clock and frame slave */</span><br><span class="line">	mcasp_set_bits(mcasp, DAVINCI_MCASP_ACLKXCTL_REG, ACLKXE);</span><br><span class="line">	mcasp_set_bits(mcasp, DAVINCI_MCASP_TXFMCTL_REG, AFSXE);</span><br><span class="line"></span><br><span class="line">	mcasp_set_bits(mcasp, DAVINCI_MCASP_ACLKRCTL_REG, ACLKRE);</span><br><span class="line">	mcasp_set_bits(mcasp, DAVINCI_MCASP_RXFMCTL_REG, AFSRE);</span><br><span class="line"></span><br><span class="line">	mcasp_set_bits(mcasp, DAVINCI_MCASP_PDIR_REG, ACLKX | ACLKR);</span><br><span class="line">	mcasp_set_bits(mcasp, DAVINCI_MCASP_PDIR_REG, AFSX | AFSR);</span><br><span class="line">	mcasp-&gt;bclk_master = 1;</span><br><span class="line">	break;</span><br><span class="line">case SND_SOC_DAIFMT_CBS_CFM:</span><br><span class="line">	/* codec is clock slave and frame master */</span><br><span class="line">	mcasp_set_bits(mcasp, DAVINCI_MCASP_ACLKXCTL_REG, ACLKXE);</span><br><span class="line">	mcasp_clr_bits(mcasp, DAVINCI_MCASP_TXFMCTL_REG, AFSXE);</span><br><span class="line"></span><br><span class="line">	mcasp_set_bits(mcasp, DAVINCI_MCASP_ACLKRCTL_REG, ACLKRE);</span><br><span class="line">	mcasp_clr_bits(mcasp, DAVINCI_MCASP_RXFMCTL_REG, AFSRE);</span><br><span class="line"></span><br><span class="line">	mcasp_set_bits(mcasp, DAVINCI_MCASP_PDIR_REG, ACLKX | ACLKR);</span><br><span class="line">	mcasp_clr_bits(mcasp, DAVINCI_MCASP_PDIR_REG, AFSX | AFSR);</span><br><span class="line">	mcasp-&gt;bclk_master = 1;</span><br><span class="line">	break;</span><br><span class="line">case SND_SOC_DAIFMT_CBM_CFS:</span><br><span class="line">	/* codec is clock master and frame slave */</span><br><span class="line">	mcasp_clr_bits(mcasp, DAVINCI_MCASP_ACLKXCTL_REG, ACLKXE);</span><br><span class="line">	mcasp_set_bits(mcasp, DAVINCI_MCASP_TXFMCTL_REG, AFSXE);</span><br><span class="line"></span><br><span class="line">	mcasp_clr_bits(mcasp, DAVINCI_MCASP_ACLKRCTL_REG, ACLKRE);</span><br><span class="line">	mcasp_set_bits(mcasp, DAVINCI_MCASP_RXFMCTL_REG, AFSRE);</span><br><span class="line"></span><br><span class="line">	mcasp_clr_bits(mcasp, DAVINCI_MCASP_PDIR_REG, ACLKX | ACLKR);</span><br><span class="line">	mcasp_set_bits(mcasp, DAVINCI_MCASP_PDIR_REG, AFSX | AFSR);</span><br><span class="line">	mcasp-&gt;bclk_master = 0;</span><br><span class="line">	break;</span><br><span class="line">case SND_SOC_DAIFMT_CBM_CFM:</span><br><span class="line">	/* codec is clock and frame master */</span><br><span class="line">	mcasp_clr_bits(mcasp, DAVINCI_MCASP_ACLKXCTL_REG, ACLKXE);</span><br><span class="line">	mcasp_clr_bits(mcasp, DAVINCI_MCASP_TXFMCTL_REG, AFSXE);</span><br><span class="line"></span><br><span class="line">	mcasp_clr_bits(mcasp, DAVINCI_MCASP_ACLKRCTL_REG, ACLKRE);</span><br><span class="line">	mcasp_clr_bits(mcasp, DAVINCI_MCASP_RXFMCTL_REG, AFSRE);</span><br><span class="line"></span><br><span class="line">	mcasp_clr_bits(mcasp, DAVINCI_MCASP_PDIR_REG,</span><br><span class="line">		       ACLKX | AHCLKX | AFSX | ACLKR | AHCLKR | AFSR);</span><br><span class="line">	mcasp-&gt;bclk_master = 0;</span><br><span class="line">	break;</span><br><span class="line">default:</span><br><span class="line">	ret = -EINVAL;</span><br><span class="line">	goto out;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">分析：</span><br><span class="line">a.DAVINCI_MCASP_ACLKXCTL_REG和DAVINCI_MCASP_ACLKRCTL_REG</span><br><span class="line">	transmit clock control register和receive clock control register </span><br><span class="line">	设置的是bit5</span><br><span class="line">		Transmit bit clock source bit.</span><br><span class="line">		0x0 = External transmit clock source from ACLKX pin.</span><br><span class="line">		0x1 = Internal transmit clock source from output of programmable bit</span><br><span class="line">		clock divider.</span><br><span class="line">	也就是ACLKX，对应i2s的bclk，是输出还是输入。</span><br><span class="line">	所以说，凡是涉及CBS(codec bclk slave)的，都是mcasp输出。CBM反之。</span><br><span class="line">b.DAVINCI_MCASP_TXFMCTL_REG和DAVINCI_MCASP_RXFMCTL_REG</span><br><span class="line">	transmit frame sync control register和receive frame sync control register </span><br><span class="line">	设置的是bit1</span><br><span class="line">		Transmit frame sync generation select bit.</span><br><span class="line">		0x0 = Externally-generated transmit frame sync.</span><br><span class="line">		0x1 = Internally-generated transmit frame sync.</span><br><span class="line">	也就是i2s的wclk，帧同步信号，是作为输出还是输入。</span><br><span class="line">	所以说，凡是涉及CFS(codec frame clk slave)，多是mcasp输出。CFM反之。</span><br><span class="line">c.DAVINCI_MCASP_PDIR_REG</span><br><span class="line">	pin direction register </span><br><span class="line">	设置的是bit26，27，28，29，30，31</span><br><span class="line">	分别设置的是ACLKX(对应i2s的bclk)，AHCLKX(i2s未涉及)，AFSX(对应i2s的wclk)，ACLKR(i2s未涉及)，AHCLKR(i2s未涉及)，AFSR(i2s未涉及)这些脚是配置成输入还是输出</span><br><span class="line">	所以，以i2s为例。如果是CBM_CFM，则mcasp是从，wclk和bclk全部设置成输入，也就是清零。</span><br><span class="line">d.bclk_master</span><br><span class="line">	如果mcasp的bclk主时钟是作为输出，则置1.</span><br><span class="line">	所以凡是CBS，也就是codec bclk slave，都意味着mcasp的bclk主时钟是作为输出，要置1.</span><br><span class="line"></span><br><span class="line">switch (fmt &amp; SND_SOC_DAIFMT_INV_MASK) &#123;</span><br><span class="line">case SND_SOC_DAIFMT_IB_NF:</span><br><span class="line">	mcasp_clr_bits(mcasp, DAVINCI_MCASP_ACLKXCTL_REG, ACLKXPOL);</span><br><span class="line">	mcasp_clr_bits(mcasp, DAVINCI_MCASP_ACLKRCTL_REG, ACLKRPOL);</span><br><span class="line">	fs_pol_rising = true;</span><br><span class="line">	break;</span><br><span class="line">case SND_SOC_DAIFMT_NB_IF:</span><br><span class="line">	mcasp_set_bits(mcasp, DAVINCI_MCASP_ACLKXCTL_REG, ACLKXPOL);</span><br><span class="line">	mcasp_set_bits(mcasp, DAVINCI_MCASP_ACLKRCTL_REG, ACLKRPOL);</span><br><span class="line">	fs_pol_rising = false;</span><br><span class="line">	break;</span><br><span class="line">case SND_SOC_DAIFMT_IB_IF:</span><br><span class="line">	mcasp_clr_bits(mcasp, DAVINCI_MCASP_ACLKXCTL_REG, ACLKXPOL);</span><br><span class="line">	mcasp_clr_bits(mcasp, DAVINCI_MCASP_ACLKRCTL_REG, ACLKRPOL);</span><br><span class="line">	fs_pol_rising = false;</span><br><span class="line">	break;</span><br><span class="line">case SND_SOC_DAIFMT_NB_NF:</span><br><span class="line">	mcasp_set_bits(mcasp, DAVINCI_MCASP_ACLKXCTL_REG, ACLKXPOL);</span><br><span class="line">	mcasp_set_bits(mcasp, DAVINCI_MCASP_ACLKRCTL_REG, ACLKRPOL);</span><br><span class="line">	fs_pol_rising = true;</span><br><span class="line">	break;</span><br><span class="line">default:</span><br><span class="line">	ret = -EINVAL;</span><br><span class="line">	goto out;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">if (inv_fs)</span><br><span class="line">	fs_pol_rising = !fs_pol_rising;</span><br><span class="line"></span><br><span class="line">if (fs_pol_rising) &#123;</span><br><span class="line">	mcasp_clr_bits(mcasp, DAVINCI_MCASP_TXFMCTL_REG, FSXPOL);</span><br><span class="line">	mcasp_clr_bits(mcasp, DAVINCI_MCASP_RXFMCTL_REG, FSRPOL);</span><br><span class="line">&#125; else &#123;</span><br><span class="line">	mcasp_set_bits(mcasp, DAVINCI_MCASP_TXFMCTL_REG, FSXPOL);</span><br><span class="line">	mcasp_set_bits(mcasp, DAVINCI_MCASP_RXFMCTL_REG, FSRPOL);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">分析：</span><br><span class="line">a.DAVINCI_MCASP_ACLKXCTL_REG和DAVINCI_MCASP_ACLKRCTL_REG</span><br><span class="line">	transmit clock control register和receive clock control register </span><br><span class="line">	设置的是bit7</span><br><span class="line">		Transmit bitstream clock polarity select bit.</span><br><span class="line">		0x0 = Rising edge. External receiver samples data on the falling</span><br><span class="line">		edge of the serial clock, so the transmitter must shift data out on the</span><br><span class="line">		rising edge of the serial clock.</span><br><span class="line">		0x1 = Falling edge. External receiver samples data on the rising</span><br><span class="line">		edge of the serial clock, so the transmitter must shift data out on the</span><br><span class="line">		falling edge of the serial clock.</span><br><span class="line">	这个是针对SND_SOC_DAIFMT_NB_NF中的NB还是IB.</span><br><span class="line">	如果是NB，也就是normal bclk，则置1，也就是Falling edge，下降沿发，上升沿采。这个属于i2s/left-j的标准设置，这两个协议都应该选SND_SOC_DAIFMT_NB_XX。</span><br><span class="line">b.fs_pol_rising结合inv_fs来设置DAVINCI_MCASP_TXFMCTL_REG和DAVINCI_MCASP_RXFMCTL_REG</span><br><span class="line">	transmit frame sync control register和receive frame sync control register </span><br><span class="line">	设置的是bit0</span><br><span class="line">		Transmit frame sync polarity select bit.</span><br><span class="line">		0x0 = A rising edge on transmit frame sync (AFSX) indicates the</span><br><span class="line">		beginning of a frame.</span><br><span class="line">		0x1 = A falling edge on transmit frame sync (AFSX) indicates the</span><br><span class="line">		beginning of a frame.</span><br><span class="line">	意味着，如果置0，wclk的上升沿，代表一帧的开始，也就是说wclk是高有效，一开始是高。如果置1，wclk的下降沿，代表一帧的开始，也就是说wclk是低有效。</span><br><span class="line">	然后根据协议来分析：</span><br><span class="line">	i2s：</span><br><span class="line">		inv_fs = true;</span><br><span class="line">		选择SND_SOC_DAIFMT_NB_NF</span><br><span class="line">		fs_pol_rising = true;</span><br><span class="line">		结果就是</span><br><span class="line">		fs_pol_rising = false;</span><br><span class="line">		结果就是wclk是低有效。是正确的。</span><br><span class="line">	left-j：</span><br><span class="line">		inv_fs = false;</span><br><span class="line">		选择SND_SOC_DAIFMT_NB_NF</span><br><span class="line">		fs_pol_rising = true;</span><br><span class="line">		结果就是</span><br><span class="line">		fs_pol_rising = true;</span><br><span class="line">		结果就是wclk高有效。是正确的。</span><br><span class="line">也就是说，i2s和left-j，都应该选择SND_SOC_DAIFMT_NB_NF</span><br><span class="line"></span><br><span class="line">注意：aic3254的TLV320AIC3254 Application Reference Guide.pdf里面所指的offset，和mcasp的代码里面的offset，意义是不同的。</span><br><span class="line">			aic3254的offset，指TLV320AIC3254 Application Reference Guide.pdf里面的Figure 2-45。3254所谓的offset，应该理解为一种相对偏移。</span><br><span class="line">			当然offset其实是aic3254的一个寄存器的值，可以配置的。</span><br><span class="line">			也就是说，i2s来说，本身就要求是忽略第一个周期，从第二个周期开始算。那么offset=0，意为不再多做相对偏移，此时实际还是按照默认i2s从第二个周期开始算的。	</span><br><span class="line">			而对于left-j来说。本身就要求第一个周期就开始动作。此时如果设置offset=1，那么就往后偏移一格，变成和i2s一样是第二个周期采开始动作了。</span><br><span class="line">			也就是说，如果使用默认时序，则如果aic3254配置成i2s模式，offset=0意味着偏移一个周期。如果aic3254配置成left-j模式，offset=0意味着偏移0个周期。</span><br><span class="line"></span><br><span class="line">			然后再来看mcasp。mcasp，它也有offset配置，对应寄存器是DAVINCI_MCASP_TXFMT_REG和DAVINCI_MCASP_RXFMT_REG</span><br><span class="line">			那么他的offset，就是一种绝对的偏移量。</span><br><span class="line">			参考mcasp的davinci_mcasp_set_dai_fmt()代码</span><br><span class="line">				case SND_SOC_DAIFMT_I2S:</span><br><span class="line">					data_delay = 1;		//在bclk/wclk下降沿来了以后，往后第一个下降沿打数据，第二个上升沿才能采数据，就是所谓的data_delay = 1;</span><br><span class="line">				case SND_SOC_DAIFMT_LEFT_J:</span><br><span class="line">					data_delay = 0;		//wclk上升沿/bclk下降沿来的同时，打数据，接下来bclk第一个上升沿就采数据，就是所谓的data_delay = 0;</span><br><span class="line">			所以可以看到，i2s就是偏移1，left-j就是偏移0.</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">再次检查etcs/npms的时序配置，相对原版代码改了哪些，看看是否合理？		</span><br><span class="line">	aic3254:	</span><br><span class="line">		SND_SOC_DAIFMT_I2S		改为bclk极性取反。并且根据aic3254的Figure 2-46.，其实一旦设置了bclk极性取反，会同时导致数据打出去/采集的时机也反掉。	</span><br><span class="line">						也就是改为，对于aic3254，发送接收通通是上升沿发，下降沿采。</span><br><span class="line">	mcasp:</span><br><span class="line">		SND_SOC_DAIFMT_I2S		去除了发送时候的1bit delay</span><br><span class="line">		SND_SOC_DAIFMT_CBM_CFM	未改代码</span><br><span class="line">		SND_SOC_DAIFMT_NB_NF		从i2s标准协议改为 发送的时候，是上升沿发，下降沿采</span><br><span class="line">	</span><br><span class="line">		但这样做很奇怪。就是说，作为主时钟发送方的aic3254，一旦bclk极性取反。就已经是非标的i2s协议了。会对mcasp产生什么影响？</span><br><span class="line">		</span><br><span class="line">		其实如果aic3254走标准的i2s协议。那么并不用取反bclk。会怎么样？感觉应该这才是正常的？		</span><br><span class="line">			播放录音均正常。说明广州人是瞎鸡巴乱改。</span><br><span class="line">	还原aic3254和mcasp的默认时序。改动npms和etcs，并备份。		</span><br><span class="line">	上述时序分析，更新到我自己的笔记。重新做波形分析。					</span><br><span class="line">		改函数和结构体关系图.png  怎么通过snd_soc_ops来同时操控codec和platform</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;&emsp;2.dts的配置：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">sound &#123;</span><br><span class="line">	compatible = &quot;ti,pcm5102a-evm-audio&quot;;</span><br><span class="line">	ti,model = &quot;TI PCM5102A&quot;;</span><br><span class="line">	ti,audio-codec = &lt;&amp;pcm5102a&gt;;</span><br><span class="line">	ti,mcasp-controller = &lt;&amp;mcasp0&gt;;</span><br><span class="line">	ti,codec-clock-rate = &lt;24000000&gt;;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<p><strong>    Platform driver:</strong><br>    直接使用sound\soc\davinci\davinci-mcasp.c<br>    但是需要配置dts相关的信息：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">&amp;mcasp0 &#123;</span><br><span class="line">	pinctrl-names = &quot;default&quot;;</span><br><span class="line">	pinctrl-0 = &lt;&amp;mcasp0_pins&gt;;</span><br><span class="line">	status = &quot;okay&quot;;</span><br><span class="line">	op-mode = &lt;0&gt;; /* MCASP_IIS_MODE */</span><br><span class="line">	tdm-slots = &lt;2&gt;;</span><br><span class="line">	/* 16 serializer */</span><br><span class="line">	serial-dir = &lt; /* 0: INACTIVE, 1: TX, 2: RX */</span><br><span class="line">	1 0 0 0</span><br><span class="line">	&gt;;</span><br><span class="line">	tx-num-evt = &lt;32&gt;;</span><br><span class="line">	rx-num-evt = &lt;32&gt;;</span><br><span class="line">&#125;;</span><br><span class="line">对比3254的dts配置：</span><br><span class="line">&amp;mcasp0	&#123;</span><br><span class="line">	#sound-dai-cells = &lt;0&gt;;</span><br><span class="line">	pinctrl-names = &quot;default&quot;;</span><br><span class="line">	pinctrl-0 = &lt;&amp;mcasp0_pins&gt;;</span><br><span class="line">	status = &quot;okay&quot;;</span><br><span class="line">	op-mode = &lt;0&gt;;	/* MCASP_IIS_MODE */</span><br><span class="line">	tdm-slots = &lt;2&gt;;	/* Indicates number of channels transmitted or received over one serializer. */</span><br><span class="line">	serial-dir = &lt;	/* 0: INACTIVE, 1: TX, 2: RX */</span><br><span class="line">			1 2 0 0</span><br><span class="line">		&gt;;</span><br><span class="line">	tx-num-evt = &lt;32&gt;;</span><br><span class="line">	rx-num-evt = &lt;32&gt;;</span><br><span class="line">&#125;;</span><br><span class="line">这个dts，唯一的不同是serial-dir的配置</span><br><span class="line">serial-dir 的0 0 0 0就是分别对应AXR0 AXR1 AXR2 AXR3</span><br><span class="line">硬件电路上，如果AXR0连接的是cpu的TX，那么pcm5102a就应该配置成1 0 0 0。</span><br></pre></td></tr></table></figure></p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/08/05/ALSA-概述/" rel="next" title="ALSA 概述">
+                <i class="fa fa-chevron-left"></i> ALSA 概述
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/08/05/不同sample-rate的音乐，wclk和bclk分频的细节/" rel="prev" title="不同sample rate的音乐，wclk和bclk分频的细节">
+                不同sample rate的音乐，wclk和bclk分频的细节 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Semiyd</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives">
+                
+                    <span class="site-state-item-count">134</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">66</span>
+                    <span class="site-state-item-name">categories</span>
+                  </a>
+                </div>
+              
+
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#以PCM5102a为例"><span class="nav-number">1.</span> <span class="nav-text">以PCM5102a为例</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#PT8211-TM8211-TDA1311实践篇"><span class="nav-number">2.</span> <span class="nav-text">PT8211/TM8211/TDA1311实践篇</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Semiyd</span>
+
+  
+
+  
+</div>
+
+
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> v3.7.1</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://theme-next.org">NexT.Muse</a> v6.3.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+	
+    
+
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.3.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.3.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.3.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.3.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.3.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,903 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.3.0" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.3.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.3.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.3.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.3.0" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '6.3.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="有关snd_soc_dai_link-&amp;gt;dai_fmt如何配置的解释">
+<meta property="og:type" content="article">
+<meta property="og:title" content="有关snd_soc_dai_link-&gt;dai_fmt如何配置的解释">
+<meta property="og:url" content="http://yoursite.com/2018/08/05/有关snd-soc-dai-link-dai-fmt如何配置的解释/index.html">
+<meta property="og:site_name" content="Semiyd&#39;s Blog">
+<meta property="og:description" content="有关snd_soc_dai_link-&amp;gt;dai_fmt如何配置的解释">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2018-08-05T03:23:47.670Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="有关snd_soc_dai_link-&gt;dai_fmt如何配置的解释">
+<meta name="twitter:description" content="有关snd_soc_dai_link-&amp;gt;dai_fmt如何配置的解释">
+
+
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/08/05/有关snd-soc-dai-link-dai-fmt如何配置的解释/"/>
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>有关snd_soc_dai_link->dai_fmt如何配置的解释 | Semiyd's Blog</title>
+  
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Semiyd's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br />Home</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+    <a href="/categories/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-th"></i> <br />Categories</a>
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/05/有关snd-soc-dai-link-dai-fmt如何配置的解释/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Semiyd">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Semiyd's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">有关snd_soc_dai_link->dai_fmt如何配置的解释
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2018-08-05 11:19:20 / Modified: 11:23:47" itemprop="dateCreated datePublished" datetime="2018-08-05T11:19:20+08:00">2018-08-05</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Linux/" itemprop="url" rel="index"><span itemprop="name">Linux</span></a></span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Linux/Kernel/" itemprop="url" rel="index"><span itemprop="name">Kernel</span></a></span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Linux/Kernel/驱动/" itemprop="url" rel="index"><span itemprop="name">驱动</span></a></span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Linux/Kernel/驱动/ALSA/" itemprop="url" rel="index"><span itemprop="name">ALSA</span></a></span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Linux/Kernel/驱动/ALSA/Platform/" itemprop="url" rel="index"><span itemprop="name">Platform</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><center><strong>有关snd_soc_dai_link-&gt;dai_fmt如何配置的解释</strong></center><br><a id="more"></a></p>
+<p>参见i2s波形分析:<br>
+
+	<div class="row">
+    <embed src="./1.pdf" width="100%" height="550" type="application/pdf">
+	</div>
+
+
+</p>
+<p>背景知识：<br>有关i2s的时序。是由snd_soc_dai_link-&gt;dai_fmt来配置的。<br>snd_soc_dai_link-&gt;dai_fmt有三个方面：<br>(SND_SOC_DAIFMT_CBS_CFS | SND_SOC_DAIFMT_LEFT_J | SND_SOC_DAIFMT_NB_NF),<br>时钟主从设置            音频格式设置        主时钟/帧时钟极性设置</p>
+<p>对于这个音频格式的设置，在machine driver里面的snd_soc_dai_link里面配好。ASOC层会去调用生效的。<br>static struct snd_soc_dai_link evm_dai_pcm5102a = {<br>…<br>.dai_fmt = (SND_SOC_DAIFMT_CBS_CFS | SND_SOC_DAIFMT_LEFT_J | SND_SOC_DAIFMT_NB_NF),<br>};<br>那么其实设置这个dai_fmt。有两种方式。<br>一种就是，按照上述的方式设置。在snd_soc_dai_link里面配好.<br>开机过程中：<br>ASOC层，发现.dai_fmt有设置过的话，会调用相关的系统函数分别设置codec和platform的set_fmt函数。<br>evm_init（machine driver的module_init函数）-&gt;…platform_device和platform_driver匹配…-&gt;davinci_evm_probe-&gt;devm_snd_soc_register_card-&gt;snd_soc_runtime_set_dai_fmt<br>注意如果配置过dai_fmt（if (dai_link-&gt;dai_fmt)），ASOC则会调用snd_soc_runtime_set_dai_fmt()<br>接着看：<br>snd_soc_runtime_set_dai_fmt-&gt;davinci_mcasp_set_dai_fmt  这就执行到了platform的set_fmt回调函数了。<br>播放音乐的时候：<br>platform driver在hw_params回调函数里面，也会再次去set_fmt(很可能是多此一举)<br>SyS_ioctl-&gt;do_vfs_ioctl-&gt;snd_pcm_playback_ioctl-&gt;snd_pcm_playback_ioctl1-&gt;snd_pcm_common_ioctl1-&gt;soc_pcm_hw_params-&gt;soc_dai_hw_params-&gt;davinci_mcasp_hw_params<br>-&gt;davinci_mcasp_set_dai_fmt()<br>二种就是，不使用dai_fmt。直接在machine driver的hw_params回调函数里面，手动调用ASOC的接口snd_soc_dai_set_fmt，分别呼出codec和platform的set_fmt()回调函数<br>播放音乐的时候：<br>SyS_ioctl-&gt;do_vfs_ioctl-&gt;snd_pcm_playback_ioctl-&gt;snd_pcm_playback_ioctl1-&gt;snd_pcm_hw_params-&gt;davinci_evm_hw_params-&gt;snd_soc_dai_set_fmt-&gt;aic32x4_set_dai_fmt    设置codec<br>SyS_ioctl-&gt;do_vfs_ioctl-&gt;snd_pcm_playback_ioctl-&gt;snd_pcm_playback_ioctl1-&gt;snd_pcm_hw_params-&gt;davinci_evm_hw_params-&gt;snd_soc_dai_set_fmt-&gt;davinci_mcasp_set_dai_fmt  设置platform</p>
+<p>这个参数细节的确定，本来对于aic3254，其实要同时确定3254和am335x mcasp的配置。<br>但是如果是连接固定的pt8211，没法去配置pt8211，只能根据pt8211的时序，来配置mcasp。<br>以前aic3254的设置是：<br>#define AIC3254_AUDIO_FORMAT (SND_SOC_DAIFMT_I2S  | SND_SOC_DAIFMT_CBM_CFM | SND_SOC_DAIFMT_NB_NF)<br>那么，针对3254的配置，代码如下：<br>static int aic32x4_set_dai_fmt(struct snd_soc_dai <em>codec_dai, unsigned int fmt)<br>{<br>struct snd_soc_codec </em>codec = codec_dai-&gt;codec;<br>u8 iface_reg_1;<br>u8 iface_reg_2;<br>u8 iface_reg_3;</p>
+<p>iface_reg_1 = snd_soc_read(codec, AIC32X4_IFACE1);<br>iface_reg_1 = iface_reg_1 &amp; ~(3 &lt;&lt; 6 | 3 &lt;&lt; 2);<br>iface_reg_2 = snd_soc_read(codec, AIC32X4_IFACE2);<br>iface_reg_2 = 0;<br>iface_reg_3 = snd_soc_read(codec, AIC32X4_IFACE3);<br>iface_reg_3 = iface_reg_3 &amp; ~(1 &lt;&lt; 3);</p>
+<p>/<em> set master/slave audio interface </em>/<br>switch (fmt &amp; SND_SOC_DAIFMT_MASTER_MASK) {<br>case SND_SOC_DAIFMT_CBM_CFM:<br>iface_reg_1 |= AIC32X4_BCLKMASTER | AIC32X4_WCLKMASTER;<br>break;<br>case SND_SOC_DAIFMT_CBS_CFS:<br>break;<br>default:<br>printk(KERN_ERR “aic32x4: invalid DAI master/slave interface\n”);<br>return -EINVAL;<br>}</p>
+<p>switch (fmt &amp; SND_SOC_DAIFMT_FORMAT_MASK) {<br>case SND_SOC_DAIFMT_I2S:<br>//iface_reg_3 |= (1 &lt;&lt; 3); /<em> invert bit clock </em>/<br>break;<br>case SND_SOC_DAIFMT_DSP_A:<br>iface_reg_1 |= (AIC32X4_DSP_MODE &lt;&lt; AIC32X4_PLLJ_SHIFT);<br>iface_reg_3 |= (1 &lt;&lt; 3); /<em> invert bit clock </em>/<br>iface_reg_2 = 0x01; /<em> add offset 1 </em>/<br>break;<br>case SND_SOC_DAIFMT_DSP_B:<br>iface_reg_1 |= (AIC32X4_DSP_MODE &lt;&lt; AIC32X4_PLLJ_SHIFT);<br>iface_reg_3 |= (1 &lt;&lt; 3); /<em> invert bit clock </em>/<br>break;<br>case SND_SOC_DAIFMT_RIGHT_J:<br>iface_reg_1 |=<br>(AIC32X4_RIGHT_JUSTIFIED_MODE &lt;&lt; AIC32X4_PLLJ_SHIFT);<br>break;<br>case SND_SOC_DAIFMT_LEFT_J:<br>iface_reg_1 |=<br>(AIC32X4_LEFT_JUSTIFIED_MODE &lt;&lt; AIC32X4_PLLJ_SHIFT);<br>break;<br>default:<br>printk(KERN_ERR “aic32x4: invalid DAI interface format\n”);<br>return -EINVAL;<br>}</p>
+<p>snd_soc_write(codec, AIC32X4_IFACE1, iface_reg_1);<br>snd_soc_write(codec, AIC32X4_IFACE2, iface_reg_2);<br>snd_soc_write(codec, AIC32X4_IFACE3, iface_reg_3);<br>return 0;<br>}<br>可以看到，3254驱动针对不同的dai_fmt参数，配置了自己的寄存器。</p>
+<p>重点是分析下mcasp也就是platform 驱动这边的dai_fmt是如何真正生效了。从而理解，dai_fmt具体要如何设置<br>SND_SOC_DAIFMT_I2S        代表是i2s格式。但实际上pt8211是Its digital input timing format is Least Significant Bit Justified (LSBJ)。选SND_SOC_DAIFMT_LEFT_J<br>pcm5102a是同时支持i2s和left_j<br>pt8211只支持left_j<br>left_j和i2s的区别在于：<br>1.虽然都是先传输左声道，但i2s左声道是低电平，left_j是高电平<br>2.i2s，在bclk/wclk下降沿来了以后，往后第一个下降沿打数据，第二个上升沿采数据。(I2S/LEFT_J都是下降沿发，上升沿采)<br>left_j则是wclk上升沿/bclk下降沿来的同时，打数据，接下来bclk第一个上升沿就采数据<br>    说白了就是i2s的offset=0，left_j的offset=1<br>SND_SOC_DAIFMT_CBM_CFM    需改为SND_SOC_DAIFMT_CBS_CFS，也就是pt8211 codec的bclk和fclk都是slave<br>SND_SOC_DAIFMT_NB_NF        这个不变。<br>上面三个dai_fmt的参数，为什么这么设置，见下面的详解davinci_mcasp_set_dai_fmt()</p>
+<p>详解platform_driver的snd_soc_dai_ops-&gt;set_fmt()，也就是mcasp的davinci_mcasp_set_dai_fmt()代码：<br>switch (fmt &amp; SND_SOC_DAIFMT_FORMAT_MASK) {<br>case SND_SOC_DAIFMT_DSP_A:<br>mcasp_clr_bits(mcasp, DAVINCI_MCASP_TXFMCTL_REG, FSXDUR);<br>mcasp_clr_bits(mcasp, DAVINCI_MCASP_RXFMCTL_REG, FSRDUR);<br>/<em> 1st data bit occur one ACLK cycle after the frame sync </em>/<br>data_delay = 1;<br>break;<br>case SND_SOC_DAIFMT_DSP_B:<br>case SND_SOC_DAIFMT_AC97:<br>mcasp_clr_bits(mcasp, DAVINCI_MCASP_TXFMCTL_REG, FSXDUR);<br>mcasp_clr_bits(mcasp, DAVINCI_MCASP_RXFMCTL_REG, FSRDUR);<br>/<em> No delay after FS </em>/<br>data_delay = 0;<br>break;<br>case SND_SOC_DAIFMT_I2S:<br>/<em> configure a full-word SYNC pulse (LRCLK) </em>/<br>mcasp_set_bits(mcasp, DAVINCI_MCASP_TXFMCTL_REG, FSXDUR);<br>mcasp_set_bits(mcasp, DAVINCI_MCASP_RXFMCTL_REG, FSRDUR);<br>/<em> 1st data bit occur one ACLK cycle after the frame sync </em>/<br>data_delay = 1;        //在bclk/wclk下降沿来了以后，往后第一个下降沿打数据，第二个上升沿才能采数据，就是所谓的data_delay = 1;<br>/<em> FS need to be inverted </em>/<br>inv_fs = true;<br>break;<br>case SND_SOC_DAIFMT_LEFT_J:<br>/<em> configure a full-word SYNC pulse (LRCLK) </em>/<br>mcasp_set_bits(mcasp, DAVINCI_MCASP_TXFMCTL_REG, FSXDUR);<br>mcasp_set_bits(mcasp, DAVINCI_MCASP_RXFMCTL_REG, FSRDUR);<br>/<em> No delay after FS </em>/<br>data_delay = 0;        //wclk上升沿/bclk下降沿来的同时，打数据，接下来bclk第一个上升沿就采数据，就是所谓的data_delay = 0;<br>break;<br>default:<br>ret = -EINVAL;<br>goto out;<br>}</p>
+<p>mcasp_mod_bits(mcasp, DAVINCI_MCASP_TXFMT_REG, FSXDLY(data_delay),<br>FSXDLY(3));<br>mcasp_mod_bits(mcasp, DAVINCI_MCASP_RXFMT_REG, FSRDLY(data_delay),<br>FSRDLY(3));<br>分析：<br>a.针对DAVINCI_MCASP_TXFMCTL_REG，也就是transmit frame sync control register 的，以及DAVINCI_MCASP_RXFMCTL_REG，也就是receive frame sync control register<br>这两个寄存器的bit4（FSXDUR/FSRDUR）进行置1和置0<br>有关bit4的解释是：<br>Transmit frame sync width select bit indicates the width of the<br>transmit frame sync (AFSX) during its active period.<br>0x0 = Single bit.<br>0x1 = Single word.<br>也就是说，这个决定的是wclk的宽度。<br>那么对于DSP协议来说，其实wclk的宽度就是1个bit.<br>而对于i2s/left-j协议来说，其实wclk就是整个数据字的宽度。<br>这个设定主要用于区分dsp协议和i2s/left-j协议。<br>b.data_delay的设置<br>mcasp针对data_delay的设置，是一种绝对的偏移量<br>dsp_a：        不清楚为什么dsp还分a,b两种，不管它<br>dsp_b/ac97:    不清楚为什么dsp还分a,b两种，不管它。ac97较为复杂，且多为pc上使用，不管它。<br>I2S：    根据i2s协议要求，需要延后一个周期再开始收发数据<br>left-j：    根据left justified协议要求，延迟0个周期，立即开始发数据<br>操作寄存器DAVINCI_MCASP_TXFMT_REG/DAVINCI_MCASP_RXFMT_REG，也就是：<br>transmit bit stream format register 和receive bit stream format register<br>操作的是bit16-17。解释如下：<br>Transmit sync bit delay.<br>0x0 = 0-bit delay. The first transmit data bit, AXRn, occurs in same<br>ACLKX cycle as the transmit frame sync (AFSX).<br>0x1 = 1-bit delay. The first transmit data bit, AXRn, occurs one<br>ACLKX cycle after the transmit frame sync (AFSX).<br>0x2 = 2-bit delay. The first transmit data bit, AXRn, occurs two<br>ACLKX cycles after the transmit frame sync (AFSX).<br>0x3 = Reserved.<br>说白了就是，AXRn，也就是i2s的数据线，在AFSX(对应i2s里面的wclk)有效后，几个ACLKX周期（对应i2s是bclk）后，才出现。<br>c.inv_fs的设置<br>i2s的wclk，是低有效，一开始低，传送的是左声道。而别的协议如left-j等，都是高有效。</p>
+<p>switch (fmt &amp; SND_SOC_DAIFMT_MASTER_MASK) {<br>case SND_SOC_DAIFMT_CBS_CFS:<br>/<em> codec is clock and frame slave </em>/<br>mcasp_set_bits(mcasp, DAVINCI_MCASP_ACLKXCTL_REG, ACLKXE);<br>mcasp_set_bits(mcasp, DAVINCI_MCASP_TXFMCTL_REG, AFSXE);</p>
+<p>mcasp_set_bits(mcasp, DAVINCI_MCASP_ACLKRCTL_REG, ACLKRE);<br>mcasp_set_bits(mcasp, DAVINCI_MCASP_RXFMCTL_REG, AFSRE);</p>
+<p>mcasp_set_bits(mcasp, DAVINCI_MCASP_PDIR_REG, ACLKX | ACLKR);<br>mcasp_set_bits(mcasp, DAVINCI_MCASP_PDIR_REG, AFSX | AFSR);<br>mcasp-&gt;bclk_master = 1;<br>break;<br>case SND_SOC_DAIFMT_CBS_CFM:<br>/<em> codec is clock slave and frame master </em>/<br>mcasp_set_bits(mcasp, DAVINCI_MCASP_ACLKXCTL_REG, ACLKXE);<br>mcasp_clr_bits(mcasp, DAVINCI_MCASP_TXFMCTL_REG, AFSXE);</p>
+<p>mcasp_set_bits(mcasp, DAVINCI_MCASP_ACLKRCTL_REG, ACLKRE);<br>mcasp_clr_bits(mcasp, DAVINCI_MCASP_RXFMCTL_REG, AFSRE);</p>
+<p>mcasp_set_bits(mcasp, DAVINCI_MCASP_PDIR_REG, ACLKX | ACLKR);<br>mcasp_clr_bits(mcasp, DAVINCI_MCASP_PDIR_REG, AFSX | AFSR);<br>mcasp-&gt;bclk_master = 1;<br>break;<br>case SND_SOC_DAIFMT_CBM_CFS:<br>/<em> codec is clock master and frame slave </em>/<br>mcasp_clr_bits(mcasp, DAVINCI_MCASP_ACLKXCTL_REG, ACLKXE);<br>mcasp_set_bits(mcasp, DAVINCI_MCASP_TXFMCTL_REG, AFSXE);</p>
+<p>mcasp_clr_bits(mcasp, DAVINCI_MCASP_ACLKRCTL_REG, ACLKRE);<br>mcasp_set_bits(mcasp, DAVINCI_MCASP_RXFMCTL_REG, AFSRE);</p>
+<p>mcasp_clr_bits(mcasp, DAVINCI_MCASP_PDIR_REG, ACLKX | ACLKR);<br>mcasp_set_bits(mcasp, DAVINCI_MCASP_PDIR_REG, AFSX | AFSR);<br>mcasp-&gt;bclk_master = 0;<br>break;<br>case SND_SOC_DAIFMT_CBM_CFM:<br>/<em> codec is clock and frame master </em>/<br>mcasp_clr_bits(mcasp, DAVINCI_MCASP_ACLKXCTL_REG, ACLKXE);<br>mcasp_clr_bits(mcasp, DAVINCI_MCASP_TXFMCTL_REG, AFSXE);</p>
+<p>mcasp_clr_bits(mcasp, DAVINCI_MCASP_ACLKRCTL_REG, ACLKRE);<br>mcasp_clr_bits(mcasp, DAVINCI_MCASP_RXFMCTL_REG, AFSRE);</p>
+<p>mcasp_clr_bits(mcasp, DAVINCI_MCASP_PDIR_REG,<br>   ACLKX | AHCLKX | AFSX | ACLKR | AHCLKR | AFSR);<br>mcasp-&gt;bclk_master = 0;<br>break;<br>default:<br>ret = -EINVAL;<br>goto out;<br>}</p>
+<p>分析：<br>a.DAVINCI_MCASP_ACLKXCTL_REG和DAVINCI_MCASP_ACLKRCTL_REG<br>transmit clock control register和receive clock control register<br>设置的是bit5<br>Transmit bit clock source bit.<br>0x0 = External transmit clock source from ACLKX pin.<br>0x1 = Internal transmit clock source from output of programmable bit<br>clock divider.<br>也就是ACLKX，对应i2s的bclk，是输出还是输入。<br>所以说，凡是涉及CBS(codec bclk slave)的，都是mcasp输出。CBM反之。<br>b.DAVINCI_MCASP_TXFMCTL_REG和DAVINCI_MCASP_RXFMCTL_REG<br>transmit frame sync control register和receive frame sync control register<br>设置的是bit1<br>Transmit frame sync generation select bit.<br>0x0 = Externally-generated transmit frame sync.<br>0x1 = Internally-generated transmit frame sync.<br>也就是i2s的wclk，帧同步信号，是作为输出还是输入。<br>所以说，凡是涉及CFS(codec frame clk slave)，多是mcasp输出。CFM反之。<br>c.DAVINCI_MCASP_PDIR_REG<br>pin direction register<br>设置的是bit26，27，28，29，30，31<br>分别设置的是ACLKX(对应i2s的bclk)，AHCLKX(i2s未涉及)，AFSX(对应i2s的wclk)，ACLKR(i2s未涉及)，AHCLKR(i2s未涉及)，AFSR(i2s未涉及)这些脚是配置成输入还是输出<br>所以，以i2s为例。如果是CBM_CFM，则mcasp是从，wclk和bclk全部设置成输入，也就是清零。<br>d.bclk_master<br>如果mcasp的bclk主时钟是作为输出，则置1.<br>所以凡是CBS，也就是codec bclk slave，都意味着mcasp的bclk主时钟是作为输出，要置1.</p>
+<p>switch (fmt &amp; SND_SOC_DAIFMT_INV_MASK) {<br>case SND_SOC_DAIFMT_IB_NF:<br>mcasp_clr_bits(mcasp, DAVINCI_MCASP_ACLKXCTL_REG, ACLKXPOL);<br>mcasp_clr_bits(mcasp, DAVINCI_MCASP_ACLKRCTL_REG, ACLKRPOL);<br>fs_pol_rising = true;<br>break;<br>case SND_SOC_DAIFMT_NB_IF:<br>mcasp_set_bits(mcasp, DAVINCI_MCASP_ACLKXCTL_REG, ACLKXPOL);<br>mcasp_set_bits(mcasp, DAVINCI_MCASP_ACLKRCTL_REG, ACLKRPOL);<br>fs_pol_rising = false;<br>break;<br>case SND_SOC_DAIFMT_IB_IF:<br>mcasp_clr_bits(mcasp, DAVINCI_MCASP_ACLKXCTL_REG, ACLKXPOL);<br>mcasp_clr_bits(mcasp, DAVINCI_MCASP_ACLKRCTL_REG, ACLKRPOL);<br>fs_pol_rising = false;<br>break;<br>case SND_SOC_DAIFMT_NB_NF:<br>mcasp_set_bits(mcasp, DAVINCI_MCASP_ACLKXCTL_REG, ACLKXPOL);<br>mcasp_set_bits(mcasp, DAVINCI_MCASP_ACLKRCTL_REG, ACLKRPOL);<br>fs_pol_rising = true;<br>break;<br>default:<br>ret = -EINVAL;<br>goto out;<br>}</p>
+<p>if (inv_fs)<br>fs_pol_rising = !fs_pol_rising;</p>
+<p>if (fs_pol_rising) {<br>mcasp_clr_bits(mcasp, DAVINCI_MCASP_TXFMCTL_REG, FSXPOL);<br>mcasp_clr_bits(mcasp, DAVINCI_MCASP_RXFMCTL_REG, FSRPOL);<br>} else {<br>mcasp_set_bits(mcasp, DAVINCI_MCASP_TXFMCTL_REG, FSXPOL);<br>mcasp_set_bits(mcasp, DAVINCI_MCASP_RXFMCTL_REG, FSRPOL);<br>}</p>
+<p>分析：<br>a.DAVINCI_MCASP_ACLKXCTL_REG和DAVINCI_MCASP_ACLKRCTL_REG<br>transmit clock control register和receive clock control register<br>设置的是bit7<br>Transmit bitstream clock polarity select bit.<br>0x0 = Rising edge. External receiver samples data on the falling<br>edge of the serial clock, so the transmitter must shift data out on the<br>rising edge of the serial clock.<br>0x1 = Falling edge. External receiver samples data on the rising<br>edge of the serial clock, so the transmitter must shift data out on the<br>falling edge of the serial clock.<br>这个是针对SND_SOC_DAIFMT_NB_NF中的NB还是IB.<br>如果是NB，也就是normal bclk，则置1，也就是Falling edge，下降沿发，上升沿采。这个属于i2s/left-j的标准设置，这两个协议都应该选SND_SOC_DAIFMT_NB_XX。<br>b.fs_pol_rising结合inv_fs来设置DAVINCI_MCASP_TXFMCTL_REG和DAVINCI_MCASP_RXFMCTL_REG<br>transmit frame sync control register和receive frame sync control register<br>设置的是bit0<br>Transmit frame sync polarity select bit.<br>0x0 = A rising edge on transmit frame sync (AFSX) indicates the<br>beginning of a frame.<br>0x1 = A falling edge on transmit frame sync (AFSX) indicates the<br>beginning of a frame.<br>意味着，如果置0，wclk的上升沿，代表一帧的开始，也就是说wclk是高有效，一开始是高。如果置1，wclk的下降沿，代表一帧的开始，也就是说wclk是低有效。<br>然后根据协议来分析：<br>i2s：<br>inv_fs = true;<br>选择SND_SOC_DAIFMT_NB_NF<br>fs_pol_rising = true;<br>结果就是<br>fs_pol_rising = false;<br>结果就是wclk是低有效。是正确的。<br>left-j：<br>inv_fs = false;<br>选择SND_SOC_DAIFMT_NB_NF<br>fs_pol_rising = true;<br>结果就是<br>fs_pol_rising = true;<br>结果就是wclk高有效。是正确的。<br>也就是说，i2s和left-j，都应该选择SND_SOC_DAIFMT_NB_NF<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">playback:		mcasp	-&gt;	codec	</span><br><span class="line">		        falling		rising</span><br><span class="line"></span><br><span class="line">capture:		mcasp	&lt;-	codec</span><br><span class="line">		        rising		falling</span><br></pre></td></tr></table></figure></p>
+<p>注意：aic3254的TLV320AIC3254 Application Reference Guide.pdf里面所指的offset，和mcasp的代码里面的offset，意义是不同的。<br>aic3254的offset，指TLV320AIC3254 Application Reference Guide.pdf里面的Figure 2-45。3254所谓的offset，应该理解为一种相对偏移。<br>当然offset其实是aic3254的一个寄存器的值，可以配置的。<br>也就是说，i2s来说，本身就要求是忽略第一个周期，从第二个周期开始算。那么offset=0，意为不再多做相对偏移，此时实际还是按照默认i2s从第二个周期开始算的。<br>而对于left-j来说。本身就要求第一个周期就开始动作。此时如果设置offset=1，那么就往后偏移一格，变成和i2s一样是第二个周期采开始动作了。<br>也就是说，如果使用默认时序，则如果aic3254配置成i2s模式，offset=0意味着偏移一个周期。如果aic3254配置成left-j模式，offset=0意味着偏移0个周期。</p>
+<p>然后再来看mcasp。mcasp，它也有offset配置，对应寄存器是DAVINCI_MCASP_TXFMT_REG和DAVINCI_MCASP_RXFMT_REG<br>那么他的offset，就是一种绝对的偏移量。<br>参考mcasp的davinci_mcasp_set_dai_fmt()代码<br>    case SND_SOC_DAIFMT_I2S:<br>        data_delay = 1;        //在bclk/wclk下降沿来了以后，往后第一个下降沿打数据，第二个上升沿才能采数据，就是所谓的data_delay = 1;<br>    case SND_SOC_DAIFMT_LEFT_J:<br>        data_delay = 0;        //wclk上升沿/bclk下降沿来的同时，打数据，接下来bclk第一个上升沿就采数据，就是所谓的data_delay = 0;<br>所以可以看到，i2s就是偏移1，left-j就是偏移0.</p>
+<p>不知道mcasp这边，怎么配置clk输出，分频这类配置怎么弄？<br>看pt8211的spec，bclk和wclk都是输入脚。<br>可以参考pcm5102a的例子，和现在的pt8211是完全一样的硬件配置<br>tda1311，对bclk，最多能支持到18.4MHz<br>目前来看，bclk=sample_size <em> channels </em> rate，也就是i2s的主时钟。<br>那么，总时钟是24MHz。所以针对每个不同的音乐，其实分频系数是不同的，动态的。详见machine driver的针对snd_soc_dai_set_clkdiv的调用。</p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/08/05/ALSA-related-dts-setting/" rel="next" title="ALSA related dts setting">
+                <i class="fa fa-chevron-left"></i> ALSA related dts setting
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/08/05/ALSA-audio-protocol/" rel="prev" title="ALSA audio protocol">
+                ALSA audio protocol <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Semiyd</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives">
+                
+                    <span class="site-state-item-count">134</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">66</span>
+                    <span class="site-state-item-name">categories</span>
+                  </a>
+                </div>
+              
+
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Semiyd</span>
+
+  
+
+  
+</div>
+
+
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> v3.7.1</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://theme-next.org">NexT.Muse</a> v6.3.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+	
+    
+
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.3.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.3.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.3.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.3.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.3.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
