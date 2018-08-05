@@ -1,0 +1,903 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.3.0" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.3.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.3.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.3.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.3.0" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '6.3.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="MFD driver">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MFD driver">
+<meta property="og:url" content="http://yoursite.com/2018/08/05/MFD-driver/index.html">
+<meta property="og:site_name" content="Semiyd&#39;s Blog">
+<meta property="og:description" content="MFD driver">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2018-08-05T01:43:13.230Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="MFD driver">
+<meta name="twitter:description" content="MFD driver">
+
+
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/08/05/MFD-driver/"/>
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>MFD driver | Semiyd's Blog</title>
+  
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Semiyd's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br />Home</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+    <a href="/categories/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-th"></i> <br />Categories</a>
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/05/MFD-driver/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Semiyd">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Semiyd's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">MFD driver
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2018-08-05 09:34:50 / Modified: 09:43:13" itemprop="dateCreated datePublished" datetime="2018-08-05T09:34:50+08:00">2018-08-05</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Linux/" itemprop="url" rel="index"><span itemprop="name">Linux</span></a></span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Linux/Kernel/" itemprop="url" rel="index"><span itemprop="name">Kernel</span></a></span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Linux/Kernel/驱动/" itemprop="url" rel="index"><span itemprop="name">驱动</span></a></span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Linux/Kernel/驱动/MFD/" itemprop="url" rel="index"><span itemprop="name">MFD</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><center><strong>MFD driver</strong></center><br><a id="more"></a></p>
+<h2 id="MFD子系统和MFD驱动介绍"><a href="#MFD子系统和MFD驱动介绍" class="headerlink" title="MFD子系统和MFD驱动介绍"></a>MFD子系统和MFD驱动介绍</h2><p>MFD是multi-function device的简称。<br>有这么一类外设，其功能不止一种，内核把这类设备，统一称为mfd设备。<br>这类设备包括：<br>PMIC            通常内部包括regulator,rtc,gpio,wdg,motor,ON key等等子功能。<br>USB转i2c/spi/gio芯片<br>等等</p>
+<p>向mfd子系统注册的api如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line">int mfd_add_devices(struct device *parent, int id, const struct mfd_cell *cells, int n_devs, struct resource *mem_base, int irq_base, struct irq_domain *irq_domain);</span><br><span class="line">void mfd_remove_devices(struct device *parent);</span><br><span class="line">这其中有个很重要的结构体，是mfd_cell </span><br><span class="line">struct mfd_cell &#123;</span><br><span class="line">	const char		*name;</span><br><span class="line">	int			id;</span><br><span class="line"></span><br><span class="line">	/* refcounting for multiple drivers to use a single cell */</span><br><span class="line">	atomic_t		*usage_count;</span><br><span class="line">	int			(*enable)(struct platform_device *dev);</span><br><span class="line">	int			(*disable)(struct platform_device *dev);</span><br><span class="line"></span><br><span class="line">	int			(*suspend)(struct platform_device *dev);</span><br><span class="line">	int			(*resume)(struct platform_device *dev);</span><br><span class="line"></span><br><span class="line">	/* platform data passed to the sub devices drivers */</span><br><span class="line">	void			*platform_data;</span><br><span class="line">	size_t			pdata_size;</span><br><span class="line"></span><br><span class="line">	/* device properties passed to the sub devices drivers */</span><br><span class="line">	struct property_entry *properties;</span><br><span class="line"></span><br><span class="line">	/*</span><br><span class="line">	 * Device Tree compatible string</span><br><span class="line">	 * See: Documentation/devicetree/usage-model.txt Chapter 2.2 for details</span><br><span class="line">	 */</span><br><span class="line">	const char		*of_compatible;</span><br><span class="line"></span><br><span class="line">	/* Matches ACPI */</span><br><span class="line">	const struct mfd_cell_acpi_match	*acpi_match;</span><br><span class="line"></span><br><span class="line">	/*</span><br><span class="line">	 * These resources can be specified relative to the parent device.</span><br><span class="line">	 * For accessing hardware you should use resources from the platform dev</span><br><span class="line">	 */</span><br><span class="line">	int			num_resources;</span><br><span class="line">	const struct resource	*resources;</span><br><span class="line"></span><br><span class="line">	/* don&apos;t check for resource conflicts */</span><br><span class="line">	bool			ignore_resource_conflicts;</span><br><span class="line"></span><br><span class="line">	/*</span><br><span class="line">	 * Disable runtime PM callbacks for this subdevice - see</span><br><span class="line">	 * pm_runtime_no_callbacks().</span><br><span class="line">	 */</span><br><span class="line">	bool			pm_runtime_no_callbacks;</span><br><span class="line"></span><br><span class="line">	/* A list of regulator supplies that should be mapped to the MFD</span><br><span class="line">	 * device rather than the child device when requested</span><br><span class="line">	 */</span><br><span class="line">	const char * const	*parent_supplies;</span><br><span class="line">	int			num_parent_supplies;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<p>这里所谓cell，就是描述mdf设备的一个子模块。例如一个pmic里面，会有很多cell。</p>
+<p>以drivers/mfd/tps6507x.c的代码为例：<br>首先可以看到一个简单的i2c驱动：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">static const struct i2c_device_id tps6507x_i2c_id[] = &#123;</span><br><span class="line">	&#123; &quot;tps6507x&quot;, 0 &#125;,</span><br><span class="line">	&#123; &#125;</span><br><span class="line">&#125;;</span><br><span class="line">MODULE_DEVICE_TABLE(i2c, tps6507x_i2c_id);</span><br><span class="line">#ifdef CONFIG_OF</span><br><span class="line">static const struct of_device_id tps6507x_of_match[] = &#123;</span><br><span class="line">	&#123;.compatible = &quot;ti,tps6507x&quot;, &#125;,</span><br><span class="line">	&#123;&#125;,</span><br><span class="line">&#125;;</span><br><span class="line">MODULE_DEVICE_TABLE(of, tps6507x_of_match);</span><br><span class="line">#endif</span><br><span class="line">static struct i2c_driver tps6507x_i2c_driver = &#123;</span><br><span class="line">	.driver = &#123;</span><br><span class="line">		.name = &quot;tps6507x&quot;,</span><br><span class="line">		.of_match_table =</span><br><span class="line">		of_match_ptr(tps6507x_of_match),</span><br><span class="line">	&#125;,</span><br><span class="line">	.probe = tps6507x_i2c_probe,</span><br><span class="line">	.remove = tps6507x_i2c_remove,</span><br><span class="line">	.id_table = tps6507x_i2c_id,</span><br><span class="line">&#125;;</span><br><span class="line">static int __init tps6507x_i2c_init(void)</span><br><span class="line">&#123;</span><br><span class="line">	return i2c_add_driver(&amp;tps6507x_i2c_driver);</span><br><span class="line">&#125;</span><br><span class="line">/* init early so consumer devices can complete system boot */</span><br><span class="line">subsys_initcall(tps6507x_i2c_init);</span><br><span class="line">static void __exit tps6507x_i2c_exit(void)</span><br><span class="line">&#123;</span><br><span class="line">	i2c_del_driver(&amp;tps6507x_i2c_driver);</span><br><span class="line">&#125;</span><br><span class="line">module_exit(tps6507x_i2c_exit);</span><br></pre></td></tr></table></figure></p>
+<p>然后在tps6507x_i2c_probe里面，就涉及了向mdf子系统注册的内容了：<br>首先声明，这个mfd设备里面有哪些cell：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">static const struct mfd_cell tps6507x_devs[] = &#123;</span><br><span class="line">&#123;</span><br><span class="line">	.name = &quot;tps6507x-pmic&quot;,</span><br><span class="line">&#125;,</span><br><span class="line">&#123;</span><br><span class="line">	.name = &quot;tps6507x-ts&quot;,</span><br><span class="line">&#125;,</span><br><span class="line">&#125;;</span><br><span class="line">上面这个例子说明有两个cell，一个是pmic，一个是ts</span><br><span class="line">static int tps6507x_i2c_probe(struct i2c_client *i2c,</span><br><span class="line">const struct i2c_device_id *id)</span><br><span class="line">&#123;</span><br><span class="line">	struct tps6507x_dev *tps6507x;</span><br><span class="line">	tps6507x = devm_kzalloc(&amp;i2c-&gt;dev, sizeof(struct tps6507x_dev),</span><br><span class="line">		GFP_KERNEL);</span><br><span class="line">	if (tps6507x == NULL)</span><br><span class="line">		return -ENOMEM;</span><br><span class="line">	i2c_set_clientdata(i2c, tps6507x);</span><br><span class="line">	tps6507x-&gt;dev = &amp;i2c-&gt;dev;</span><br><span class="line">	tps6507x-&gt;i2c_client = i2c;</span><br><span class="line">	tps6507x-&gt;read_dev = tps6507x_i2c_read_device;</span><br><span class="line">	tps6507x-&gt;write_dev = tps6507x_i2c_write_device;</span><br><span class="line">	return mfd_add_devices(tps6507x-&gt;dev, -1, tps6507x_devs, ARRAY_SIZE(tps6507x_devs), NULL, 0, NULL);</span><br><span class="line">&#125;</span><br><span class="line">仔细分析下此处mfd_add_devices的入参的选择。</span><br><span class="line">struct device *parent使用的是tps6507x-&gt;dev</span><br><span class="line">这里的tps6507x，是个驱动私有结构体，</span><br><span class="line">struct tps6507x_dev &#123;</span><br><span class="line">	struct device *dev;</span><br><span class="line">	struct i2c_client *i2c_client;</span><br><span class="line">	int (*read_dev)(struct tps6507x_dev *tps6507x, char reg, int size,</span><br><span class="line">		void *dest);</span><br><span class="line">	int (*write_dev)(struct tps6507x_dev *tps6507x, char reg, int size,</span><br><span class="line">		void *src);</span><br><span class="line">	[...]</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<p>此处传给mfd有啥用？其实就是把i2c_client{}和i2c操作的接口read_dev/write_dev这类信息，将来可以传给具体的Cell的驱动使用。<br>具体实现的方法，应该是mfd子系统会根据cell创建platform_device子设备，并且把这些cell的platform_device的parent指向这个调用mfd_add_devices的mfd设备。<br>将来在cell驱动初始化的时候，取出私有结构体的方法如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">static int tps6507x_ts_probe(struct platform_device *pdev)</span><br><span class="line">&#123;</span><br><span class="line">	struct tps6507x_dev *tps6507x_dev = dev_get_drvdata(pdev-&gt;dev.parent);</span><br><span class="line">	[...]</span><br><span class="line">&#125;;</span><br><span class="line">static int tps6507x_pmic_probe(struct platform_device *pdev)</span><br><span class="line">&#123;</span><br><span class="line">	struct tps6507x_dev *tps6507x_dev = dev_get_drvdata(pdev-&gt;dev.parent);</span><br><span class="line">	[...]</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<p>可以看到，很简单，去找.parent就可以了。mfd已帮你搞定一切。<br>int id使用的是-1，这个含义同platform_device里面的id，-1表示就一个设备。<br>const struct mfd_cell *cells当然是传入了tps6507x_devs{}这个cell结构体了</p>
+<p>上面是个简单的例子。没有涉及struct resource <em>mem_base, int irq_base, struct irq_domain </em>irq_domain这三个入参。</p>
+<p>又以drivers/mfd/da9063-core.c为例：<br>这个芯片就比较复杂了，有很多cell：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">static const struct mfd_cell da9063_devs[] = &#123;</span><br><span class="line">	&#123;</span><br><span class="line">		.name		= DA9063_DRVNAME_REGULATORS,</span><br><span class="line">		.num_resources	= ARRAY_SIZE(da9063_regulators_resources),</span><br><span class="line">		.resources	= da9063_regulators_resources,</span><br><span class="line">	&#125;,</span><br><span class="line">	&#123;</span><br><span class="line">		.name		= DA9063_DRVNAME_LEDS,</span><br><span class="line">	&#125;,</span><br><span class="line">	&#123;</span><br><span class="line">		.name		= DA9063_DRVNAME_WATCHDOG,</span><br><span class="line">		.of_compatible	= &quot;dlg,da9063-watchdog&quot;,</span><br><span class="line">	&#125;,</span><br><span class="line">	&#123;</span><br><span class="line">		.name		= DA9063_DRVNAME_HWMON,</span><br><span class="line">		.num_resources	= ARRAY_SIZE(da9063_hwmon_resources),</span><br><span class="line">		.resources	= da9063_hwmon_resources,</span><br><span class="line">	&#125;,</span><br><span class="line">	&#123;</span><br><span class="line">		.name		= DA9063_DRVNAME_ONKEY,</span><br><span class="line">		.num_resources	= ARRAY_SIZE(da9063_onkey_resources),</span><br><span class="line">		.resources	= da9063_onkey_resources,</span><br><span class="line">		.of_compatible = &quot;dlg,da9063-onkey&quot;,</span><br><span class="line">	&#125;,</span><br><span class="line">	&#123;</span><br><span class="line">		.name		= DA9063_DRVNAME_RTC,</span><br><span class="line">		.num_resources	= ARRAY_SIZE(da9063_rtc_resources),</span><br><span class="line">		.resources	= da9063_rtc_resources,</span><br><span class="line">		.of_compatible	= &quot;dlg,da9063-rtc&quot;,</span><br><span class="line">	&#125;,</span><br><span class="line">	&#123;</span><br><span class="line">		.name		= DA9063_DRVNAME_VIBRATION,</span><br><span class="line">	&#125;,</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<p>以其中一个rtc cell为例，这里就涉及了resources<br>这里的resources，和platform_data里面的resources是一个东西。<br>rtc的resources如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">static struct resource da9063_rtc_resources[] = &#123;</span><br><span class="line">	&#123;</span><br><span class="line">		.name	= &quot;ALARM&quot;,</span><br><span class="line">		.start	= DA9063_IRQ_ALARM,</span><br><span class="line">		.end	= DA9063_IRQ_ALARM,</span><br><span class="line">		.flags	= IORESOURCE_IRQ,</span><br><span class="line">	&#125;,</span><br><span class="line">	&#123;</span><br><span class="line">		.name	= &quot;TICK&quot;,</span><br><span class="line">		.start	= DA9063_IRQ_TICK,</span><br><span class="line">		.end	= DA9063_IRQ_TICK,</span><br><span class="line">		.flags	= IORESOURCE_IRQ,</span><br><span class="line">	&#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<p>可以看到，上面的两个resource，都属于中断资源。分别定义了名字叫ALARM的中断号，和TICK的中断号。<br>这个resource ，作为mfd_cell 的成员，会被注册到mfd子系统中去。所以此处的resource，是每个cell独有的。<br>将来rtc cell驱动初始化的时候，就可以用了：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">static int da9063_rtc_probe(struct platform_device *pdev)</span><br><span class="line">&#123;</span><br><span class="line">	[...]</span><br><span class="line">	irq_alarm = platform_get_irq_byname(pdev, &quot;ALARM&quot;);</span><br><span class="line">	ret = devm_request_threaded_irq(&amp;pdev-&gt;dev, irq_alarm, NULL,</span><br><span class="line">		da9063_alarm_event,</span><br><span class="line">		IRQF_TRIGGER_LOW | IRQF_ONESHOT,</span><br><span class="line">		&quot;ALARM&quot;, rtc);</span><br><span class="line">	if (ret) &#123;</span><br><span class="line">		dev_err(&amp;pdev-&gt;dev, &quot;Failed to request ALARM IRQ %d: %d\n&quot;, irq_alarm, ret);</span><br><span class="line">		return ret;</span><br><span class="line">	&#125;</span><br><span class="line">	[...]</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<p>可以看到，cell驱动中，只需用platform_get_irq或者platform_get_irq_byname，就可获得irq资源也就是irq号<br>这里获取mfd设备的私有数据，甚至没有必要使用dev_get_drvdata(pdev-&gt;dev.parent);<br>mfd帮你把cell的resource事先设置好。等cell驱动probe的时候，直接用就可以了。</p>
+<p>在dts里面，又如何体现mfd设备和其下面的各个子cell设备的关系呢？<br>其实可以通过父节点-子节点的关系体现出来，如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">pmic@58 &#123;</span><br><span class="line">	compatible = &quot;dlg,da9063&quot;;		此为mfd父设备</span><br><span class="line">	reg = &lt;0x58&gt;;</span><br><span class="line">	interrupt-parent = &lt;&amp;irqc0&gt;;</span><br><span class="line">	interrupts = &lt;2 IRQ_TYPE_LEVEL_LOW&gt;;</span><br><span class="line">	interrupt-controller;</span><br><span class="line"></span><br><span class="line">	rtc &#123;</span><br><span class="line">		compatible = &quot;dlg,da9063-rtc&quot;;	此为mfd的cell子设备</span><br><span class="line">	&#125;;</span><br><span class="line"></span><br><span class="line">	wdt &#123;</span><br><span class="line">		compatible = &quot;dlg,da9063-watchdog&quot;;	此为mfd的cell子设备</span><br><span class="line">	&#125;;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<p>说到这，基本清楚了，就是mfd设备，因为自带很多cell子设备。所以mfd设备会把共性和资源类的信息提炼出来。<br>将来cell子设备注册的时候，这些信息/函数等东西，早就被mfd父设备准备好了。这样代码重用性也比较好，也便于管理。</p>
+<h2 id="regmap介绍"><a href="#regmap介绍" class="headerlink" title="regmap介绍"></a>regmap介绍</h2><p>regmap是什么？<br>针对i2c，spi总线，或者直接内存地址的寄存器的操作，内核做了一个抽象层，隐藏了总线号，总线地址，寄存器地址和寄存器值的位数，寄存器范围，寄存器默认值，总线速度等细节<br>抽象出来了一个简单的专用于操作寄存器的接口，像这样：<br>regmap_write(struct regmap <em>map, int reg, int val); // 向reg写入val<br>regmap_read(struct regmap </em>map, int reg, int *val); // 读取reg的数据到val中<br>这样可以提高代码重用性。<br>除此之外，regmap还能提供锁机制，cache机制（可以积攒一段时间，一次性写入，如果对时序无要求），处理irq。<br>内核方面，代码在drivers/base/regmap/</p>
+<p>为什么mfd会扯到regmap？<br>因为一个mfd内部的数个cell，访问这些cell的寄存器的方法，一般来说是相同的。例如都是同一路i2c，或者都是同一路spi，或者都是一个寄存器的内存空间的。<br>所以这些个cell，在访问寄存器上，有很大的共性。cell之间的区别可能只是寄存器的地址和值不一样。<br>所以有必要在mfd里面，利用是regmap的这个功能，这样提高了代码的重用性。</p>
+<p>如何注册regmap？<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">#define regmap_init(dev, bus, bus_context, config) \			对应直接访问内存地址的寄存器</span><br><span class="line">	__regmap_lockdep_wrapper(__regmap_init, #config, \</span><br><span class="line">	dev, bus, bus_context, config)</span><br><span class="line">#define regmap_init_i2c(i2c, config) \					对应访问i2c地址的寄存器</span><br><span class="line">	__regmap_lockdep_wrapper(__regmap_init_i2c, #config, \</span><br><span class="line">	i2c, config)</span><br><span class="line">#define regmap_init_spi(dev, config) \					对应访问spi地址的寄存器</span><br><span class="line">	__regmap_lockdep_wrapper(__regmap_init_spi, #config, \</span><br><span class="line">	dev, config)</span><br><span class="line">int regmap_add_irq_chip(struct regmap *map, int irq, int irq_flags,</span><br><span class="line">			int irq_base, const struct regmap_irq_chip *chip,</span><br><span class="line">			struct regmap_irq_chip_data **data)</span><br></pre></td></tr></table></figure></p>
+<p>以上都有devm_版本的接口，如：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line"> * @dev: Device that will be interacted with</span><br><span class="line"> * @bus: Bus-specific callbacks to use with device</span><br><span class="line"> * @bus_context: Data passed to bus-specific callbacks</span><br><span class="line"> * @config: Configuration for register map</span><br><span class="line"> */</span><br><span class="line">#define devm_regmap_init(dev, bus, bus_context, config)</span><br></pre></td></tr></table></figure></p>
+<p>如何使用regmap？<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">int regmap_read(struct regmap *map, unsigned int reg, unsigned int *val);</span><br><span class="line">int regmap_write(struct regmap *map, unsigned int reg, unsigned int val);</span><br><span class="line">int regmap_update_bits(struct regmap *map, unsigned int reg, unsigned int mask, unsigned int val);</span><br><span class="line">int regcache_sync(struct regmap *map);</span><br><span class="line">int regcache_sync_region(struct regmap *map, unsigned int min, unsigned int max);</span><br><span class="line">int regcache_drop_region(struct regmap *map, unsigned int min, unsigned int max);</span><br><span class="line">void regcache_cache_only(struct regmap *map, bool enable);</span><br><span class="line">void regcache_cache_bypass(struct regmap *map, bool enable);</span><br><span class="line">void regcache_mark_dirty(struct regmap *map);</span><br></pre></td></tr></table></figure></p>
+<p>以driver/mfd/atmel-hlcdc.c的代码为例：<br>这个驱动本身是mfd驱动。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br></pre></td><td class="code"><pre><span class="line">struct atmel_hlcdc &#123;-----------------------------------私有结构体，内部有regmap成员</span><br><span class="line">	struct regmap *regmap;</span><br><span class="line">	struct clk *periph_clk;</span><br><span class="line">	struct clk *sys_clk;</span><br><span class="line">	struct clk *slow_clk;</span><br><span class="line">	int irq;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">struct atmel_hlcdc_regmap &#123;</span><br><span class="line">	void __iomem *regs;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">static const struct regmap_config atmel_hlcdc_regmap_config = &#123;</span><br><span class="line">	.reg_bits = 32,</span><br><span class="line">	.val_bits = 32,</span><br><span class="line">	.reg_stride = 4,</span><br><span class="line">	.max_register = ATMEL_HLCDC_REG_MAX,</span><br><span class="line">	.reg_write = regmap_atmel_hlcdc_reg_write,</span><br><span class="line">	.reg_read = regmap_atmel_hlcdc_reg_read,</span><br><span class="line">	.fast_io = true,</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">static const struct mfd_cell atmel_hlcdc_cells[] = &#123;</span><br><span class="line">	&#123;</span><br><span class="line">		.name = &quot;atmel-hlcdc-pwm&quot;,</span><br><span class="line">		.of_compatible = &quot;atmel,hlcdc-pwm&quot;,</span><br><span class="line">	&#125;,</span><br><span class="line">	&#123;</span><br><span class="line">		.name = &quot;atmel-hlcdc-dc&quot;,</span><br><span class="line">		.of_compatible = &quot;atmel,hlcdc-display-controller&quot;,</span><br><span class="line">	&#125;,</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">static int atmel_hlcdc_probe(struct platform_device *pdev)</span><br><span class="line">&#123;</span><br><span class="line">	struct atmel_hlcdc_regmap *hregmap;</span><br><span class="line">	struct device *dev = &amp;pdev-&gt;dev;</span><br><span class="line">	struct atmel_hlcdc *hlcdc;</span><br><span class="line">	struct resource *res;</span><br><span class="line"></span><br><span class="line">	hregmap = devm_kzalloc(dev, sizeof(*hregmap), GFP_KERNEL);</span><br><span class="line">	if (!hregmap)</span><br><span class="line">		return -ENOMEM;</span><br><span class="line"></span><br><span class="line">	hlcdc = devm_kzalloc(dev, sizeof(*hlcdc), GFP_KERNEL);</span><br><span class="line">	if (!hlcdc)</span><br><span class="line">		return -ENOMEM;</span><br><span class="line"></span><br><span class="line">	res = platform_get_resource(pdev, IORESOURCE_MEM, 0);</span><br><span class="line">	hregmap-&gt;regs = devm_ioremap_resource(dev, res);</span><br><span class="line">	if (IS_ERR(hregmap-&gt;regs))</span><br><span class="line">		return PTR_ERR(hregmap-&gt;regs);</span><br><span class="line"></span><br><span class="line">	hlcdc-&gt;irq = platform_get_irq(pdev, 0);</span><br><span class="line">	if (hlcdc-&gt;irq &lt; 0)</span><br><span class="line">		return hlcdc-&gt;irq;</span><br><span class="line"></span><br><span class="line">	hlcdc-&gt;periph_clk = devm_clk_get(dev, &quot;periph_clk&quot;);</span><br><span class="line">	if (IS_ERR(hlcdc-&gt;periph_clk)) &#123;</span><br><span class="line">		dev_err(dev, &quot;failed to get peripheral clock\n&quot;);</span><br><span class="line">		return PTR_ERR(hlcdc-&gt;periph_clk);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	hlcdc-&gt;sys_clk = devm_clk_get(dev, &quot;sys_clk&quot;);</span><br><span class="line">	if (IS_ERR(hlcdc-&gt;sys_clk)) &#123;</span><br><span class="line">		dev_err(dev, &quot;failed to get system clock\n&quot;);</span><br><span class="line">		return PTR_ERR(hlcdc-&gt;sys_clk);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	hlcdc-&gt;slow_clk = devm_clk_get(dev, &quot;slow_clk&quot;);</span><br><span class="line">	if (IS_ERR(hlcdc-&gt;slow_clk)) &#123;</span><br><span class="line">		dev_err(dev, &quot;failed to get slow clock\n&quot;);</span><br><span class="line">		return PTR_ERR(hlcdc-&gt;slow_clk);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	hlcdc-&gt;regmap = devm_regmap_init(dev, NULL, hregmap,-----------------------------返回值初始化了regmap，并放入hlcdc-&gt;regmap。而hlcdc属于drvdata，传给mfd。所以将来cell是可以直接取出regmap使用的。</span><br><span class="line">					 &amp;atmel_hlcdc_regmap_config);</span><br><span class="line">	if (IS_ERR(hlcdc-&gt;regmap))</span><br><span class="line">		return PTR_ERR(hlcdc-&gt;regmap);</span><br><span class="line"></span><br><span class="line">	dev_set_drvdata(dev, hlcdc);</span><br><span class="line"></span><br><span class="line">	return devm_mfd_add_devices(dev, -1, atmel_hlcdc_cells,	------------------------------在最后向mfd子系统注册了</span><br><span class="line">				    ARRAY_SIZE(atmel_hlcdc_cells),</span><br><span class="line">				    NULL, 0, NULL);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>下面仔细分析下devm_regmap_init的几个入参：<br>回顾下定义：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line"> * @dev: Device that will be interacted with</span><br><span class="line"> * @bus: Bus-specific callbacks to use with device</span><br><span class="line"> * @bus_context: Data passed to bus-specific callbacks</span><br><span class="line"> * @config: Configuration for register map</span><br><span class="line"> */</span><br><span class="line">#define devm_regmap_init(dev, bus, bus_context, config)	</span><br><span class="line">@dev给的就是platform_device的device，这个没什么好说的</span><br><span class="line">@bus未设置</span><br><span class="line">@bus_context需要告诉regmap子系统，寄存器的虚拟地址。代码中的hregmap，其成员void __iomem *regs;，其实把platform的resource拿出来，ioremap转下，存好。</span><br><span class="line">@config初始化了struct regmap_config的结构体atmel_hlcdc_regmap_config。具体就是初始化了寄存器宽度，数量，寄存器读写的回调函数，扔给regmap子系统。</span><br></pre></td></tr></table></figure></p>
+<p>mfd内部的cell如何用到这个regmap的？<br>上面的例子中，有一个cell叫”atmel-hlcdc-pwm”<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">static int atmel_hlcdc_pwm_probe(struct platform_device *pdev)</span><br><span class="line">&#123;</span><br><span class="line">	const struct of_device_id *match;</span><br><span class="line">	struct device *dev = &amp;pdev-&gt;dev;</span><br><span class="line">	struct atmel_hlcdc_pwm *chip;</span><br><span class="line">	struct atmel_hlcdc *hlcdc;</span><br><span class="line">	int ret;</span><br><span class="line"></span><br><span class="line">	hlcdc = dev_get_drvdata(dev-&gt;parent);</span><br><span class="line"></span><br><span class="line">	chip = devm_kzalloc(dev, sizeof(*chip), GFP_KERNEL);</span><br><span class="line"></span><br><span class="line">	[...]</span><br><span class="line"></span><br><span class="line">	chip-&gt;hlcdc = hlcdc;</span><br><span class="line"></span><br><span class="line">	[...]</span><br><span class="line"></span><br><span class="line">	platform_set_drvdata(pdev, chip);</span><br><span class="line"></span><br><span class="line">	return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>可以看到，手法一样，通过parent取出struct atmel_hlcdc私有结构体（里面有mfd设备的regmap）hlcdc，放入自己的platform驱动的私有结构体chip中<br>最后，真正使用regmap访问这个cell的寄存器：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">static int atmel_hlcdc_pwm_set_polarity(struct pwm_chip *c,</span><br><span class="line">					struct pwm_device *pwm,</span><br><span class="line">					enum pwm_polarity polarity)</span><br><span class="line">&#123;</span><br><span class="line">	struct atmel_hlcdc_pwm *chip = to_atmel_hlcdc_pwm(c);</span><br><span class="line">	struct atmel_hlcdc *hlcdc = chip-&gt;hlcdc;</span><br><span class="line">	u32 cfg = 0;</span><br><span class="line"></span><br><span class="line">	if (polarity == PWM_POLARITY_NORMAL)</span><br><span class="line">		cfg = ATMEL_HLCDC_PWMPOL;</span><br><span class="line"></span><br><span class="line">	return regmap_update_bits(hlcdc-&gt;regmap, ATMEL_HLCDC_CFG(6),</span><br><span class="line">				  ATMEL_HLCDC_PWMPOL, cfg);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>可以看到，从自己的platform驱动的私有结构体,取出regmap。将其作为入参，使用regmap_update_bits来访问寄存器。<br>这个过程中，不再需要重复去ioremap，不用去关注如何访问寄存器本身，只管读写就是了。</p>
+<h2 id="regmap-add-irq-chip-接口的补充介绍"><a href="#regmap-add-irq-chip-接口的补充介绍" class="headerlink" title="regmap_add_irq_chip()接口的补充介绍"></a>regmap_add_irq_chip()接口的补充介绍</h2><p>在向regmap子系统注册的api中，还有个regmap_add_irq_chip()尚未提及，是干嘛用的？<br>内核方面，代码在drivers/base/regmap/regmap-irq.c<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line"> * regmap_add_irq_chip(): Use standard regmap IRQ controller handling</span><br><span class="line"> *</span><br><span class="line"> * map:       The regmap for the device.</span><br><span class="line"> * irq:       The IRQ the device uses to signal interrupts</span><br><span class="line"> * irq_flags: The IRQF_ flags to use for the primary interrupt.</span><br><span class="line"> * chip:      Configuration for the interrupt controller.</span><br><span class="line"> * data:      Runtime data structure for the controller, allocated on success</span><br><span class="line"> *</span><br><span class="line"> * Returns 0 on success or an errno on failure.</span><br><span class="line"> *</span><br><span class="line"> * In order for this to be efficient the chip really should use a</span><br><span class="line"> * register cache.  The chip driver is responsible for restoring the</span><br><span class="line"> * register values used by the IRQ controller over suspend and resume.</span><br><span class="line"> */</span><br><span class="line">int regmap_add_irq_chip(struct regmap *map, int irq, int irq_flags,</span><br><span class="line">			int irq_base, const struct regmap_irq_chip *chip,</span><br><span class="line">			struct regmap_irq_chip_data **data)</span><br></pre></td></tr></table></figure></p>
+<p>这块东西比较前沿，到写这篇文章为止，国内是找不到任何中文资料的。<br>换句话说就算搞清楚了，国内也没有相应的工作可以给你做，哈哈。<br>言归正传：<br>以drivers/mfd/tps65910.c为例分析。<br>首先是probe函数：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br></pre></td><td class="code"><pre><span class="line">static int tps65910_i2c_probe(struct i2c_client *i2c,</span><br><span class="line">			      const struct i2c_device_id *id)</span><br><span class="line">&#123;</span><br><span class="line">	struct tps65910 *tps65910;</span><br><span class="line">	struct tps65910_board *pmic_plat_data;</span><br><span class="line">	struct tps65910_board *of_pmic_plat_data = NULL;</span><br><span class="line">	struct tps65910_platform_data *init_data;</span><br><span class="line">	unsigned long chip_id = id-&gt;driver_data;</span><br><span class="line">	int ret = 0;</span><br><span class="line"></span><br><span class="line">	pmic_plat_data = dev_get_platdata(&amp;i2c-&gt;dev);</span><br><span class="line"></span><br><span class="line">	if (!pmic_plat_data &amp;&amp; i2c-&gt;dev.of_node) &#123;</span><br><span class="line">		pmic_plat_data = tps65910_parse_dt(i2c, &amp;chip_id);------------尝试从dts的i2c节点中，获取中断号的配置。</span><br><span class="line">		of_pmic_plat_data = pmic_plat_data;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	if (!pmic_plat_data)</span><br><span class="line">		return -EINVAL;</span><br><span class="line"></span><br><span class="line">	init_data = devm_kzalloc(&amp;i2c-&gt;dev, sizeof(*init_data), GFP_KERNEL);</span><br><span class="line">	if (init_data == NULL)</span><br><span class="line">		return -ENOMEM;</span><br><span class="line"></span><br><span class="line">	tps65910 = devm_kzalloc(&amp;i2c-&gt;dev, sizeof(*tps65910), GFP_KERNEL);----------------------初始化驱动的私有结构体</span><br><span class="line">	if (tps65910 == NULL)</span><br><span class="line">		return -ENOMEM;</span><br><span class="line"></span><br><span class="line">	tps65910-&gt;of_plat_data = of_pmic_plat_data;</span><br><span class="line">	i2c_set_clientdata(i2c, tps65910);-----------------------------------------------------------------通过i2c_set_clientdata设置到drvdata里面去</span><br><span class="line">	tps65910-&gt;dev = &amp;i2c-&gt;dev;</span><br><span class="line">	tps65910-&gt;i2c_client = i2c;</span><br><span class="line">	tps65910-&gt;id = chip_id;</span><br><span class="line"></span><br><span class="line">	/* Work around silicon erratum SWCZ010: the tps65910 may miss the</span><br><span class="line">	 * first I2C transfer. So issue a dummy transfer before the first</span><br><span class="line">	 * real transfer.</span><br><span class="line">	 */</span><br><span class="line">	i2c_master_send(i2c, &quot;&quot;, 1);</span><br><span class="line">	tps65910-&gt;regmap = devm_regmap_init_i2c(i2c, &amp;tps65910_regmap_config);----------------通过devm_regmap_init_i2c初始化了regmap的配置，放在私有结构体struct tps65910里面。</span><br><span class="line">	if (IS_ERR(tps65910-&gt;regmap)) &#123;</span><br><span class="line">		ret = PTR_ERR(tps65910-&gt;regmap);</span><br><span class="line">		dev_err(&amp;i2c-&gt;dev, &quot;regmap initialization failed: %d\n&quot;, ret);</span><br><span class="line">		return ret;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	init_data-&gt;irq = pmic_plat_data-&gt;irq;</span><br><span class="line">	init_data-&gt;irq_base = pmic_plat_data-&gt;irq_base;</span><br><span class="line"></span><br><span class="line">	tps65910_irq_init(tps65910, init_data-&gt;irq, init_data);-------------------这里会涉及调用regmap_add_irq_chip！</span><br><span class="line">	tps65910_ck32k_init(tps65910, pmic_plat_data);</span><br><span class="line">	tps65910_sleepinit(tps65910, pmic_plat_data);</span><br><span class="line"></span><br><span class="line">	if (pmic_plat_data-&gt;pm_off &amp;&amp; !pm_power_off) &#123;</span><br><span class="line">		tps65910_i2c_client = i2c;</span><br><span class="line">		pm_power_off = tps65910_power_off;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	ret = devm_mfd_add_devices(tps65910-&gt;dev, -1,----------------------------向mfd子系统注册</span><br><span class="line">				   tps65910s, ARRAY_SIZE(tps65910s),</span><br><span class="line">				   NULL, 0,</span><br><span class="line">				   regmap_irq_get_domain(tps65910-&gt;irq_data));</span><br><span class="line">	if (ret &lt; 0) &#123;</span><br><span class="line">		dev_err(&amp;i2c-&gt;dev, &quot;mfd_add_devices failed: %d\n&quot;, ret);</span><br><span class="line">		return ret;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	return ret;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>我们展开tps65910_parse_dt()<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line">static struct tps65910_board *tps65910_parse_dt(struct i2c_client *client,</span><br><span class="line">						unsigned long *chip_id)</span><br><span class="line">&#123;</span><br><span class="line">	struct device_node *np = client-&gt;dev.of_node;</span><br><span class="line">	struct tps65910_board *board_info;</span><br><span class="line">	unsigned int prop;</span><br><span class="line">	const struct of_device_id *match;</span><br><span class="line">	int ret = 0;</span><br><span class="line"></span><br><span class="line">	match = of_match_device(tps65910_of_match, &amp;client-&gt;dev);</span><br><span class="line">	if (!match) &#123;</span><br><span class="line">		dev_err(&amp;client-&gt;dev, &quot;Failed to find matching dt id\n&quot;);</span><br><span class="line">		return NULL;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	*chip_id  = (unsigned long)match-&gt;data;</span><br><span class="line"></span><br><span class="line">	board_info = devm_kzalloc(&amp;client-&gt;dev, sizeof(*board_info),</span><br><span class="line">			GFP_KERNEL);</span><br><span class="line">	if (!board_info) &#123;</span><br><span class="line">		dev_err(&amp;client-&gt;dev, &quot;Failed to allocate pdata\n&quot;);</span><br><span class="line">		return NULL;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	ret = of_property_read_u32(np, &quot;ti,vmbch-threshold&quot;, &amp;prop);</span><br><span class="line">	if (!ret)</span><br><span class="line">		board_info-&gt;vmbch_threshold = prop;</span><br><span class="line"></span><br><span class="line">	ret = of_property_read_u32(np, &quot;ti,vmbch2-threshold&quot;, &amp;prop);</span><br><span class="line">	if (!ret)</span><br><span class="line">		board_info-&gt;vmbch2_threshold = prop;</span><br><span class="line"></span><br><span class="line">	prop = of_property_read_bool(np, &quot;ti,en-ck32k-xtal&quot;);</span><br><span class="line">	board_info-&gt;en_ck32k_xtal = prop;</span><br><span class="line"></span><br><span class="line">	board_info-&gt;irq = client-&gt;irq;</span><br><span class="line">	board_info-&gt;irq_base = -1;</span><br><span class="line">	board_info-&gt;pm_off = of_property_read_bool(np,</span><br><span class="line">			&quot;ti,system-power-controller&quot;);</span><br><span class="line"></span><br><span class="line">	return board_info;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>叨叨一大堆，其实里面重点在于board_info-&gt;irq = client-&gt;irq;这句，别的不用看。<br>client-&gt;irq;其实就来自于i2c的dts节点的配置，例如：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">//i2c触屏控制芯片的例子</span><br><span class="line">&amp;i2c2 &#123;</span><br><span class="line">	pinctrl-names = &quot;default&quot;;</span><br><span class="line">	pinctrl-0 = &lt;&amp;i2c2_pins&gt;;</span><br><span class="line">	status = &quot;okay&quot;;</span><br><span class="line">	clock-frequency = &lt;400000&gt;;</span><br><span class="line">	gt911a: gt911a@5d &#123;</span><br><span class="line">		compatible = &quot;goodix,gt911a&quot;;</span><br><span class="line">		pinctrl-names = &quot;default&quot;;</span><br><span class="line">		pinctrl-0 = &lt;&amp;touchscreen_pins&gt;;</span><br><span class="line">		reg = &lt;0x5d&gt;;</span><br><span class="line">		interrupt-parent = &lt;&amp;gpio1&gt;;	这个代表是gpio1这组的，因为我们是gpio1_18作为中断。</span><br><span class="line">		interrupts = &lt;18 2&gt;;		这个是中断脚gpio1_18，后面的2代表下降沿触发，具体定义参考Documentation/devicetree/bindings/gpio/gpio-omap.txt #interrupt-cells</span><br><span class="line">		reset-gpios = &lt;&amp;gpio1 26 0&gt;;	这个是reset脚gpio1_26，最后的0不代表任何意义，具体定义参考Documentation/devicetree/bindings/gpio/gpio-omap.txt #gpio-cells</span><br><span class="line">		int-gpios = &lt;&amp;gpio1 18 0&gt;;		同上</span><br><span class="line">	&#125;;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<p>这里配置了中断，client-&gt;irq就能取到（i2c子系统默默帮你搞定）中断号（cpu端的中断号）<br>好了，现在来看重点tps65910_irq_init()<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">static int tps65910_irq_init(struct tps65910 *tps65910, int irq,</span><br><span class="line">		    struct tps65910_platform_data *pdata)</span><br><span class="line">&#123;</span><br><span class="line">	int ret = 0;</span><br><span class="line">	static struct regmap_irq_chip *tps6591x_irqs_chip;</span><br><span class="line"></span><br><span class="line">	if (!irq) &#123;</span><br><span class="line">		dev_warn(tps65910-&gt;dev, &quot;No interrupt support, no core IRQ\n&quot;);</span><br><span class="line">		return -EINVAL;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	if (!pdata) &#123;</span><br><span class="line">		dev_warn(tps65910-&gt;dev, &quot;No interrupt support, no pdata\n&quot;);</span><br><span class="line">		return -EINVAL;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	switch (tps65910_chip_id(tps65910)) &#123;</span><br><span class="line">	case TPS65910:</span><br><span class="line">		tps6591x_irqs_chip = &amp;tps65910_irq_chip;</span><br><span class="line">		break;</span><br><span class="line">	case TPS65911:</span><br><span class="line">		tps6591x_irqs_chip = &amp;tps65911_irq_chip;</span><br><span class="line">		break;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	tps65910-&gt;chip_irq = irq;</span><br><span class="line">	ret = devm_regmap_add_irq_chip(tps65910-&gt;dev, tps65910-&gt;regmap,</span><br><span class="line">				       tps65910-&gt;chip_irq,</span><br><span class="line">				       IRQF_ONESHOT, pdata-&gt;irq_base,</span><br><span class="line">				       tps6591x_irqs_chip, &amp;tps65910-&gt;irq_data);</span><br><span class="line">	if (ret &lt; 0) &#123;</span><br><span class="line">		dev_warn(tps65910-&gt;dev, &quot;Failed to add irq_chip %d\n&quot;, ret);</span><br><span class="line">		tps65910-&gt;chip_irq = 0;</span><br><span class="line">	&#125;</span><br><span class="line">	return ret;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>这个函数的最后，就调用了devm_regmap_add_irq_chip。<br>这个东西的作用，其实就是一些mfd芯片，是可以扩展主cpu的中断的。其一端连着cpu的一个中断脚，通常就是个gpio。<br>另外另一头，这个mfd芯片本身，能产生很多中断，这么多个中断，都可以汇总到连接主cpu的中断来通知主cpu。<br>主cpu收到中断后，可以进一步查询具体是mfd的哪个中断引起的。算是一个级联过来的中断控制器。<br>现在分析下具体的入参：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br></pre></td><td class="code"><pre><span class="line"> * @dev:       The device pointer on which irq_chip belongs to.</span><br><span class="line"> * @map:       The regmap for the device.</span><br><span class="line"> * @irq:       The IRQ the device uses to signal interrupts</span><br><span class="line"> * @irq_flags: The IRQF_ flags to use for the primary interrupt.</span><br><span class="line"> * @irq_base</span><br><span class="line"> * @chip:      Configuration for the interrupt controller.</span><br><span class="line"> * @data:      Runtime data structure for the controller, allocated on success</span><br><span class="line">	ret = devm_regmap_add_irq_chip(tps65910-&gt;dev, tps65910-&gt;regmap,</span><br><span class="line">				       tps65910-&gt;chip_irq,</span><br><span class="line">				       IRQF_ONESHOT, pdata-&gt;irq_base,</span><br><span class="line">				       tps6591x_irqs_chip, &amp;tps65910-&gt;irq_data);</span><br><span class="line"></span><br><span class="line">@dev配置成私有结构体tps65910的device，没啥好说的</span><br><span class="line">@map需要把regmap传入，这就是为啥要先做好devm_regmap_init_i2c，然后才能做这个devm_regmap_add_irq_chip。因为访问具体的中断是要涉及regmap的。</span><br><span class="line">@irq是指主cpu这边连接的irq号，也就是dts里面mfd的i2c节点，配置的中断号</span><br><span class="line">@irq_flags这个和一般申请irq时候的概念一样，例如可以设置 IRQF_ONESHOT</span><br><span class="line">@irq_base此处设为-1，暂时不管它啥意思</span><br><span class="line">@chip这个很重要，其实是要填充regmap_irq_chip&#123;&#125;结构体，下面详细说明。</span><br><span class="line">@data这个其实是返回值，返回的struct regmap_irq_chip_data &#123;&#125;结构体，下面详细说明</span><br><span class="line"></span><br><span class="line">@chip的详细解释</span><br><span class="line">tps6591x_irqs_chip其实就是tps65910_irq_chip，是个regmap_irq_chip&#123;&#125;类型的结构体。</span><br><span class="line">struct regmap_irq_chip &#123;</span><br><span class="line">	const char *name;</span><br><span class="line"></span><br><span class="line">	unsigned int status_base;</span><br><span class="line">	unsigned int mask_base;</span><br><span class="line">	unsigned int unmask_base;</span><br><span class="line">	unsigned int ack_base;</span><br><span class="line">	unsigned int wake_base;</span><br><span class="line">	unsigned int type_base;</span><br><span class="line">	unsigned int irq_reg_stride;</span><br><span class="line">	bool init_ack_masked:1;</span><br><span class="line">	bool mask_invert:1;</span><br><span class="line">	bool use_ack:1;</span><br><span class="line">	bool ack_invert:1;</span><br><span class="line">	bool wake_invert:1;</span><br><span class="line">	bool runtime_pm:1;</span><br><span class="line">	bool type_invert:1;</span><br><span class="line"></span><br><span class="line">	int num_regs;</span><br><span class="line"></span><br><span class="line">	const struct regmap_irq *irqs;</span><br><span class="line">	int num_irqs;</span><br><span class="line"></span><br><span class="line">	int num_type_reg;</span><br><span class="line">	unsigned int type_reg_stride;</span><br><span class="line"></span><br><span class="line">	int (*handle_pre_irq)(void *irq_drv_data);</span><br><span class="line">	int (*handle_post_irq)(void *irq_drv_data);</span><br><span class="line">	void *irq_drv_data;</span><br><span class="line">&#125;;</span><br><span class="line">具体定义为</span><br><span class="line">static struct regmap_irq_chip tps65910_irq_chip = &#123;</span><br><span class="line">	.name = &quot;tps65910&quot;,</span><br><span class="line">	.irqs = tps65910_irqs,</span><br><span class="line">	.num_irqs = ARRAY_SIZE(tps65910_irqs),</span><br><span class="line">	.num_regs = 2,</span><br><span class="line">	.irq_reg_stride = 2,</span><br><span class="line">	.status_base = TPS65910_INT_STS,</span><br><span class="line">	.mask_base = TPS65910_INT_MSK,</span><br><span class="line">	.ack_base = TPS65910_INT_STS,</span><br><span class="line">&#125;;</span><br><span class="line">这里重点看.irqs = tps65910_irqs,这个成员</span><br><span class="line">static const struct regmap_irq tps65910_irqs[] = &#123;</span><br><span class="line">	/* INT_STS */</span><br><span class="line">	[TPS65910_IRQ_VBAT_VMBDCH] = &#123;</span><br><span class="line">		.mask = TPS65910_INT_MSK_VMBDCH_IT_MSK_MASK,</span><br><span class="line">		.reg_offset = 0,</span><br><span class="line">	&#125;,</span><br><span class="line">	[TPS65910_IRQ_VBAT_VMHI] = &#123;</span><br><span class="line">		.mask = TPS65910_INT_MSK_VMBHI_IT_MSK_MASK,</span><br><span class="line">		.reg_offset = 0,</span><br><span class="line">	&#125;,</span><br><span class="line">	[TPS65910_IRQ_PWRON] = &#123;</span><br><span class="line">		.mask = TPS65910_INT_MSK_PWRON_IT_MSK_MASK,</span><br><span class="line">		.reg_offset = 0,</span><br><span class="line">	&#125;,</span><br><span class="line">	[TPS65910_IRQ_PWRON_LP] = &#123;</span><br><span class="line">		.mask = TPS65910_INT_MSK_PWRON_LP_IT_MSK_MASK,</span><br><span class="line">		.reg_offset = 0,</span><br><span class="line">	&#125;,</span><br><span class="line">	[TPS65910_IRQ_PWRHOLD] = &#123;</span><br><span class="line">		.mask = TPS65910_INT_MSK_PWRHOLD_IT_MSK_MASK,</span><br><span class="line">		.reg_offset = 0,</span><br><span class="line">	&#125;,</span><br><span class="line">	[TPS65910_IRQ_HOTDIE] = &#123;</span><br><span class="line">		.mask = TPS65910_INT_MSK_HOTDIE_IT_MSK_MASK,</span><br><span class="line">		.reg_offset = 0,</span><br><span class="line">	&#125;,</span><br><span class="line">	[TPS65910_IRQ_RTC_ALARM] = &#123;</span><br><span class="line">		.mask = TPS65910_INT_MSK_RTC_ALARM_IT_MSK_MASK,</span><br><span class="line">		.reg_offset = 0,</span><br><span class="line">	&#125;,</span><br><span class="line">	[TPS65910_IRQ_RTC_PERIOD] = &#123;</span><br><span class="line">		.mask = TPS65910_INT_MSK_RTC_PERIOD_IT_MSK_MASK,</span><br><span class="line">		.reg_offset = 0,</span><br><span class="line">	&#125;,</span><br><span class="line"></span><br><span class="line">	/* INT_STS2 */</span><br><span class="line">	[TPS65910_IRQ_GPIO_R] = &#123;</span><br><span class="line">		.mask = TPS65910_INT_MSK2_GPIO0_F_IT_MSK_MASK,</span><br><span class="line">		.reg_offset = 1,</span><br><span class="line">	&#125;,</span><br><span class="line">	[TPS65910_IRQ_GPIO_F] = &#123;</span><br><span class="line">		.mask = TPS65910_INT_MSK2_GPIO0_R_IT_MSK_MASK,</span><br><span class="line">		.reg_offset = 1,</span><br><span class="line">	&#125;,</span><br><span class="line">&#125;;</span><br><span class="line">#define TPS65910_IRQ_VBAT_VMBDCH			0</span><br><span class="line">#define TPS65910_IRQ_VBAT_VMHI				1</span><br><span class="line">#define TPS65910_IRQ_PWRON				2</span><br><span class="line">#define TPS65910_IRQ_PWRON_LP				3</span><br><span class="line">#define TPS65910_IRQ_PWRHOLD				4</span><br><span class="line">#define TPS65910_IRQ_HOTDIE				5</span><br><span class="line">#define TPS65910_IRQ_RTC_ALARM				6</span><br><span class="line">#define TPS65910_IRQ_RTC_PERIOD				7</span><br><span class="line">#define TPS65910_IRQ_GPIO_R				8</span><br><span class="line">#define TPS65910_IRQ_GPIO_F				9</span><br><span class="line">看来这就是具体这个中断控制器，会收到的所有的中断的中断表了。</span><br><span class="line">就是这个中断号的列表，需要传给regmap子系统</span><br><span class="line"></span><br><span class="line">@data的详细解释：</span><br><span class="line">其实是返回值，返回的struct regmap_irq_chip_data &#123;&#125;结构体</span><br><span class="line">struct regmap_irq_chip_data &#123;</span><br><span class="line">	struct mutex lock;</span><br><span class="line">	struct irq_chip irq_chip;</span><br><span class="line"></span><br><span class="line">	struct regmap *map;</span><br><span class="line">	const struct regmap_irq_chip *chip;</span><br><span class="line"></span><br><span class="line">	int irq_base;</span><br><span class="line">	struct irq_domain *domain;</span><br><span class="line"></span><br><span class="line">	int irq;</span><br><span class="line">	int wake_count;</span><br><span class="line"></span><br><span class="line">	void *status_reg_buf;</span><br><span class="line">	unsigned int *status_buf;</span><br><span class="line">	unsigned int *mask_buf;</span><br><span class="line">	unsigned int *mask_buf_def;</span><br><span class="line">	unsigned int *wake_buf;</span><br><span class="line">	unsigned int *type_buf;</span><br><span class="line">	unsigned int *type_buf_def;</span><br><span class="line"></span><br><span class="line">	unsigned int irq_reg_stride;</span><br><span class="line">	unsigned int type_reg_stride;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<p>可以看到，基本上是把刚刚的入参汇总起来了。<br>这个东西返回了有啥用？<br>注意看probe函数的最后：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">ret = devm_mfd_add_devices(tps65910-&gt;dev, -1,</span><br><span class="line">			   tps65910s, ARRAY_SIZE(tps65910s),</span><br><span class="line">			   NULL, 0,</span><br><span class="line">			   regmap_irq_get_domain(tps65910-&gt;irq_data));</span><br></pre></td></tr></table></figure></p>
+<p>原来如此，其实这个中断控制器的配置信息tps65910-&gt;irq_data，其实最终给了mfd子系统。作为这个mfd设备资源的一部分。<br>这里就是int mfd_add_devices(struct device <em>parent, int id, const struct mfd_cell </em>cells, int n_devs, struct resource <em>mem_base, int irq_base, struct irq_domain </em>irq_domain);<br>最后的入参struct irq_domain *irq_domain。</p>
+<p>这个中断控制器，如何在其cell中使用？<br>这里换个例子，因为tps65910的其中一个rtc cell，找不到实际使用驱动的dts。<br>所以换成tps659038这个芯片的驱动为例：<br>针对rtc，是compatible = “ti,palmas-rtc”;，对应的驱动是drivers/rtc/rtc-palmas.c<br>针对整个pmic芯片，是compatible = “ti,tps659038”;，对应的驱动是drivers/mfd/palmas.c<br>原理上其实和刚刚分析的tps65910一模一样。<br>mfd驱动用devm_mfd_add_devices已经注册了irq_domain<br>同样，mfd里面也声明过了中断控制器可能会有哪些中断：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">static const struct regmap_irq palmas_irqs[] = &#123;</span><br><span class="line">	[...]</span><br><span class="line">	/* INT2 IRQs*/</span><br><span class="line">	[PALMAS_RTC_ALARM_IRQ] = &#123;</span><br><span class="line">		.mask = PALMAS_INT2_STATUS_RTC_ALARM,</span><br><span class="line">		.reg_offset = 1,</span><br><span class="line">	&#125;,</span><br><span class="line">	[PALMAS_RTC_TIMER_IRQ] = &#123;</span><br><span class="line">		.mask = PALMAS_INT2_STATUS_RTC_TIMER,</span><br><span class="line">		.reg_offset = 1,</span><br><span class="line">	&#125;,</span><br><span class="line">	[...]</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<p>注意到，其实rtc中断号是8：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">enum palmas_irqs &#123;</span><br><span class="line">	/* INT1 registers */</span><br><span class="line">	PALMAS_CHARG_DET_N_VBUS_OVV_IRQ,</span><br><span class="line">	PALMAS_PWRON_IRQ,</span><br><span class="line">	PALMAS_LONG_PRESS_KEY_IRQ,</span><br><span class="line">	PALMAS_RPWRON_IRQ,</span><br><span class="line">	PALMAS_PWRDOWN_IRQ,</span><br><span class="line">	PALMAS_HOTDIE_IRQ,</span><br><span class="line">	PALMAS_VSYS_MON_IRQ,</span><br><span class="line">	PALMAS_VBAT_MON_IRQ,</span><br><span class="line">	/* INT2 registers */</span><br><span class="line">	PALMAS_RTC_ALARM_IRQ,		此处是8</span><br><span class="line">	[...]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>然后看下mfd的dts配置：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">tps659038: tps659038@58 &#123;			---------------------mfd芯片的dts节点在此</span><br><span class="line">	compatible = &quot;ti,tps659038&quot;;</span><br><span class="line">	reg = &lt;0x58&gt;;</span><br><span class="line">	interrupts-extended = &lt;&amp;gpio1 0 IRQ_TYPE_LEVEL_HIGH</span><br><span class="line">		       &amp;dra7_pmx_core 0x418&gt;;</span><br><span class="line">	#interrupt-cells = &lt;2&gt;;</span><br><span class="line">	interrupt-controller;			----------------------声明是中断控制器</span><br><span class="line"></span><br><span class="line">	[...]</span><br><span class="line"></span><br><span class="line">	tps659038_rtc: tps659038_rtc &#123;</span><br><span class="line">		compatible = &quot;ti,palmas-rtc&quot;;</span><br><span class="line">		interrupt-parent = &lt;&amp;tps659038&gt;;		----------------------重点来了，声明中断的来源是&quot;ti,tps659038&quot;这个mfd驱动声明的interrupt-controller;</span><br><span class="line">		interrupts = &lt;8 IRQ_TYPE_EDGE_FALLING&gt;;	----------------------这个中断号，需要和mfd里面的中断号一致</span><br><span class="line">		wakeup-source;</span><br><span class="line">	&#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>然后在rtc的probe函数中：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">palmas_rtc-&gt;irq = platform_get_irq(pdev, 0);-------------取出dts里面，rtc对应的中断号（不是8，是内核根据mfd这个中断控制器，再包括内部中断号8，分配的一个中断号）</span><br><span class="line"></span><br><span class="line">ret = devm_request_threaded_irq(&amp;pdev-&gt;dev, palmas_rtc-&gt;irq, NULL,---------------申请中断</span><br><span class="line">		palmas_rtc_interrupt,</span><br><span class="line">		IRQF_TRIGGER_LOW | IRQF_ONESHOT,</span><br><span class="line">		dev_name(&amp;pdev-&gt;dev), palmas_rtc);</span><br><span class="line">if (ret &lt; 0) &#123;</span><br><span class="line">	dev_err(&amp;pdev-&gt;dev, &quot;IRQ request failed, err = %d\n&quot;, ret);</span><br><span class="line">	return ret;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>然后，当中断来的时候：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">static irqreturn_t palmas_rtc_interrupt(int irq, void *context)</span><br><span class="line">&#123;</span><br><span class="line">	struct palmas_rtc *palmas_rtc = context;</span><br><span class="line">	struct device *dev = palmas_rtc-&gt;dev;</span><br><span class="line">	int ret;</span><br><span class="line"></span><br><span class="line">	ret = palmas_clear_interrupts(dev);</span><br><span class="line">	[...]</span><br><span class="line">&#125;</span><br><span class="line">static int palmas_clear_interrupts(struct device *dev)</span><br><span class="line">&#123;</span><br><span class="line">	struct palmas *palmas = dev_get_drvdata(dev-&gt;parent);------------------取出parent的私有结构体</span><br><span class="line">	unsigned int rtc_reg;</span><br><span class="line">	int ret;</span><br><span class="line"></span><br><span class="line">	ret = palmas_read(palmas, PALMAS_RTC_BASE, PALMAS_RTC_STATUS_REG,</span><br><span class="line">				&amp;rtc_reg);</span><br><span class="line">	[...]</span><br><span class="line">&#125;</span><br><span class="line">static inline int palmas_read(struct palmas *palmas, unsigned int base,</span><br><span class="line">		unsigned int reg, unsigned int *val)</span><br><span class="line">&#123;</span><br><span class="line">	unsigned int addr = PALMAS_BASE_TO_REG(base, reg);</span><br><span class="line">	int slave_id = PALMAS_BASE_TO_SLAVE(base);</span><br><span class="line"></span><br><span class="line">	return regmap_read(palmas-&gt;regmap[slave_id], addr, val);----------------使用regmap子系统，访问parent的私有结构体的regmap[]，从而访问pmic芯片</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="syscon介绍"><a href="#syscon介绍" class="headerlink" title="syscon介绍"></a>syscon介绍</h2>
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/08/05/led-subsystem/" rel="next" title="led subsystem">
+                <i class="fa fa-chevron-left"></i> led subsystem
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/08/05/a-tour-of-the-mfd-regmap-and-syscon-APIs/" rel="prev" title="a tour of the mfd regmap and syscon APIs">
+                a tour of the mfd regmap and syscon APIs <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Semiyd</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives">
+                
+                    <span class="site-state-item-count">118</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">56</span>
+                    <span class="site-state-item-name">categories</span>
+                  </a>
+                </div>
+              
+
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#MFD子系统和MFD驱动介绍"><span class="nav-number">1.</span> <span class="nav-text">MFD子系统和MFD驱动介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#regmap介绍"><span class="nav-number">2.</span> <span class="nav-text">regmap介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#regmap-add-irq-chip-接口的补充介绍"><span class="nav-number">3.</span> <span class="nav-text">regmap_add_irq_chip()接口的补充介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#syscon介绍"><span class="nav-number">4.</span> <span class="nav-text">syscon介绍</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Semiyd</span>
+
+  
+
+  
+</div>
+
+
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> v3.7.1</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://theme-next.org">NexT.Muse</a> v6.3.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+	
+    
+
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.3.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.3.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.3.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.3.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.3.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
