@@ -1,0 +1,921 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.3.0" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.3.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.3.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.3.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.3.0" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '6.3.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="udev简介">
+<meta property="og:type" content="article">
+<meta property="og:title" content="udev简介">
+<meta property="og:url" content="http://yoursite.com/2018/08/11/udev简介/index.html">
+<meta property="og:site_name" content="Semiyd&#39;s Blog">
+<meta property="og:description" content="udev简介">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2018-08-11T01:33:19.431Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="udev简介">
+<meta name="twitter:description" content="udev简介">
+
+
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/08/11/udev简介/"/>
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>udev简介 | Semiyd's Blog</title>
+  
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Semiyd's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br />Home</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+    <a href="/categories/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-th"></i> <br />Categories</a>
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/11/udev简介/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Semiyd">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Semiyd's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">udev简介
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2018-08-11 09:31:51 / Modified: 09:33:19" itemprop="dateCreated datePublished" datetime="2018-08-11T09:31:51+08:00">2018-08-11</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Linux/" itemprop="url" rel="index"><span itemprop="name">Linux</span></a></span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Linux/Rootfs/" itemprop="url" rel="index"><span itemprop="name">Rootfs</span></a></span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Linux/Rootfs/Udev/" itemprop="url" rel="index"><span itemprop="name">Udev</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><center><strong>udev简介</strong></center><br><a id="more"></a></p>
+<h2 id="udev简介"><a href="#udev简介" class="headerlink" title="udev简介"></a>udev简介</h2><p>Udev：<br>    在用户空间管理设备的子系统。主要功能有：确定具体物理设备和设备节点的对应关系。支持热插拔和冷插拔。<br>    1.物理设备和设备节点的对应关系<br>    包括udevd守护进程和udevinfo<br>    规则放在/etc/udev/rules.d/<br>    udev出现之前，设备的编号如sda0,sda1只和插入的顺序有关，设备文件节点名和设备本身无对应关系。<br>    使用方法：<br>    1.用udevinfo来搜集设备信息，<br>    2./etc/udev/rules.d/xxx.rules<br>    其他的一些工具：<br>    udevtest         检查rules文件的语法，用来调试rules文件<br>    udevstart        刷新下udev，让新加入的设备刷出来<br>    udevmonito    用来查看uevent<br>    udevadm        查看/dev下某设备的一些信息，如sysfs信息<br>    2.支持热插拔和冷插拔<br>    udevd从kernel收到一个设备的uevent，以此决定是否要删除/dev下对应的设备文件，或者是根据配置文件/etc/udev/udev.conf，按照设定的规则，在/dev下<br>    生成新的设备文件。<br>    udev.conf，可以根据SYMLINK关键字，来顺便生成一个自定义名字的设备名。比如/dev/kingstonDisk。其实是指向/dev/sdc的符号链接。<br>    这样就解决了一个问题，就是同一个设备，因为对比同类型设备插入的顺序不同，会导致/dev/下名称不固定的情况，比如一会是sda1，一会是sda2<br>    有个SYMLINK，就可以固定为kingstonDisk。<br>    通过MODULE_DEVICE_TABLE的宏，可以让udev在bus热插入相应的设备的时候，自动加载对应的驱动模块</p>
+<p><a href="http://www.ibm.com/developerworks/cn/linux/l-cn-udev/" target="_blank" rel="noopener">http://www.ibm.com/developerworks/cn/linux/l-cn-udev/</a></p>
+<p>udev工作流程：<br>1.所有的modules都放在/lib/modules/<code>uname -r</code>/下面<br>2.modules默认不会自动加载。可以手动加载（insmod/modprobe）。可以配置自动加载（udev）<br>3.热插拔时（主要指usb等设备）自动加载的情况：<br>    设备被插入，驱动子系统层（例如usb子系统，只是子系统，不负责具体的设备功能的驱动）读了device id和vendor id，内核由此发出uevent。<br>    所以udev能负责的都是能支持热插拔，拥有内核的某种子系统的（比如usb子系统）驱动。否则连子系统都没有的话，怎么通知内核呢？（因为驱动模块没加载）<br>    udev收到内核的uevent（一种netlink socket message ），<br>    根据/etc/udev/rules.d/下面的rules文件，创建/删除device节点，并从uevent取得设备信息传给modprobe（运行modprobe $MODALIAS）。<br>    uevent例子如下：<br>    “add@/class/input/input9/mouse2\0    // message<br>    ACTION=add\0                         // action type<br>    DEVPATH=/class/input/input9/mouse2\0 // path in /sys<br>    SUBSYSTEM=input\0                    // subsystem (class)<br>    SEQNUM=1064\0                        // sequence number<br>    PHYSDEVPATH=/devices/pci0000:00/0000:00:1d.1/usb2/2­2/2­2:1.0\0  // device path in /sys<br>    PHYSDEVBUS=usb\0       // bus<br>    PHYSDEVDRIVER=usbhid\0 // driver<br>    MAJOR=13\0             // major number<br>    MINOR=34\0”,           // minor number<br>    $MODALIAS举例：MODALIAS=usb:v046DpC03Ed2000dc00dsc00dp00ic03isc01ip02<br>    modprobe会去查看/lib/modules/<code>uname -r</code>/modules.alias，来决定要不要加载某个module。<br>    modprobe加载module后，去调用module的init_module宏。<br>    在module加载完毕后，内核会在/sys/module下面建立相应的信息。<br>4.boot时，内核会枚举一下所有已有的硬件（主要指usb,pci设备），以方便启动时就加载已插入的硬件<br>5.boot时，内核会扫描dts.对于里面的compatible字段，如果驱动已经built-in，则自动加载。如果没有built-in，则在启动后，rootfs挂载后，<br>    在/lib/modules下面符合compatible字段的模块会被自动加载（这也就是c_can的情况）。<br>6.如果要改动/lib/modules/<code>uname -r</code>/下面的模块。需要使用depmod -a更新/lib/modules/<code>uname -r</code>/modules.xxx文件<br>7.如果要boot的时候，强制load某个模块。可以把模块名加在/etc/modules这个文件里面。</p>
+<p>涉及的文件：<br>    /etc/udev/udev.conf        主要用来配置给syslog输出什么log的。<br>    /lib/udev/rules.d/<em>.rules        udev标准的默认的rules文件<br>    /etc/udev/rules.d/</em>.rules        用户自定义的rules文件<br>    /lib/udev/*            从rules里面去调用的一些可执行文件helper programs，如cdrom_id</p>
+<h2 id="udev实战之固定映射设备号："><a href="#udev实战之固定映射设备号：" class="headerlink" title="udev实战之固定映射设备号："></a>udev实战之固定映射设备号：</h2><p>现在有这么个需求。<br>板卡有usb host0和usb host1<br>无论是host0还是host1，只会被插入fdti公司的usb转串口的芯片模块。并且每个芯片插入的时候，会产生两个ttyUSB设备，也就是每路usb有两个interface。<br>现在要求，只要是插入host0的，一律起名为host0-xxx。只要插入host1的，一律起名为host1-xxx。<br>因为linux针对ttyUSB这种热插拔设备的命名顺序，是针对插拔的顺序的。谁先插入，谁就是ttyUSB0，后来的人只能叫ttyUSB1,2,3…。<br>解决的办法就是利用udev，建立新的rules，从而建立设备的链接。<br>vi /etc/udev/rules.d/99-ttyUSB.rules</p>
+<p>SUBSYSTEM==”tty”, ATTRS{idVendor}==”0403”, ATTRS{idProduct}==”6010”, SYMLINK+=”INNCOM-PORT0”</p>
+<p>FDTI的芯片，其idVendor是0403, idProduct是6010。这是可以通过lsusb命令得到的：<br>        host0的lsusb结果：<br>        Bus 001 Device 003: ID 0403:6010<br>        host1的lsusb结果：<br>        Bus 002 Device 003: ID 0403:6010<br>那么这里关键，不同的host插进来的设备，他的busnum是不一样的。<br>/sys/class/usb_device/usbdevx.x/device下面，可以看到busnum的属性。cat busnum就能看到当前设备所在的busnum。<br>host0插入的，busnum是1.host1插入的，busnum是2.<br>所以除了加入idVendor和idProduct的判断外，还要加入busnum的判断。</p>
+<p>SUBSYSTEM==”tty”, ATTRS{idVendor}==”0403”, ATTRS{idProduct}==”6010”, ATTRS{busnum}==”1”, SYMLINK+=”INNCOM-PORT0”</p>
+<p>到这一步，还是有问题。因为一个fdti芯片，有两个interface。也就是一个芯片会生成两个ttyUSB设备。<br>如果仅仅是上面的rules。结果是ttyUSB0没有被建立链接。建立的链接是ttyUSB1的。这样不行。</p>
+<p>为了区分同一个芯片的不同的interface，<br>进一步在/sys下挖掘，发现：<br>    类似/sys/class/usb_device/usbdev1.2/device/1-1:1.0/bInterfaceNumber      这个可以看出是哪个interface，也就是哪个ttyUSB</p>
+<p>但是问题来了，bInterfaceNumber，不属于tty这个SUBSYSTEM，属于usb这SUBSYSTEM。</p>
+<p>所以最终的代码是这样的：<br>SUBSYSTEMS==”usb”, ENV{.LOCAL_ifNum}=”$attr{bInterfaceNumber}”<br>SUBSYSTEM==”tty”, ATTRS{idVendor}==”0403”, ATTRS{idProduct}==”6010”, ATTRS{busnum}==”1”, SYMLINK+=”INNCOM-PORT0-%E{.LOCAL_ifNum}”<br>SUBSYSTEM==”tty”, ATTRS{idVendor}==”0403”, ATTRS{idProduct}==”6010”, ATTRS{busnum}==”2”, SYMLINK+=”INNCOM-PORT1-%E{.LOCAL_ifNum}”</p>
+<p>这里，udev会遍历所有搜到的bInterfaceNumber（假设bInterfaceNumber不止一个），从而针对一个fdti芯片，也能生成两个链接文件。这也是udev比较聪明的地方。<br>如下：<br>[root@M28x ~]# ls -l /dev/IN*<br>lrwxrwxrwx    1 root     root             7 Jan  1 00:00 /dev/INNCOM-PORT1-00 -&gt; ttyUSB0<br>lrwxrwxrwx    1 root     root             7 Jan  1 00:00 /dev/INNCOM-PORT1-01 -&gt; ttyUSB1</p>
+<h2 id="mdev简介"><a href="#mdev简介" class="headerlink" title="mdev简介"></a>mdev简介</h2><p>mdev是udev的简化版<br>集成于busybox中，所以常见于嵌入式系统。<br>使用方法：<br>busybox里面勾上关于mdev的选项：<br>[<em>] mdev<br>    [</em>]   Support /etc/mdev.conf<br>    [<em>]     Support subdirs/symlinks<br>    [</em>]       Support regular expressions substitutions when renaming device<br>    [<em>]     Support command execution at device addition/removal<br>    [</em>]   Support loading of firmwares<br>开机rcS脚本运行：<br>echo /sbin/mdev &gt; /proc/sys/kernel/hotplug<br>mdev -s<br>然后在/etc/mdev.conf里面配置：<br>mmcblk[0-9]             0:0     0660    @(mount -t vfat /dev/$MDEV /mnt)<br>mmcblk[0-9]             0:0     0660    *(umount /mnt)<br>这样的话，当mmc卡插入，/dev/mmcblk0设备会生成，然后mdev就可以自动把mmcblk0挂载到/mnt目录下。</p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/08/11/浅析-Linux-初始化-init-系统，第-1-部分-sysvinit/" rel="next" title="浅析 Linux 初始化 init 系统，第 1 部分 sysvinit">
+                <i class="fa fa-chevron-left"></i> 浅析 Linux 初始化 init 系统，第 1 部分 sysvinit
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/08/11/浅析-Linux-初始化-init-系统，第-2-部分-UpStart/" rel="prev" title="浅析 Linux 初始化 init 系统，第 2 部分 UpStart">
+                浅析 Linux 初始化 init 系统，第 2 部分 UpStart <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Semiyd</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives">
+                
+                    <span class="site-state-item-count">166</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">80</span>
+                    <span class="site-state-item-name">categories</span>
+                  </a>
+                </div>
+              
+
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#udev简介"><span class="nav-number">1.</span> <span class="nav-text">udev简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#udev实战之固定映射设备号："><span class="nav-number">2.</span> <span class="nav-text">udev实战之固定映射设备号：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#mdev简介"><span class="nav-number">3.</span> <span class="nav-text">mdev简介</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Semiyd</span>
+
+  
+
+  
+</div>
+
+
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> v3.7.1</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://theme-next.org">NexT.Muse</a> v6.3.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+	
+    
+
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.3.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.3.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.3.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.3.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.3.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

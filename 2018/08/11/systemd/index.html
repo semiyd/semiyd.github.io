@@ -1,0 +1,928 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.3.0" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.3.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.3.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.3.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.3.0" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '6.3.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="systemd">
+<meta property="og:type" content="article">
+<meta property="og:title" content="systemd">
+<meta property="og:url" content="http://yoursite.com/2018/08/11/systemd/index.html">
+<meta property="og:site_name" content="Semiyd&#39;s Blog">
+<meta property="og:description" content="systemd">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2018-08-11T01:23:14.332Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="systemd">
+<meta name="twitter:description" content="systemd">
+
+
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/08/11/systemd/"/>
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>systemd | Semiyd's Blog</title>
+  
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Semiyd's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br />Home</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+    <a href="/categories/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-th"></i> <br />Categories</a>
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/11/systemd/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Semiyd">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Semiyd's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">systemd
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2018-08-11 09:17:47 / Modified: 09:23:14" itemprop="dateCreated datePublished" datetime="2018-08-11T09:17:47+08:00">2018-08-11</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Linux/" itemprop="url" rel="index"><span itemprop="name">Linux</span></a></span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Linux/Rootfs/" itemprop="url" rel="index"><span itemprop="name">Rootfs</span></a></span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Linux/Rootfs/Systemd/" itemprop="url" rel="index"><span itemprop="name">Systemd</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><center><strong>systemd</strong></center><br><a id="more"></a></p>
+<h2 id="查看服务启动耗时："><a href="#查看服务启动耗时：" class="headerlink" title="查看服务启动耗时："></a>查看服务启动耗时：</h2><p>systemd-analyze<br>systemd-analyze blame<br>systemd-analyze critical-chain<br>systemd-analyze critical-chain xxx.service</p>
+<h2 id="查看unit相关的信息："><a href="#查看unit相关的信息：" class="headerlink" title="查看unit相关的信息："></a>查看unit相关的信息：</h2><p>Systemd 可以管理所有系统资源。不同的资源统称为 Unit（单位）。<br>Unit 一共分成12种。<br>Service unit：系统服务<br>Target unit：多个 Unit 构成的一个组<br>Device Unit：硬件设备<br>Mount Unit：文件系统的挂载点<br>Automount Unit：自动挂载点<br>Path Unit：文件或路径<br>Scope Unit：不是由 Systemd 启动的外部进程<br>Slice Unit：进程组<br>Snapshot Unit：Systemd 快照，可以切回某个快照<br>Socket Unit：进程间通信的 socket<br>Swap Unit：swap 文件<br>Timer Unit：定时器</p>
+<p>systemctl list-units    查看当前系统的所有 Unit 。<br>systemctl list-units –all    所有包括不在运行的unit<br>systemctl list-units –type=service 正在运行，类型为service的unit</p>
+<h2 id="查看状态"><a href="#查看状态" class="headerlink" title="查看状态"></a>查看状态</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">systemctl status</span><br><span class="line">systemctl status xxx.service</span><br><span class="line">举例：</span><br><span class="line">$ sudo systemctl status httpd</span><br><span class="line"></span><br><span class="line">httpd.service - The Apache HTTP Server</span><br><span class="line">   Loaded: loaded (/usr/lib/systemd/system/httpd.service; enabled)</span><br><span class="line">   Active: active (running) since 金 2014-12-05 12:18:22 JST; 7min ago</span><br><span class="line"> Main PID: 4349 (httpd)</span><br><span class="line">   Status: &quot;Total requests: 1; Current requests/sec: 0; Current traffic:   0 B/sec&quot;</span><br><span class="line">   CGroup: /system.slice/httpd.service</span><br><span class="line">           ├─4349 /usr/sbin/httpd -DFOREGROUND</span><br><span class="line">           ├─4350 /usr/sbin/httpd -DFOREGROUND</span><br><span class="line">           ├─4351 /usr/sbin/httpd -DFOREGROUND</span><br><span class="line">	          ├─4352 /usr/sbin/httpd -DFOREGROUND</span><br><span class="line">	          ├─4353 /usr/sbin/httpd -DFOREGROUND</span><br><span class="line">           └─4354 /usr/sbin/httpd -DFOREGROUND</span><br><span class="line"></span><br><span class="line">12月 05 12:18:22 localhost.localdomain systemd[1]: Starting The Apache HTTP Server...</span><br><span class="line">12月 05 12:18:22 localhost.localdomain systemd[1]: Started The Apache HTTP Server.</span><br><span class="line">12月 05 12:22:40 localhost.localdomain systemd[1]: Started The Apache HTTP Server.</span><br></pre></td></tr></table></figure>
+<p>上面的输出结果含义如下。</p>
+<p>Loaded行：配置文件的位置，是否设为开机启动<br>Active行：表示正在运行<br>Main PID行：主进程ID<br>Status行：由应用本身（这里是 httpd ）提供的软件当前状态<br>CGroup块：应用的所有子进程<br>日志块：应用的日志</p>
+<h2 id="启动服务"><a href="#启动服务" class="headerlink" title="启动服务"></a>启动服务</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">systemctl start xxx.service</span><br><span class="line">systemctl stop xxx.service</span><br><span class="line">systemctl restart xxx.service</span><br><span class="line">systemctl kill xxx.service</span><br><span class="line">systemctl show xxx.service	显示服务参数</span><br></pre></td></tr></table></figure>
+<h2 id="依赖关系"><a href="#依赖关系" class="headerlink" title="依赖关系"></a>依赖关系</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl list-dependencies --all xxx.service</span><br></pre></td></tr></table></figure>
+<h2 id="启动的unit的配置位置："><a href="#启动的unit的配置位置：" class="headerlink" title="启动的unit的配置位置："></a>启动的unit的配置位置：</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">/etc/systemd/system/	生效的启动项</span><br><span class="line">/usr/lib/systemd/system/	已配置的启动项（在am335x的sdk的rootfs里面，是/lib/systemd/system/）</span><br><span class="line">	这两个目录之间都是符号链接的关系</span><br><span class="line">	要在两个目录之间建立符号链接，实现激活启动项。除了ln -s以外，还可以：</span><br><span class="line">	systemctl enable xxx.service	（服务名同时也是目录名）</span><br><span class="line">	反之：</span><br><span class="line">	systemctl disable xxx.service	</span><br><span class="line">例如：</span><br><span class="line">$ sudo systemctl enable httpd</span><br><span class="line">上面的命令相当于在/etc/systemd/system目录添加一个符号链接，指向/usr/lib/systemd/system里面的httpd.service文件。</span><br></pre></td></tr></table></figure>
+<h2 id="查看所有unit的配置文件"><a href="#查看所有unit的配置文件" class="headerlink" title="查看所有unit的配置文件"></a>查看所有unit的配置文件</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">systemctl list-unit-files</span><br><span class="line">systemctl list-unit-files --type=service</span><br><span class="line">在列出的文件中，状态有enabled,disabled,static.</span><br><span class="line">static表示不能直接启动，是别的unit的依赖unit</span><br></pre></td></tr></table></figure>
+<h2 id="配置文件具体的写法："><a href="#配置文件具体的写法：" class="headerlink" title="配置文件具体的写法："></a>配置文件具体的写法：</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br></pre></td><td class="code"><pre><span class="line">具体实例：</span><br><span class="line">cat /lib/systemd/system/busybox-syslog.service</span><br><span class="line">[Unit]</span><br><span class="line">Description=System Logging Service</span><br><span class="line">Wants=busybox-klogd.service</span><br><span class="line"></span><br><span class="line">[Service]</span><br><span class="line">EnvironmentFile=-/etc/default/busybox-syslog</span><br><span class="line">ExecStart=/sbin/syslogd -n $OPTIONS</span><br><span class="line">Sockets=syslog.socket</span><br><span class="line"></span><br><span class="line">[Install]</span><br><span class="line">WantedBy=multi-user.target</span><br><span class="line">Also=busybox-klogd.service</span><br><span class="line">Alias=syslog.service</span><br><span class="line">每一项的解释：</span><br><span class="line">	[Unit]区块通常是配置文件的第一个区块，用来定义 Unit 的元数据，以及配置与其他 Unit 的关系。它的主要字段如下。</span><br><span class="line">		Description：简短描述。如果赋值，会显示在启动的过程中，例如：[  OK  ] Started Print notice about GPLv3 packages.	(因Description=Print notice about GPLv3 packages)</span><br><span class="line">		Documentation：文档地址</span><br><span class="line">		Requires：当前 Unit 依赖的其他 Unit，如果它们没有运行，当前 Unit 会启动失败(&quot;强依赖&quot;关系)</span><br><span class="line">		Wants：与当前 Unit 配合的其他 Unit，如果它们没有运行，当前 Unit 不会启动失败(&quot;弱依赖&quot;关系)</span><br><span class="line">		BindsTo：与Requires类似，它指定的 Unit 如果退出，会导致当前 Unit 停止运行</span><br><span class="line">		Before：如果该字段指定的 Unit 也要启动，那么必须在当前 Unit 之后启动</span><br><span class="line">		After：如果该字段指定的 Unit 也要启动，那么必须在当前 Unit 之前启动</span><br><span class="line">		Conflicts：这里指定的 Unit 不能与当前 Unit 同时运行</span><br><span class="line">		Condition...：当前 Unit 运行必须满足的条件，否则不会运行</span><br><span class="line">		Assert...：当前 Unit 运行必须满足的条件，否则会报启动失败</span><br><span class="line"></span><br><span class="line">	[Service]区块用来 Service 的配置，只有 Service 类型的 Unit 才有这个区块。它的主要字段如下。</span><br><span class="line">		Type：定义启动时的进程行为。它有以下几种值。</span><br><span class="line">		Type=simple：默认值，执行ExecStart指定的命令，启动主进程</span><br><span class="line">		Type=forking：以 fork()系统调用方式从父进程创建子进程，创建后父进程必须立即退出，子进程作为daemon运行。</span><br><span class="line">		Type=oneshot：一次性进程，Systemd 会等当前服务退出，再继续往下执行</span><br><span class="line">		Type=dbus：当前服务通过D-Bus启动</span><br><span class="line">		Type=notify：当前服务启动完毕，会通知Systemd，再继续往下执行</span><br><span class="line">		Type=idle：若有其他任务执行完毕，当前服务才会运行</span><br><span class="line">		ExecStart：启动当前服务的命令</span><br><span class="line">		ExecStartPre：启动当前服务之前执行的命令</span><br><span class="line">		ExecStartPost：启动当前服务之后执行的命令</span><br><span class="line">		ExecReload：重启当前服务时执行的命令</span><br><span class="line">		ExecStop：停止当前服务时执行的命令</span><br><span class="line">		ExecStopPost：停止当其服务之后执行的命令</span><br><span class="line">		RestartSec：表示 Systemd 重启服务之前，需要等待的秒数。</span><br><span class="line">		Restart：定义何种情况 Systemd 会自动重启当前服务，可能的值包括always（总是重启）、on-success、on-failure、on-abnormal、on-abort、on-watchdog</span><br><span class="line">			Restart字段可以设置的值如下。</span><br><span class="line">				no（默认值）：退出后不会重启</span><br><span class="line">				on-success：只有正常退出时（退出状态码为0），才会重启</span><br><span class="line">				on-failure：非正常退出时（退出状态码非0），包括被信号终止和超时，才会重启</span><br><span class="line">				on-abnormal：只有被信号终止和超时，才会重启</span><br><span class="line">				on-abort：只有在收到没有捕捉到的信号终止时，才会重启</span><br><span class="line">				on-watchdog：超时退出，才会重启</span><br><span class="line">				always：不管是什么退出原因，总是重启</span><br><span class="line">		TimeoutSec：定义 Systemd 停止当前服务之前等待的秒数</span><br><span class="line">		Environment：指定环境变量</span><br><span class="line">		KillMode字段：定义 Systemd 如何停止 xxx服务。</span><br><span class="line">			将KillMode设为process，表示只停止主进程，不停止任何 子进程，即子进程打开的仍然保持运行。</span><br><span class="line">			这个设置不太常见，但对 sshd 很重要，否则你停止服务的时候，会连自己打开的 SSH session 一起杀掉。</span><br><span class="line">			所有的启动设置之前，都可以加上一个连词号（-），表示&quot;抑制错误&quot;，即发生错误的时候，不影响其他命令的执行。</span><br><span class="line">			比如，EnvironmentFile=-/etc/sysconfig/sshd（注意等号后面的那个连词号），就表示即使/etc/sysconfig/sshd文件不存在，也不会抛出错误</span><br><span class="line">			KillMode字段可以设置的值如下。</span><br><span class="line">				control-group（默认值）：当前控制组里面的所有子进程，都会被杀掉</span><br><span class="line">				process：只杀主进程</span><br><span class="line">				mixed：主进程将收到 SIGTERM 信号，子进程收到 SIGKILL 信号</span><br><span class="line">				none：没有进程会被杀掉，只是执行服务的 stop 命令。</span><br><span class="line"></span><br><span class="line">	[Install]通常是配置文件的最后一个区块，用来定义如何启动，以及是否开机启动。它的主要字段如下。</span><br><span class="line">		WantedBy：表示该服务所在的 Target。</span><br><span class="line">			它的值是一个或多个 Target，当前 Unit 激活时（enable）符号链接会放入/etc/systemd/system目录下面以 Target 名 + .wants后缀构成的子目录中</span><br><span class="line">			举例：</span><br><span class="line">			WantedBy=multi-user.target指的是，sshd 所在的 Target 是multi-user.target。</span><br><span class="line">			这个设置非常重要，因为执行systemctl enable sshd.service命令时，</span><br><span class="line">			sshd.service的一个符号链接，就会放在/etc/systemd/system目录下面的multi-user.target.wants子目录之中。这样就随着multi-user.target开机自动启动了。</span><br><span class="line">		RequiredBy：它的值是一个或多个 Target，当前 Unit 激活时，符号链接会放入/etc/systemd/system目录下面以 Target 名 + .required后缀构成的子目录中</span><br><span class="line">		Alias：当前 Unit 可用于启动的别名</span><br><span class="line">		Also：当前 Unit 激活（enable）时，会被同时激活的其他 Unit</span><br><span class="line">详细说明见：systemd service语法说明.pdf</span><br></pre></td></tr></table></figure>
+<h2 id="Target的概念"><a href="#Target的概念" class="headerlink" title="Target的概念"></a>Target的概念</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br></pre></td><td class="code"><pre><span class="line">启动计算机的时候，需要启动大量的 Unit。如果每一次启动，都要一一写明本次启动需要哪些 Unit，显然非常不方便。Systemd 的解决方案就是 Target。</span><br><span class="line">Target 就是一个 Unit 组，包含许多相关的 Unit 。启动某个 Target 的时候，Systemd 就会启动里面所有的 Unit。</span><br><span class="line">从这个意义上说，Target 这个概念类似于&quot;状态点&quot;，启动某个 Target 就好比启动到某种状态。</span><br><span class="line">传统的init启动模式里面，有 RunLevel 的概念，跟 Target 的作用很类似。不同的是，RunLevel 是互斥的，不可能多个 RunLevel 同时启动，但是多个 Target 可以同时启动。</span><br><span class="line"># 查看当前系统的所有 Target</span><br><span class="line">$ systemctl list-unit-files --type=target</span><br><span class="line"></span><br><span class="line"># 查看一个 Target 包含的所有 Unit</span><br><span class="line">$ systemctl list-dependencies multi-user.target</span><br><span class="line">	这个命令可以看到包含的所有的unit和target，以及target包含的unit。例如：</span><br><span class="line">	├─thttpd.service</span><br><span class="line">	├─uim-sysfs.service</span><br><span class="line">	├─weston.service</span><br><span class="line">	├─basic.target</span><br><span class="line">	│ ├─-.mount</span><br><span class="line">	│ ├─alsa-restore.service</span><br><span class="line">	│ ├─alsa-state.service</span><br><span class="line">	│ ├─gadget-init.service</span><br><span class="line">	│ ├─tmp.mount</span><br><span class="line">	│ ├─paths.target</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"># 查看启动时的默认 Target</span><br><span class="line">$ systemctl get-default</span><br><span class="line">multi-user.target</span><br><span class="line">	返回的是multi-user.target。同时可以看到/etc/systemd/system下：</span><br><span class="line">	default.target -&gt; /lib/systemd/system/multi-user.target</span><br><span class="line"></span><br><span class="line"># 设置启动时的默认 Target</span><br><span class="line">$ sudo systemctl set-default multi-user.target</span><br><span class="line"></span><br><span class="line"># 切换 Target 时，默认不关闭前一个 Target 启动的进程，</span><br><span class="line"># systemctl isolate 命令改变这种行为，</span><br><span class="line"># 关闭前一个 Target 里面所有不属于后一个 Target 的进程</span><br><span class="line">$ sudo systemctl isolate multi-user.target</span><br><span class="line"></span><br><span class="line">Target 与 传统 RunLevel 的对应关系如下。</span><br><span class="line">Traditional runlevel      New target name     Symbolically linked to...</span><br><span class="line">Runlevel 0           |    runlevel0.target -&gt; poweroff.target</span><br><span class="line">Runlevel 1           |    runlevel1.target -&gt; rescue.target</span><br><span class="line">Runlevel 2           |    runlevel2.target -&gt; multi-user.target</span><br><span class="line">Runlevel 3           |    runlevel3.target -&gt; multi-user.target		常用</span><br><span class="line">Runlevel 4           |    runlevel4.target -&gt; multi-user.target</span><br><span class="line">Runlevel 5           |    runlevel5.target -&gt; graphical.target		常用</span><br><span class="line">Runlevel 6           |    runlevel6.target -&gt; reboot.target</span><br><span class="line"></span><br><span class="line">它与init进程的主要差别如下。</span><br><span class="line">（1）默认的 RunLevel（在/etc/inittab文件设置）现在被默认的 Target 取代，位置是/etc/systemd/system/default.target，</span><br><span class="line">	通常符号链接到graphical.target（图形界面）或者multi-user.target（多用户命令行）。</span><br><span class="line">	具体am3354的4.4内核sdk，用命令查看默认target可见：</span><br><span class="line">	# systemctl get-default</span><br><span class="line">	multi-user.target	</span><br><span class="line">	上面的结果表示，默认的启动 Target 是multi-user.target。</span><br><span class="line">	在这个组里的所有服务，都将开机启动。这就是为什么systemctl enable命令能设置开机启动的原因。</span><br><span class="line">（2）启动脚本的位置，以前是/etc/init.d目录，符号链接到不同的 RunLevel 目录 （比如/etc/rc3.d、/etc/rc5.d等），现在则存放在/lib/systemd/system和/etc/systemd/system目录。</span><br><span class="line">（3）配置文件的位置，以前init进程的配置文件是/etc/inittab，各种服务的配置文件存放在/etc/sysconfig目录。</span><br><span class="line">	现在的配置文件主要存放在/usr/lib/systemd目录，在/etc/systemd目录里面的修改可以覆盖原始设置。</span><br><span class="line"></span><br><span class="line">Target 也有自己的配置文件。</span><br><span class="line">	$ systemctl cat multi-user.target</span><br><span class="line">	[Unit]</span><br><span class="line">	Description=Multi-User System</span><br><span class="line">	Documentation=man:systemd.special(7)</span><br><span class="line">	Requires=basic.target</span><br><span class="line">	Conflicts=rescue.service rescue.target</span><br><span class="line">	After=basic.target rescue.service rescue.target</span><br><span class="line">	AllowIsolate=yes</span><br><span class="line">	注意，Target 配置文件里面没有启动命令。</span><br><span class="line">	Requires字段：要求basic.target一起运行。</span><br><span class="line">	Conflicts字段：冲突字段。如果rescue.service或rescue.target正在运行，multi-user.target就不能运行，反之亦然。</span><br><span class="line">	After：表示multi-user.target在basic.target 、 rescue.service、 rescue.target之后启动，如果它们有启动的话。</span><br><span class="line">	AllowIsolate：允许使用systemctl isolate命令切换到multi-user.target。</span><br><span class="line">	具体的target之间的依赖关系，详见同级目录的“Target 依赖关系图.pdf”</span><br><span class="line">如何配置unit跟着target一起启动？</span><br><span class="line">	就是之前说过的，unit配置文件里面，加入WantedBy=multi-user.target</span><br></pre></td></tr></table></figure>
+<h2 id="日志管理"><a href="#日志管理" class="headerlink" title="日志管理"></a>日志管理</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br></pre></td><td class="code"><pre><span class="line">Systemd 统一管理所有 Unit 的启动日志。带来的好处就是，可以只用journalctl一个命令，查看所有日志（内核日志和应用日志）。日志的配置文件是/etc/systemd/journald.conf。</span><br><span class="line">设计初衷是克服现有的 syslog 服务的缺点。比如：</span><br><span class="line">	syslog 不安全，消息的内容无法验证。每一个本地进程都可以声称自己是 Apache PID 4711，而 syslog 也就相信并保存到磁盘上。</span><br><span class="line">	数据没有严格的格式，非常随意。自动化的日志分析器需要分析人类语言字符串来识别消息。一方面此类分析困难低效；此外日志格式的变化会导致分析代码需要更新甚至重写。</span><br><span class="line"></span><br><span class="line"># 查看所有日志（默认情况下 ，只保存本次启动的日志）</span><br><span class="line">$ sudo journalctl</span><br><span class="line"></span><br><span class="line"># 查看内核日志（不显示应用日志）</span><br><span class="line">$ sudo journalctl -k</span><br><span class="line"></span><br><span class="line"># 查看系统本次启动的日志</span><br><span class="line">$ sudo journalctl -b</span><br><span class="line">$ sudo journalctl -b -0</span><br><span class="line"></span><br><span class="line"># 查看上一次启动的日志（需更改设置）</span><br><span class="line">$ sudo journalctl -b -1</span><br><span class="line"></span><br><span class="line"># 查看指定时间的日志</span><br><span class="line">$ sudo journalctl --since=&quot;2012-10-30 18:17:16&quot;</span><br><span class="line">$ sudo journalctl --since &quot;20 min ago&quot;</span><br><span class="line">$ sudo journalctl --since yesterday</span><br><span class="line">$ sudo journalctl --since &quot;2015-01-10&quot; --until &quot;2015-01-11 03:00&quot;</span><br><span class="line">$ sudo journalctl --since 09:00 --until &quot;1 hour ago&quot;</span><br><span class="line"></span><br><span class="line"># 显示尾部的最新10行日志</span><br><span class="line">$ sudo journalctl -n</span><br><span class="line"></span><br><span class="line"># 显示尾部指定行数的日志</span><br><span class="line">$ sudo journalctl -n 20</span><br><span class="line"></span><br><span class="line"># 实时滚动显示最新日志</span><br><span class="line">$ sudo journalctl -f</span><br><span class="line"></span><br><span class="line"># 查看指定服务的日志</span><br><span class="line">$ sudo journalctl /usr/lib/systemd/systemd</span><br><span class="line"></span><br><span class="line"># 查看指定进程的日志</span><br><span class="line">$ sudo journalctl _PID=1</span><br><span class="line"></span><br><span class="line"># 查看某个路径的脚本的日志</span><br><span class="line">$ sudo journalctl /usr/bin/bash</span><br><span class="line"></span><br><span class="line"># 查看指定用户的日志</span><br><span class="line">$ sudo journalctl _UID=33 --since today</span><br><span class="line"></span><br><span class="line"># 查看某个 Unit 的日志</span><br><span class="line">$ sudo journalctl -u nginx.service</span><br><span class="line">$ sudo journalctl -u nginx.service --since today</span><br><span class="line"></span><br><span class="line"># 实时滚动显示某个 Unit 的最新日志</span><br><span class="line">$ sudo journalctl -u nginx.service -f</span><br><span class="line"></span><br><span class="line"># 合并显示多个 Unit 的日志</span><br><span class="line">$ journalctl -u nginx.service -u php-fpm.service --since today</span><br><span class="line"></span><br><span class="line"># 查看指定优先级（及其以上级别）的日志，共有8级</span><br><span class="line"># 0: emerg</span><br><span class="line"># 1: alert</span><br><span class="line"># 2: crit</span><br><span class="line"># 3: err</span><br><span class="line"># 4: warning</span><br><span class="line"># 5: notice</span><br><span class="line"># 6: info</span><br><span class="line"># 7: debug</span><br><span class="line">$ sudo journalctl -p err -b</span><br><span class="line"></span><br><span class="line"># 日志默认分页输出，--no-pager 改为正常的标准输出</span><br><span class="line">$ sudo journalctl --no-pager</span><br><span class="line"></span><br><span class="line"># 以 JSON 格式（单行）输出</span><br><span class="line">$ sudo journalctl -b -u nginx.service -o json</span><br><span class="line"></span><br><span class="line"># 以 JSON 格式（多行）输出，可读性更好</span><br><span class="line">$ sudo journalctl -b -u nginx.serviceqq</span><br><span class="line"> -o json-pretty</span><br><span class="line"></span><br><span class="line"># 显示日志占据的硬盘空间</span><br><span class="line">$ sudo journalctl --disk-usage</span><br><span class="line"></span><br><span class="line"># 指定日志文件占据的最大空间</span><br><span class="line">$ sudo journalctl --vacuum-size=1G</span><br><span class="line"></span><br><span class="line"># 指定日志文件保存多久</span><br><span class="line">$ sudo journalctl --vacuum-time=1years</span><br></pre></td></tr></table></figure>
+<h2 id="停止服务："><a href="#停止服务：" class="headerlink" title="停止服务："></a>停止服务：</h2><p>停止服务时，通过查询 CGroup，systemd 可以确保找到所有的相关进程，从而干净地停止服务。<br>CGroup 已经出现了很久，它主要用来实现系统资源配额管理。CGroup 提供了类似文件系统的接口，使用方便。<br>当进程创建子进程时，子进程会继承父进程的 CGroup。因此无论服务如何启动新的子进程，所有的这些相关进程都会属于同一个 CGroup，<br>systemd 只需要简单地遍历指定的 CGroup 即可正确地找到所有的相关进程，将它们一一停止即可。</p>
+<h2 id="启动挂载点和自动挂载的管理"><a href="#启动挂载点和自动挂载的管理" class="headerlink" title="启动挂载点和自动挂载的管理"></a>启动挂载点和自动挂载的管理</h2><p>传统的 Linux 系统中，用户可以用/etc/fstab 文件来维护固定的文件系统挂载点。<br>Systemd 还兼容/etc/fstab 文件，可以继续使用该文件管理挂载点。<br>有时候还需要动态挂载点，比如打算访问 DVD 内容时，才临时执行挂载以便访问其中的内容。传统地，依赖 autofs 服务来实现这种功能。<br>Systemd 内建了自动挂载服务，无需另外安装 autofs 服务，可以直接使用 systemd 提供的自动挂载管理能力来实现 autofs 的功能。</p>
+<h2 id="兼容过去的sysv启动脚本"><a href="#兼容过去的sysv启动脚本" class="headerlink" title="兼容过去的sysv启动脚本"></a>兼容过去的sysv启动脚本</h2><p>systemd能够自动兼容sysv的/etc/init.d/下的启动脚本。<br>/lib/systemd/system-generators/systemd-xxx-generator这是一堆针对兼容老的Sysv的init脚本的.service生成器。<br>systemd-sysv-generator会根据/etc/init.d/*下面的脚本，自动生成systemd风格的.service文件，放在/run/systemd/generator.late/multi-user.target.wants下，并运行。<br>如果脚本名字叫/etc/init.d/xxx，那么就在/run/systemd/generator.late/multi-user.target.wants下面生成xxx.service<br>官方的说明如下：<br>If a service is requested under a certain name but no unit configuration<br>file is found, systemd looks for a SysV init script by the same name<br>(with the .service suffix removed) and dynamically creates a service<br>unit from that script. This is useful for compatibility with SysV. Note<br>that this compatibility is quite comprehensive but not 100%.<br>但有个前提，就是/etc/rcx.d/（例如/etc/rc3.d）下面，要有相应的链接指向/etc/init.d/里面的脚本。<br>如果只有/etc/init.d/下的启动脚本，没有/etc/rcx.d/下面的链接。则systemd会在/run/systemd/generator.late/下面照样生成.service脚本。<br>    但是和/etc/rcx.d/没有链接一样道理，在/run/systemd/generator.late/multi-user.target.wants/下面同样也没有链接，也就是说，也没有真正激活。</p>
+<h2 id="service文件实践举例"><a href="#service文件实践举例" class="headerlink" title=".service文件实践举例"></a>.service文件实践举例</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br></pre></td><td class="code"><pre><span class="line">	以ftpd的配置为例</span><br><span class="line">				那么总的来说，ftpd有两种启动方式。通过inetd启动，或者自己启动。</span><br><span class="line">				之前sysv系统的inetd.conf的配置是：</span><br><span class="line">					ftp     stream  tcp     nowait  root    /usr/sbin/ftpd  /usr/sbin/ftpd -w</span><br><span class="line">				ftpd的help是：	</span><br><span class="line">					Usage: ftpd [-wvS] [-t N] [-T N] [DIR]</span><br><span class="line">					Options:</span><br><span class="line"> 					       -w      Allow upload</span><br><span class="line">					        -v      Log to stderr</span><br><span class="line">					        -S      Log to syslog</span><br><span class="line">					        -t,-T   Idle and absolute timeouts</span><br><span class="line">					        DIR     Change root to this directory	</span><br><span class="line">				如果是自己启动：</span><br><span class="line">				tcpsvd -E 0.0.0.0 21 ftpd /home -w		这句话xiao deng验证了下，可以正常使用。</span><br><span class="line">				既然已经有了systemd，就不再在/etc/init.d下面写脚本了。还是用service配置文件的方式。</span><br><span class="line">				参考/run/systemd/generator.late/multi-user.target.wants/telnetd.service</span><br><span class="line">					telnetd.service，调用的是/etc/init.d/telnetd，然后/etc/init.d/telnetd最终还是调用的start-stop-daemon --start --quiet --exec $telnetd</span><br><span class="line"></span><br><span class="line">				办法1：自己新建一个service</span><br><span class="line">					在/lib/systemd/system下面，建一个ftpd.service。然后在/etc/systemd/system/multi-user.target.wants下面，建个软链接指向前者。</span><br><span class="line">					[Unit]</span><br><span class="line">					Before=multi-user.target</span><br><span class="line">					Before=graphical.target</span><br><span class="line">					Before=shutdown.target</span><br><span class="line">					Before=parse-ip.service</span><br><span class="line">					Before=busybox-udhcpd.service</span><br><span class="line">					Before=umountnfs.service</span><br><span class="line">					Before=rng-tools.service</span><br><span class="line">					Before=thttpd.service</span><br><span class="line">					Before=thermal-zone-init.service</span><br><span class="line">					After=alignment.service</span><br><span class="line">					After=rc.pvr.service</span><br><span class="line">					After=uim-sysfs.service</span><br><span class="line">					Conflicts=shutdown.target</span><br><span class="line"></span><br><span class="line">					[Service]</span><br><span class="line">					Type=simple</span><br><span class="line">					PIDFile=/run/ftpd.pid</span><br><span class="line">					Restart=no</span><br><span class="line">					IgnoreSIGPIPE=no</span><br><span class="line">					KillMode=process</span><br><span class="line">					GuessMainPID=no</span><br><span class="line">					RemainAfterExit=yes</span><br><span class="line">					ExecStart=/usr/bin/tcpsvd -E 0.0.0.0 21 ftpd /home -w</span><br><span class="line">					ExecStopPost=/usr/bin/rm -f /run/ftpd.pid</span><br><span class="line"></span><br><span class="line">					[Install]</span><br><span class="line">					WantedBy=multi-user.target</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">					# systemctl enable ftpd.service</span><br><span class="line">					Created symlink from /etc/systemd/system/multi-user.target.wants/ftpd.service to /lib/systemd/system/ftpd.service.</span><br><span class="line"></span><br><span class="line">					root@am335x-evm:/etc/systemd/system/multi-user.target.wants# ls -l</span><br><span class="line">					lrwxrwxrwx    1 root     root            32 Feb 10 20:45 ftpd.service -&gt; /lib/systemd/system/ftpd.service</span><br><span class="line"></span><br><span class="line">					更改文件</span><br><span class="line">					etc/systemd/system/multi-user.target.wants/ftpd.service		这个是软链接</span><br><span class="line">					lib/systemd/system/ftpd.service</span><br><span class="line">					注意不用特意ExecStop。systemd会搞定这个。</span><br><span class="line">						那么如果确实需要特意指定ExecStop，则Killmode需要设为none（没有进程会被杀掉，只是执行服务的ExecStop命令。）</span><br><span class="line"></span><br><span class="line">					但是还有2个问题：</span><br><span class="line">						1.不能stop后再start。且只有starting没有started提示</span><br><span class="line">						2.服务过段时间会退出（inetd启动无此问题）</span><br><span class="line">						单纯的用命令行启动/usr/bin/tcpsvd -E 0.0.0.0 21 ftpd /home -w，看看时间长了会不会退出		9:19~9:29	没问题</span><br><span class="line">						用systemd启动，大概一两分钟后就退出了。</span><br><span class="line">						估计是starting后没有started，被systemd干掉了。</span><br><span class="line">					这2个问题，在把Type=forking改为Type=simple后，就解决了。看来不能用forking（以 fork 方式要求从父进程创建子进程，创建后父进程必须立即退出）。</span><br><span class="line">				</span><br><span class="line">				办法2：激活inetd，然后在inetd里面配置</span><br><span class="line">					发现inetd.busybox.service，位于/run/systemd/generator.late/，却没有在/run/systemd/generator.late/multi-user.target.wants里面建好软链接。</span><br><span class="line">					所以开机未启动。</span><br><span class="line">					不知是什么原因？我原以为所有的/etc/init.d下的脚本，都会自动由systemd转化成Service文件。</span><br><span class="line">					看来是某处有配置，决定哪些/etc/init.d的脚本，是可以转成service，而哪些则又不行。</span><br><span class="line">					如果执行systemctl enable inetd.busybox.service，则重启后，/run/systemd/generator.late/multi-user.target.wants有链接了，inetd也可以启动。</span><br><span class="line">					问题是要找到，怎么就设置要建链接启动了？为什么一开始没建链接？</span><br><span class="line">					先systemctl enable inetd.busybox.service，然后根据systemctl disable inetd.busybox.service出来的信息，得到提示</span><br><span class="line">						inetd.busybox.service is not a native service, redirecting to systemd-sysv-install</span><br><span class="line">						Executing /lib/systemd/systemd-sysv-install disable inetd.busybox</span><br><span class="line">						update-rc.d: /etc/init.d/inetd.busybox exists during rc.d purge (continuing)</span><br><span class="line">						 Removing any system startup links for inetd.busybox ...</span><br><span class="line">						  /etc/rc0.d/K20inetd.busybox</span><br><span class="line">						  /etc/rc1.d/K20inetd.busybox</span><br><span class="line"> 						 /etc/rc2.d/S20inetd.busybox</span><br><span class="line">						  /etc/rc3.d/S20inetd.busybox</span><br><span class="line">						  /etc/rc4.d/S20inetd.busybox</span><br><span class="line"> 						 /etc/rc5.d/S20inetd.busybox</span><br><span class="line">						  /etc/rc6.d/K20inetd.busybox</span><br><span class="line"></span><br><span class="line">					大概明白了。就是说。虽然/etc/init.d里面有，那也要rc3.d和rc5.d里面有，才行。否则就是不激活的。</span><br><span class="line">					但其实，默认的sdk的rootfs，rcx.d里面，是压根没有inetd.busybox的</span><br><span class="line">					root@am335x-evm:/etc/rc3.d# ls -l</span><br><span class="line">					lrwxrwxrwx    1 root     root            20 Feb 12  2017 S01networking -&gt; ../init.d/networking</span><br><span class="line">					lrwxrwxrwx    1 root     root            16 Feb 12  2017 S02dbus-1 -&gt; ../init.d/dbus-1</span><br><span class="line">					lrwxrwxrwx    1 root     root            19 Feb 12  2017 S03uim-sysfs -&gt; ../init.d/uim-sysfs</span><br><span class="line">					lrwxrwxrwx    1 root     root            16 Feb 12  2017 S08rc.pvr -&gt; ../init.d/rc.pvr</span><br><span class="line">					lrwxrwxrwx    1 root     root            18 Feb 12  2017 S10dropbear -&gt; ../init.d/dropbear</span><br><span class="line">					lrwxrwxrwx    1 root     root            17 Feb 12  2017 S10telnetd -&gt; ../init.d/telnetd</span><br><span class="line">					lrwxrwxrwx    1 root     root            17 Feb 12  2017 S12rpcbind -&gt; ../init.d/rpcbind</span><br><span class="line">					lrwxrwxrwx    1 root     root            21 Feb 11  2017 S15mountnfs.sh -&gt; ../init.d/mountnfs.sh</span><br><span class="line">					lrwxrwxrwx    1 root     root            19 Feb 12  2017 S19nfscommon -&gt; ../init.d/nfscommon</span><br><span class="line">					lrwxrwxrwx    1 root     root            24 Feb 12  2017 S20busybox-udhcpd -&gt; ../init.d/busybox-udhcpd</span><br><span class="line">					lrwxrwxrwx    1 root     root            20 Feb 12  2017 S20hwclock.sh -&gt; ../init.d/hwclock.sh</span><br><span class="line">					lrwxrwxrwx    1 root     root            16 Feb 12  2017 S20syslog -&gt; ../init.d/syslog</span><br><span class="line">					lrwxrwxrwx    1 root     root            16 Feb 12  2017 S20thttpd -&gt; ../init.d/thttpd</span><br><span class="line">					lrwxrwxrwx    1 root     root            22 Feb 12  2017 S21avahi-daemon -&gt; ../init.d/avahi-daemon</span><br><span class="line">					lrwxrwxrwx    1 root     root            15 Feb 12  2017 S22ofono -&gt; ../init.d/ofono</span><br><span class="line">					lrwxrwxrwx    1 root     root            19 Feb 12  2017 S30rng-tools -&gt; ../init.d/rng-tools</span><br><span class="line">					lrwxrwxrwx    1 root     root            18 Feb 12  2017 S70lighttpd -&gt; ../init.d/lighttpd</span><br><span class="line">					lrwxrwxrwx    1 root     root            18 Feb 12  2017 S98parse-ip -&gt; ../init.d/parse-ip</span><br><span class="line">					lrwxrwxrwx    1 root     root            27 Feb 12  2017 S98thermal-zone-init -&gt; ../init.d/thermal-zone-init</span><br><span class="line">					lrwxrwxrwx    1 root     root            22 Feb 12  2017 S99gplv3-notice -&gt; ../init.d/gplv3-notice</span><br><span class="line">					lrwxrwxrwx    1 root     root            22 Feb 11  2017 S99rmnologin.sh -&gt; ../init.d/rmnologin.sh</span><br><span class="line">					即使是在sysv的系统下，多半也是不激活的。systemd道理也是一样的。</span><br><span class="line">					rc3也就是init 3，对应multi-user.target.wants。那么既然默认rc3.d里面没有，自然/run/systemd/generator.late/multi-user.target.wants里面也不会有。</span><br><span class="line">					此时，如果执行systemctl enable inetd.busybox.service</span><br><span class="line">						inetd.busybox.service is not a native service, redirecting to systemd-sysv-install</span><br><span class="line">						Executing /lib/systemd/systemd-sysv-install enable inetd.busybox</span><br><span class="line">						 Adding system startup for /etc/init.d/inetd.busybox.</span><br><span class="line">					然后再去看/etc/rcx.d（以rc3.d为例）</span><br><span class="line">						可以看到多出来了个这个东西：</span><br><span class="line">						S20inetd.busybox -&gt; ../init.d/inetd.busybox</span><br><span class="line">					至于为什么这个链接前面有个编号一样的东西，S20inetd.busybox的S20。是这么解释的：</span><br><span class="line">						S代表start，20代表执行的顺序。另外还有K，代表kill。</span><br><span class="line">						就以inetd.busybox为例：</span><br><span class="line">						  /etc/rc0.d/K20inetd.busybox		poweroff.target</span><br><span class="line">						  /etc/rc1.d/K20inetd.busybox		rescue.target</span><br><span class="line"> 						 /etc/rc2.d/S20inetd.busybox			multi-user.target</span><br><span class="line">						  /etc/rc3.d/S20inetd.busybox		multi-user.target</span><br><span class="line">						  /etc/rc4.d/S20inetd.busybox		multi-user.target</span><br><span class="line"> 						 /etc/rc5.d/S20inetd.busybox			graphical.target</span><br><span class="line">						  /etc/rc6.d/K20inetd.busybox		reboot.target</span><br><span class="line">					这么看就清楚了。正常运行都是S，重启，关机等，都是K，也就是要关掉这个服务。</span><br><span class="line"></span><br><span class="line">					所以，要做的就是：</span><br><span class="line">					1.	</span><br><span class="line">						板子上：</span><br><span class="line">						systemctl enable inetd.busybox.service</span><br><span class="line">						虚拟机的rootfs上：</span><br><span class="line">						把刚刚生成的/etc/rcx.d下面的软链接，打包，然后在虚拟机下面展开，即可。以后开机，systemd会自动搜到这种脚本并转换成.service执行。</span><br><span class="line">					2.修改/etc/inetd.conf</span><br><span class="line">						ftp     stream  tcp     nowait  root    /usr/sbin/ftpd  /usr/sbin/ftpd /home -w</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">					此时，试验下。在编译服务器上，输入ftp 10.78.115.103</span><br><span class="line">					Connected to 10.78.115.103.</span><br><span class="line">					220 Operation successful</span><br><span class="line">					Name (10.78.115.103:yandong): root</span><br><span class="line">					331 Please specify password</span><br><span class="line">					Password:</span><br><span class="line">					230 Operation successful</span><br><span class="line">					Remote system type is UNIX.</span><br><span class="line">					Using binary mode to transfer files.</span><br><span class="line">					ftp&gt; </span><br><span class="line">					ftp&gt; ls</span><br><span class="line">					200 Operation successful</span><br><span class="line">					150 Directory listing</span><br><span class="line">					drwx------    2 0        0              232 Feb 10 03:11 root</span><br><span class="line">					226 Operation successful</span><br><span class="line">					ftp&gt; </span><br><span class="line">					然后在板子的/home下touch一个叫111的空文件，然后：</span><br><span class="line">					ftp&gt; get 111 /home/yandong/111</span><br><span class="line">					local: /home/yandong/111 remote: 111</span><br><span class="line">					200 Operation successful</span><br><span class="line">					150 Opening BINARY connection for 111 (0 bytes)</span><br><span class="line">					226 Operation successful</span><br><span class="line">					然后在编译服务器的/home/yandong/下touch一个叫222的空文件，然后：</span><br><span class="line">					ftp&gt; put /home/yandong/222 222</span><br><span class="line">					local: /home/yandong/222 remote: 222</span><br><span class="line">					200 Operation successful</span><br><span class="line">					150 Ok to send data</span><br><span class="line">					226 Operation successful</span><br><span class="line">					这样就完成了</span><br><span class="line"></span><br><span class="line">					同理，如果要涉及tftpd的配置</span><br><span class="line">						inetd.conf里面加入</span><br><span class="line">						69 dgram udp nowait root tftpd tftpd -c -l /home</span><br><span class="line">						tftp -g -r xxx ip	下载</span><br><span class="line">						tftp -p -l xxx ip	上传</span><br><span class="line">						可以了</span><br><span class="line"></span><br><span class="line">	rootfs增加针对application的service，然后去调用/home/startup。	</span><br><span class="line">		1.新建/lib/systemd/system/application.service</span><br><span class="line">[Unit]</span><br><span class="line">Before=multi-user.target</span><br><span class="line">Before=graphical.target</span><br><span class="line">Before=shutdown.target</span><br><span class="line">After=rc.pvr.service</span><br><span class="line">After=telnetd.service</span><br><span class="line">After=inetd.busybox.service</span><br><span class="line">After=network.target</span><br><span class="line">Conflicts=shutdown.target</span><br><span class="line"></span><br><span class="line">[Service]</span><br><span class="line">Type=oneshot</span><br><span class="line">PIDFile=/run/application.pid</span><br><span class="line">Restart=no</span><br><span class="line">IgnoreSIGPIPE=no</span><br><span class="line">KillMode=control-group</span><br><span class="line">GuessMainPID=no</span><br><span class="line">RemainAfterExit=yes</span><br><span class="line">ExecStart=/home/startup</span><br><span class="line">ExecStopPost=/usr/bin/rm -f /run/application.pid</span><br><span class="line"></span><br><span class="line">[Install]</span><br><span class="line">WantedBy=multi-user.target</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">		2.新建链接/etc/systemd/system/multi-user.target.wants/application.service</span><br><span class="line"></span><br><span class="line">		3.新建/home/startup</span><br></pre></td></tr></table></figure>
+<h2 id="mount文件实践举例："><a href="#mount文件实践举例：" class="headerlink" title=".mount文件实践举例："></a>.mount文件实践举例：</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">以/lib/systemd/system/tmp.mount为例	</span><br><span class="line">#  This file is part of systemd.</span><br><span class="line">#</span><br><span class="line">#  systemd is free software; you can redistribute it and/or modify it</span><br><span class="line">#  under the terms of the GNU Lesser General Public License as published by</span><br><span class="line">#  the Free Software Foundation; either version 2.1 of the License, or</span><br><span class="line">#  (at your option) any later version.</span><br><span class="line"></span><br><span class="line">[Unit]</span><br><span class="line">Description=Temporary Directory</span><br><span class="line">Documentation=man:hier(7)</span><br><span class="line">Documentation=http://www.freedesktop.org/wiki/Software/systemd/APIFileSystems</span><br><span class="line">ConditionPathIsSymbolicLink=!/tmp</span><br><span class="line">DefaultDependencies=no</span><br><span class="line">Conflicts=umount.target</span><br><span class="line">Before=local-fs.target umount.target</span><br><span class="line"></span><br><span class="line">[Mount]</span><br><span class="line">What=tmpfs</span><br><span class="line">Where=/tmp</span><br><span class="line">Type=tmpfs</span><br><span class="line">Options=mode=1777,strictatime</span><br></pre></td></tr></table></figure>
+<h2 id="timer文件实践举例："><a href="#timer文件实践举例：" class="headerlink" title=".timer文件实践举例："></a>.timer文件实践举例：</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">以/lib/systemd/system/systemd-tmpfiles-clean.timer为例，这个文件和/lib/systemd/system/systemd-tmpfiles-clean.service相配合</span><br><span class="line">[Unit]</span><br><span class="line">Description=Daily Cleanup of Temporary Directories</span><br><span class="line">Documentation=man:tmpfiles.d(5) man:systemd-tmpfiles(8)</span><br><span class="line"></span><br><span class="line">[Timer]</span><br><span class="line">OnBootSec=15min</span><br><span class="line">OnUnitActiveSec=1d</span><br></pre></td></tr></table></figure>
+<h2 id="socket文件实践举例："><a href="#socket文件实践举例：" class="headerlink" title=".socket文件实践举例："></a>.socket文件实践举例：</h2><p>待补充</p>
+<h2 id="path文件实践举例："><a href="#path文件实践举例：" class="headerlink" title=".path文件实践举例："></a>.path文件实践举例：</h2><p>待补充</p>
+<h2 id="systemd下的网络配置方法："><a href="#systemd下的网络配置方法：" class="headerlink" title="systemd下的网络配置方法："></a>systemd下的网络配置方法：</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">参见同目录下的systemd-networkd.pdf</span><br><span class="line">			在/etc/systemd/network/10-eth.network里面，</span><br><span class="line">			[Match]</span><br><span class="line">			Name=eth*		这里意思是eth0或者eth1等通用。如果要特别针对eth0，此处就写eth0。</span><br><span class="line">			KernelCommandLine=!root=/dev/nfs</span><br><span class="line"></span><br><span class="line">			[Network]</span><br><span class="line">			DHCP=yes		如果不想用dhcp，[Network]可以这么写：</span><br><span class="line"></span><br><span class="line">			[Network]</span><br><span class="line">			Address=10.1.10.9/24	（这里的24，意思是，xxx.xxx.xxx.xxx这些ip地址，按照二进制来说，8位一格，一共32位。前24位都被mask的意思。是掩码的意思）</span><br><span class="line">			Gateway=10.1.10.1</span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/08/11/mdev/" rel="next" title="mdev">
+                <i class="fa fa-chevron-left"></i> mdev
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/08/11/浅析-Linux-初始化-init-系统，第-1-部分-sysvinit/" rel="prev" title="浅析 Linux 初始化 init 系统，第 1 部分 sysvinit">
+                浅析 Linux 初始化 init 系统，第 1 部分 sysvinit <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Semiyd</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives">
+                
+                    <span class="site-state-item-count">166</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">80</span>
+                    <span class="site-state-item-name">categories</span>
+                  </a>
+                </div>
+              
+
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#查看服务启动耗时："><span class="nav-number">1.</span> <span class="nav-text">查看服务启动耗时：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#查看unit相关的信息："><span class="nav-number">2.</span> <span class="nav-text">查看unit相关的信息：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#查看状态"><span class="nav-number">3.</span> <span class="nav-text">查看状态</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#启动服务"><span class="nav-number">4.</span> <span class="nav-text">启动服务</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#依赖关系"><span class="nav-number">5.</span> <span class="nav-text">依赖关系</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#启动的unit的配置位置："><span class="nav-number">6.</span> <span class="nav-text">启动的unit的配置位置：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#查看所有unit的配置文件"><span class="nav-number">7.</span> <span class="nav-text">查看所有unit的配置文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置文件具体的写法："><span class="nav-number">8.</span> <span class="nav-text">配置文件具体的写法：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Target的概念"><span class="nav-number">9.</span> <span class="nav-text">Target的概念</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#日志管理"><span class="nav-number">10.</span> <span class="nav-text">日志管理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#停止服务："><span class="nav-number">11.</span> <span class="nav-text">停止服务：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#启动挂载点和自动挂载的管理"><span class="nav-number">12.</span> <span class="nav-text">启动挂载点和自动挂载的管理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#兼容过去的sysv启动脚本"><span class="nav-number">13.</span> <span class="nav-text">兼容过去的sysv启动脚本</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#service文件实践举例"><span class="nav-number">14.</span> <span class="nav-text">.service文件实践举例</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#mount文件实践举例："><span class="nav-number">15.</span> <span class="nav-text">.mount文件实践举例：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#timer文件实践举例："><span class="nav-number">16.</span> <span class="nav-text">.timer文件实践举例：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#socket文件实践举例："><span class="nav-number">17.</span> <span class="nav-text">.socket文件实践举例：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#path文件实践举例："><span class="nav-number">18.</span> <span class="nav-text">.path文件实践举例：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#systemd下的网络配置方法："><span class="nav-number">19.</span> <span class="nav-text">systemd下的网络配置方法：</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Semiyd</span>
+
+  
+
+  
+</div>
+
+
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> v3.7.1</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://theme-next.org">NexT.Muse</a> v6.3.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+	
+    
+
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.3.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.3.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.3.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.3.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.3.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
