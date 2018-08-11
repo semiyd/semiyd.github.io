@@ -1,0 +1,942 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.3.0" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.3.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.3.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.3.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.3.0" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '6.3.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="telnet deploy">
+<meta property="og:type" content="article">
+<meta property="og:title" content="telnet deploy">
+<meta property="og:url" content="http://yoursite.com/2018/08/11/telnet-deploy/index.html">
+<meta property="og:site_name" content="Semiyd&#39;s Blog">
+<meta property="og:description" content="telnet deploy">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2018-08-11T02:36:25.596Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="telnet deploy">
+<meta name="twitter:description" content="telnet deploy">
+
+
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/08/11/telnet-deploy/"/>
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>telnet deploy | Semiyd's Blog</title>
+  
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Semiyd's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br />Home</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+    <a href="/categories/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-th"></i> <br />Categories</a>
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/11/telnet-deploy/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Semiyd">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Semiyd's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">telnet deploy
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2018-08-11 10:34:35 / Modified: 10:36:25" itemprop="dateCreated datePublished" datetime="2018-08-11T10:34:35+08:00">2018-08-11</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Linux/" itemprop="url" rel="index"><span itemprop="name">Linux</span></a></span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Linux/Rootfs/" itemprop="url" rel="index"><span itemprop="name">Rootfs</span></a></span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Linux/Rootfs/Utilities-Compile-and-Config/" itemprop="url" rel="index"><span itemprop="name">Utilities Compile and Config</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><center><strong>telnet deploy</strong></center><br><a id="more"></a></p>
+<h2 id="文件系统加入telnet服务"><a href="#文件系统加入telnet服务" class="headerlink" title="文件系统加入telnet服务        "></a>文件系统加入telnet服务        </h2><p><a href="http://blog.chinaunix.net/uid-9255716-id-107976.html" target="_blank" rel="noopener">http://blog.chinaunix.net/uid-9255716-id-107976.html</a>    busybox里面已经集成了，先参考这篇文章。<br>步骤<br>tar xvfj busybox-1.20.0_for_TQ3358_V1.0.tar.bz2 -C /<br>cp -f config_TQ335x_V1.0 .config<br>make menuconfig    在Networking Utilities里面找到telnet和telnetd。发现已经勾上了<br>make<br>make install<br>所以再到rootfs里面看，发现有telnetd了。<br>然后修改开发板的/etc/init.d/rcS</p>
+<pre><code>#!/bin/sh
+PATH=/sbin:/bin:/usr/sbin:/usr/bin
+runlevel=S
+prevlevel=N
+umask 022
+export PATH runlevel prevlevel
+mount -a
+mkdir /dev/pts            注意加入这行
+/bin/mknod /dev/pts/0 c 136 0    注意加入这行
+/bin/mknod /dev/pts/1 c 136 1    注意加入这行
+/bin/mknod /dev/pts/2 c 136 2    注意加入这行
+/bin/mknod /dev/pts/3 c 136 3    注意加入这行
+/bin/mknod /dev/pts/4 c 136 4    注意加入这行
+/bin/mknod /dev/pts/5 c 136 5    注意加入这行
+/bin/mount -t devpts devpts /dev/pts    注意加入这行
+echo /sbin/mdev&gt;/proc/sys/kernel/hotplug
+mdev -s
+/bin/hostname -F /etc/sysconfig/HOSTNAME
+/sbin/ifconfig lo 127.0.0.1
+/sbin/ifconfig eth0 192.168.1.168
+/sbin/route add default gw 192.168.1.1
+/etc/init.d/ts.sh
+/usr/sbin/telnetd            注意加入这行
+</code></pre><p><a href="http://blog.csdn.net/xautfengzi/article/details/6250133" target="_blank" rel="noopener">http://blog.csdn.net/xautfengzi/article/details/6250133</a><br><a href="http://blog.sina.com.cn/s/blog_40aad2950100h1zl.html" target="_blank" rel="noopener">http://blog.sina.com.cn/s/blog_40aad2950100h1zl.html</a></p>
+<p>这样重启，板子就有telnet服务了。此时在虚拟机里面输入：<br>telnet 192.168.1.6<br>显示：<br>Trying 192.168.1.6…<br>Connected to 192.168.1.6.<br>Escape character is ‘^]’.</p>
+<p>EmbedSky login:<br>输入root，回车，就登录进去了。<br>然后要退出的话，按ctrl+D即可。</p>
+<h2 id="telnet登录"><a href="#telnet登录" class="headerlink" title="telnet登录    "></a>telnet登录    </h2><p>发现没有/usr/sbin/telnetd<br>修改：<br>~/NUC977/nuc970bsp-release-20151111/BSP/busybox-1.22.1<br>make install<br>客户端有这个错：<br>Trying 159.99.164.44…<br>Connected to 159.99.164.44.<br>Escape character is ‘^]’.<br>Connection closed by foreign host.</p>
+<p>参考<a href="http://blog.csdn.net/zxh821112/article/details/8593650" target="_blank" rel="noopener">http://blog.csdn.net/zxh821112/article/details/8593650</a></p>
+<p>telnetd -F跑前台，看看出什么错：<br>    telnetd: can’t find free pty                    </p>
+<p>busybox选项：<br>CONFIG_FEATURE_DEVPTS=y<br>CONFIG_TELNETD=y<br>FEATURE_SUID<br>内核选项：<br>CONFIG_UNIX98_PTYS=y<br>CONFIG_DEVPTS_MULTIPLE_INSTANCES=y</p>
+<p>没用，虽然telnetd: can’t find free pty这个错消失了，但是还是Connection closed by foreign host.<br>偶然发现，busybox的menuconfig的telnetd选项的Help里面，有大段的下面的帮助文档：</p>
+<p>Note that for busybox telnetd to work you need several things:                                                                                                                        \<br>  \  First of all, your kernel needs:                                                                                                                                                      \<br>  \          UNIX98_PTYS=y                                                                                                                                                                 \<br>  \          DEVPTS_FS=y                                                                                                                                                                   \<br>  \                                                                                                                                                                                        \<br>  \  Next, you need a /dev/pts directory on your root filesystem:                                                                                                                          \<br>  \                                                                                                                                                                                        \<br>  \          $ ls -ld /dev/pts                                                                                                                                                             \<br>  \          drwxr-xr-x  2 root root 0 Sep 23 13:21 /dev/pts/                                                                                                                              \<br>  \                                                                                                                                                                                        \<br>  \  Next you need the pseudo terminal master multiplexer /dev/ptmx:                                                                                                                       \<br>  \                                                                                                                                                                                        \<br>  \          $ ls -la /dev/ptmx                                                                                                                                                            \<br>  \          crw-rw-rw-  1 root tty 5, 2 Sep 23 13:55 /dev/ptmx                                                                                                                            \<br>  \                                                                                                                                                                                        \<br>  \  Any /dev/ttyp[0-9]* files you may have can be removed.                                                                                                                                \<br>  \  Next, you need to mount the devpts filesystem on /dev/pts using:                                                                                                                      \<br>  \                                                                                                                                                                                        \<br>  \          mount -t devpts devpts /dev/pts                                                                                                                                               \<br>  \                                                                                                                                                                                        \<br>  \  You need to be sure that busybox has LOGIN and                                                                                                                                        \<br>  \  FEATURE_SUID enabled. And finally, you should make                                                                                                                                    \<br>  \  certain that Busybox has been installed setuid root:                                                                                                                                  \<br>  \                                                                                                                                                                                        \<br>  \        chown root.root /bin/busybox                                                                                                                                                    \<br>  \        chmod 4755 /bin/busybox                                                                                                                                                         \<br>  \                                                                                                                                                                                        \<br>  \  with all that done, telnetd <em>should</em> work….                                                                                                                                         \<br>  \  </p>
+<p>接着改：<br>busybox选项：<br>FEATURE_SUID=y<br>LOGIN=y<br>这次可以了，但无法login成功。<br>telnet 159.99.164.44<br>Trying 159.99.164.44…<br>Connected to 159.99.164.44.<br>Escape character is ‘^]’.</p>
+<p>(none) login: root<br>Password:<br>Login incorrect<br>        busybox选项：<br>        WHOAMI=y<br>        PASSWD=y<br>        然后用passwd设置了一个root密码后，可以用telnet登录root了。<br>        能否像iq8那样，不用密码登录root？<br>            用passwd设置空密码，telnet才可以root无密码登录的<br>            这种情况下，/etc/passwd会发生改变<br>            把修改过密码为空的这个文件，拷入编译服务器的rootfs里面。<br>            这样就可以不用密码telnet登录root了。</p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/08/11/tcpdump-cross-compile/" rel="next" title="tcpdump cross-compile">
+                <i class="fa fa-chevron-left"></i> tcpdump cross-compile
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/08/11/tslib-cross-compile/" rel="prev" title="tslib cross-compile">
+                tslib cross-compile <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Semiyd</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives">
+                
+                    <span class="site-state-item-count">178</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">80</span>
+                    <span class="site-state-item-name">categories</span>
+                  </a>
+                </div>
+              
+
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#文件系统加入telnet服务"><span class="nav-number">1.</span> <span class="nav-text">文件系统加入telnet服务        </span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#telnet登录"><span class="nav-number">2.</span> <span class="nav-text">telnet登录    </span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Semiyd</span>
+
+  
+
+  
+</div>
+
+
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> v3.7.1</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://theme-next.org">NexT.Muse</a> v6.3.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+	
+    
+
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.3.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.3.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.3.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.3.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.3.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

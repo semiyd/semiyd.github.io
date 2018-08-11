@@ -1,0 +1,920 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.3.0" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.3.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.3.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.3.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.3.0" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '6.3.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="Python 2.7 and Pyzmq cross-compile">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Python 2.7 and Pyzmq cross-compile">
+<meta property="og:url" content="http://yoursite.com/2018/08/11/Python-2-7-and-Pyzmq-cross-compile/index.html">
+<meta property="og:site_name" content="Semiyd&#39;s Blog">
+<meta property="og:description" content="Python 2.7 and Pyzmq cross-compile">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2018-08-11T02:16:30.153Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Python 2.7 and Pyzmq cross-compile">
+<meta name="twitter:description" content="Python 2.7 and Pyzmq cross-compile">
+
+
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/08/11/Python-2-7-and-Pyzmq-cross-compile/"/>
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>Python 2.7 and Pyzmq cross-compile | Semiyd's Blog</title>
+  
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Semiyd's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br />Home</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+    <a href="/categories/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-th"></i> <br />Categories</a>
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/11/Python-2-7-and-Pyzmq-cross-compile/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Semiyd">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Semiyd's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Python 2.7 and Pyzmq cross-compile
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2018-08-11 10:13:56 / Modified: 10:16:30" itemprop="dateCreated datePublished" datetime="2018-08-11T10:13:56+08:00">2018-08-11</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Linux/" itemprop="url" rel="index"><span itemprop="name">Linux</span></a></span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Linux/Rootfs/" itemprop="url" rel="index"><span itemprop="name">Rootfs</span></a></span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Linux/Rootfs/Utilities-Compile-and-Config/" itemprop="url" rel="index"><span itemprop="name">Utilities Compile and Config</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><center><strong>Python 2.7 and Pyzmq cross-compile</strong></center><br><a id="more"></a></p>
+<h2 id="Python-2-7"><a href="#Python-2-7" class="headerlink" title="Python 2.7"></a>Python 2.7</h2><p>tar -xf Python-2.7.13.tar.xz<br>tar zxvf Python-2.7.13-xcompile.patch.tar.gz<br>mkdir python2_7_13_for_x86_64<br>mkdir python2_7_13_for_arm<br>mv Python-2.7.13-xcompile.patch python2_7_13_for_arm/</p>
+<p>cd python2_7_13_for_x86_64<br>../Python-2.7.13/configure –prefix=<code>pwd</code><br>make -j8<br>make install</p>
+<p>cd ../Python-2.7.13/<br>patch -p1 &lt; ../python2_7_13_for_arm/Python-2.7.13-xcompile.patch<br>cd ../python2_7_13_for_arm<br>mkdir result<br>修改/Python-2.7.13/setup.py，找到下面这两行，注掉：<br>3 # If a module has already been built statically,<br>4# don’t build it here<br>5-  ifext.name insys.builtin_module_names:<br>6-    self.extensions.remove(ext)<br>7+  #ifext.name in sys.builtin_module_names:<br>8+    # self.extensions.remove(ext)<br>然后继续：</p>
+<p>../Python-2.7.13/configure –host=arm-none-linux-gnueabi –build=i586-linux-gnu –enable-ipv6 –enable-shared ac_cv_file__dev_ptmx=”yes” ac_cv_file__dev_ptc=”no”</p>
+<p>make HOSTPYTHON=../python2_7_13_for_x86_64/python HOSTPGEN=../python2_7_13_for_x86_64/Parser/pgen BLDSHARED=”arm-none-linux-gnueabi-gcc -shared” CROSS_COMPILE=arm-none-linux-gnueabi- CROSS_COMPILE_TARGET=yes HOSTARCH=arm-none-linux-gnueabi BUILDARCH=i586-linux-gnu -j8</p>
+<p>make install HOSTPYTHON=../python2_7_13_for_x86_64/python BLDSHARED=”arm-none-linux-gnueabi-gcc -shared” CROSS_COMPILE=arm-none-linux-gnueabi- CROSS_COMPILE_TARGET=yes DESTDIR=$PWD/result/</p>
+<p>把python2_7_13_for_arm/result里面的东西下载到板子上以后，测试一下：<br>[root@Honeywell ~]# python<br>Python 2.7.13 (default, Jan 23 2018, 11:09:37)<br>[GCC 4.9.1] on linux2<br>Type “help”, “copyright”, “credits” or “license” for more information.<br>>&gt;&gt; for i in range(100): print “hello world”<br>…<br>hello world<br>hello world<br>hello world<br>hello world<br>hello world<br>hello world<br>hello world<br>hello world<br>hello world<br>hello world<br>hello world</p>
+<h2 id="pyzmq"><a href="#pyzmq" class="headerlink" title="pyzmq"></a>pyzmq</h2><p>从<a href="https://github.com/zeromq/pyzmq下载pyzmq-master.zip" target="_blank" rel="noopener">https://github.com/zeromq/pyzmq下载pyzmq-master.zip</a></p>
+<p>am335x板子上安装：<br>apt-get install cython<br>export PATH=/home/mgc/embedded/codebench/bin:/usr/local/sbin:/usr/local/bin:/usr/bin:/bin:/usr/lib/jvm/java-8-oracle/bin:/usr/lib/jvm/java-8-oracle/db/bin:/usr/lib/jvm/java-8-oracle/jre/bin<br>export MGLS_LICENSE_FILE=/home/mgc/license.lic<br>export CC=”arm-linux-gcc”<br>export LDSHARED=”arm-linux-gcc -shared”<br>临时把/home/share/libzmq/arm-linux-4.9.1/lib/下面的动态库拷入/home/share/python/2.7.13/Board/arm-none-linux-gnueabi-4.9.1/usr/local/lib/（因为后续会硬是找不到-lzmq的）<br>创建setup.cfg，内容如下：<br>[global]<br>zmq_prefix = /home/share/libzmq/arm-linux-4.9.1/<br>have_sys_un_h = False</p>
+<p>[build_ext]<br>libraries = python2.7<br>library_dirs = /home/share/python/2.7.13/Board/arm-none-linux-gnueabi-4.9.1/usr/local/lib<br>include_dirs = /home/share/python/2.7.13/Board/arm-none-linux-gnueabi-4.9.1/usr/local/include/python2.7</p>
+<p>[bdist_egg]<br>plat-name = linux-armv<br>执行：<br>python2.7 setup.py build –zmq=/home/share/libzmq/arm-linux-4.9.1/<br>/home/share/python/pyzmq/pyzmq-master/build/lib.linux-i686-2.7/里面的zmq/文件夹，拷入/home/share/python/2.7.13/Board/arm-none-linux-gnueabi-4.9.1/usr/local/lib/python2.7/<br>测试方法：<br>[root@Honeywell ~]# python2.7<br>Python 2.7.13 (default, Jan 25 2018, 09:33:56)<br>[GCC 4.9.1] on linux2<br>Type “help”, “copyright”, “credits” or “license” for more information.<br>>&gt;&gt; import zmq<br>>&gt;&gt; print(“libzmq version is %s” % zmq.zmq_version())<br>libzmq version is 4.2.2<br>>&gt;&gt; print(“pyzmq version is %s” % zmq.__version__)<br>pyzmq version is 17.0.0</p>
+<p>不能执行这句，python2.7 setup.py install，因为会被安装到默认路径/usr/local/lib/python2.7/下面，编译服务器无写的权限。<br>running install_lib<br>creating /usr/local/lib/python2.7/dist-packages/zmq<br>error: could not create ‘/usr/local/lib/python2.7/dist-packages/zmq’: Permission denied</p>
+<p>x86 服务器上安装：<br>apt-get install libzmq3-dev<br>apt-get install python-zmq<br>xxx@CH4WDT22X8DB2:~$ python2.7<br>Python 2.7.9 (default, Aug 13 2016, 16:41:35)<br>[GCC 4.9.2] on linux2<br>Type “help”, “copyright”, “credits” or “license” for more information.<br>>&gt;&gt; import zmq<br>>&gt;&gt; print(“libzmq version is %s” % zmq.zmq_version())<br>libzmq version is 4.0.5<br>>&gt;&gt; print(“pyzmq version is %s” % zmq.<strong>version</strong>)<br>pyzmq version is 14.4.0<br>>&gt;&gt;  </p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/08/11/perl-5-26-1-cross-compile/" rel="next" title="perl-5.26.1 cross-compile">
+                <i class="fa fa-chevron-left"></i> perl-5.26.1 cross-compile
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/08/11/sqlite-cross-compile/" rel="prev" title="sqlite cross-compile">
+                sqlite cross-compile <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Semiyd</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives">
+                
+                    <span class="site-state-item-count">178</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">80</span>
+                    <span class="site-state-item-name">categories</span>
+                  </a>
+                </div>
+              
+
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Python-2-7"><span class="nav-number">1.</span> <span class="nav-text">Python 2.7</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#pyzmq"><span class="nav-number">2.</span> <span class="nav-text">pyzmq</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Semiyd</span>
+
+  
+
+  
+</div>
+
+
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> v3.7.1</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://theme-next.org">NexT.Muse</a> v6.3.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+	
+    
+
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.3.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.3.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.3.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.3.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.3.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

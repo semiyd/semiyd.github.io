@@ -1,0 +1,929 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.3.0" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.3.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.3.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.3.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.3.0" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '6.3.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="mpc and mpd cross-compile">
+<meta property="og:type" content="article">
+<meta property="og:title" content="mpc and mpd cross-compile">
+<meta property="og:url" content="http://yoursite.com/2018/08/11/mpc-and-mpd-cross-compile/index.html">
+<meta property="og:site_name" content="Semiyd&#39;s Blog">
+<meta property="og:description" content="mpc and mpd cross-compile">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2018-08-11T02:10:07.514Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="mpc and mpd cross-compile">
+<meta name="twitter:description" content="mpc and mpd cross-compile">
+
+
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/08/11/mpc-and-mpd-cross-compile/"/>
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>mpc and mpd cross-compile | Semiyd's Blog</title>
+  
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Semiyd's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br />Home</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+    <a href="/categories/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-th"></i> <br />Categories</a>
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/11/mpc-and-mpd-cross-compile/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Semiyd">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Semiyd's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">mpc and mpd cross-compile
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2018-08-11 10:06:34 / Modified: 10:10:07" itemprop="dateCreated datePublished" datetime="2018-08-11T10:06:34+08:00">2018-08-11</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Linux/" itemprop="url" rel="index"><span itemprop="name">Linux</span></a></span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Linux/Rootfs/" itemprop="url" rel="index"><span itemprop="name">Rootfs</span></a></span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Linux/Rootfs/Utilities-Compile-and-Config/" itemprop="url" rel="index"><span itemprop="name">Utilities Compile and Config</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><center><strong>mpc and mpd cross-compile</strong></center><br><a id="more"></a></p>
+<h2 id="mpd"><a href="#mpd" class="headerlink" title="mpd"></a>mpd</h2><p>mpd-0.19.21:</p>
+<p>CC=arm-linux-gcc ./configure –host=arm-linux –with-boost=/home/share/boost/1.59/Board/arm-none-linux-gnueabi-4.9.1-armv7/ GLIB_CFLAGS=”-I/home/xxx/NDC/06.00.00.00/arm-none-linux-gnueabi-4.9.1/mpc/glib/glib-glib-2-46/install/arm/include/glib-2.0 -I/home/xxx/NDC/06.00.00.00/arm-none-linux-gnueabi-4.9.1/mpc/glib/glib-glib-2-46/install/arm/lib/glib-2.0/include -I/home/share/zlib/1.2.11/Board/arm-none-linux-gnueabi-4.9.1/include -I/home/xxx/NDC/06.00.00.00/arm-none-linux-gnueabi-4.9.1/alsa/build/usr/include/“ GLIB_LIBS=”-lglib-2.0 -L/home/xxx/NDC/06.00.00.00/arm-none-linux-gnueabi-4.9.1/mpc/glib/glib-glib-2-46/install/arm/lib” ZLIB_CFLAGS=”-I/home/share/zlib/1.2.11/Board/arm-none-linux-gnueabi-4.9.1/include” ZLIB_LIBS=”-lz -L/home/share/zlib/1.2.11/Board/arm-none-linux-gnueabi-4.9.1/lib” –disable-expat –disable-icu –enable-alsa ALSA_CFLAGS=-I/home/xxx/NDC/06.00.00.00/arm-none-linux-gnueabi-4.9.1/alsa/build/usr/include/ ALSA_LIBS=”-lasound -L/home/xxx/NDC/06.00.00.00/arm-none-linux-gnueabi-4.9.1/alsa/build/usr/lib/“</p>
+<p>make<br>make install DESTDIR=$PWD/../mpc_build</p>
+<p>新建一个/etc/mpd.conf：<br>music_directory  “/usr/share/sounds/alsa”<br>playlist_directory  “/root/.mpd/playlists”<br>db_file  “/root/.mpd/database”<br>log_file  “/root/mpdlog”<br>pid_file  “/root/.mpd/pid”<br>state_file  “/root/.mpd/state”<br>sticker_file  “/root/.mpd/sticker.sql”</p>
+<p>user  “root”<br>group  “root”<br>bind_to_address “/run/mpd/socket”</p>
+<p>log_level  “verbose”<br>auto_update  “yes”<br>auto_update_depth “3”</p>
+<p>audio_output {<br>        type    “alsa”<br>        name    “AM335X PT8211-SoundCard-NO: 0”<br>        mixer_type      “software”      # optional<br>}</p>
+<p>然后在/root/下建.mpd文件夹和.mpd/playlists文件夹<br>并touch出上面mpd.conf所提到的几个文件</p>
+<p>On the target board:<br>cd /<br>mkdir .mpd<br>cd .mpd<br>mkdir playlists<br>mpd /etc/mpd.conf</p>
+<p>mpc update倒是可以扫描到一个mp3文件，wav文件扫不到。<br>mpc lsplaylist可以看到刚刚扫到的一个mp3文件。</p>
+<h2 id="编译libmpdclient-2-9"><a href="#编译libmpdclient-2-9" class="headerlink" title="编译libmpdclient-2.9"></a>编译libmpdclient-2.9</h2><p>CC=arm-linux-gcc ./configure –host=arm-linux<br>make<br>make install DESTDIR=/home/xxx/NDC/06.00.00.00/arm-none-linux-gnueabi-4.9.1/mpc/mpc_build</p>
+<h2 id="编译mpc-0-28"><a href="#编译mpc-0-28" class="headerlink" title="编译mpc-0.28"></a>编译mpc-0.28</h2><p>CC=arm-linux-gcc ./configure –host=arm-linux LIBMPDCLIENT_CFLAGS=-I/home/xxx/NDC/06.00.00.00/arm-none-linux-gnueabi-4.9.1/mpc/mpc_build/usr/local/include LIBMPDCLIENT_LIBS=-L/home/xxx/NDC/06.00.00.00/arm-none-linux-gnueabi-4.9.1/mpc/mpc_build/usr/local/lib<br>修改在makefile里面，找到LIBS，替换成：<br>LIBS = -lmpdclient<br>make<br>make install DESTDIR=/home/xxx/NDC/06.00.00.00/arm-none-linux-gnueabi-4.9.1/mpc/mpc_build</p>
+<p>编译mpd-0.19.21<br>CC=arm-linux-gcc ./configure –host=arm-linux –with-boost=/home/share/boost/1.59/Board/arm-none-linux-gnueabi-4.9.1-armv7/ ICU_CFLAGS=/home/xxx/NDC/06.00.00.00/arm-none-linux-gnueabi-4.9.1/mpc/icu/build_icu_arm/icu_build/include ICU_LIBS=/home/xxx/NDC/06.00.00.00/arm-none-linux-gnueabi-4.9.1/mpc/icu/build_icu_arm/icu_build/lib</p>
+<h2 id="踏坑日志"><a href="#踏坑日志" class="headerlink" title="踏坑日志"></a>踏坑日志</h2><p>一开始的配置参数是：<br>CC=arm-linux-gcc ./configure –host=arm-linux LIBMPDCLIENT_CFLAGS=/home/xxx/NDC/06.00.00.00/arm-none-linux-gnueabi-4.9.1/mpc/mpc_build/usr/local/include LIBMPDCLIENT_LIBS=/home/xxx/NDC/06.00.00.00/arm-none-linux-gnueabi-4.9.1/mpc/mpc_build/usr/local/lib</p>
+<p>但很明显有问题，make一上来就错：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">make</span><br><span class="line">make  all-am</span><br><span class="line">make[1]: Entering directory &apos;/home/xxx/NDC/06.00.00.00/arm-none-linux-gnueabi-4.9.1/mpc/mpc-0.28&apos;</span><br><span class="line">arm-linux-gcc -std=gnu99 -DHAVE_CONFIG_H -I.  -DNDEBUG  /home/xxx/NDC/06.00.00.00/arm-none-linux-gnueabi-4.9.1/mpc/mpc_build/usr/local/include   -g -O2 -Wall -Wextra -Wno-deprecated-declarations -Wmissing-prototypes -Wshadow -Wpointer-arith -Wstrict-prototypes -Wcast-qual -Wwrite-strings -ffunction-sections -fdata-sections -fvisibility=hidden -MT src/src_mpc-main.o -MD -MP -MF src/.deps/src_mpc-main.Tpo -c -o src/src_mpc-main.o `test -f &apos;src/main.c&apos; || echo &apos;./&apos;`src/main.c</span><br><span class="line">In file included from src/main.c:24:0:</span><br><span class="line">src/util.h:24:24: fatal error: mpd/client.h: No such file or directory</span><br><span class="line"> #include &lt;mpd/client.h&gt;</span><br><span class="line">                        ^</span><br><span class="line">compilation terminated.</span><br><span class="line">Makefile:567: recipe for target &apos;src/src_mpc-main.o&apos; failed</span><br><span class="line">make[1]: *** [src/src_mpc-main.o] Error 1</span><br><span class="line">make[1]: Leaving directory &apos;/home/xxx/NDC/06.00.00.00/arm-none-linux-gnueabi-4.9.1/mpc/mpc-0.28&apos;</span><br><span class="line">Makefile:340: recipe for target &apos;all&apos; failed</span><br><span class="line">make: *** [all] Error 2</span><br></pre></td></tr></table></figure></p>
+<p>可以看到，/home/xxx/NDC/06.00.00.00/arm-none-linux-gnueabi-4.9.1/mpc/mpc_build/usr/local/include居然直接出现在arm-linux-gcc的参数中。<br>其实，正确的做法应该是-I/home/xxx/NDC/06.00.00.00/arm-none-linux-gnueabi-4.9.1/mpc/mpc_build/usr/local/include，因为类似这种头文件路径，属于CFLAGS类中的-I来制定的。</p>
+<p>所以正确的做法应该是：<br>CC=arm-linux-gcc ./configure –host=arm-linux LIBMPDCLIENT_CFLAGS=-I/home/xxx/NDC/06.00.00.00/arm-none-linux-gnueabi-4.9.1/mpc/mpc_build/usr/local/include LIBMPDCLIENT_LIBS=-L/home/xxx/NDC/06.00.00.00/arm-none-linux-gnueabi-4.9.1/mpc/mpc_build/usr/local/lib</p>
+<p>如果遇到链接的时候：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">arm-linux-gcc -std=gnu99  -g -O2 -Wall -Wextra -Wno-deprecated-declarations -Wmissing-prototypes -Wshadow -Wpointer-arith -Wstrict-prototypes -Wcast-qual -Wwrite-strings -ffunction-sections -fdata-sections -fvisibility=hidden  -Wl,--gc-sections -o src/mpc src/src_mpc-main.o src/src_mpc-list.o src/src_mpc-password.o src/src_mpc-status.o src/src_mpc-args.o src/src_mpc-format.o src/src_mpc-song_format.o src/src_mpc-util.o src/src_mpc-command.o src/src_mpc-queue.o src/src_mpc-sticker.o src/src_mpc-tab.o src/src_mpc-idle.o src/src_mpc-message.o src/src_mpc-search.o src/src_mpc-options.o src/src_mpc-path.o src/src_mpc-charset.o  -L/home/xxx/NDC/06.00.00.00/arm-none-linux-gnueabi-4.9.1/mpc/mpc_build/usr/local/lib </span><br><span class="line">src/src_mpc-main.o: In function `setup_connection&apos;:</span><br><span class="line">/home/xxx/NDC/06.00.00.00/arm-none-linux-gnueabi-4.9.1/mpc/mpc-0.28/src/main.c:196: undefined reference to `mpd_connection_new&apos;</span><br><span class="line">/home/xxx/NDC/06.00.00.00/arm-none-linux-gnueabi-4.9.1/mpc/mpc-0.28/src/main.c:202: undefined reference to `mpd_connection_get_error&apos;</span><br><span class="line">src/src_mpc-main.o: In function `run&apos;:</span><br><span class="line">/home/xxx/NDC/06.00.00.00/arm-none-linux-gnueabi-4.9.1/mpc/mpc-0.28/src/main.c:267: undefined reference to `mpd_connection_cmp_server_version&apos;</span><br><span class="line">/home/xxx/NDC/06.00.00.00/arm-none-linux-gnueabi-4.9.1/mpc/mpc-0.28/src/main.c:275: undefined reference to `mpd_connection_free&apos;</span><br><span class="line">/home/xxx/NDC/06.00.00.00/arm-none-linux-gnueabi-4.9.1/mpc/mpc-0.28/src/main.c:275: undefined reference to `mpd_connection_free&apos;</span><br></pre></td></tr></table></figure></p>
+<p>说明libmpdclient的库版本过低？</p>
+<p>但是看看这些找不到的symbol，类似mpd_connection_new，这种看上去很基础的symbol，怎么可能没有？<br>然后grep下libmpdclient-2.9编译出来的.so库，果然，明明是有的。</p>
+<p>网上搜了下，在makefile里面，找到LIBS，替换成：<br>LIBS = -lmpdclient</p>
+<p>参考帖子：<br><a href="https://translate.google.com.hk/translate?hl=en&amp;sl=zh-CN&amp;u=http://bbs.csdn.net/topics/390507503&amp;prev=search" target="_blank" rel="noopener">https://translate.google.com.hk/translate?hl=en&amp;sl=zh-CN&amp;u=http://bbs.csdn.net/topics/390507503&amp;prev=search</a></p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/08/11/memtester-cross-compile/" rel="next" title="memtester cross-compile">
+                <i class="fa fa-chevron-left"></i> memtester cross-compile
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/08/11/ntfs-3g-cross-compile/" rel="prev" title="ntfs-3g cross-compile">
+                ntfs-3g cross-compile <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Semiyd</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives">
+                
+                    <span class="site-state-item-count">178</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">80</span>
+                    <span class="site-state-item-name">categories</span>
+                  </a>
+                </div>
+              
+
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#mpd"><span class="nav-number">1.</span> <span class="nav-text">mpd</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#编译libmpdclient-2-9"><span class="nav-number">2.</span> <span class="nav-text">编译libmpdclient-2.9</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#编译mpc-0-28"><span class="nav-number">3.</span> <span class="nav-text">编译mpc-0.28</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#踏坑日志"><span class="nav-number">4.</span> <span class="nav-text">踏坑日志</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Semiyd</span>
+
+  
+
+  
+</div>
+
+
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> v3.7.1</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://theme-next.org">NexT.Muse</a> v6.3.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+	
+    
+
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.3.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.3.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.3.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.3.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.3.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
