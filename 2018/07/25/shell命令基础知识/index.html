@@ -115,7 +115,7 @@
 <meta property="og:site_name" content="Semiyd&#39;s Blog">
 <meta property="og:description" content="这里的命令基本上指Bash命令，也就是最常用的shell。">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-07-25T13:03:50.809Z">
+<meta property="og:updated_time" content="2018-08-12T03:08:16.816Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="shell命令基础知识">
 <meta name="twitter:description" content="这里的命令基本上指Bash命令，也就是最常用的shell。">
@@ -322,12 +322,24 @@
                 
               
 
-              <time title="Created: 2018-07-25 20:57:45 / Modified: 21:03:50" itemprop="dateCreated datePublished" datetime="2018-07-25T20:57:45+08:00">2018-07-25</time>
+              <time title="Created: 2018-07-25 20:57:45" itemprop="dateCreated datePublished" datetime="2018-07-25T20:57:45+08:00">2018-07-25</time>
             
 
             
               
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2018-08-12 11:08:16" itemprop="dateModified" datetime="2018-08-12T11:08:16+08:00">2018-08-12</time>
               
             
           </span>
@@ -398,7 +410,7 @@
 <p>移动文件：<br>mv -v /source /dest</p>
 <p>创建软链接：<br>ln -s source dest<br>注：如果dest是指向文件夹的，请勿使用dest/，会报错。直接使用dest即可</p>
 <p>创建硬链接：<br>ln source dest<br>硬链接的坏处是，相当于创建一个文件，其inode是和源文件一模一样的。<br>但如果出现跨越不同的文件系统分区的情况，inode number只在自己的文件系统分区内唯一。<br>所以不能跨越分区去建立硬链接。</p>
-<p>基于图形环境的文件链接：<br>以xxx.desktop为命名。<br>例如：<br>[Desktop Entry]<br>Name=Source Insight 3<br>Exec=env WINEPREFIX=”/home/yandong/.wine” wine-stable C:\\Program\ Files\ \(x86\)\\Source\ Insight\ 3\\Insight3.exe<br>Type=Application<br>StartupNotify=true<br>Icon=8209_NewShortcut2_73B02DBE2F5B46B2A29EC665DA6D14E9.0</p>
+<p>基于图形环境的文件链接：<br>以xxx.desktop为命名。<br>例如：<br>[Desktop Entry]<br>Name=Source Insight 3<br>Exec=env WINEPREFIX=”/home/xxx/.wine” wine-stable C:\\Program\ Files\ \(x86\)\\Source\ Insight\ 3\\Insight3.exe<br>Type=Application<br>StartupNotify=true<br>Icon=8209_NewShortcut2_73B02DBE2F5B46B2A29EC665DA6D14E9.0</p>
 <p>解压：<br>gzip:<br>    tar zxvf <em>.gzip<br>xz:<br>    tar -Jxvf linux-3.12.tar.xz                xz -d </em>.tar.xz<br>tar:<br>    tar -xvf  <em>.tar<br>bz2:<br>    tar xvfj </em>.bz2 -C 解压到的目标目录/<br>zip:<br>    unzip <em>.zip<br>压缩：<br>gzip:<br>    gzip -rv </em>.<em><br>tar.bz2:<br>    tar cvfj FileName.tar.bz2 DirName    打包DirName所有文件包含隐藏文件<br>    tar cvfj uboot-20151125.tar.bz2 </em>    这种只会打包当前目录下的非隐藏文件(这种情况如果是涉及kernel uboot，可能导致编译出来的uImage等发送变化。所以代码打包最好是包含顶层目录)<br>    tar cvfj test.tar.bz2 <em> .[!.]</em>        这种方式能打包.tmp文件，但是对..tmp这种隐藏文件还是会忽略。<br>    另外：不要用ubuntu自带的图形菜单压缩解压。这种方式处理symlink有问题，会导致源码不能编译等等<br>tar:<br>    tar cvf FileName.tar DirName<br>xz:<br>    tar -Jcvf xxx.tar.xz xxx/</p>
 <p>配置ip：<br>ifconfig eth0 192.168.1.6 netmask 255.255.255.0</p>
 <p>搜索文件名：<br>find ./ -name 文件名    会搜索当前目录和子目录</p>
@@ -464,7 +476,7 @@ setfacl -b -R DSP_NDC/
 <p>交叉编译工具链的默认搜索路径：<br>arm-linux-gcc -print-search-dirs</p>
 <p>读取ELF文件（库/可执行文件）的体系架构：<br>    两种方法：<br>    1.arm-none-linux-gnueabi-readelf -A libboost_random.a<br>    2.arm-none-linux-gnueabi-readelf -a -W libboost_random.a | grep Machine    （如果第一种方法不行）<br>          Machine:                           Intel 80386<br>    另外，使用x86原生的readelf命令也是一样的</p>
 <p>查看编译器版本：<br>    strings -a libstdc++.a | grep -i gcc来读取编译器版本</p>
-<p>命令行下直接操作设备文件：<br>    写入：<br>    echo “yandong” &gt; /sys/class/i2c-adapter/i2c-0/0-0052/eeprom<br>    读出：<br>    dd if=/sys/class/i2c-adapter/i2c-0/0-0052/eeprom of=/home/24c02.txt<br>    或者设备如果支持cat方法的话，可以直接cat /dev/BATVIN | od -t u4 -A n</p>
+<p>命令行下直接操作设备文件：<br>    写入：<br>    echo “xxx” &gt; /sys/class/i2c-adapter/i2c-0/0-0052/eeprom<br>    读出：<br>    dd if=/sys/class/i2c-adapter/i2c-0/0-0052/eeprom of=/home/24c02.txt<br>    或者设备如果支持cat方法的话，可以直接cat /dev/BATVIN | od -t u4 -A n</p>
 <p>用dd创建空文件：<br>    dd if=/dev/zero of=hello.txt bs=100M count=1</p>
 <p>vi查找文件内容：<br>    在命令模式下，输入/xxx，就是查找字段xxx</p>
 <p>修改locale：<br>            locale -a查看目前支持的locale<br>            然后编辑/etc/locale.gen，找到en_US.UTF-8 UTF-8，删除注掉的符号#<br>            然后locale-gen</p>

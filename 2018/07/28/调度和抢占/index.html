@@ -115,7 +115,7 @@
 <meta property="og:site_name" content="Semiyd&#39;s Blog">
 <meta property="og:description" content="调度和抢占">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-07-28T08:16:27.714Z">
+<meta property="og:updated_time" content="2018-08-12T03:10:24.423Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="调度和抢占">
 <meta name="twitter:description" content="调度和抢占">
@@ -322,12 +322,24 @@
                 
               
 
-              <time title="Created: 2018-07-28 15:50:31 / Modified: 16:16:27" itemprop="dateCreated datePublished" datetime="2018-07-28T15:50:31+08:00">2018-07-28</time>
+              <time title="Created: 2018-07-28 15:50:31" itemprop="dateCreated datePublished" datetime="2018-07-28T15:50:31+08:00">2018-07-28</time>
             
 
             
               
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2018-08-12 11:10:24" itemprop="dateModified" datetime="2018-08-12T11:10:24+08:00">2018-08-12</time>
               
             
           </span>
@@ -399,11 +411,11 @@
 <p>进程优先级的确定：<br>nice值：<br>        范围是-20到19，一共40级。默认值是0<br>        值越小，优先级越高。<br>        可以用nice命令，对将要运行的程序进行优先级的设置<br>        nice -n 10 app<br>        这样app的nice就是10.<br>        另外，可以用renice命令，对一个正在运行的进程进行nice值的调整。<br>        renice -5 -p 5200<br>        那么从字面上理解，越nice的人，抢占资源的意愿越弱，也就是nice值越高。<br>        越不nice的人，抢占资源的意愿越强，也就是nice值越低。<br>        那么nice值设定好以后，是不变的。除非用renice去改动它。<br>        所以nice值称为静态优先级。</p>
 <p>priority值：<br>        相对于nice值，priority值，就是动态优先级。为什么叫动态？因为内核会根据进程运行的情况，进行动态的微调。（在O1调度算法里面会解释这个细节）<br>        所以priority值本身是不可以改的。要改，只能改nice。等于通过nice去改priority。<br>        nice其实是priority的组成部分。后面会解释为什么。<br>        linux实现140个优先级的范围。和nice一样，值越小，优先级越高。<br>        linux的进程被分为两种，实时进程（也就是RT进程），和非实时进程（非RT进程）<br>        见以下代码：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">include\linux\sched.h</span><br><span class="line">		#define MAX_USER_RT_PRIO	100</span><br><span class="line">		#define MAX_RT_PRIO		MAX_USER_RT_PRIO</span><br><span class="line">		#define DEFAULT_PRIO		(MAX_RT_PRIO + 20)</span><br><span class="line">		#define MAX_PRIO			(MAX_RT_PRIO + 40)</span><br></pre></td></tr></table></figure></p>
 <p>对于非RT进程，优先级最高也就是100（MAX_USER_RT_PRIO），最低就是140（MAX_PRIO）。<br>那么对于非RT进程，默认优先级就是120.<br>如果通过调整nice值，那么nice因为是-20到19.<br>所以最多就是在100~139这个范围内调整。<br>换句话说，对于非RT进程，决定priority，其实靠nice就可以了。<br>对于RT进程，那么他的优先级就是0~99，最大值就是100（MAX_USER_RT_PRIO）</p>
-<p>通过ps -l可以查看到nice值和priority值。<br>yandong@CH4WDT22X8DB2:~$ ps -l<br>F S   UID   PID  PPID  C PRI  NI ADDR SZ WCHAN  TTY          TIME CMD<br>0 S  1000 25186 12278  0  80   0 -  2186 wait   pts/11   00:00:00 bash<br>0 R  1000 31805 25186  0  80   0 -  1254 -      pts/11   00:00:00 ps</p>
+<p>通过ps -l可以查看到nice值和priority值。<br>xxx@CH4WDT22X8DB2:~$ ps -l<br>F S   UID   PID  PPID  C PRI  NI ADDR SZ WCHAN  TTY          TIME CMD<br>0 S  1000 25186 12278  0  80   0 -  2186 wait   pts/11   00:00:00 bash<br>0 R  1000 31805 25186  0  80   0 -  1254 -      pts/11   00:00:00 ps</p>
 <p>PRI就是priority值。NI是nice值。</p>
 <p>所以可以理解为nice值是针对整个优先级进行微调。但是不能通过nice值的调整，把一个非RT进程调整的和RT进程一样的优先。<br>当然，最终真正算数的，是priority。nice其实是priority的组成部分。</p>
 <p>另外，这里涉及一个shell命令。chrt。</p>
-<p>yandong@CH4WDT22X8DB2:~$ chrt</p>
+<p>xxx@CH4WDT22X8DB2:~$ chrt</p>
 <p>chrt - manipulate real-time attributes of a process</p>
 <p>Set policy:<br>  chrt [options] [<policy>] <priority> [-p <pid> | <command> [<arg>…]]</arg></pid></priority></policy></p>
 <p>Get policy:<br>  chrt [options] -p <pid></pid></p>
@@ -414,7 +426,7 @@
 <p>系统整体的调度策略是：<br>    如果系统中有RT进程，则优先执行RT进程。直到RT进程退出，或者RT进程主动让出CPU（睡眠）时，才会去调度非RT进程。</p>
 <p>那么让一个进程作为RT进程来运行呢？<br>chrt -f 10 app    -f是指用SCHED_FIFO，也就是RT进程的调度方式了。优先级设置为10.<br>chrt -p $$<br>    可以显示当前的进程调度方式是SCHED_FIFO，优先级是10.</p>
 <p>调度：<br>    上面说到，RT进程的调度有：<br>        SCHED_RR就是round robin，时间片轮转。时间片是100ms。时间片到了，就换人。很简单。<br>        SCHED_FIFO就是队列方式，优先级一样的情况下，谁先开始执行的，就先调度谁，除非它退出或者让出CPU.<br>    非RT进程的调度有：SCHED_BATCH，SCHED_OTHER,SCHED_IDLE,涉及的调度算法是O1和CFS.<br>    O1和CFS调度算法的细节:<br>        linux 2.6.23以后，O1算法就被CFS算法替换了。所以现在新的内核里面，默认的非RT进程的调度算法，就是CFS。<br>        O1算法：<br>            O1的名字来源于其算法的时间复杂度是O1。<br>            O1是基于时间片分配的思路来设计的。<br>            假设时间片的基本单位是10ms.那么针对优先级高的进程，就会得到较大的时间片。反之优先级低的进程，就获得较小的时间片。（都是10ms的倍数）<br>            即使是nice值一样的进程（对于非RT进程，nice值一样，意味着priority值一样），O1也会根据其对cpu的占用情况，分为两种：cpu消耗型和io消耗型。<br>            顾名思义，cpu消耗型，就是主要做算数运算的程序。并且通常不会主动放弃cpu，除非被打断，或者时间片耗尽。<br>            io消耗型，就是时间片没耗尽，就主动让出cpu了。例如一些交互程序，vi,emacs。<br>            那么现在假设。有两个进程在跑。priority一样。都是默认的120的非RT进程。<br>            nice为0<br>            一个进程是vi。一个进程是算数运算的程序。<br>            那么内核此时因为都是120的优先级。所以会给这两个程序分配相同的时间片长度，假设是500ms.<br>            此时人来输入一个字符。那么很可能此时cpu正在做算数运算。<br>            又因为这两个进程的优先级一样，不存在谁打断谁的问题。所以只好等算数运算的进程时间片结束以后，vi再响应。<br>            这样就会让人觉得很卡顿。<br>            所以针对这种情况。O1算法会把进程区分出来，到底属于cpu消耗型，还是io消耗型。<br>            区分以后，会动态的微调priority值，范围是+-5<br>            这种特定的情况，O1会提高io消耗型的进程的优先级，增加其时间片长度。并且降低cpu消耗型的进程优先级，减少其时间片长度。<br>            这样用户体验能得到改善。<br>            不过这种微调，在CFS里面就不需要了。后面会解释。</p>
-<p>那么，在调度的时候，其实只关心TASK_RUNNING状态下的进程。别的状态下的进程，不会被放到调度队列中去。<br>对于调度队列，这里面又分成两种状态。<br>一种是进程已经被调度到CPU上正在执行。<br>二是进程在队列中，正等待被调度执行。<br>那么，假设cpu有4核。需要执行的进程一共有8个。那么任何一瞬间，其实真正得到运行的进程，只有4个。另外4个则处于等待的状态。<br>所以说，系统当前同时进行调度的进程数，去除以cpu的核心数，这个比值，可以一定程度的反应系统繁忙的程度。<br>有关这个繁忙程度，有个概念是load average。<br>yandong@CH4WDT22X8DB2:~$ uptime<br> 16:44:29 up 45 days,  7:35,  9 users,  load average: 1.05, 0.70, 5.09</p>
+<p>那么，在调度的时候，其实只关心TASK_RUNNING状态下的进程。别的状态下的进程，不会被放到调度队列中去。<br>对于调度队列，这里面又分成两种状态。<br>一种是进程已经被调度到CPU上正在执行。<br>二是进程在队列中，正等待被调度执行。<br>那么，假设cpu有4核。需要执行的进程一共有8个。那么任何一瞬间，其实真正得到运行的进程，只有4个。另外4个则处于等待的状态。<br>所以说，系统当前同时进行调度的进程数，去除以cpu的核心数，这个比值，可以一定程度的反应系统繁忙的程度。<br>有关这个繁忙程度，有个概念是load average。<br>xxx@CH4WDT22X8DB2:~$ uptime<br> 16:44:29 up 45 days,  7:35,  9 users,  load average: 1.05, 0.70, 5.09</p>
 <p>over the last 1 minute: The computer was overloaded by 5% on average. On average, .05 processes were waiting for the CPU. (1.05)</p>
 <p>over the last 5 minutes: The CPU idled for 30% of the time. (0.70)</p>
 <p>over the last 15 minutes: The computer was overloaded by 409% on average. On average, 4.09 processes were waiting for the CPU. (5.09)</p>

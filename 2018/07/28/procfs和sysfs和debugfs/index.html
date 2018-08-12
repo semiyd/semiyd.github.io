@@ -115,7 +115,7 @@
 <meta property="og:site_name" content="Semiyd&#39;s Blog">
 <meta property="og:description" content="procfs和sysfs和debugfs">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-07-28T07:02:56.642Z">
+<meta property="og:updated_time" content="2018-08-12T03:08:43.701Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="procfs和sysfs和debugfs">
 <meta name="twitter:description" content="procfs和sysfs和debugfs">
@@ -322,12 +322,24 @@
                 
               
 
-              <time title="Created: 2018-07-28 15:02:17 / Modified: 15:02:56" itemprop="dateCreated datePublished" datetime="2018-07-28T15:02:17+08:00">2018-07-28</time>
+              <time title="Created: 2018-07-28 15:02:17" itemprop="dateCreated datePublished" datetime="2018-07-28T15:02:17+08:00">2018-07-28</time>
             
 
             
               
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2018-08-12 11:08:43" itemprop="dateModified" datetime="2018-08-12T11:08:43+08:00">2018-08-12</time>
               
             
           </span>
@@ -502,7 +514,7 @@ bus-device-driver 模型：
     bus是指主控，如i2c主控制器
     device是指连接上来的外部设备
     driver是指驱动device的方法    
-</code></pre><p>/proc常用接口举例：<br>    /proc/interrupts    查看各个中断号和中断名字<br>                   CPU0<br>          4:          0      INTC  omap2_elm<br>         12:          0      INTC  edma<br>         52:          0      INTC  can0<br>        269:          0      GPIO  phy_interrupt<br>    /proc/net/dev    查看网络子系统，各个接口的收发包的统计<br>        Inter-|   Receive                                                |  Transmit<br>         face |bytes    packets errs drop fifo frame compressed multicast|bytes    packets errs drop fifo colls carrier compressed<br>            lo:     504       6    0    0    0     0          0         0      504       6    0    0    0     0       0          0<br>          eth1:       0       0    0    0    0     0          0         0        0       0    0    0    0     0       0          0<br>          can1:       0       0    0    0    0     0          0         0        0       0    0    0    0     0       0          0<br>          eth0:  315294    2351    0  781    0     0          0         0     1160      13    0    0    0     0       0          0<br>          can0:       0       0    0    0    0     0          0         0        0       0    0    0    0     0       0          0<br>    /proc/iomem    查看request_mem_region申请的resource的寄存器地址范围，注册platform驱动的时候会涉及<br>        44e05000-44e053ff : omap_timer.0<br>          44e05000-44e053ff : omap_timer<br>        44e07000-44e07fff : omap_gpio.0<br>        44e09000-44e0afff : omap_uart.0<br>          44e09000-44e0afff : omap_uart<br>        44e0b000-44e0bfff : omap_i2c.1<br>          44e0b000-44e0bfff : omap_i2c<br>    /proc/version    查看内核版本和编译器信息<br>        Linux version 3.2.0-EmbedSky (yandong@CH4WDT22X8DB2) (gcc version 4.4.6 (for TQ210 EmbedSky Tech) ) #97 Tue Dec 6 11:02:42 HKT 2016<br>    /proc/cpuinfo    查看处理器和MACHINE名字信息<br>        Processor       : ARMv7 Processor rev 2 (v7l)<br>        BogoMIPS        : 795.44<br>        Features        : swp half thumb fastmult vfp edsp thumbee neon vfpv3 tls<br>        CPU implementer : 0x41<br>        CPU architecture: 7<br>        CPU variant     : 0x3<br>        CPU part        : 0xc08<br>        CPU revision    : 2<br>        Hardware        : iq8_ncm_v21<br>        Revision        : 0000<br>        Serial          : 0000000000000000<br>    /proc/kallsyms    查看被EXPORT_SYMBOL导出的内核符号表（很多很多函数名）<br>        c080aec8 t omap_nand_init<br>        c080b55c t omap2_mcspi_init<br>        c080b5c0 t omap2_mcspi_probe<br>        c080ddf4 t omap_i2c_init_driver<br>        c080efb0 t omap_wdt_init<br>    /proc/slabinfo    查看slab池的使用情况</p>
+</code></pre><p>/proc常用接口举例：<br>    /proc/interrupts    查看各个中断号和中断名字<br>                   CPU0<br>          4:          0      INTC  omap2_elm<br>         12:          0      INTC  edma<br>         52:          0      INTC  can0<br>        269:          0      GPIO  phy_interrupt<br>    /proc/net/dev    查看网络子系统，各个接口的收发包的统计<br>        Inter-|   Receive                                                |  Transmit<br>         face |bytes    packets errs drop fifo frame compressed multicast|bytes    packets errs drop fifo colls carrier compressed<br>            lo:     504       6    0    0    0     0          0         0      504       6    0    0    0     0       0          0<br>          eth1:       0       0    0    0    0     0          0         0        0       0    0    0    0     0       0          0<br>          can1:       0       0    0    0    0     0          0         0        0       0    0    0    0     0       0          0<br>          eth0:  315294    2351    0  781    0     0          0         0     1160      13    0    0    0     0       0          0<br>          can0:       0       0    0    0    0     0          0         0        0       0    0    0    0     0       0          0<br>    /proc/iomem    查看request_mem_region申请的resource的寄存器地址范围，注册platform驱动的时候会涉及<br>        44e05000-44e053ff : omap_timer.0<br>          44e05000-44e053ff : omap_timer<br>        44e07000-44e07fff : omap_gpio.0<br>        44e09000-44e0afff : omap_uart.0<br>          44e09000-44e0afff : omap_uart<br>        44e0b000-44e0bfff : omap_i2c.1<br>          44e0b000-44e0bfff : omap_i2c<br>    /proc/version    查看内核版本和编译器信息<br>        Linux version 3.2.0-EmbedSky (xxx@CH4WDT22X8DB2) (gcc version 4.4.6 (for TQ210 EmbedSky Tech) ) #97 Tue Dec 6 11:02:42 HKT 2016<br>    /proc/cpuinfo    查看处理器和MACHINE名字信息<br>        Processor       : ARMv7 Processor rev 2 (v7l)<br>        BogoMIPS        : 795.44<br>        Features        : swp half thumb fastmult vfp edsp thumbee neon vfpv3 tls<br>        CPU implementer : 0x41<br>        CPU architecture: 7<br>        CPU variant     : 0x3<br>        CPU part        : 0xc08<br>        CPU revision    : 2<br>        Hardware        : iq8_ncm_v21<br>        Revision        : 0000<br>        Serial          : 0000000000000000<br>    /proc/kallsyms    查看被EXPORT_SYMBOL导出的内核符号表（很多很多函数名）<br>        c080aec8 t omap_nand_init<br>        c080b55c t omap2_mcspi_init<br>        c080b5c0 t omap2_mcspi_probe<br>        c080ddf4 t omap_i2c_init_driver<br>        c080efb0 t omap_wdt_init<br>    /proc/slabinfo    查看slab池的使用情况</p>
 <pre><code>    # name            &lt;active_objs&gt; &lt;num_objs&gt; &lt;objsize&gt; &lt;objperslab&gt; &lt;pagesperslab&gt; : tunables &lt;limit&gt; &lt;batchcount&gt; &lt;sharedfactor&gt; : slabdata &lt;active_slabs&gt; &lt;num_slabs&gt; &lt;sharedavail&gt;
     nfs_commit_data        4      9    448    9    1 : tunables   54   27    8 : slabdata      1      1      0
     nfs_write_data        32     35    576    7    1 : tunables   54   27    8 : slabdata      5      5      0

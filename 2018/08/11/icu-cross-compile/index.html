@@ -115,7 +115,7 @@
 <meta property="og:site_name" content="Semiyd&#39;s Blog">
 <meta property="og:description" content="icu cross-compile">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-08-11T02:00:24.251Z">
+<meta property="og:updated_time" content="2018-08-12T03:10:37.426Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="icu cross-compile">
 <meta name="twitter:description" content="icu cross-compile">
@@ -322,12 +322,24 @@
                 
               
 
-              <time title="Created: 2018-08-11 09:59:19 / Modified: 10:00:24" itemprop="dateCreated datePublished" datetime="2018-08-11T09:59:19+08:00">2018-08-11</time>
+              <time title="Created: 2018-08-11 09:59:19" itemprop="dateCreated datePublished" datetime="2018-08-11T09:59:19+08:00">2018-08-11</time>
             
 
             
               
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2018-08-12 11:10:37" itemprop="dateModified" datetime="2018-08-12T11:10:37+08:00">2018-08-12</time>
               
             
           </span>
@@ -395,11 +407,11 @@
         <p><center><strong>icu cross-compile</strong></center><br><a id="more"></a></p>
 <p>================================ICU================================<br><a href="http://thebugfreeblog.blogspot.com/2013/05/cross-building-icu-for-applications-on.html" target="_blank" rel="noopener">http://thebugfreeblog.blogspot.com/2013/05/cross-building-icu-for-applications-on.html</a></p>
 <p>download icu4c-59_1-src.tgz</p>
-<p>step1: run a x86 build which is needed by cross compilation later.<br>export MY_DIR=/home/yandong/NDC/06.00.00.00/arm-none-linux-gnueabi-4.9.1/mpc/icu/<br>cd $MY_DIR<br>mkdir build_icu_linux<br>cd build_icu_linux<br>export ICU_SOURCES=$MY_DIR/icu<br>export CPPFLAGS=”-O3 -fno-short-wchar -DU_USING_ICU_NAMESPACE=1 -fno-short-enums \<br>-DU_HAVE_NL_LANGINFO_CODESET=0 -D__STDC_INT64__ -DU_TIMEZONE=0 \<br>-DUCONFIG_NO_LEGACY_CONVERSION=1 -DUCONFIG_NO_BREAK_ITERATION=1 \<br>-DUCONFIG_NO_COLLATION=1 -DUCONFIG_NO_FORMATTING=1 -DUCONFIG_NO_TRANSLITERATION=0 \<br>-DUCONFIG_NO_REGULAR_EXPRESSIONS=1”<br>sh $ICU_SOURCES/source/runConfigureICU Linux –prefix=$PWD/icu_build –enable-extras=no \<br>–enable-strict=no -enable-static –enable-shared=no –enable-tests=no \<br>–enable-samples=no –enable-dyload=no<br>make -j8<br>make install </p>
-<p>step2: run an arm build<br>export AR=arm-linux-ar<br>export CC=arm-linux-gcc<br>export BASE=/home/yandong/NDC/06.00.00.00/arm-none-linux-gnueabi-4.9.1/mpc/icu/<br>export HOST_ICU=$BASE/build_icu_arm<br>export ICU_CROSS_BUILD=$BASE/build_icu_linux<br>export NDK_STANDARD_ROOT=/home/mgc/embedded/codebench/arm-none-linux-gnueabi/libc/<br>export CPPFLAGS=”-I$NDK_STANDARD_ROOT/usr/include/ \<br>-O3 -fno-short-wchar -DU_USING_ICU_NAMESPACE=1 -fno-short-enums \<br>-DU_HAVE_NL_LANGINFO_CODESET=0 -D__STDC_INT64__ -DU_TIMEZONE=0 \<br>-DUCONFIG_NO_LEGACY_CONVERSION=1 -DUCONFIG_NO_BREAK_ITERATION=1 \<br>-DUCONFIG_NO_COLLATION=1 -DUCONFIG_NO_FORMATTING=1 -DUCONFIG_NO_TRANSLITERATION=0 \<br>-DUCONFIG_NO_REGULAR_EXPRESSIONS=1”<br>export LDFLAGS=”-lc -lstdc++ -Wl,-rpath-link=$NDK_STANDARD_ROOT/usr/lib/“</p>
+<p>step1: run a x86 build which is needed by cross compilation later.<br>export MY_DIR=/home/xxx/NDC/06.00.00.00/arm-none-linux-gnueabi-4.9.1/mpc/icu/<br>cd $MY_DIR<br>mkdir build_icu_linux<br>cd build_icu_linux<br>export ICU_SOURCES=$MY_DIR/icu<br>export CPPFLAGS=”-O3 -fno-short-wchar -DU_USING_ICU_NAMESPACE=1 -fno-short-enums \<br>-DU_HAVE_NL_LANGINFO_CODESET=0 -D__STDC_INT64__ -DU_TIMEZONE=0 \<br>-DUCONFIG_NO_LEGACY_CONVERSION=1 -DUCONFIG_NO_BREAK_ITERATION=1 \<br>-DUCONFIG_NO_COLLATION=1 -DUCONFIG_NO_FORMATTING=1 -DUCONFIG_NO_TRANSLITERATION=0 \<br>-DUCONFIG_NO_REGULAR_EXPRESSIONS=1”<br>sh $ICU_SOURCES/source/runConfigureICU Linux –prefix=$PWD/icu_build –enable-extras=no \<br>–enable-strict=no -enable-static –enable-shared=no –enable-tests=no \<br>–enable-samples=no –enable-dyload=no<br>make -j8<br>make install </p>
+<p>step2: run an arm build<br>export AR=arm-linux-ar<br>export CC=arm-linux-gcc<br>export BASE=/home/xxx/NDC/06.00.00.00/arm-none-linux-gnueabi-4.9.1/mpc/icu/<br>export HOST_ICU=$BASE/build_icu_arm<br>export ICU_CROSS_BUILD=$BASE/build_icu_linux<br>export NDK_STANDARD_ROOT=/home/mgc/embedded/codebench/arm-none-linux-gnueabi/libc/<br>export CPPFLAGS=”-I$NDK_STANDARD_ROOT/usr/include/ \<br>-O3 -fno-short-wchar -DU_USING_ICU_NAMESPACE=1 -fno-short-enums \<br>-DU_HAVE_NL_LANGINFO_CODESET=0 -D__STDC_INT64__ -DU_TIMEZONE=0 \<br>-DUCONFIG_NO_LEGACY_CONVERSION=1 -DUCONFIG_NO_BREAK_ITERATION=1 \<br>-DUCONFIG_NO_COLLATION=1 -DUCONFIG_NO_FORMATTING=1 -DUCONFIG_NO_TRANSLITERATION=0 \<br>-DUCONFIG_NO_REGULAR_EXPRESSIONS=1”<br>export LDFLAGS=”-lc -lstdc++ -Wl,-rpath-link=$NDK_STANDARD_ROOT/usr/lib/“</p>
 <p>$ICU_SOURCES/source/configure –with-cross-build=$ICU_CROSS_BUILD \<br>–enable-extras=no –enable-strict=no -enable-static –enable-shared=no \<br>–enable-tests=no –enable-samples=no –enable-dyload=no \<br>–host=arm-none-linux-gnueabi –prefix=$PWD/icu_build<br>make -j8<br>make install</p>
-<p>result in:<br>/home/yandong/NDC/06.00.00.00/arm-none-linux-gnueabi-4.9.1/mpc/icu/build_icu_arm/icu_build</p>
-<p>when configure mpd:<br>CC=arm-linux-gcc ./configure –host=arm-linux –with-boost=/home/share/boost/1.59/Board/arm-none-linux-gnueabi-4.9.1-armv7/ ICU_CFLAGS=-I/home/yandong/NDC/06.00.00.00/arm-none-linux-gnueabi-4.9.1/mpc/icu/build_icu_arm/icu_build/include ICU_LIBS=”-L/home/yandong/NDC/06.00.00.00/arm-none-linux-gnueabi-4.9.1/mpc/icu/build_icu_arm/icu_build/lib” GLIB_CFLAGS=”-I/home/yandong/NDC/06.00.00.00/arm-none-linux-gnueabi-4.9.1/mpc/glib/glib-glib-2-46/install/arm/include/glib-2.0 -I/home/yandong/NDC/06.00.00.00/arm-none-linux-gnueabi-4.9.1/mpc/glib/glib-glib-2-46/install/arm/lib/glib-2.0/include -I/home/share/zlib/1.2.11/Board/arm-none-linux-gnueabi-4.9.1/include” GLIB_LIBS=”-lglib-2.0 -L/home/yandong/NDC/06.00.00.00/arm-none-linux-gnueabi-4.9.1/mpc/glib/glib-glib-2-46/install/arm/lib” ZLIB_CFLAGS=”-I/home/share/zlib/1.2.11/Board/arm-none-linux-gnueabi-4.9.1/include” ZLIB_LIBS=”-lz -L/home/share/zlib/1.2.11/Board/arm-none-linux-gnueabi-4.9.1/lib” –disable-expat</p>
+<p>result in:<br>/home/xxx/NDC/06.00.00.00/arm-none-linux-gnueabi-4.9.1/mpc/icu/build_icu_arm/icu_build</p>
+<p>when configure mpd:<br>CC=arm-linux-gcc ./configure –host=arm-linux –with-boost=/home/share/boost/1.59/Board/arm-none-linux-gnueabi-4.9.1-armv7/ ICU_CFLAGS=-I/home/xxx/NDC/06.00.00.00/arm-none-linux-gnueabi-4.9.1/mpc/icu/build_icu_arm/icu_build/include ICU_LIBS=”-L/home/xxx/NDC/06.00.00.00/arm-none-linux-gnueabi-4.9.1/mpc/icu/build_icu_arm/icu_build/lib” GLIB_CFLAGS=”-I/home/xxx/NDC/06.00.00.00/arm-none-linux-gnueabi-4.9.1/mpc/glib/glib-glib-2-46/install/arm/include/glib-2.0 -I/home/xxx/NDC/06.00.00.00/arm-none-linux-gnueabi-4.9.1/mpc/glib/glib-glib-2-46/install/arm/lib/glib-2.0/include -I/home/share/zlib/1.2.11/Board/arm-none-linux-gnueabi-4.9.1/include” GLIB_LIBS=”-lglib-2.0 -L/home/xxx/NDC/06.00.00.00/arm-none-linux-gnueabi-4.9.1/mpc/glib/glib-glib-2-46/install/arm/lib” ZLIB_CFLAGS=”-I/home/share/zlib/1.2.11/Board/arm-none-linux-gnueabi-4.9.1/include” ZLIB_LIBS=”-lz -L/home/share/zlib/1.2.11/Board/arm-none-linux-gnueabi-4.9.1/lib” –disable-expat</p>
 <p>still need something like -licu for ICU_LIBS in order to build the project.exclude icu for now.</p>
 
       
