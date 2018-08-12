@@ -1,0 +1,925 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.3.0" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.3.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.3.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.3.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.3.0" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '6.3.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="IMX6ULL DDR3调试">
+<meta property="og:type" content="article">
+<meta property="og:title" content="IMX6ULL DDR3调试">
+<meta property="og:url" content="http://yoursite.com/2018/08/12/IMX6ULL-DDR3调试/index.html">
+<meta property="og:site_name" content="Semiyd&#39;s Blog">
+<meta property="og:description" content="IMX6ULL DDR3调试">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2018-08-12T02:33:33.787Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="IMX6ULL DDR3调试">
+<meta name="twitter:description" content="IMX6ULL DDR3调试">
+
+
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/08/12/IMX6ULL-DDR3调试/"/>
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>IMX6ULL DDR3调试 | Semiyd's Blog</title>
+  
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Semiyd's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br />Home</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+    <a href="/categories/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-th"></i> <br />Categories</a>
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/12/IMX6ULL-DDR3调试/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Semiyd">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Semiyd's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">IMX6ULL DDR3调试
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2018-08-12 10:31:39 / Modified: 10:33:33" itemprop="dateCreated datePublished" datetime="2018-08-12T10:31:39+08:00">2018-08-12</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Linux/" itemprop="url" rel="index"><span itemprop="name">Linux</span></a></span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Linux/U-boot/" itemprop="url" rel="index"><span itemprop="name">U-boot</span></a></span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Linux/U-boot/驱动/" itemprop="url" rel="index"><span itemprop="name">驱动</span></a></span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Linux/U-boot/驱动/DDR/" itemprop="url" rel="index"><span itemprop="name">DDR</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><center><strong>IMX6ULL DDR3调试</strong></center><br><a id="more"></a></p>
+<p>ddr怎么调试？<br>    参考文档：<br>        Freescale i.MX6 DRAM Port Application Guide-DDR3.pdf<br>        K4B2G1646C-HCH9.pdf<br>    名词解释：<br>        Multi Mode DDR Controller     (MMDC)<br>        drive strength        (DSE)<br>    DDR内部Organization方式：<br>        DDR大小一般用bit来表示。比如2Gb，其实是256MB。<br>        那么这个总大小，由三部分组成。<br>        以MT41K128M16为例：<br>            16Mb x 16 x 8banks = 2Gb<br>            也就是说，orgranization是16Mb x 16，而bank数是8，所以总数是2Gb<br>        那么同样是2Gb的总大小，其实可以有各种不同的organization，例如：<br>            32Mb x 8 x 8banks<br>            64Mb x 4 x 8banks<br>        又以K4B2G1646C-HCH9为例，这片一样是2Gb总大小。<br>             打开spec，搜HCH9，能看到spec写明，这芯片是DDR-1333，并且是128Mx16。这个写法和美光的略有不同。128Mx16=2Gb<br>            在spec里面，写明了The 2Gb DDR3 SDRAM C-die is organized as a 16Mbit x 16 I/Os x 8 banks。<br>            其实128Mx16就是=16Mb x 16 x 8banks.<br>    使用I.MX6ULL_DDR3_Script_Aid_V0.01.xlsx生成初始参数realview.inc<br>        准备电路图，ddr spec<br>        Register Configuration页，所有橙色和蓝色的框都是要填的<br>            Device information类：<br>                根据Freescale i.MX6 DRAM Port Application Guide-DDR3.pdf的具体步骤，从spec里面找相应的参数，填入excel表。<br>                K4B2G1646C-HCH9    ：<br>                    填上Manufacturer和Memory part number<br>                    Memory type，根据spec,HCH9后缀对应的是DDR3-1333(9-9-9)，选上1333.<br>                    DRAM density (Gb)，芯片是2Gb的，选上2<br>                    DRAM Bus Width，一般都是16bit，选16<br>                    Number of Banks，根据spec page9，2Gb那个表格的128Mb x 16这一列，选8<br>                    Number of ROW Addresses，根据spec page9，2Gb的128Mb x 16这一列,对应是A0- A13，也就是选14<br>                    Number of COLUMN Addresses，根据spec page9，2Gb的128Mb x 16这一列,对应是A0- A9，也就是选10<br>                    Page Size (K)，根据spec page9，2Gb的128Mb x 16这一列,对应是2KB，也就是选2<br>                    tRCD=tRP=CL (ns)，根据spec page5，[ Table 2 ] 2Gb DDR3 C-die Speed bins的DDR3-1333这一列，填13.5<br>                    tRC Min (ns)，根据spec page5，[ Table 2 ] 2Gb DDR3 C-die Speed bins的DDR3-1333这一列，填49.5<br>                    tRAS Min (ns)，根据spec page5，[ Table 2 ] 2Gb DDR3 C-die Speed bins的DDR3-1333这一列，填36<br>            System information类：<br>                根据电路图来填<br>                K4B2G1646C-HCH9    ：<br>                    Density per chip select (Gb)，应该是指每个cs对应的ddr容量，所以选2<br>                    Number of Chip Selects used选1，因为仅用了CS0。<br>                    Address Mirror (for CS1)，默认选disable，感觉不要改了，反正也没用cs1。<br>            SI consideration类也就是信号完整性方面的：<br>                根据PCB vendor的结果提供，包括驱动强度，ODT。具体怎么设置，要问fae。<br>                前四个都是DSE设置，最后一个是ODT的设置。<br>                DRAM DSE Setting - DQ/DQM (ohm)<br>                DRAM DSE Setting - ADDR/CMD/CTL (ohm)<br>                DRAM DSE Setting - CK (ohm)<br>                DRAM DSE Setting - DQS (ohm)<br>                System ODT Setting (ohm)<br>                这部分经确认，完全有硬件这边，pcb厂家提供具体的阻抗值。</p>
+<p>delay line的值<br>    包括Write Leveling delay, Read DQS Gating Delay, Read Delay, Write Delay，对应excel表格RealView.inc的红色格子部分。<br>    最终在DDR_Tester.exe做完校正之后，这些值会更新到最优值。<br>    初始值是固定的。</p>
+<p>然后打开C:\Document\Document\IMX6ULL\NXP\DDR调试\ddr_stress_tester_v2.70.exe\ddr_stress_tester_v2.70\ddr_stress_tester_v2.70\DDR_Tester.exe（有两个功能，calibration和stress test）<br>选择sd模式，先连接usb线，然后上电。windows会提示找到usb输入设备。如果需要重新开始校准，拔掉电源，并拔掉usb线，再来一遍。<br>Load Init Script选择刚刚生成的realview.inc，怎么选择？<br>复制出来，存成txt格式。存储路径不能包含中文。<br>点download。<br>TARGET选择MX6ULL<br>DDR Density注意单位是Byte，所以例如可以选256MB.<br>在ddr calibration区域：<br>ddr freq设置成400<br>在ddr stress test区域：<br>start 设置成400<br>end设置成400*1.15=460<br>MR1 Value填写excel表格里面生成的值的高2字节。一般是0004.<br>让板子从usb otg模式启动，然后点Download<br>然后点calibration。过程长达十分钟左右。<br>在calibration完成以后，参考I.MX6ULL_DDR3_Script_Aid_V0.01.xlsx的realview.inc页。这个页面里面的寄存器值，以下部分，会因为calibration而发生变化。<br>setmem /32    0x021b080c  =    0x00000004    </p>
+<p>//Read DQS Gating calibration<br>setmem /32    0x021b083c =    0x00000000    // MPDGCTRL0 PHY0</p>
+<p>//Read calibration<br>setmem /32    0x021b0848 =    0x40404040    // MPRDDLCTL PHY0</p>
+<p>//Write calibration<br>setmem /32    0x021b0850 =    0x40404040    // MPWRDLCTL PHY0<br>其余的值保持不变。<br>把上面这些值。写入Realview.inc<br>然后从Realview.inc，写入uboot\board\freescale\mx6ul_14x14_evk\imximage.cfg(Realview.inc其实和imximage.cfg的整个寄存器的顺序都是一模一样的，直接抄过去。)</p>
+<p>校准结束后，从校准结果中，翻到最后，可以找到：<br>   MMDC registers updated from calibration </p>
+<p>   Write leveling calibration<br>   MMDC_MPWLDECTRL0 ch0 (0x021b080c) = 0x00000006<br>   MMDC_MPWLDECTRL1 ch0 (0x021b0810) = 0x000F000F</p>
+<p>  Read DQS Gating calibration<br>  MPDGCTRL0 PHY0 (0x021b083c) = 0x01640158<br>  MPDGCTRL1 PHY0 (0x021b0840) = 0x00000000</p>
+<p>  Read calibration<br>   MPRDDLCTL PHY0 (0x021b0848) = 0x40403032        </p>
+<p>   Write calibration<br>   MPWRDLCTL PHY0 (0x021b0850) = 0x40403A30<br>这些就是校准过的delay line的值了。<br>现在结合这些delay line值，并且完全照搬RealView.inc里面的内容，全部写到imximage.cfg里面去。<br>修改/home/xxx/IOT/grip-hybird/uboot/board\xxx\adt-aio_200-01875a\imximage.cfg<br>用Ctrl+H的办法，把setmem /32全部替换成DATA 4。并且把 =    全部替换成一个空格<br>但还是要检查下，会有Ctrl+H替换不到的。或者应该是一个空格，其实是两个空格的情形。<br>wait = on编译不过，需要注掉。</p>
+<p>另外，如果calibration失败，那么针对那个失败的字节（指result[xx]里面的某个字节一直不变成0），需要微调那个byte的DQS和DQ对应的驱动强度。<br>驱动强度需和布线阻抗对应。</p>
+<p>然后，点Stress Test，跑个24小时做压力测试。频率范围Start和End    就设置为实际要用的频率即可。</p>
+<p>同时也要用memtest进行进一步的测试，在系统可以启动后。</p>
+<p>注：<br>realview.inc里面可以看到好多，会多次往同一个寄存器写不同的值。其实作用是用作给DDR发命令，往一些寄存器例如MDSCR里面写不同的值，就是发不同的命令。</p>
+<p>生产之前，取5块板子，每个寄存器的每个byte做平均，取个均值。    </p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/08/12/AM3354-DDR3调试/" rel="next" title="AM3354 DDR3调试">
+                <i class="fa fa-chevron-left"></i> AM3354 DDR3调试
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/08/12/device-tree/" rel="prev" title="device tree">
+                device tree <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Semiyd</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives">
+                
+                    <span class="site-state-item-count">195</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">90</span>
+                    <span class="site-state-item-name">categories</span>
+                  </a>
+                </div>
+              
+
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Semiyd</span>
+
+  
+
+  
+</div>
+
+
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> v3.7.1</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://theme-next.org">NexT.Muse</a> v6.3.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+	
+    
+
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.3.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.3.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.3.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.3.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.3.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

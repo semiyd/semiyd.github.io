@@ -1,0 +1,952 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.3.0" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.3.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.3.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.3.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.3.0" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '6.3.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="u-boot device tree">
+<meta property="og:type" content="article">
+<meta property="og:title" content="device tree">
+<meta property="og:url" content="http://yoursite.com/2018/08/12/device-tree/index.html">
+<meta property="og:site_name" content="Semiyd&#39;s Blog">
+<meta property="og:description" content="u-boot device tree">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2018-08-12T02:38:04.890Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="device tree">
+<meta name="twitter:description" content="u-boot device tree">
+
+
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/08/12/device-tree/"/>
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>device tree | Semiyd's Blog</title>
+  
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Semiyd's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br />Home</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+    <a href="/categories/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-th"></i> <br />Categories</a>
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/12/device-tree/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Semiyd">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Semiyd's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">device tree
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2018-08-12 10:35:19 / Modified: 10:38:04" itemprop="dateCreated datePublished" datetime="2018-08-12T10:35:19+08:00">2018-08-12</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Linux/" itemprop="url" rel="index"><span itemprop="name">Linux</span></a></span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Linux/U-boot/" itemprop="url" rel="index"><span itemprop="name">U-boot</span></a></span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Linux/U-boot/驱动/" itemprop="url" rel="index"><span itemprop="name">驱动</span></a></span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Linux/U-boot/驱动/Device-Tree/" itemprop="url" rel="index"><span itemprop="name">Device Tree</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><center><strong>u-boot device tree </strong></center><br><a id="more"></a></p>
+<p>有关u-boot的设备树，分两块来讲。<br>一是最常见的，u-boot支持fdt的加载，把dtb传递给内核。<br>二是比较新出现的，u-boot本身也自带一个小dts的情况。</p>
+<h1 id="u-boot传递kernel的dtb给kernel"><a href="#u-boot传递kernel的dtb给kernel" class="headerlink" title="u-boot传递kernel的dtb给kernel"></a>u-boot传递kernel的dtb给kernel</h1><p>编译uboot前加入        #define CONFIG_OF_LIBFDT               /* Device Tree support */<br>根据mkconfig：<br>make TQ3358_config<br>解析出BOARD_NAME=”${1%_config}”也就是BOARD_NAME=TQ3358<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">CONFIG_NAME=&quot;$&#123;1%_config&#125;&quot;</span><br><span class="line">#include &lt;configs/$&#123;CONFIG_NAME&#125;.h&gt;</span><br></pre></td></tr></table></figure></p>
+<p>所以需要改TQ3358.h    加入#define CONFIG_OF_LIBFDT<br>export PATH=/usr/local/arm/gcc-linaro-arm-linux-gnueabi-2012.03-20120326_linux/bin<br>编译<br>这样就支持device tree了，包括fdt命令。<br>当前的uboot尚不支持bootz<br>所以kernel编译需要修改Makefile为：<br>$(MAKE) -j $(MAKE_JOBS) -C $(LINUXKERNEL_INSTALL_DIR) ARCH=arm CROSS_COMPILE=$(CROSS_COMPILE) uImage LOADADDR=0x80008000<br>其中0x82000000就是uboot的cpaddr环境变量值。<br>环境变量加入：<br>tftp 600000 mpc8315erdb.dtb<br>cp.b 600000 fff80000 $filesize<br>也许需要（设置fdt的地址）：fdt addr 0x71000000，这个地址需要和tftp 下载到的RAM地址一致。<br>fdtfile=mpc8315erdb.dtb</p>
+<p>tftp 1000000 rootfs.ext2.gz.uboot     // 下载uboot可用的文件系统，在ltib目录下<br>tftp 200000 uImage                    // 下载内核镜像<br>tftp 800000 mpc8313erdb.dtb           // 下载dtb文件<br>bootm 200000 1000000 800000           // 启动</p>
+<p>load mmc 0 0x88000000 /boot/am335x-evm.dtb<br>load mmc 0 0x82000000 /boot/zImage<br>bootz 0x82000000 - 0x88000000<br>对于 ARM，使用 bootz ${loadaddr} ${rdaddr}:${rdsize} ${fdtaddr} 命令来启动 Kernel。</p>
+<p>加载dtb<br>tftp 0x88000000 am335x-evm.dtb<br>fdt addr 0x88000000<br>尝试启动kernel<br>tftp 0x80007fc0 uImage<br>bootm 0x80007fc0 - 0x88000000</p>
+<p>cpaddr和load address的关系<br>load address=Entry Point？</p>
+<p>原来3.2.0的情况，是这样的：<br>cpaddr=0x82000000    tftp的位置<br>nand addr kernel = 0x580000    nand里面存kernel的位置<br>kloadaddr=0x80007fc0        nand读出来kernel到ddr的位置<br>LOADADDR=0x80008000        uImage跳过64字节后真正开始执行的位置<br>这种中间和kloadaddr=0x80007fc0差了64<br>uImage就是zImage加上一个64的头部。头部要跳过。<br>所以kloadaddr必须是0x80007fc0    </p>
+<p>改动uboot下载和启动部分<br>1.增加sd卡读取dts并保存<br>替换原先menu里面的6号，也就是烧写yaffs，改成烧写dtb<br>dtb的实际大小：36205字节，也就是36K。并且看了arch/arm/boot/dts下面的dtb文件，没有超过100KB的。<br>“mmc rescan;fatload mmc 0 ${cpaddr} ${rootimgname};nandecc hw 0;nand erase root;nand write.yaffs2 ${cpaddr} root $(filesize)”<br>cpaddr属于环境变量，cpaddr=0x82000000，看代码，不管是烧uImage还是root.bin，都是先拷入cpaddr的，相当于一个临时存放的地址，所以这个值不用改。<br>rootimgname改为dtbimgname，并加入CONFIG_EXTRA_ENV_SETTINGS这个宏里面<br>nandecc参考uimage，用的也是hw 0。所以我们也用hw 0。<br>nand erase root这句话，root是个地址定义？<br>    根据nand –help的结果：<br>    nand write - addr off|partition size<br>    也就是说，nand write后面跟的参数是： 1.从哪里拷贝(RAM地址)  2.偏移/分区名字    3.拷贝大小。<br>    最好还是使用分区来表示，这样比较直观。<br>MTDPARTS_DEFAULT目前的定义是”mtdparts=TQ3358-nand:128k@0(SPL),128k(SPL.backup0),128k(SPL.backup1),128k(SPL.backup2),1920k(uboot),128k(params),3m(logo),5m(kernel),-(root)”<br>    仔细看了下，这个定义和kernel里面的分区定义确实是一致的。<br>    所以目前看，其实把root分区，替换成SPL.backup2应该是可以的，换个名字，这样也不用动分区结构了。<br>最终改成：<br>“mmc rescan;fatload mmc 0 ${cpaddr} ${dtbimgname};nandecc hw 0;nand erase DTB;nand write.i ${cpaddr} DTB $(filesize)”<br>2.改动bootm<br>a.先读取dts，加入fdt addr ，再读取uimage<br>b.bootm命令参数改变</p>
+<p>把uimage加载到0x80007fc0地址<br>把nand的dtb加载到0x88000000地址<br>bootm 0x80007fc0 - 0x88000000</p>
+<p>是这个nand_boot，在CONFIG_EXTRA_ENV_SETTINGS里面的。<br>    “nand_boot=echo Booting from nand …; “ \<br>        “nandecc hw 0; “ \<br>        “nand read.i ${kloadaddr} kernel ; “ \<br>        “bootm ${kloadaddr}\0” \<br>改成：<br>    “nand_boot=echo Booting from nand …; “ \<br>        “nandecc hw 0; “ \<br>        “nand read.i ${kloadaddr} kernel ; “ \<br>        “nand read.i ${dtbloadaddr} DTB ; “ \<br>        “fdt addr ${dtbloadaddr} ; “ \<br>        “bootm ${kloadaddr} - ${dtbloadaddr}\0” \<br>重新编译：<br>make TQ3358_config<br>make -j8<br>启动下试试？<br>可以启动，没问题</p>
+<p>3.增加tftp读取dts并保存<br>修改tftp_menu_shell()<br>4.移除yaffs相关菜单。(sd和tftp)<br>sd菜单已替换成dtb菜单选项<br>tftp和sd菜单共用main_menu_usage()来显示菜单的，所以只要更改main_menu_usage()一处即可。<br>5.改动默认的bootargs<br>已改动<br>修改文件：<br>cmd_menu.c<br>TQ3358.h<br>备份为：<br>C:\Document\Document\项目\NPMS-SGX项目\02.00.02.11\u-boot-2011.09-20161108.tar.bz2    </p>
+<h1 id="u-boot使用自己的dtb用于启动"><a href="#u-boot使用自己的dtb用于启动" class="headerlink" title="u-boot使用自己的dtb用于启动"></a>u-boot使用自己的dtb用于启动</h1><p>比较新的u-boot，例如u-boot-2017，都是使用的kbuild的编译架构，同时也使用了设备树。<br>u-boot所使用的设备树，是给自己启动用的，和内核所用的设备树，其实是没有关联的。但在设备树本身的格式上相近，都属于dts的格式。<br>u-boot因为在驱动上很多方面和内核驱动非常接近，所以借用了内核的设备树的思路，但是在实际代码上和内核是独立的。<br>以am57xx平台为例，u-boot的dtb编译在u-boot镜像里面，而kernel的dtb则放在rootfs的/boot下面。</p>
+<p>设备树位于：<br>arch/arm/dts/</p>
+<p>在CONFIG_SPL_LOAD_FIT的配置下，首先u-boot.bin会和dtc编译出来的dtb文件，一起生成u-boot.img这个FIT镜像。<br>而SPL阶段，会去解析这个FIT镜像，根据检测出来的所在的板子型号，来选择其中正确的dtb，并把这个dtb在引导u-boot启动的时候，传递给u-boot<br>dts和configs/xxx_board_defconfig合起来，可以决定如何对特定的板卡做初始化。<br>u-boot的dts内容较为简单，大多是初始化一些电压，网络，内存大小，内存接口，usb接口等仅仅在u-boot阶段需要初始化的东西。<br>可以参考”am571x-idk.dts”和”am57xx-idk-common.dtsi”</p>
+<p>u-boot.img的生成过程：<br>tools/mkimage -f auto -A arm -T firmware -C none -O u-boot -a 0x80800000 -e 0 -n “U-Boot 2017.01 for am57xx board” -E -b arch/arm/dts/am57xx-beagle-x15.dtb<br>    -b arch/arm/dts/am57xx-beagle-x15-revb1.dtb -b arch/arm/dts/am57xx-beagle-x15-revc.dtb -b arch/arm/dts/am57xx-evm-reva3.dtb -b arch/arm/dts/am572x-idk.dtb<br>    -b arch/arm/dts/am571x-idk.dtb -b arch/arm/dts/am574x-idk.dtb -d u-boot-nodtb.bin u-boot.img  &gt;/dev/null<br>可见：u-boot-nodtb.bin + dtb文件 = u-boot.img</p>
+<p>还有一种编译方法：<br>make DEVICE_TREE=zynq-zed -j4</p>
+<p>在u-boot的顶层Makefile可以看到有关dtb的条目：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">u-boot: linux-dtbs</span><br><span class="line"></span><br><span class="line">      @echo ===================================</span><br><span class="line"></span><br><span class="line">      @echo    Building U-boot</span><br><span class="line"></span><br><span class="line">      @echo ===================================</span><br><span class="line"></span><br><span class="line">       $(MAKE) -j $(MAKE_JOBS) -C $(TI_SDK_PATH)/board-support/u-boot-* CROSS_COMPILE=$(CROSS_COMPILE) $(UBOOT_MACHINE)</span><br><span class="line"></span><br><span class="line">       $(MAKE) -j $(MAKE_JOBS) -C $(TI_SDK_PATH)/board-support/u-boot-* CROSS_COMPILE=$(CROSS_COMPILE) DTC=$(LINUXKERNEL_INSTALL_DIR)/scripts/dtc/dtc</span><br><span class="line"></span><br><span class="line">As you can see the make command also compiles a dtb, which is used by u-boot.</span><br></pre></td></tr></table></figure></p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/08/12/IMX6ULL-DDR3调试/" rel="next" title="IMX6ULL DDR3调试">
+                <i class="fa fa-chevron-left"></i> IMX6ULL DDR3调试
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/08/12/u-boot-ethernet调试/" rel="prev" title="u-boot ethernet调试">
+                u-boot ethernet调试 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Semiyd</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives">
+                
+                    <span class="site-state-item-count">195</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">90</span>
+                    <span class="site-state-item-name">categories</span>
+                  </a>
+                </div>
+              
+
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#u-boot传递kernel的dtb给kernel"><span class="nav-number">1.</span> <span class="nav-text">u-boot传递kernel的dtb给kernel</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#u-boot使用自己的dtb用于启动"><span class="nav-number">2.</span> <span class="nav-text">u-boot使用自己的dtb用于启动</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Semiyd</span>
+
+  
+
+  
+</div>
+
+
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> v3.7.1</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://theme-next.org">NexT.Muse</a> v6.3.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+	
+    
+
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.3.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.3.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.3.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.3.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.3.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,1061 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.3.0" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.3.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.3.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.3.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.3.0" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '6.3.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="U-Boot FIT Signature Verification">
+<meta property="og:type" content="article">
+<meta property="og:title" content="U-Boot FIT Signature Verification">
+<meta property="og:url" content="http://yoursite.com/2018/08/11/U-Boot-FIT-Signature-Verification/index.html">
+<meta property="og:site_name" content="Semiyd&#39;s Blog">
+<meta property="og:description" content="U-Boot FIT Signature Verification">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2018-08-11T10:12:24.573Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="U-Boot FIT Signature Verification">
+<meta name="twitter:description" content="U-Boot FIT Signature Verification">
+
+
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/08/11/U-Boot-FIT-Signature-Verification/"/>
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>U-Boot FIT Signature Verification | Semiyd's Blog</title>
+  
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Semiyd's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br />Home</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+    <a href="/categories/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-th"></i> <br />Categories</a>
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/11/U-Boot-FIT-Signature-Verification/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Semiyd">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Semiyd's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">U-Boot FIT Signature Verification
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2018-08-11 18:11:54 / Modified: 18:12:24" itemprop="dateCreated datePublished" datetime="2018-08-11T18:11:54+08:00">2018-08-11</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Linux/" itemprop="url" rel="index"><span itemprop="name">Linux</span></a></span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Linux/U-boot/" itemprop="url" rel="index"><span itemprop="name">U-boot</span></a></span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Linux/U-boot/Secure-Boot/" itemprop="url" rel="index"><span itemprop="name">Secure Boot</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><center><strong> U-Boot FIT Signature Verification</strong></center><br><a id="more"></a></p>
+<h1 id="U-Boot-FIT-Signature-Verification"><a href="#U-Boot-FIT-Signature-Verification" class="headerlink" title="U-Boot FIT Signature Verification"></a>U-Boot FIT Signature Verification</h1><h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><p>FIT supports hashing of images so that these hashes can be checked on<br>loading. This protects against corruption of the image. However it does not<br>prevent the substitution of one image for another.</p>
+<p>The signature feature allows the hash to be signed with a private key such<br>that it can be verified using a public key later. Provided that the private<br>key is kept secret and the public key is stored in a non-volatile place,<br>any image can be verified in this way.</p>
+<p>See verified-boot.txt for more general information on verified boot.</p>
+<h2 id="Concepts"><a href="#Concepts" class="headerlink" title="Concepts"></a>Concepts</h2><p>Some familiarity with public key cryptography is assumed in this section.</p>
+<p>The procedure for signing is as follows:</p>
+<ul>
+<li>hash an image in the FIT</li>
+<li>sign the hash with a private key to produce a signature</li>
+<li>store the resulting signature in the FIT</li>
+</ul>
+<p>The procedure for verification is:</p>
+<ul>
+<li>read the FIT</li>
+<li>obtain the public key</li>
+<li>extract the signature from the FIT</li>
+<li>hash the image from the FIT</li>
+<li>verify (with the public key) that the extracted signature matches the<br>  hash</li>
+</ul>
+<p>The signing is generally performed by mkimage, as part of making a firmware<br>image for the device. The verification is normally done in U-Boot on the<br>device.</p>
+<h2 id="Algorithms"><a href="#Algorithms" class="headerlink" title="Algorithms"></a>Algorithms</h2><p>In principle any suitable algorithm can be used to sign and verify a hash.<br>At present only one class of algorithms is supported: SHA1 hashing with RSA.<br>This works by hashing the image to produce a 20-byte hash.</p>
+<p>While it is acceptable to bring in large cryptographic libraries such as<br>openssl on the host side (e.g. mkimage), it is not desirable for U-Boot.<br>For the run-time verification side, it is important to keep code and data<br>size as small as possible.</p>
+<p>For this reason the RSA image verification uses pre-processed public keys<br>which can be used with a very small amount of code - just some extraction<br>of data from the FDT and exponentiation mod n. Code size impact is a little<br>under 5KB on Tegra Seaboard, for example.</p>
+<p>It is relatively straightforward to add new algorithms if required. If<br>another RSA variant is needed, then it can be added to the table in<br>image-sig.c. If another algorithm is needed (such as DSA) then it can be<br>placed alongside rsa.c, and its functions added to the table in image-sig.c<br>also.</p>
+<h2 id="Creating-an-RSA-key-pair-and-certificate"><a href="#Creating-an-RSA-key-pair-and-certificate" class="headerlink" title="Creating an RSA key pair and certificate"></a>Creating an RSA key pair and certificate</h2><p>To create a new public/private key pair, size 2048 bits:</p>
+<p>$ openssl genpkey -algorithm RSA -out keys/dev.key \<br>    -pkeyopt rsa_keygen_bits:2048 -pkeyopt rsa_keygen_pubexp:65537</p>
+<p>To create a certificate for this containing the public key:</p>
+<p>$ openssl req -batch -new -x509 -key keys/dev.key -out keys/dev.crt</p>
+<p>If you like you can look at the public key also:</p>
+<p>$ openssl rsa -in keys/dev.key -pubout</p>
+<h2 id="Device-Tree-Bindings"><a href="#Device-Tree-Bindings" class="headerlink" title="Device Tree Bindings"></a>Device Tree Bindings</h2><p>The following properties are required in the FIT’s signature node(s) to<br>allow thes signer to operate. These should be added to the .its file.<br>Signature nodes sit at the same level as hash nodes and are called<br>signature@1, signature@2, etc.</p>
+<ul>
+<li><p>algo: Algorithm name (e.g. “sha1,rs2048”)</p>
+</li>
+<li><p>key-name-hint: Name of key to use for signing. The keys will normally be in<br>a single directory (parameter -k to mkimage). For a given key <name>, its<br>private key is stored in <name>.key and the certificate is stored in<br><name>.crt.</name></name></name></p>
+</li>
+</ul>
+<p>When the image is signed, the following properties are added (mandatory):</p>
+<ul>
+<li>value: The signature data (e.g. 256 bytes for 2048-bit RSA)</li>
+</ul>
+<p>When the image is signed, the following properties are optional:</p>
+<ul>
+<li><p>timestamp: Time when image was signed (standard Unix time_t format)</p>
+</li>
+<li><p>signer-name: Name of the signer (e.g. “mkimage”)</p>
+</li>
+<li><p>signer-version: Version string of the signer (e.g. “2013.01”)</p>
+</li>
+<li><p>comment: Additional information about the signer or image</p>
+</li>
+</ul>
+<p>For config bindings (see Signed Configurations below), the following<br>additional properties are optional:</p>
+<ul>
+<li>sign-images: A list of images to sign, each being a property of the conf<br>node that contains then. The default is “kernel,fdt” which means that these<br>two images will be looked up in the config and signed if present.</li>
+</ul>
+<p>For config bindings, these properties are added by the signer:</p>
+<ul>
+<li><p>hashed-nodes: A list of nodes which were hashed by the signer. Each is<br>  a string - the full path to node. A typical value might be:</p>
+<p>  hashed-nodes = “/“, “/configurations/conf@1”, “/images/kernel@1”,</p>
+<pre><code>&quot;/images/kernel@1/hash@1&quot;, &quot;/images/fdt@1&quot;,
+&quot;/images/fdt@1/hash@1&quot;;
+</code></pre></li>
+<li><p>hashed-strings: The start and size of the string region of the FIT that<br>  was hashed</p>
+</li>
+</ul>
+<p>Example: See sign-images.its for an example image tree source file and<br>sign-configs.its for config signing.</p>
+<h2 id="Public-Key-Storage"><a href="#Public-Key-Storage" class="headerlink" title="Public Key Storage"></a>Public Key Storage</h2><p>In order to verify an image that has been signed with a public key we need to<br>have a trusted public key. This cannot be stored in the signed image, since<br>it would be easy to alter. For this implementation we choose to store the<br>public key in U-Boot’s control FDT (using CONFIG_OF_CONTROL).</p>
+<p>Public keys should be stored as sub-nodes in a /signature node. Required<br>properties are:</p>
+<ul>
+<li>algo: Algorithm name (e.g. “sha1,rs2048”)</li>
+</ul>
+<p>Optional properties are:</p>
+<ul>
+<li><p>key-name-hint: Name of key used for signing. This is only a hint since it<br>is possible for the name to be changed. Verification can proceed by checking<br>all available signing keys until one matches.</p>
+</li>
+<li><p>required: If present this indicates that the key must be verified for the<br>image / configuration to be considered valid. Only required keys are<br>normally verified by the FIT image booting algorithm. Valid values are<br>“image” to force verification of all images, and “conf” to force verfication<br>of the selected configuration (which then relies on hashes in the images to<br>verify those).</p>
+</li>
+</ul>
+<p>Each signing algorithm has its own additional properties.</p>
+<p>For RSA the following are mandatory:</p>
+<ul>
+<li>rsa,num-bits: Number of key bits (e.g. 2048)</li>
+<li>rsa,modulus: Modulus (N) as a big-endian multi-word integer</li>
+<li>rsa,exponent: Public exponent (E) as a 64 bit unsigned integer</li>
+<li>rsa,r-squared: (2^num-bits)^2 as a big-endian multi-word integer</li>
+<li>rsa,n0-inverse: -1 / modulus[0] mod 2^32</li>
+</ul>
+<h2 id="Signed-Configurations"><a href="#Signed-Configurations" class="headerlink" title="Signed Configurations"></a>Signed Configurations</h2><p>While signing images is useful, it does not provide complete protection<br>against several types of attack. For example, it it possible to create a<br>FIT with the same signed images, but with the configuration changed such<br>that a different one is selected (mix and match attack). It is also possible<br>to substitute a signed image from an older FIT version into a newer FIT<br>(roll-back attack).</p>
+<p>As an example, consider this FIT:</p>
+<p>/ {<br>    images {<br>        kernel@1 {<br>            data = <data for="" kernel1=""><br>            signature@1 {<br>                algo = “sha1,rsa2048”;<br>                value = &lt;…kernel signature 1…&gt;<br>            };<br>        };<br>        kernel@2 {<br>            data = <data for="" kernel2=""><br>            signature@1 {<br>                algo = “sha1,rsa2048”;<br>                value = &lt;…kernel signature 2…&gt;<br>            };<br>        };<br>        fdt@1 {<br>            data = <data for="" fdt1="">;<br>            signature@1 {<br>                algo = “sha1,rsa2048”;<br>                vaue = &lt;…fdt signature 1…&gt;<br>            };<br>        };<br>        fdt@2 {<br>            data = <data for="" fdt2="">;<br>            signature@1 {<br>                algo = “sha1,rsa2048”;<br>                vaue = &lt;…fdt signature 2…&gt;<br>            };<br>        };<br>    };<br>    configurations {<br>        default = “conf@1”;<br>        conf@1 {<br>            kernel = “kernel@1”;<br>            fdt = “fdt@1”;<br>        };<br>        conf@1 {<br>            kernel = “kernel@2”;<br>            fdt = “fdt@2”;<br>        };<br>    };<br>};</data></data></data></data></p>
+<p>Since both kernels are signed it is easy for an attacker to add a new<br>configuration 3 with kernel 1 and fdt 2:</p>
+<pre><code>configurations {
+    default = &quot;conf@1&quot;;
+    conf@1 {
+        kernel = &quot;kernel@1&quot;;
+        fdt = &quot;fdt@1&quot;;
+    };
+    conf@1 {
+        kernel = &quot;kernel@2&quot;;
+        fdt = &quot;fdt@2&quot;;
+    };
+    conf@3 {
+        kernel = &quot;kernel@1&quot;;
+        fdt = &quot;fdt@2&quot;;
+    };
+};
+</code></pre><p>With signed images, nothing protects against this. Whether it gains an<br>advantage for the attacker is debatable, but it is not secure.</p>
+<p>To solved this problem, we support signed configurations. In this case it<br>is the configurations that are signed, not the image. Each image has its<br>own hash, and we include the hash in the configuration signature.</p>
+<p>So the above example is adjusted to look like this:</p>
+<p>/ {<br>    images {<br>        kernel@1 {<br>            data = <data for="" kernel1=""><br>            hash@1 {<br>                algo = “sha1”;<br>                value = &lt;…kernel hash 1…&gt;<br>            };<br>        };<br>        kernel@2 {<br>            data = <data for="" kernel2=""><br>            hash@1 {<br>                algo = “sha1”;<br>                value = &lt;…kernel hash 2…&gt;<br>            };<br>        };<br>        fdt@1 {<br>            data = <data for="" fdt1="">;<br>            hash@1 {<br>                algo = “sha1”;<br>                value = &lt;…fdt hash 1…&gt;<br>            };<br>        };<br>        fdt@2 {<br>            data = <data for="" fdt2="">;<br>            hash@1 {<br>                algo = “sha1”;<br>                value = &lt;…fdt hash 2…&gt;<br>            };<br>        };<br>    };<br>    configurations {<br>        default = “conf@1”;<br>        conf@1 {<br>            kernel = “kernel@1”;<br>            fdt = “fdt@1”;<br>            signature@1 {<br>                algo = “sha1,rsa2048”;<br>                value = &lt;…conf 1 signature…&gt;;<br>            };<br>        };<br>        conf@2 {<br>            kernel = “kernel@2”;<br>            fdt = “fdt@2”;<br>            signature@1 {<br>                algo = “sha1,rsa2048”;<br>                value = &lt;…conf 1 signature…&gt;;<br>            };<br>        };<br>    };<br>};</data></data></data></data></p>
+<p>You can see that we have added hashes for all images (since they are no<br>longer signed), and a signature to each configuration. In the above example,<br>mkimage will sign configurations/conf@1, the kernel and fdt that are<br>pointed to by the configuration (/images/kernel@1, /images/kernel@1/hash@1,<br>/images/fdt@1, /images/fdt@1/hash@1) and the root structure of the image<br>(so that it isn’t possible to add or remove root nodes). The signature is<br>written into /configurations/conf@1/signature@1/value. It can easily be<br>verified later even if the FIT has been signed with other keys in the<br>meantime.</p>
+<h2 id="Verification"><a href="#Verification" class="headerlink" title="Verification"></a>Verification</h2><p>FITs are verified when loaded. After the configuration is selected a list<br>of required images is produced. If there are ‘required’ public keys, then<br>each image must be verified against those keys. This means that every image<br>that might be used by the target needs to be signed with ‘required’ keys.</p>
+<p>This happens automatically as part of a bootm command when FITs are used.</p>
+<h2 id="Enabling-FIT-Verification"><a href="#Enabling-FIT-Verification" class="headerlink" title="Enabling FIT Verification"></a>Enabling FIT Verification</h2><p>In addition to the options to enable FIT itself, the following CONFIGs must<br>be enabled:</p>
+<p>CONFIG_FIT_SIGNATURE - enable signing and verfication in FITs<br>CONFIG_RSA - enable RSA algorithm for signing</p>
+<p>WARNING: When relying on signed FIT images with required signature check<br>the legacy image format is default disabled by not defining<br>CONFIG_IMAGE_FORMAT_LEGACY</p>
+<h2 id="Testing"><a href="#Testing" class="headerlink" title="Testing"></a>Testing</h2><p>An easy way to test signing and verfication is to use the test script<br>provided in test/vboot/vboot_test.sh. This uses sandbox (a special version<br>of U-Boot which runs under Linux) to show the operation of a ‘bootm’<br>command loading and verifying images.</p>
+<p>A sample run is show below:</p>
+<p>$ make O=sandbox sandbox_config<br>$ make O=sandbox<br>$ O=sandbox ./test/vboot/vboot_test.sh</p>
+<h1 id="Simple-Verified-Boot-Test"><a href="#Simple-Verified-Boot-Test" class="headerlink" title="Simple Verified Boot Test"></a>Simple Verified Boot Test</h1><p>Please see doc/uImage.FIT/verified-boot.txt for more information</p>
+<p>/home/hs/ids/u-boot/sandbox/tools/mkimage -D -I dts -O dtb -p 2000<br>Build keys<br>do sha1 test<br>Build FIT with signed images<br>Test Verified Boot Run: unsigned signatures:: OK<br>Sign images<br>Test Verified Boot Run: signed images: OK<br>Build FIT with signed configuration<br>Test Verified Boot Run: unsigned config: OK<br>Sign images<br>Test Verified Boot Run: signed config: OK<br>check signed config on the host<br>Signature check OK<br>OK<br>Test Verified Boot Run: signed config: OK<br>Test Verified Boot Run: signed config with bad hash: OK<br>do sha256 test<br>Build FIT with signed images<br>Test Verified Boot Run: unsigned signatures:: OK<br>Sign images<br>Test Verified Boot Run: signed images: OK<br>Build FIT with signed configuration<br>Test Verified Boot Run: unsigned config: OK<br>Sign images<br>Test Verified Boot Run: signed config: OK<br>check signed config on the host<br>Signature check OK<br>OK<br>Test Verified Boot Run: signed config: OK<br>Test Verified Boot Run: signed config with bad hash: OK</p>
+<p>Test passed</p>
+<h2 id="Future-Work"><a href="#Future-Work" class="headerlink" title="Future Work"></a>Future Work</h2><ul>
+<li>Roll-back protection using a TPM is done using the tpm command. This can<br>be scripted, but we might consider a default way of doing this, built into<br>bootm.</li>
+</ul>
+<h2 id="Possible-Future-Work"><a href="#Possible-Future-Work" class="headerlink" title="Possible Future Work"></a>Possible Future Work</h2><ul>
+<li>Add support for other RSA/SHA variants, such as rsa4096,sha512.</li>
+<li>Other algorithms besides RSA</li>
+<li>More sandbox tests for failure modes</li>
+<li>Passwords for keys/certificates</li>
+<li>Perhaps implement OAEP</li>
+<li>Enhance bootm to permit scripted signature verification (so that a script<br>can verify an image but not actually boot it)</li>
+</ul>
+<p>Simon Glass<br><a href="mailto:sjg@chromium.org" target="_blank" rel="noopener">sjg@chromium.org</a><br>1-1-13</p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/08/11/U-Boot-Verified-Boot/" rel="next" title="U-Boot Verified Boot">
+                <i class="fa fa-chevron-left"></i> U-Boot Verified Boot
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/08/12/uboot-spl编译流程/" rel="prev" title="uboot-spl编译流程">
+                uboot-spl编译流程 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Semiyd</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives">
+                
+                    <span class="site-state-item-count">195</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">90</span>
+                    <span class="site-state-item-name">categories</span>
+                  </a>
+                </div>
+              
+
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#U-Boot-FIT-Signature-Verification"><span class="nav-number">1.</span> <span class="nav-text">U-Boot FIT Signature Verification</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Introduction"><span class="nav-number">1.1.</span> <span class="nav-text">Introduction</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Concepts"><span class="nav-number">1.2.</span> <span class="nav-text">Concepts</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Algorithms"><span class="nav-number">1.3.</span> <span class="nav-text">Algorithms</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Creating-an-RSA-key-pair-and-certificate"><span class="nav-number">1.4.</span> <span class="nav-text">Creating an RSA key pair and certificate</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Device-Tree-Bindings"><span class="nav-number">1.5.</span> <span class="nav-text">Device Tree Bindings</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Public-Key-Storage"><span class="nav-number">1.6.</span> <span class="nav-text">Public Key Storage</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Signed-Configurations"><span class="nav-number">1.7.</span> <span class="nav-text">Signed Configurations</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Verification"><span class="nav-number">1.8.</span> <span class="nav-text">Verification</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Enabling-FIT-Verification"><span class="nav-number">1.9.</span> <span class="nav-text">Enabling FIT Verification</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Testing"><span class="nav-number">1.10.</span> <span class="nav-text">Testing</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Simple-Verified-Boot-Test"><span class="nav-number">2.</span> <span class="nav-text">Simple Verified Boot Test</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Future-Work"><span class="nav-number">2.1.</span> <span class="nav-text">Future Work</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Possible-Future-Work"><span class="nav-number">2.2.</span> <span class="nav-text">Possible Future Work</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Semiyd</span>
+
+  
+
+  
+</div>
+
+
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> v3.7.1</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://theme-next.org">NexT.Muse</a> v6.3.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+	
+    
+
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.3.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.3.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.3.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.3.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.3.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

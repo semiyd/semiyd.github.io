@@ -1,0 +1,910 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.3.0" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.3.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.3.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.3.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.3.0" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '6.3.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="u-boot ethernet调试">
+<meta property="og:type" content="article">
+<meta property="og:title" content="u-boot ethernet调试">
+<meta property="og:url" content="http://yoursite.com/2018/08/12/u-boot-ethernet调试/index.html">
+<meta property="og:site_name" content="Semiyd&#39;s Blog">
+<meta property="og:description" content="u-boot ethernet调试">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2018-08-12T02:46:44.754Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="u-boot ethernet调试">
+<meta name="twitter:description" content="u-boot ethernet调试">
+
+
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/08/12/u-boot-ethernet调试/"/>
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>u-boot ethernet调试 | Semiyd's Blog</title>
+  
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Semiyd's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br />Home</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+    <a href="/categories/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-th"></i> <br />Categories</a>
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/12/u-boot-ethernet调试/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Semiyd">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Semiyd's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">u-boot ethernet调试
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2018-08-12 10:39:07 / Modified: 10:46:44" itemprop="dateCreated datePublished" datetime="2018-08-12T10:39:07+08:00">2018-08-12</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Linux/" itemprop="url" rel="index"><span itemprop="name">Linux</span></a></span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Linux/U-boot/" itemprop="url" rel="index"><span itemprop="name">U-boot</span></a></span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Linux/U-boot/驱动/" itemprop="url" rel="index"><span itemprop="name">驱动</span></a></span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Linux/U-boot/驱动/ETH/" itemprop="url" rel="index"><span itemprop="name">ETH</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><center><strong>u-boot ethernet调试</strong></center><br><a id="more"></a></p>
+<p>ethernet调试：<br>设置uboot环境变量<br>交换机的网口LED完全没信号。<br>我看npms并没有改动uboot部分的eth代码。TQ和npms一样是gmii模式？phy也一样？<br>    tq也是gmii.phy是RTL8211E.NPMS也是一样，gmii+RTL8211E<br>TQ启动过程中，有没有有关eth的log打印出来？<br>    Booting from tftp…<br>    link up on port 0, speed 100, full duplex<br>    Using cpsw device<br>    而xxx的log是：<br>    Booting from tftp…<br>    Auto negotitation failed<br>    Using cpsw device<br>    所以区别就在有没有这句link up on port 0, speed 100, full duplex，来自cpsw_slave_update_link()<br>配置rmii，配置phy<br>    board_init_r()-&gt;eth_initialize()(line247那个)-&gt;miiphy_init();<br>                           board_eth_init()-&gt;eth_getenv_enetaddr()<br>                                 RGMII_MODE_ENABLE    此处已经改为RMII_MODE_ENABLE<br>                                 cpsw_register()给人感觉是mac的驱动<br>                           检查全局变量eth_devices是否存在<br>                           eth_current_changed()改变ethact的环境变量。从实际运行的xxx的环境变量也可以看出，ethact=cpsw<br>               reset_phy()没执行<br>phy初始化可能是cpsw初始化里面用到的。cpsw_init–&gt; cpsw_slave_init–&gt; priv-&gt;data.phy_init()（=evm_phy_init()？）<br>cpsw_init()直到Booting from tftp…后面才会被调用。具体是哪句话调用的？                   ??<br>    eth_init<br>evm_phy_init一开始有读phy id的语句。需要确定addr到底是多少，是否正确？    打印信息看，addr目前设为0<br>    DM9161AEP的phy地址是由pin 26~29四个脚组成，看电路图应该是0.<br>    打log看出来，读到的phy id是0x181 0xb8a0，和DM9161AEP的spec page25的phyid一致。所以说明MDIO是通的。<br>这么看应该是evm_phy_init()这种通用的phy初始化代码，可能并不兼容DM9161AEP，但也有可能是网线信号问题。<br>    因为我试了，拔了tq的网线，打出来的log一样的，也有Auto negotitation failed<br>    而且对比了下NX30的macb_phy_init()，似乎初始化步骤也差不多<br>    读phy id<br>    读BMCR<br>    写BMCR默认先设置成100M全双工<br>    读BMCR<br>    读MII_ADVERTISE<br>    写MII_ADVERTISE，设置成can do 100M全双工<br>    读MII_ADVERTISE<br>    写MII_BMCR来重启auto negotiation<br>    循环检查MII_BMSR来看auto negotiation的状态<br>    接下来cpsw_slave_update_link()里面把速度和双工信息写入mac的寄存器<br>    从流程上看，和NX30的macb_phy_init()大的流程上是一样的，就是标准的流程。所以更可能是硬件问题。<br>可以参考nx30的uboot的代码<br>    macb_phy_init()具体做了：<br>        读phy id<br>        读MII_BMSR<br>            如果link down，尝试auto-negotiation<br>                写MII_ADVERTISE，设置成can do all<br>                写MII_BMCR来重启auto negotiation<br>                循环检查MII_BMSR来看auto negotiation的状态<br>            如果link up<br>                读MII_ADVERTISE和MII_LPA，确定协商结果的速度和双工<br>                然后把速度和双工信息写入mac的寄存器<br>eth_initialize()-&gt;phy_init();没被调用，里面有davicom和realtek的phy驱动。很奇怪。<br>    可能是因为am335x的这个uboot的eth驱动是非标的。<br>uboot的davicom.c还是存在的。<br>发现在一开始启动的时候，DM9161的晶振还是有波形的（网线信号灯亮），但是启动了几秒，晶振输出就没了（网线信号灯灭）。<br>    所以查一下代码对这个的影响。<br>    board_init_r()-&gt;eth_initialize(gd-&gt;bd);之前，就已经挂了<br>    检查发现是board_init()-&gt;configure_evm_pin_mux()导致的<br>    先确认下rmii1_pin_mux[]被使用了。<br>        注掉rmii1_pin_mux[]，网线又有信号了。<br>    直接用TQ uboot的rmii1_pin_mux[]也不行。<br>    找到到底哪行pinmux设定导致了问题。<br>        只保留mdio设置，所有rmii的mux都不配置。在sd模式下，居然能link up了（但通信不能）。但是换到nand模式下，启动了会死机的。<br>    就是这个有关{OFFSET(rmii1_refclk), MODE(0)}, /<em> RMII1_REFCLK </em>/<br>    这个信号是必须的。提供了这个时钟信号，phy就挂了。<br>        rmii refclk输出了没有？<br>            如果没有，查代码<br>            有输出，50MHz，但电平上下跳动的厉害。频率正确，是50MHz<br>            注掉了{OFFSET(rmii1_refclk), MODE(0)}。有50MHz输出，电平稳定。<br>                照理说，rmii1_refclk这个默认上电应该就是mode0，不应该因为再设置一下mode0，输出就不正常。<br>    会不会是phy没配置成rmii?    DM9161 pin36需要拉高。量一下：<br>    cpu端，rmii选择是写MAC_MII_SEL寄存器，现在写的是5<br>        参考Table 9-40. gmii_sel Register Field Descriptions<br>        写的5是使能rmii1和rmii2.没问题。写1应该也可以。<br>    Table 26-7. SYSBOOT Configuration Pins检查<br>    Table 26-34. Pins Used for EMAC Boot in RMII Mode确认<br>    看电路，发现rmii refclk其实是应该配置成输入的。因为refclk由一个外部的有源晶振提供。<br>    所以配置mux以后，refclk默认是cpu输出的，导致有源晶振和cpu同时输出，所以能看到上下跳动的clk，因为两个clk叠加了。<br>    现在把MAC_MII_SEL配置成0x41，也就是Enable RMII clock to be sourced from chip pin.再加选择RMII模式。__raw_writel(0x41, MAC_MII_SEL);<br>    并且把{OFFSET(rmii1_refclk), MODE(0) | RXACTIVE}加个RXACTIVE<br>    量个clk看是不是开机会乱一阵子<br>    把代码宏定义改改好<br>    确保mux之前就设置好MAC_MII_SEL，以防cpu输出refclk影响有源晶振起振。<br>        发现其实TQ也是这么改的。在board_init()一开始也有操作MAC_MII_SEL的动作。</p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/08/12/device-tree/" rel="next" title="device tree">
+                <i class="fa fa-chevron-left"></i> device tree
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/08/12/AM335x平台-在引导SPL、Uboot、Kernel期间-修改调试-打印串口/" rel="prev" title="AM335x平台--在引导SPL、Uboot、Kernel期间 修改调试&打印串口">
+                AM335x平台--在引导SPL、Uboot、Kernel期间 修改调试&打印串口 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Semiyd</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives">
+                
+                    <span class="site-state-item-count">195</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">90</span>
+                    <span class="site-state-item-name">categories</span>
+                  </a>
+                </div>
+              
+
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Semiyd</span>
+
+  
+
+  
+</div>
+
+
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> v3.7.1</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://theme-next.org">NexT.Muse</a> v6.3.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+	
+    
+
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.3.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.3.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.3.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.3.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.3.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
