@@ -108,24 +108,24 @@
 
 
 
-  <meta name="description" content="AM3354 DDR3调试">
+  <meta name="description" content="Android内核模块">
 <meta property="og:type" content="article">
-<meta property="og:title" content="AM3354 DDR3调试">
-<meta property="og:url" content="http://yoursite.com/2018/08/12/AM3354-DDR3调试/index.html">
+<meta property="og:title" content="Android内核模块">
+<meta property="og:url" content="http://yoursite.com/2020/07/05/Android内核模块/index.html">
 <meta property="og:site_name" content="Semiyd&#39;s Blog">
-<meta property="og:description" content="AM3354 DDR3调试">
+<meta property="og:description" content="Android内核模块">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-08-12T02:31:17.190Z">
+<meta property="og:updated_time" content="2020-07-05T13:22:14.371Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="AM3354 DDR3调试">
-<meta name="twitter:description" content="AM3354 DDR3调试">
+<meta name="twitter:title" content="Android内核模块">
+<meta name="twitter:description" content="Android内核模块">
 
 
 
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/08/12/AM3354-DDR3调试/"/>
+  <link rel="canonical" href="http://yoursite.com/2020/07/05/Android内核模块/"/>
 
 
 
@@ -135,7 +135,7 @@
   };
 </script>
 
-  <title>AM3354 DDR3调试 | Semiyd's Blog</title>
+  <title>Android内核模块 | Semiyd's Blog</title>
   
 
 
@@ -280,7 +280,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/12/AM3354-DDR3调试/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/07/05/Android内核模块/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Semiyd">
@@ -297,7 +297,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">AM3354 DDR3调试
+          <h1 class="post-title" itemprop="name headline">Android内核模块
               
             
           </h1>
@@ -322,7 +322,7 @@
                 
               
 
-              <time title="Created: 2018-08-12 10:27:56 / Modified: 10:31:17" itemprop="dateCreated datePublished" datetime="2018-08-12T10:27:56+08:00">2018-08-12</time>
+              <time title="Created: 2020-07-05 21:17:17 / Modified: 21:22:14" itemprop="dateCreated datePublished" datetime="2020-07-05T21:17:17+08:00">2020-07-05</time>
             
 
             
@@ -344,28 +344,35 @@
                 <span class="post-meta-item-text">In</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Linux/" itemprop="url" rel="index"><span itemprop="name">Linux</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Android/" itemprop="url" rel="index"><span itemprop="name">Android</span></a></span>
 
                 
                 
                   , 
                 
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Linux/U-boot/" itemprop="url" rel="index"><span itemprop="name">U-boot</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Android/AOSP/" itemprop="url" rel="index"><span itemprop="name">AOSP</span></a></span>
 
                 
                 
                   , 
                 
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Linux/U-boot/驱动/" itemprop="url" rel="index"><span itemprop="name">驱动</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Android/AOSP/Design/" itemprop="url" rel="index"><span itemprop="name">Design</span></a></span>
 
                 
                 
                   , 
                 
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Linux/U-boot/驱动/DDR/" itemprop="url" rel="index"><span itemprop="name">DDR</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Android/AOSP/Design/ARCHITECTURE/" itemprop="url" rel="index"><span itemprop="name">ARCHITECTURE</span></a></span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Android/AOSP/Design/ARCHITECTURE/Kernel/" itemprop="url" rel="index"><span itemprop="name">Kernel</span></a></span>
 
                 
                 
@@ -399,14 +406,13 @@
       
 
       
-        <p><center><strong>AM3354 DDR3调试</strong></center><br><a id="more"></a><br>
-
-	<div class="row">
-    <embed src="./1.pdf" width="100%" height="550" type="application/pdf">
-	</div>
-
-
-</p>
+        <p><center><strong>Android内核模块</strong></center><br><a id="more"></a></p>
+<p>有关内核模块：<br>首先，android kernel要求开启CONFIG_MODULES=y，必要的时候，可以加入CONFIG_MODULE_SIG=y也就是内核模块的签名功能。<br>另外，在不同的启动模式下（例如recovery,charger,还有正常的android模式），可以选择加载不同的模块。例如充电和recovery模式就不需要触屏模块。<br>内核模块必须从只读的分区加载。<br>SOC vendor发布的模块，需要放在/vendor/lib/modules。（android/charger启动模式）<br>如果有ODM分区，则需要放在/odm/lib/modules。（android/charger启动模式）<br>另外，如果模块在recovery模式下也需要，则要存放于recovery的文件系统/lib/modules里，并且不得依赖于任何/vendor和/odm的模块（因为recovery模式下，/vendor和/odm并不挂载）<br>如果模块同时在recovery,charger,还有正常的android模式下都需要，则需要同时放在recovery的文件系统和/vendor和/odm里。<br>BoardConfig.mk里面，BOARD_VENDOR_KERNEL_MODULES会包含所有需要放入vendor.img的内核模块的集合：<br>vendor_lkm_dir := device/$(vendor)/lkm-4.x<br>BOARD_VENDOR_KERNEL_MODULES := \<br>  $(vendor_lkm_dir)/vendor_module_a.ko \<br>  $(vendor_lkm_dir)/vendor_module_b.ko \<br>  $(vendor_lkm_dir)/vendor_module_c.ko<br>BOARD_RECOVERY_KERNEL_MODULES则包含所有需要放入recovery.img的内核模块的集合：<br>vendor_lkm_dir := device/$(vendor)/lkm-4.x<br>BOARD_RECOVERY_KERNEL_MODULES := \<br>  $(vendor_lkm_dir)/vendor_module_a.ko \<br>  $(vendor_lkm_dir)/vendor_module_b.ko</p>
+<p>模块的加载：<br>在init.rc*里面，一次性通过调用modprobe -a，加载所有内核模块。<br>例如下面的early-init的脚本：<br>on early-init<br>    exec u:r:modprobe:s0 – /vendor/bin/modprobe -a -d \<br>        /vendor/lib/modules module_a module_b module_c …</p>
+<p>模块的兼容性：<br>通常情况下，module应该和kernel一起编译出来。如果不是一起编译出来，如果编译module的内核版本，和当前内核版本不一致，会导致加载module失败。<br>现在的问题是，如果内核有一些小版本的升级，例如因为LTS的补丁，这时候仅更新boot.img。但如果不想因此更新vendor.img里面的module，怎么办呢？<br>可以开启内核的CONFIG_MODVERSIONS，模块里引用了内核符号表，就可以自动计算校验字串，而不会在加载模块时出现unresloved symbol的错误了。<br>说白了就是增加了一个兼容性检查的机制，不兼容，就不会加载成功。所以：<br>1,编译时没有带CONFIG_MODVERSIONS选项，但版本必须与内核的版本一致；<br>2,编译时如果带有CONFIG_MODVERSIONS选项，那么模块的版本将没有限制；<br>当然，CONFIG_MODVERSIONS也只能检查，并让内核同意加载不同版本编译出来的module，不能修复ABI不一致的问题。如果实在是ABI不一致，那只能重编vendor.img。</p>
+<p>早期加载：<br>所有兼容了Treble的设备，都需要启用first stage mount，来保证init加载的SELinux policy，能作用到system和vendor分区。<br>要做到这一点，android 8.0及更新的版本，需要在init的第一阶段（在selinux使能之前），就加载好system和vendor和odm分区。<br>这样一旦selinux启动，那system和vendor和odm分区就已经就位，可以作用到这些个分区了。<br>设备制造商，可以用device tree overlays 来确定fstab的入口，从而定义早期加载的分区细节。（后面说到device tree overlays会由详细描述啥叫DTO）<br>有关vboot 1.0和vboot 2.0对早期挂载分区的要求，待完善                                        ***</p>
+<p>从android 8.0开始，android要求能在runtime的时候获取kernel版本和配置。相关的信息必须可以从procfs里面读出。<br>CONFIG_IKCONFIG=y<br>CONFIG_IKCONFIG_PROC=y<br>从android 9.0开始，支持的内核最低的版本是 4.4.107, 4.9.84, and 4.14.42</p>
+<p>目前android社区针对Soc kernel的建议是：每个soc厂家只维护一个soc kernel（针对某个特定的soc）。<br>而针对特定设备的kernel，通过.config/kernel module/DTO这三个方式，做定制化。<br>这样可以避免soc kernel的碎片化。</p>
 
       
     </div>
@@ -434,8 +440,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/08/12/DDR数据线顺序打乱/" rel="next" title="DDR数据线顺序打乱">
-                <i class="fa fa-chevron-left"></i> DDR数据线顺序打乱
+              <a href="/2020/07/05/Android内核版本/" rel="next" title="Android内核版本">
+                <i class="fa fa-chevron-left"></i> Android内核版本
               </a>
             
           </div>
@@ -443,10 +449,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/08/12/IMX6ULL-DDR3调试/" rel="prev" title="IMX6ULL DDR3调试">
-                IMX6ULL DDR3调试 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
