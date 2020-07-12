@@ -1,0 +1,1065 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.3.0" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.3.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.3.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.3.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.3.0" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '6.3.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="Remote Processor Messaging (rpmsg) Framework">
+<meta property="og:type" content="article">
+<meta property="og:title" content="rpmsg">
+<meta property="og:url" content="http://yoursite.com/2020/07/12/rpmsg/index.html">
+<meta property="og:site_name" content="Semiyd&#39;s Blog">
+<meta property="og:description" content="Remote Processor Messaging (rpmsg) Framework">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2020-07-12T07:03:32.345Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="rpmsg">
+<meta name="twitter:description" content="Remote Processor Messaging (rpmsg) Framework">
+
+
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2020/07/12/rpmsg/"/>
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>rpmsg | Semiyd's Blog</title>
+  
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Semiyd's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br />Home</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+    <a href="/categories/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-th"></i> <br />Categories</a>
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/07/12/rpmsg/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Semiyd">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Semiyd's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">rpmsg
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2020-07-12 15:01:42 / Modified: 15:03:32" itemprop="dateCreated datePublished" datetime="2020-07-12T15:01:42+08:00">2020-07-12</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Linux/" itemprop="url" rel="index"><span itemprop="name">Linux</span></a></span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Linux/Kernel/" itemprop="url" rel="index"><span itemprop="name">Kernel</span></a></span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Linux/Kernel/驱动/" itemprop="url" rel="index"><span itemprop="name">驱动</span></a></span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Linux/Kernel/驱动/Remoteproc-rpmsg/" itemprop="url" rel="index"><span itemprop="name">Remoteproc & rpmsg</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><center><strong>Remote Processor Messaging (rpmsg) Framework</strong></center><br><a id="more"></a></p>
+<p>============================================</p>
+<h1 id="Remote-Processor-Messaging-rpmsg-Framework"><a href="#Remote-Processor-Messaging-rpmsg-Framework" class="headerlink" title="Remote Processor Messaging (rpmsg) Framework"></a>Remote Processor Messaging (rpmsg) Framework</h1><p>.. note::</p>
+<p>  This document describes the rpmsg bus and how to write rpmsg drivers.<br>  To learn how to add rpmsg support for new platforms, check out remoteproc.txt<br>  (also a resident of Documentation/).</p>
+<h1 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h1><p>Modern SoCs typically employ heterogeneous remote processor devices in<br>asymmetric multiprocessing (AMP) configurations, which may be running<br>different instances of operating system, whether it’s Linux or any other<br>flavor of real-time OS.</p>
+<p>OMAP4, for example, has dual Cortex-A9, dual Cortex-M3 and a C64x+ DSP.<br>Typically, the dual cortex-A9 is running Linux in a SMP configuration,<br>and each of the other three cores (two M3 cores and a DSP) is running<br>its own instance of RTOS in an AMP configuration.</p>
+<p>Typically AMP remote processors employ dedicated DSP codecs and multimedia<br>hardware accelerators, and therefore are often used to offload CPU-intensive<br>multimedia tasks from the main application processor.</p>
+<p>These remote processors could also be used to control latency-sensitive<br>sensors, drive random hardware blocks, or just perform background tasks<br>while the main CPU is idling.</p>
+<p>Users of those remote processors can either be userland apps (e.g. multimedia<br>frameworks talking with remote OMX components) or kernel drivers (controlling<br>hardware accessible only by the remote processor, reserving kernel-controlled<br>resources on behalf of the remote processor, etc..).</p>
+<p>Rpmsg is a virtio-based messaging bus that allows kernel drivers to communicate<br>with remote processors available on the system. In turn, drivers could then<br>expose appropriate user space interfaces, if needed.</p>
+<p>When writing a driver that exposes rpmsg communication to userland, please<br>keep in mind that remote processors might have direct access to the<br>system’s physical memory and other sensitive hardware resources (e.g. on<br>OMAP4, remote cores and hardware accelerators may have direct access to the<br>physical memory, gpio banks, dma controllers, i2c bus, gptimers, mailbox<br>devices, hwspinlocks, etc..). Moreover, those remote processors might be<br>running RTOS where every task can access the entire memory/devices exposed<br>to the processor. To minimize the risks of rogue (or buggy) userland code<br>exploiting remote bugs, and by that taking over the system, it is often<br>desired to limit userland to specific rpmsg channels (see definition below)<br>it can send messages on, and if possible, minimize how much control<br>it has over the content of the messages.</p>
+<p>Every rpmsg device is a communication channel with a remote processor (thus<br>rpmsg devices are called channels). Channels are identified by a textual name<br>and have a local (“source”) rpmsg address, and remote (“destination”) rpmsg<br>address.</p>
+<p>When a driver starts listening on a channel, its rx callback is bound with<br>a unique rpmsg local address (a 32-bit integer). This way when inbound messages<br>arrive, the rpmsg core dispatches them to the appropriate driver according<br>to their destination address (this is done by invoking the driver’s rx handler<br>with the payload of the inbound message).</p>
+<h1 id="User-API"><a href="#User-API" class="headerlink" title="User API"></a>User API</h1><p>::</p>
+<p>  int rpmsg_send(struct rpmsg_channel <em>rpdev, void </em>data, int len);</p>
+<p>sends a message across to the remote processor on a given channel.<br>The caller should specify the channel, the data it wants to send,<br>and its length (in bytes). The message will be sent on the specified<br>channel, i.e. its source and destination address fields will be<br>set to the channel’s src and dst addresses.</p>
+<p>In case there are no TX buffers available, the function will block until<br>one becomes available (i.e. until the remote processor consumes<br>a tx buffer and puts it back on virtio’s used descriptor ring),<br>or a timeout of 15 seconds elapses. When the latter happens,<br>-ERESTARTSYS is returned.</p>
+<p>The function can only be called from a process context (for now).<br>Returns 0 on success and an appropriate error value on failure.</p>
+<p>::</p>
+<p>  int rpmsg_sendto(struct rpmsg_channel <em>rpdev, void </em>data, int len, u32 dst);</p>
+<p>sends a message across to the remote processor on a given channel,<br>to a destination address provided by the caller.</p>
+<p>The caller should specify the channel, the data it wants to send,<br>its length (in bytes), and an explicit destination address.</p>
+<p>The message will then be sent to the remote processor to which the<br>channel belongs, using the channel’s src address, and the user-provided<br>dst address (thus the channel’s dst address will be ignored).</p>
+<p>In case there are no TX buffers available, the function will block until<br>one becomes available (i.e. until the remote processor consumes<br>a tx buffer and puts it back on virtio’s used descriptor ring),<br>or a timeout of 15 seconds elapses. When the latter happens,<br>-ERESTARTSYS is returned.</p>
+<p>The function can only be called from a process context (for now).<br>Returns 0 on success and an appropriate error value on failure.</p>
+<p>::</p>
+<p>  int rpmsg_send_offchannel(struct rpmsg_channel <em>rpdev, u32 src, u32 dst,<br>                            void </em>data, int len);</p>
+<p>sends a message across to the remote processor, using the src and dst<br>addresses provided by the user.</p>
+<p>The caller should specify the channel, the data it wants to send,<br>its length (in bytes), and explicit source and destination addresses.<br>The message will then be sent to the remote processor to which the<br>channel belongs, but the channel’s src and dst addresses will be<br>ignored (and the user-provided addresses will be used instead).</p>
+<p>In case there are no TX buffers available, the function will block until<br>one becomes available (i.e. until the remote processor consumes<br>a tx buffer and puts it back on virtio’s used descriptor ring),<br>or a timeout of 15 seconds elapses. When the latter happens,<br>-ERESTARTSYS is returned.</p>
+<p>The function can only be called from a process context (for now).<br>Returns 0 on success and an appropriate error value on failure.</p>
+<p>::</p>
+<p>  int rpmsg_trysend(struct rpmsg_channel <em>rpdev, void </em>data, int len);</p>
+<p>sends a message across to the remote processor on a given channel.<br>The caller should specify the channel, the data it wants to send,<br>and its length (in bytes). The message will be sent on the specified<br>channel, i.e. its source and destination address fields will be<br>set to the channel’s src and dst addresses.</p>
+<p>In case there are no TX buffers available, the function will immediately<br>return -ENOMEM without waiting until one becomes available.</p>
+<p>The function can only be called from a process context (for now).<br>Returns 0 on success and an appropriate error value on failure.</p>
+<p>::</p>
+<p>  int rpmsg_trysendto(struct rpmsg_channel <em>rpdev, void </em>data, int len, u32 dst)</p>
+<p>sends a message across to the remote processor on a given channel,<br>to a destination address provided by the user.</p>
+<p>The user should specify the channel, the data it wants to send,<br>its length (in bytes), and an explicit destination address.</p>
+<p>The message will then be sent to the remote processor to which the<br>channel belongs, using the channel’s src address, and the user-provided<br>dst address (thus the channel’s dst address will be ignored).</p>
+<p>In case there are no TX buffers available, the function will immediately<br>return -ENOMEM without waiting until one becomes available.</p>
+<p>The function can only be called from a process context (for now).<br>Returns 0 on success and an appropriate error value on failure.</p>
+<p>::</p>
+<p>  int rpmsg_trysend_offchannel(struct rpmsg_channel <em>rpdev, u32 src, u32 dst,<br>                            void </em>data, int len);</p>
+<p>sends a message across to the remote processor, using source and<br>destination addresses provided by the user.</p>
+<p>The user should specify the channel, the data it wants to send,<br>its length (in bytes), and explicit source and destination addresses.<br>The message will then be sent to the remote processor to which the<br>channel belongs, but the channel’s src and dst addresses will be<br>ignored (and the user-provided addresses will be used instead).</p>
+<p>In case there are no TX buffers available, the function will immediately<br>return -ENOMEM without waiting until one becomes available.</p>
+<p>The function can only be called from a process context (for now).<br>Returns 0 on success and an appropriate error value on failure.</p>
+<p>::</p>
+<p>  struct rpmsg_endpoint <em>rpmsg_create_ept(struct rpmsg_channel </em>rpdev,<br>        void (<em>cb)(struct rpmsg_channel </em>, void <em>, int, void </em>, u32),<br>        void *priv, u32 addr);</p>
+<p>every rpmsg address in the system is bound to an rx callback (so when<br>inbound messages arrive, they are dispatched by the rpmsg bus using the<br>appropriate callback handler) by means of an rpmsg_endpoint struct.</p>
+<p>This function allows drivers to create such an endpoint, and by that,<br>bind a callback, and possibly some private data too, to an rpmsg address<br>(either one that is known in advance, or one that will be dynamically<br>assigned for them).</p>
+<p>Simple rpmsg drivers need not call rpmsg_create_ept, because an endpoint<br>is already created for them when they are probed by the rpmsg bus<br>(using the rx callback they provide when they registered to the rpmsg bus).</p>
+<p>So things should just work for simple drivers: they already have an<br>endpoint, their rx callback is bound to their rpmsg address, and when<br>relevant inbound messages arrive (i.e. messages which their dst address<br>equals to the src address of their rpmsg channel), the driver’s handler<br>is invoked to process it.</p>
+<p>That said, more complicated drivers might do need to allocate<br>additional rpmsg addresses, and bind them to different rx callbacks.<br>To accomplish that, those drivers need to call this function.<br>Drivers should provide their channel (so the new endpoint would bind<br>to the same remote processor their channel belongs to), an rx callback<br>function, an optional private data (which is provided back when the<br>rx callback is invoked), and an address they want to bind with the<br>callback. If addr is RPMSG_ADDR_ANY, then rpmsg_create_ept will<br>dynamically assign them an available rpmsg address (drivers should have<br>a very good reason why not to always use RPMSG_ADDR_ANY here).</p>
+<p>Returns a pointer to the endpoint on success, or NULL on error.</p>
+<p>::</p>
+<p>  void rpmsg_destroy_ept(struct rpmsg_endpoint *ept);</p>
+<p>destroys an existing rpmsg endpoint. user should provide a pointer<br>to an rpmsg endpoint that was previously created with rpmsg_create_ept().</p>
+<p>::</p>
+<p>  int register_rpmsg_driver(struct rpmsg_driver *rpdrv);</p>
+<p>registers an rpmsg driver with the rpmsg bus. user should provide<br>a pointer to an rpmsg_driver struct, which contains the driver’s<br>-&gt;probe() and -&gt;remove() functions, an rx callback, and an id_table<br>specifying the names of the channels this driver is interested to<br>be probed with.</p>
+<p>::</p>
+<p>  void unregister_rpmsg_driver(struct rpmsg_driver *rpdrv);</p>
+<p>unregisters an rpmsg driver from the rpmsg bus. user should provide<br>a pointer to a previously-registered rpmsg_driver struct.<br>Returns 0 on success, and an appropriate error value on failure.</p>
+<h1 id="Typical-usage"><a href="#Typical-usage" class="headerlink" title="Typical usage"></a>Typical usage</h1><p>The following is a simple rpmsg driver, that sends an “hello!” message<br>on probe(), and whenever it receives an incoming message, it dumps its<br>content to the console.</p>
+<p>::</p>
+<p>  #include &lt;linux/kernel.h&gt;</p>
+<p>  #include &lt;linux/module.h&gt;</p>
+<p>  #include &lt;linux/rpmsg.h&gt;</p>
+<p>  static void rpmsg_sample_cb(struct rpmsg_channel <em>rpdev, void </em>data, int len,<br>                        void *priv, u32 src)<br>  {<br>    print_hex_dump(KERN_INFO, “incoming message:”, DUMP_PREFIX_NONE,<br>                        16, 1, data, len, true);<br>  }</p>
+<p>  static int rpmsg_sample_probe(struct rpmsg_channel *rpdev)<br>  {<br>    int err;</p>
+<pre><code>dev_info(&amp;rpdev-&gt;dev, &quot;chnl: 0x%x -&gt; 0x%x\n&quot;, rpdev-&gt;src, rpdev-&gt;dst);
+
+/* send a message on our channel */
+err = rpmsg_send(rpdev, &quot;hello!&quot;, 6);
+if (err) {
+    pr_err(&quot;rpmsg_send failed: %d\n&quot;, err);
+    return err;
+}
+
+return 0;
+</code></pre><p>  }</p>
+<p>  static void rpmsg_sample_remove(struct rpmsg_channel *rpdev)<br>  {<br>    dev_info(&amp;rpdev-&gt;dev, “rpmsg sample client driver is removed\n”);<br>  }</p>
+<p>  static struct rpmsg_device_id rpmsg_driver_sample_id_table[] = {<br>    { .name    = “rpmsg-client-sample” },<br>    { },<br>  };<br>  MODULE_DEVICE_TABLE(rpmsg, rpmsg_driver_sample_id_table);</p>
+<p>  static struct rpmsg_driver rpmsg_sample_client = {<br>    .drv.name    = KBUILD_MODNAME,<br>    .id_table    = rpmsg_driver_sample_id_table,<br>    .probe        = rpmsg_sample_probe,<br>    .callback    = rpmsg_sample_cb,<br>    .remove        = rpmsg_sample_remove,<br>  };<br>  module_rpmsg_driver(rpmsg_sample_client);</p>
+<p>.. note::</p>
+<p>   a similar sample which can be built and loaded can be found<br>   in samples/rpmsg/.</p>
+<h1 id="Allocations-of-rpmsg-channels"><a href="#Allocations-of-rpmsg-channels" class="headerlink" title="Allocations of rpmsg channels"></a>Allocations of rpmsg channels</h1><p>At this point we only support dynamic allocations of rpmsg channels.</p>
+<p>This is possible only with remote processors that have the VIRTIO_RPMSG_F_NS<br>virtio device feature set. This feature bit means that the remote<br>processor supports dynamic name service announcement messages.</p>
+<p>When this feature is enabled, creation of rpmsg devices (i.e. channels)<br>is completely dynamic: the remote processor announces the existence of a<br>remote rpmsg service by sending a name service message (which contains<br>the name and rpmsg addr of the remote service, see struct rpmsg_ns_msg).</p>
+<p>This message is then handled by the rpmsg bus, which in turn dynamically<br>creates and registers an rpmsg channel (which represents the remote service).<br>If/when a relevant rpmsg driver is registered, it will be immediately probed<br>by the bus, and can then start sending messages to the remote service.</p>
+<p>The plan is also to add static creation of rpmsg channels via the virtio<br>config space, but it’s not implemented yet.</p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/07/12/remoteproc/" rel="next" title="remoteproc">
+                <i class="fa fa-chevron-left"></i> remoteproc
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/07/12/Remoteproc-rpmsg-笔记/" rel="prev" title="Remoteproc & rpmsg 笔记">
+                Remoteproc & rpmsg 笔记 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Semiyd</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives">
+                
+                    <span class="site-state-item-count">213</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">109</span>
+                    <span class="site-state-item-name">categories</span>
+                  </a>
+                </div>
+              
+
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Remote-Processor-Messaging-rpmsg-Framework"><span class="nav-number">1.</span> <span class="nav-text">Remote Processor Messaging (rpmsg) Framework</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Introduction"><span class="nav-number">2.</span> <span class="nav-text">Introduction</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#User-API"><span class="nav-number">3.</span> <span class="nav-text">User API</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Typical-usage"><span class="nav-number">4.</span> <span class="nav-text">Typical usage</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Allocations-of-rpmsg-channels"><span class="nav-number">5.</span> <span class="nav-text">Allocations of rpmsg channels</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Semiyd</span>
+
+  
+
+  
+</div>
+
+
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> v3.7.1</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://theme-next.org">NexT.Muse</a> v6.3.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+	
+    
+
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.3.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.3.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.3.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.3.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.3.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
