@@ -1,0 +1,976 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.3.0" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.3.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.3.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.3.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.3.0" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '6.3.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="AudioTrack分析">
+<meta property="og:type" content="article">
+<meta property="og:title" content="AudioTrack分析">
+<meta property="og:url" content="http://yoursite.com/2020/07/12/AudioTrack分析/index.html">
+<meta property="og:site_name" content="Semiyd&#39;s Blog">
+<meta property="og:description" content="AudioTrack分析">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2020-07-12T06:56:15.195Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="AudioTrack分析">
+<meta name="twitter:description" content="AudioTrack分析">
+
+
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2020/07/12/AudioTrack分析/"/>
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>AudioTrack分析 | Semiyd's Blog</title>
+  
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Semiyd's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br />Home</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+    <a href="/categories/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-th"></i> <br />Categories</a>
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/07/12/AudioTrack分析/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Semiyd">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Semiyd's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">AudioTrack分析
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2020-07-12 14:55:42 / Modified: 14:56:15" itemprop="dateCreated datePublished" datetime="2020-07-12T14:55:42+08:00">2020-07-12</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Android/" itemprop="url" rel="index"><span itemprop="name">Android</span></a></span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Android/AOSP/" itemprop="url" rel="index"><span itemprop="name">AOSP</span></a></span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Android/AOSP/Develop/" itemprop="url" rel="index"><span itemprop="name">Develop</span></a></span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Android/AOSP/Develop/Audio/" itemprop="url" rel="index"><span itemprop="name">Audio</span></a></span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Android/AOSP/Develop/Audio/Implementation/" itemprop="url" rel="index"><span itemprop="name">Implementation</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><center><strong>AudioTrack分析</strong></center><br><a id="more"></a></p>
+<p>AudioTrack（负责放音）<br>framework/base/media/java/com/android/media/AudioTrack.java<br>•    简单说来，播放流程如下：<br>Java端发起调用，MediaPlayer会转至MediaPlayerService,然后会调用相应的解码工具解码后创建AudioTrack，所有待输出的AudioTrack在AudioFlinger::AudioMixer里合成，然后通过AudioHAL(AudioHardwareInterface的实际实现者)传至实际的硬件来实现播放。<br>如果直接使用AudioTrack.java-&gt; AudioTrack.cpp， 则后续流程直接到AudioFlinger，然后往下。<br>AudioTrack总结<br>通过这一次的分析，我自己觉得有以下几个点：<br>l AudioTrack的工作原理，尤其是数据的传递这一块，做了比较细致的分析，包括共享内存，跨进程的同步等，也能解释不少疑惑了。<br>l 看起来，最重要的工作是在AudioFlinger中做的。通过AudioTrack的介绍，我们给后续深入分析AudioFlinger提供了一个切入点<br>工作原理和流程嘛，再说一次好了，JAVA层就看最前面那个例子吧，实在没什么说的。<br>l AudioTrack被new出来，然后set了一堆信息，同时会通过Binder机制调用另外一端的AudioFlinger，得到IAudioTrack对象，通过它和AudioFlinger交互。<br>l 调用start函数后，会启动一个线程专门做回调处理，代码里边也会有那种数据拷贝的回调，但是JNI层的回调函数实际并没有往里边写数据，大家只要看write就可以了<br>l 用户一次次得write，那AudioTrack无非就是把数据memcpy到共享buffer中咯<br>l 可想而知，AudioFlinger那一定有一个线程在memcpy数据到音频设备中去。我们拭目以待。</p>
+<p>例子代码：<br>//① 根据音频数据的特性来确定所要分配的缓冲区的最小size</p>
+<p>int bufsize = AudioTrack.getMinBufferSize(8000,//采样率：每秒8K个点</p>
+<p>AudioFormat.CHANNEL_CONFIGURATION_STEREO,//声道数：双声道</p>
+<p>AudioFormat.ENCODING_PCM_16BIT//采样精度：一个采样点16比特，相当于2个字节</p>
+<p>);<br>//② 创建AudioTrack</p>
+<p>AudioTrack trackplayer = new AudioTrack( AudioManager.STREAM_MUSIC,//音频流类型<br>8000,AudioFormat.CHANNEL_CONFIGURATION_ STEREO,<br>AudioFormat.ENCODING_PCM_16BIT, bufsize,<br>AudioTrack.MODE_STREAM//数据加载模式);<br>//③ 开始播放<br>trackplayer.play() ;<br>//④ 调用write写数据<br>trackplayer.write(bytes_pkg, 0,bytes_pkg.length) ;//往track中写数据<br>//⑤ 停止播放和释放资源<br>trackplayer.stop();//停止播放<br>trackplayer.release();//释放底层资源<br>上面的用例引入了两个新的概念，一个是数据加载模式，另一个是音频流类型。下面进行详细介绍。<br>数据加载模式:<br>•  MODE_STREAM：在这种模式下，通过write一次次把音频数据写到AudioTrack中。这和平时通过write系统调用往文件中写数据类似，但这种工作方式每次都需要把数据从用户提供的Buffer中拷贝到AudioTrack内部的Buffer中，这在一定程度上会使引入延时。为解决这一问题，AudioTrack就引入了第二种模式。<br>•  MODE_STATIC：这种模式下，在play之前只需要把所有数据通过一次write调用传递到AudioTrack中的内部缓冲区，后续就不必再传递数据了。这种模式适用于像铃声这种内存占用量较小，延时要求较高的文件。但它也有一个缺点，就是一次write的数据不能太多，否则系统无法分配足够的内存来存储全部数据。注意：如果采用STATIC模式，须先调用write写数据，然后再调用play。<br>音频流类型:<br>在AudioTrack构造函数中，会接触到AudioManager.STREAM_MUSIC这个参数。它的含义与Android系统对音频流的管理和分类有关。<br>Android将系统的声音分为好几种流类型，下面是几个常见的：<br>•  STREAM_ALARM：警告声<br>•  STREAM_MUSIC：音乐声，例如music等<br>•  STREAM_RING：铃声<br>•  STREAM_SYSTEM：系统声音，例如低电提示音，锁屏音等<br>•  STREAM_VOCIE_CALL：通话声<br>注意：上面这些类型的划分和音频数据本身并没有关系。例如MUSIC和RING类型都可以是某首MP3歌曲。另外，声音流类型的选择没有固定的标准，例如，铃声预览中的铃声可以设置为MUSIC类型。<br>音频流类型的划分和Audio系统对音频的管理策略有关。<br>Buffer分配和Frame的概念<br>在用例中碰到的第一个重要函数就是getMinBufferSize。这个函数对于确定应用层分配多大的数据Buffer具有重要指导意义。先回顾一下它的调用方式：<br>回想下刚刚在java层调用getMinBufferSize的代码：<br>AudioTrack.getMinBufferSize(8000,//每秒8K个点                              </p>
+<p>　　      AudioFormat.CHANNEL_CONFIGURATION_STEREO,//双声道                  </p>
+<pre><code>AudioFormat.ENCODING_PCM_16BIT);
+</code></pre><p>-来看这个函数的实现：<br>[–&gt;AudioTrack.java]<br>static public int getMinBufferSize(intsampleRateInHz, int channelConfig,<br>                                  intaudioFormat) {<br>       int channelCount = 0;<br>       switch(channelConfig) {<br>       case AudioFormat.CHANNEL_OUT_MONO:<br>        caseAudioFormat.CHANNEL_CONFIGURATION_MONO:<br>           channelCount = 1;<br>           break;<br>       case AudioFormat.CHANNEL_OUT_STEREO:<br>       case AudioFormat.CHANNEL_CONFIGURATION_STEREO:<br>           channelCount = 2;//目前最多支持双声道<br>           break;<br>        default:<br>           return AudioTrack.ERROR_BAD_VALUE;<br>        }<br>        //目前只支持PCM8和PCM16精度的音频数据<br>        if((audioFormat != AudioFormat.ENCODING_PCM_16BIT)<br>           &amp;&amp; (audioFormat != AudioFormat.ENCODING_PCM_8BIT)) {<br>           return AudioTrack.ERROR_BAD_VALUE;<br>        }<br>      //对采样频率也有要求，太低或太高都不行。<br>        if( (sampleRateInHz &lt; 4000) || (sampleRateInHz &gt; 48000) )<br>            return AudioTrack.ERROR_BAD_VALUE;</p>
+<pre><code>/*
+ 调用Native函数，先想想为什么，如果是简单计算，那么Java层做不到吗？
+ 原来，还需要确认硬件是否支持这些参数，当然得进入Native层查询了
+ */
+int size = native_get_min_buff_size(sampleRateInHz,         
+          channelCount,audioFormat);                       
+ if((size == -1) || (size == 0)) {
+      return AudioTrack.ERROR;
+ }
+else {
+    return size;
+ }
+</code></pre><p>}<br>Native的函数将查询Audio系统中音频输出硬件HAL对象的一些信息，并确认它们是否支持这些采样率和采样精度。<br>来看Native的native_get_min_buff_size函数。它在android_media_track.cpp中。<br>[–&gt;android_media_track.cpp]<br>/<em><br>注意我们传入的参数是：<br>sampleRateInHertz = 8000，nbChannels = 2<br>audioFormat = AudioFormat.ENCODING_PCM_16BIT
+</em>/<br>static jintandroid_media_AudioTrack_get_min_buff_size(        注意这个已经进入JNI层<br>                 JNIEnv<em>env,  jobject thiz,<br>                 jintsampleRateInHertz, jint nbChannels, jint audioFormat)<br>{<br>    intafSamplingRate;<br>    intafFrameCount;<br>    uint32_t afLatency;<br>     /</em><br>        下面这些调用涉及了AudioSystem，这个和AudioPolicy有关系。这里仅把它们看成是<br>信息查询即可<br>    <em>/<br>   //查询采样率，一般返回的是所支持的最高采样率，例如44100<br>    if(AudioSystem::getOutputSamplingRate(&amp;afSamplingRate) != NO_ERROR) {<br>       return -1;<br>}<br>     //① 查询硬件内部缓冲的大小，以Frame为单位。什么是Frame？<br>    if(AudioSystem::getOutputFrameCount(&amp;afFrameCount) != NO_ERROR) {<br>       return -1;<br>    }<br>    //查询硬件的延时时间<br>    if(AudioSystem::getOutputLatency(&amp;afLatency) != NO_ERROR) {<br>       return -1;<br>}<br>这里有必要插入内容，因为代码中出现了音频系统中的一个重要概念：Frame（帧）。<br>Frame的大小，就是一个采样点的字节数×声道数。<br>在目前的声卡驱动程序中，其内部缓冲区也是采用Frame作为单位来分配和管理的。<br>继续native_get_min_buff_size函数。<br>……<br>   // minBufCount表示缓冲区的最少个数，它以Frame作为单位<br>   uint32_t minBufCount = afLatency / ((1000 </em>afFrameCount)/afSamplingRate);<br>    if(minBufCount &lt; 2) minBufCount = 2;//至少要两个缓冲<br>   //计算最小帧个数<br>   uint32_tminFrameCount =<br>         (afFrameCount<em>sampleRateInHertz</em>minBufCount)/afSamplingRate;<br>  //下面根据最小的FrameCount计算最小的缓冲大小<br>   intminBuffSize = minFrameCount //计算方法完全符合我们前面关于Frame的介绍</p>
+<pre><code>       * (audioFormat == javaAudioTrackFields.PCM16 ? 2 : 1)
+       * nbChannels;
+returnminBuffSize;
+</code></pre><p>}<br>getMinBufSize会综合考虑硬件的情况（诸如是否支持采样率，硬件本身的延迟情况等）后，得出一个最小缓冲区的大小。一般我们分配的缓冲大小会是它的整数倍。<br>好了，介绍完一些基本概念后，开始要分析AudioTrack了。<br>注意：Java空间的分析包括JNI这一层，因为它们二者的关系最为紧密。<br>回顾一下用例中调用AudioTrack构造函数的代码：<br>AudioTrack trackplayer = new AudioTrack(<br>                 AudioManager.STREAM_MUSIC,<br>                 8000,AudioFormat.CHANNEL_CONFIGURATION_ STEREO,<br>　　                 AudioFormat.ENCODING_PCM_16BIT,bufsize,<br>                 AudioTrack.MODE_STREAM);<br>AudioTrack构造函数的实现在AudioTrack.java中。来看这个函数：<br>public AudioTrack(int streamType, intsampleRateInHz, int channelConfig,<br>                 intaudioFormat,int bufferSizeInBytes, int mode)<br>                  throws IllegalArgumentException {<br>        mState= STATE_UNINITIALIZED;<br>        //检查参数是否合法<br>       audioParamCheck(streamType, sampleRateInHz, channelConfig,<br>                         audioFormat,mode);<br>       //bufferSizeInBytes是通过getMinBufferSize得到的，所以下面的检查肯定能通过<br>       audioBuffSizeCheck(bufferSizeInBytes);<br>        /<em><br>           调用native层的native_setup，构造一个WeakReference传进去。<br>           不了解Java WeakReference读者可以上网查一下，很简单
+       </em>/<br>       int initResult = native_setup(new WeakReference<audiotrack>(this),<br>         mStreamType,//这个值是AudioManager.STREAM_MUSIC<br>         mSampleRate, //这个值是8000<br>        mChannels,   //这个值是2<br>        mAudioFormat,//这个值是AudioFormat.ENCODING_PCM_16BIT<br>         mNativeBufferSizeInBytes,//这个值等于bufferSizeInBytes<br>        mDataLoadMode);//DataLoadMode是MODE_STREAM<br>         ….<br>}<br>OK，native_setup对应的JNI层函数是android_media_AudioTrack_native_setup。一起来看：<br>android_media_AudioTrack.cpp<br>static int<br>android_media_AudioTrack_native_setup(JNIEnv<em>env, jobject thiz,<br>                         jobjectweak_this,jint streamType,<br>                         jintsampleRateInHertz, jint channels,<br>                         jintaudioFormat, jint buffSizeInBytes,<br>                         jintmemoryMode)<br>{<br>    intafSampleRate;<br>    intafFrameCount;<br>    //进行一些信息查询<br>  AudioSystem::getOutputFrameCount(&amp;afFrameCount, streamType)；<br>  AudioSystem::getOutputSamplingRate(&amp;afSampleRate, streamType)；<br>  AudioSystem::isOutputChannel(channels)；<br>   //popCount用于统计一个整数中有多少位为1，有很多经典的算法<br>int nbChannels = AudioSystem::popCount(channels);<br>    //Java层的值和JNI层的值转换<br>    if(streamType == javaAudioTrackFields.STREAM_MUSIC)<br>         atStreamType = AudioSystem::MUSIC;<br>   intbytesPerSample = audioFormat == javaAudioTrackFields.PCM16 ? 2 : 1;<br>   intformat = audioFormat == javaAudioTrackFields.PCM16 ?<br>                  AudioSystem::PCM_16_BIT : AudioSystem::PCM_8_BIT;<br>    //计算以帧为单位的缓冲大小<br>    intframeCount = buffSizeInBytes / (nbChannels </em> bytesPerSample);<br>     //① AudioTrackJniStorage对象，它保存了一些信息，后面将详细分析<br>   AudioTrackJniStorage<em> lpJniStorage = new AudioTrackJniStorage();<br>      ……<br>     //②创建Native层的AudioTrack对象<br>   AudioTrack</em> lpTrack = new AudioTrack();<br>       if(memoryMode == javaAudioTrackFields.MODE_STREAM) {<br>       //③STREAM模式<br>      lpTrack-&gt;set(<br>           atStreamType,//指定流类型<br>           sampleRateInHertz,<br>           format,// 采样点的精度，一般为PCM16或者PCM8<br>           channels,<br>           frameCount,<br>           0,// flags<br>           audioCallback, //该回调函数定义在android_media_AudioTrack.cpp中<br>        &amp;(lpJniStorage-&gt;mCallbackData),<br>           0,<br>           0,// 共享内存,STREAM模式下为空。实际使用的共享内存由AF创建<br>           true);//内部线程可以调用JNI函数，还记得“zygote偷梁换柱”那一节吗？<br>         } else if (memoryMode == javaAudioTrackFields.MODE_STATIC) {<br>          //如果是static模式，需要先创建共享内存<br>         lpJniStorage-&gt;allocSharedMem(buffSizeInBytes);<br>         lpTrack-&gt;set(<br>           atStreamType,// stream type<br>           sampleRateInHertz,<br>           format,// word length, PCM<br>           channels,<br>           frameCount,<br>           0,// flags<br>           audioCallback,<br>          &amp;(lpJniStorage-&gt;mCallbackData),<br>           0,<br>           lpJniStorage-&gt;mMemBase, //STATIC模式下，需要传递该共享内存<br>           true);<br>    }<br>    ……<br>    /<em><br>      把JNI层中new出来的AudioTrack对象指针保存到Java对象的一个变量中，<br>      这样就把JNI层的AudioTrack对象和Java层的AudioTrack对象关联起来了，<br>     这是Android的常用技法。                        
+   </em>/<br>     env-&gt;SetIntField(thiz,javaAudioTrackFields.nativeTrackInJavaObj,<br>                     (int)lpTrack);<br>   // lpJniStorage对象指针也保存到Java对象中<br>   env-&gt;SetIntField(thiz, javaAudioTrackFields.jniData,(int)lpJniStorage);<br>  }</audiotrack></p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/07/12/Audio-Overview/" rel="next" title="Audio Overview">
+                <i class="fa fa-chevron-left"></i> Audio Overview
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/07/12/V4L2笔记/" rel="prev" title="V4L2笔记">
+                V4L2笔记 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Semiyd</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives">
+                
+                    <span class="site-state-item-count">206</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">105</span>
+                    <span class="site-state-item-name">categories</span>
+                  </a>
+                </div>
+              
+
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Semiyd</span>
+
+  
+
+  
+</div>
+
+
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> v3.7.1</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://theme-next.org">NexT.Muse</a> v6.3.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+	
+    
+
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.3.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.3.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.3.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.3.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.3.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

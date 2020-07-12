@@ -1,0 +1,1167 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.3.0" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.3.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.3.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.3.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.3.0" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '6.3.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="V4L2笔记">
+<meta property="og:type" content="article">
+<meta property="og:title" content="V4L2笔记">
+<meta property="og:url" content="http://yoursite.com/2020/07/12/V4L2笔记/index.html">
+<meta property="og:site_name" content="Semiyd&#39;s Blog">
+<meta property="og:description" content="V4L2笔记">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2020-07-12T06:59:46.368Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="V4L2笔记">
+<meta name="twitter:description" content="V4L2笔记">
+
+
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2020/07/12/V4L2笔记/"/>
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>V4L2笔记 | Semiyd's Blog</title>
+  
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Semiyd's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br />Home</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+    <a href="/categories/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-th"></i> <br />Categories</a>
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/07/12/V4L2笔记/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Semiyd">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Semiyd's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">V4L2笔记
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2020-07-12 14:59:05 / Modified: 14:59:46" itemprop="dateCreated datePublished" datetime="2020-07-12T14:59:05+08:00">2020-07-12</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Linux/" itemprop="url" rel="index"><span itemprop="name">Linux</span></a></span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Linux/Kernel/" itemprop="url" rel="index"><span itemprop="name">Kernel</span></a></span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Linux/Kernel/驱动/" itemprop="url" rel="index"><span itemprop="name">驱动</span></a></span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Linux/Kernel/驱动/Camera/" itemprop="url" rel="index"><span itemprop="name">Camera</span></a></span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Linux/Kernel/驱动/Camera/V4L2/" itemprop="url" rel="index"><span itemprop="name">V4L2</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><center><strong>V4L2笔记</strong></center><br><a id="more"></a></p>
+<p>V4L2全称是Video for Linux 2。<br>要理解V4L2，可以从最上层开始，由上到下逐渐分解，从应用程序，V4L2再到soc-camera，从而搞清楚整个架构。</p>
+<p>================================视频基础知识介绍====================================<br>1.色域<br>色域是系统在描述色彩时所使用的坐标系。例如RGB/CYMK/YUV/YCbCr。<br>最常见的就是SRGB色域，对应V4L2_COLORSPACE_SRGB<br>其余的定义有：<br>enum v4l2_colorspace {<br>    /<em> ITU-R 601 – broadcast NTSC/PAL </em>/<br>    V4L2_COLORSPACE_SMPTE170M     = 1,</p>
+<pre><code>/* 1125-Line (US) HDTV */
+V4L2_COLORSPACE_SMPTE240M     = 2,
+
+/* HD and modern captures. */
+V4L2_COLORSPACE_REC709        = 3,
+
+/* broken BT878 extents (601, luma range 16-253 instead of 16-235) */
+V4L2_COLORSPACE_BT878         = 4,
+
+/* These should be useful.  Assume 601 extents. */
+V4L2_COLORSPACE_470_SYSTEM_M  = 5,
+V4L2_COLORSPACE_470_SYSTEM_BG = 6,
+
+/* I know there will be cameras that send this.  So, this is
+ * unspecified chromaticities and full 0-255 on each of the
+ * Y&apos;CbCr components
+ */
+V4L2_COLORSPACE_JPEG          = 7,
+
+/* For RGB colourspaces, this is probably a good start. */
+V4L2_COLORSPACE_SRGB          = 8,
+</code></pre><p>};</p>
+<p>2.密集存储和平面存储<br>特指YUV像素的存储方式。<br>分为两种：<br>Packed<br>    把一个像素的所有分量值连续存放在一起。RGB一般用此方式存储<br>Planar<br>    把每一个分量单独存储成一个阵列。例如在 YUV 格式中，所有 Y 值都连续地一起存储在一个阵列中，U 值存储在另一个中，V 值存在第三个中。<br>    代码videodev2.h中V4L2_PIX_FMT_*P这样的宏，就是这种格式。例如：</p>
+<pre><code>#define V4L2_PIX_FMT_YUV422P v4l2_fourcc(&apos;4&apos;, &apos;2&apos;, &apos;2&apos;, &apos;P&apos;) /* 16  YVU422 planar */
+#define V4L2_PIX_FMT_YUV411P v4l2_fourcc(&apos;4&apos;, &apos;1&apos;, &apos;1&apos;, &apos;P&apos;) /* 16  YVU411 planar */
+</code></pre><p>3.四字符码/four Charactor Code/fourcc<br>用来区分视频数据流的格式的一种代号。特点是其格式是4个ASCII字节，用来表示一种视频/图像的格式。<br>例如<br>H264     Intel - Conferencing codec<br>RGBT     Computer Concepts - 32 bit support<br>详见《Four-Character Codes (FOURCC).pdf》</p>
+<p>4.RGB格式<br>RGB其实有很多格式，从1字节到4字节。<br>在V4L2中的宏定义是V4L2_PIX_FORMAT_RGB<em><br>/</em> RGB formats */</p>
+<p>#define V4L2_PIX_FMT_RGB332  v4l2_fourcc(‘R’, ‘G’, ‘B’, ‘1’) /<em>  8  RGB-3-3-2     </em>/</p>
+<p>#define V4L2_PIX_FMT_RGB444  v4l2_fourcc(‘R’, ‘4’, ‘4’, ‘4’) /<em> 16  xxxxrrrr ggggbbbb </em>/</p>
+<p>#define V4L2_PIX_FMT_RGB555  v4l2_fourcc(‘R’, ‘G’, ‘B’, ‘O’) /<em> 16  RGB-5-5-5     </em>/</p>
+<p>#define V4L2_PIX_FMT_RGB565  v4l2_fourcc(‘R’, ‘G’, ‘B’, ‘P’) /<em> 16  RGB-5-6-5     </em>/</p>
+<p>#define V4L2_PIX_FMT_RGB555X v4l2_fourcc(‘R’, ‘G’, ‘B’, ‘Q’) /<em> 16  RGB-5-5-5 BE  </em>/</p>
+<p>#define V4L2_PIX_FMT_RGB565X v4l2_fourcc(‘R’, ‘G’, ‘B’, ‘R’) /<em> 16  RGB-5-6-5 BE  </em>/</p>
+<p>#define V4L2_PIX_FMT_BGR666  v4l2_fourcc(‘B’, ‘G’, ‘R’, ‘H’) /<em> 18  BGR-6-6-6      </em>/</p>
+<p>#define V4L2_PIX_FMT_BGR24   v4l2_fourcc(‘B’, ‘G’, ‘R’, ‘3’) /<em> 24  BGR-8-8-8     </em>/</p>
+<p>#define V4L2_PIX_FMT_RGB24   v4l2_fourcc(‘R’, ‘G’, ‘B’, ‘3’) /<em> 24  RGB-8-8-8     </em>/</p>
+<p>#define V4L2_PIX_FMT_BGR32   v4l2_fourcc(‘B’, ‘G’, ‘R’, ‘4’) /<em> 32  BGR-8-8-8-8   </em>/</p>
+<p>#define V4L2_PIX_FMT_RGB32   v4l2_fourcc(‘R’, ‘G’, ‘B’, ‘4’) /<em> 32  RGB-8-8-8-8   </em>/<br>可以看到上面就提到了fourcc。<br>详见《Video for Linux Two驱动编写指南.pdf》的page13的图表。</p>
+<p>5.YUV格式<br>首先YUV格式是亮度分量和色度分量分开表示的像素格式，也是从RGB演变过来的一种格式。<br>所以计算YUV的时候，是通过RGB换算过来的。（RGB-&gt;YUV转换）<br>在已知RGB的情况下：<br>“Y”表示明亮度（Luminance或Luma），也就是灰度值；<br>Y = 0.299R + 0.587G + 0.114B<br>而“U”和“V” 表示的则是色度（Chrominance或Chroma），作用是描述影像色彩及饱和度，用于指定像素的颜色。<br>U和V也被称为：Cb－蓝色差，Cr－红色差)<br>所谓色差，是指：<br>Cb = 0.564(B － Y)<br>Cr = 0.713(R － Y)<br>也就是和亮度的差值，再乘以一个系数。<br>根据上面两个色差公式：<br>R = Y + 1.402Cr<br>B = Y + 1.772Cb<br>，然后把R,B代入Y = 0.299R + 0.587G + 0.114B<br>得到：<br>G = Y - 0.344Cb - 0.714Cr<br>所以说绿色的分量，其实是可以根据YCbCr算出来的。（YUV-&gt;RGB转换）<br>所以仅仅根据YCbCr，其实就可以得到RGB了。<br>YUV主要用于电视系统以及模拟视频领域，它将亮度信息（Y）与色彩信息（UV）分离，没有UV信息一样可以显示完整的图像，只不过是黑白的，<br>这样的设计很好地解决了彩色电视机与黑白电视的兼容问题。<br>另外，YUV格式其实可以用比较少的数据量，来表示图像。<br>根据人眼视觉的特点：<br>Y的存储可以采用和原来画面一样的分辨率，但是Cb,Cr的存储可以使用更低的分辨率。这样可以占用<br>更少的数据量，并且在图像质量上没有明显的下降，算是一种压缩性质的存储。<br>在YUV格式中，以YUV420格式为例。宽度为w高度为h的画面，其亮度Y数据需要w<em>h个字节来表示（每个像素点一个亮度）。<br>而Cb和Cr数据则是画面中4个像素共享一个Cb,Cr值。这样Cb用w</em>h/4个字节，Cr用w*h/4个字节。<br>从最终效果上说，合成一个画面之后，我们的眼睛丝毫感觉不到4个像素是共用一个Cb,Cr的。<br>根据YUV的数据长度，可以分为：<br>YUV4:4:4 是指每个像素分别有一个 Y、一个 U 和一个 V 组成，即每 4 个 Y 采样，就对应 4 个 Cb 和 4 个 Cr 采样，也就是一个像素占用 8+8+8=24 位<br>YUV4:2:2 是指每 4 个 Y 采样，对应 2 个 Cb 和 2 个 Cr 采样，这样在解析时就会有一些像素点只有亮度信息而没有色度信息，缺失的色度信息就需要在<br>        解析时由相邻的其他色度信息根据一定的算法填充。<br>YUV4:2:0 是指每 4 个 Y 采样，对应 2 个 U 采样或者 2 个 V 采样，注意其中并不是表示 2 个 U 和 0 个 V，而是指无论水平下采样还是垂直下采样，色<br>        度采样都只有亮度的一半。<br>YUV 4:2:0包含几种不同的存储类型：YV12/I420/YU12/NV12/NV21<br>YU12 就是 I420，YV12/I420 也称为 YUV420P（即平面格式，planar），YV12 与标准模式 I420 的区别是 UV 顺序不同。</p>
+<p><a href="http://notes.maxwi.com/2017/12/05/yuv/" target="_blank" rel="noopener">http://notes.maxwi.com/2017/12/05/yuv/</a><br><a href="https://www.cnblogs.com/azraelly/archive/2013/01/01/2841269.html" target="_blank" rel="noopener">https://www.cnblogs.com/azraelly/archive/2013/01/01/2841269.html</a><br><a href="https://www.jianshu.com/p/cb708a295e4e" target="_blank" rel="noopener">https://www.jianshu.com/p/cb708a295e4e</a></p>
+<p>参考：<br>《RGB，YUV的来历及其相互转换.pdf》    详细解释了YUV的由来<br>《YUV 数据格式详解.pdf》</p>
+<p>================================V4L2应用程序编程====================================<br>V4L2是一个字符设备，在/dev/videoX<br>大部分功能都是通过设备文件的ioctl实现的。<br>常用的ioctl有：<br>VIDIOC_ENUM_FMT  枚举设备所支持的所有数据格式<br>VIDIOC_S_FMT  设置数据格式<br>VIDIOC_G_FMT  获取数据格式<br>VIDIOC_TRY_FMT  与VIDIOC_S_FMT一样，但不会改变设备的状态<br>VIDIOC_REQBUFS  向设备请求视频缓冲区，即初始化视频缓冲区<br>VIDIOC_QUERYBUF  查询缓冲区的状态<br>VIDIOC_QBUF  从设备获取一帧视频数据<br>VIDIOC_DQBUF  将视频缓冲区归回给设备，<br>VIDIOC_OVERLAY  开始或者停止overlay<br>VIDIOC_G_FBUF  获取video overlay设备或OSD设备的framebuffer参数<br>VIDIOC_S_FBUF  设置framebuffer参数<br>VIDIOC_STREAMON  开始流I/O操作，capture or output device<br>VIDIOC_STREAMOFF 关闭流I/O操作<br>VIDIOC_ENUMSTD  枚举设备支持的所有标准<br>VIDIOC_G_STD  获取当前正在使用的标准<br>VIDIOC_S_STD  设置视频标准<br>VIDIOC_QUERYSTD    有的设备支持自动侦测输入源的视频标准，此时使用此ioctl查询侦测到的视频标准<br>VIDIOC_ENUMINPUT  枚举所有input端口<br>VIDIOC_G_INPUT  获取当前正在使用的input端口<br>VIDIOC_S_INPUT  设置将要使用的input端口<br>VIDIOC_ENUMOUTPUT  枚举所有output端口<br>VIDIOC_G_OUTPUT  获取当前正在使用的output端口<br>VIDIOC_S_OUTPUT  设置将要使用的output端口<br>VIDIOC_ENUMAUDIO  枚举所有audio input端口<br>VIDIOC_G_AUDIO  获取当前正在使用的audio input端口<br>VIDIOC_S_AUDIO  设置将要使用的audio input端口<br>VIDIOC_ENUMAUDOUT 枚举所有audio output端口<br>VIDIOC_G_AUDOUT  获取当前正在使用的audio output端口<br>VIDIOC_S_AUDOUT  设置将要使用的audio output端口<br>VIDIOC_QUERYCTRL  查询指定control的详细信息<br>VIDIOC_G_CTRL  获取指定control的值<br>VIDIOC_S_CTRL  设置指定control的值<br>VIDIOC_G_EXT_CTRLS  获取多个control的值<br>VIDIOC_S_EXT_CTRLS  设置多个control的值<br>VIDIOC_TRY_EXT_CTRLS    与VIDIOC_S_EXT_CTRLS相同，但是不改变设备状态<br>VIDIOC_QUERYMENU  查询menu</p>
+<p>流程如下：</p>
+<p>1.打开设备文件<br>int fd;<br>fd = open(“/dev/video0”,O_RDWR | O_NOBLOCK,0);<br>此处的video0设备即是v4l2开放出来的设备名。</p>
+<p>2.获取设备的capability<br>struct v4l2_capability cap;<br>int ret = ioctl(fd,VIDIOC_QUERYCAP,&amp;cap);<br>通过系统调用VIDIOC_QUERYCAP来获取设备的capablity。<br>如设备支持视频采集还是视频输出，判断驱动是否支持read/write和mmap等</p>
+<p>3.查询设备所支持的格式<br>用ioctl通过VIDIOC_ENUM_FMT命令来枚举设备所支持的不同格式。<br>struct v4l2_fmtdesc fmt;<br>int ret;<br>bzero(&amp;fmt,sizeof(fmt));<br>fmt.index = 0;//从0 开始枚举<br>fmt.type = v4l2_BUF_TYPE_VIDEO_CAPTURE;//视频捕获设备<br>while(!ioctl(fd,VIDIOC_ENUM_FMT,&amp;fmt))<br>{<br>……<br>fmt.index++; //枚举所有的格式<br>}<br>等这个循环完成的时候，fmt里面就填好了所支持的格式了。<br>可能的格式有：<br>4L2_BUF_TYPE_VIDEO_CAPTURE, V4L2_BUF_TYPE_VIDEO_CAPTURE_MPLANE, V4L2_BUF_TYPE_VIDEO_OUTPUT, V4L2_BUF_TYPE_VIDEO_OUTPUT_MPLANE,<br> V4L2_BUF_TYPE_VIDEO_OVERLAY, V4L2_BUF_TYPE_SDR_CAPTURE, V4L2_BUF_TYPE_SDR_OUTPUT and V4L2_BUF_TYPE_META_CAPTURE.<br>通常感觉应该是支持V4L2_BUF_TYPE_VIDEO_CAPTURE这种capability</p>
+<p>4.获取设备所支持的制式<br>用ioctl通过VIDIOC_ENUMSTD命令来枚举设备所支持的制式。<br>v4l2_std_id std;<br>ioctl(fd,VIDIOC_ENUMSTD,&amp;std);<br>所谓的制式就是指PAL和NTSC之类的了，例如：<br>V4L2_STD_PAL_60<br>V4L2_STD_NTSC_M<br>等等</p>
+<p>5.设置视频格式<br>用ioctl通过VIDIOC_S_FMT，设置视频图像数据的长，宽，图像格式等等<br>struct v4l2_format fmt;<br>fmt.type = V4L2_BUF_TYPE_VIDEO_CAPTURE;<br>fmt.fmt.pix.width = IMG_WIDTH;<br>fmt.fmt.pix.height = IMG_HEIGHT;<br>fmt.fmt.pix.pixeformat = V4L2_PIX_FMT_YUYV;<br>fmt.fmt.pix.filed = V4L2_FIELD_INTERLACED;<br>int ret;<br>ret = ioctl(fd,VIDIOC_S_FMT,&amp;fmt);<br>bzero(&amp;fmt,sizeof(fmt));<br>//设置之后，读取实际的视频格式<br>fmt.type = V4L2_BUF_TYPE_VIDEO_CAPTURE;</p>
+<p>if(!ioctl(fd,VIDIOC_G_GMT,&amp;fmt) ){<br>  printf(……);<br>   ……<br>}else{<br>  ……<br>}<br>注意： 如果视频设备驱动不支持应用设定的图像格式，则视频驱动会根据具体的设备来重新修改参数fmt的值，<br>所以，一般在应用程序中，在设置视频格式之后，要获取实际的视频格式。</p>
+<p>6.帧缓冲区申请与初始化<br>用ioctl通过VIDIOC_REQBUFS，先向驱动层提出申请，提出应用层需要多大的缓冲区。<br>  struct v4l2_requestbuffers reqbuf;<br>  bzero(&amp;req,sizeof(reqbuf));<br>  reqbuf.count = 3;// 设定申请缓存区的个数。<br>  reqbuf.type = V4L2_BUF_TYPE_VIDEO_CAPTURE;<br>  reqbuf.memory = V4L2_MEMORY_MMAP;//流I/O方式<br>  int ret;<br>  ret = ioctl(fd,VIDIOC_REQBUFS,&amp;reqbuf);<br>  ……<br>申请缓存区的实际数目是由内核驱动层根据内存的使用情况来决定的，实际的数目可能会小于应用程序欲分配的数目。<br>上面可以看到，VIDIOC_REQBUFS的时候，针对v4l2_requestbuffers设置了V4L2_MEMORY_MMAP选项。<br>事实上除了最常用的mmap，采集视频还可以通过read方式，在用户空间和内核空间不断拷贝数据，效率不高。<br>或者还有用户指针模式：内存片段由应用程序自己分配。这点需要在v4l2_requestbuffers里将memory字段设置成V4L2_MEMORY_USERPTR。</p>
+<p>7.查询缓存区大小,并且通过mmap系统调用映射到进程的用户空间。<br>用ioctl通过VIDIOC_QUERYBUF来查询申请到的缓冲区的大小，并最终调用内核的mmap来申请缓冲区。<br>  struct buffer{<br>    void  <em>start;<br>    size_t length;<br>  };<br>  struct buffer  </em>buffers;<br>  buffers = (struct buffer <em>)calloc(reqbuf.count,sizeof(</em>buffers));<br>  int i ;<br>  for(i = 0; i &lt; reqbuf.count;i++){<br>    struct v4l2_buffer buf;<br>    bzero(&amp;buf,sizeof(buf));<br>    buf.type = V4L2_BUF_TYPE_VIDEO_CAPTURE;<br>    buf.memroy = V4L2_MEMORY_MMAP;<br>    buf.index = i;<br>    if(!ioctl(fd,VIDIOC_QUERYBUF,&amp;buf)){<br>      buffers[i].length = buf.length;<br>      buffers[i].start = mmap(NULL,buf.length,PROT_READ|PROT_WRITE,MAP_SHARED,fd,buf.m.offset);//根据刚刚查询到的缓冲区大小，做mmap映射。<br>  ……<br>    }<br>  }<br>注意，刚刚其实申请了reqbuf.count = 3也就是3块缓冲区。<br>所以此处mmap也需要映射三处，for循环3次，从而得到了buffers[0]~buffers[2]<br>将来这个buffers是可以直接拿来取出视频数据的。</p>
+<p>8.通过VIDIOC_QBUF把数个缓冲帧放入队列，并通过VIDIOC_STREAMON启动数据流<br>unsigned int i;<br>enum v4l2_buf_type type;<br>// 将缓冲帧放入队列<br>for (i = 0; i&lt; 3; ++i)<br>{<br>  struct v4l2_buffer buf;<br>  buf.type =V4L2_BUF_TYPE_VIDEO_CAPTURE;<br>  buf.memory =V4L2_MEMORY_MMAP;<br>  buf.index = i;<br>  ioctl (fd,VIDIOC_QBUF, &amp;buf);<br>}<br>  type =V4L2_BUF_TYPE_VIDEO_CAPTURE;<br>  ioctl (fd,VIDIOC_STREAMON, &amp;type);<br>这里的VIDIOC_QBUF其实是做的queue的动作（相对dequeue而言，就是入队列的动作）</p>
+<p>9.获取一帧并处理<br>通过VIDIOC_DQBUF从缓冲区取出一个缓冲帧，处理之前mmap出来的buffers[i]（真正收到视频数据）<br>最后将缓冲帧放回缓冲区，完成一帧的处理<br>  struct v4l2_buffer buf;<br>  CLEAR (buf);<br>  buf.type =V4L2_BUF_TYPE_VIDEO_CAPTURE;<br>  buf.memory =V4L2_MEMORY_MMAP;<br>  // 从缓冲区取出一个缓冲帧，VIDIOC_DQBUF其实是做的dequeue的动作<br>  ioctl (fd,VIDIOC_DQBUF, &amp;buf);<br>  // 图像处理<br>  process_image(buffers[buf.index].start);<br>  // 将取出的缓冲帧放回缓冲区<br>  ioctl (fd, VIDIOC_QBUF,&amp;buf);</p>
+<p>这里比较复杂的是有关缓冲区的管理问题。<br>基本原理是：<br>驱动程序以帧为单位，开始自动将每一帧填入相应的mmap的buffers中。<br>而应用程序，则通过VIDIOC_DQBUF出列操作，取出其中的一帧，读出来处理。（实则是标记此帧应用正在读取，驱动不要去写）<br>读完了再调用VIDIOC_QBUF入列操作，这样驱动就可以把下一帧继续填入刚刚的这个buffer帧了。<br>具体来说：<br>之前提到，其实mmap通常不止一个区域，上面VIDIOC_REQBUFS的时候，其实reqbuf.count = 3<br>所以后续mmap的时候，buffers其实申请了三个，mmap也做了3次。<br>每个buffers，其实对应一帧的数据。<br>那么同样的，也要申请3个v4l2_buffer，并且用这个数据结构，在针对驱动做queue和dequeue的操作。<br>v4l2_buffer这个结构体，可以理解为管理buffers缓冲区的一个管理数据。<br>struct v4l2_buffer {<br>    <strong>u32            index;<br>    enum v4l2_buf_type      type;
+    </strong>u32            bytesused;<br>    <strong>u32            flags;<br>    enum v4l2_field        field;<br>    struct timeval        timestamp;<br>    struct v4l2_timecode    timecode;
+    </strong>u32            sequence;</p>
+<pre><code>/* memory location */
+enum v4l2_memory        memory;
+union {
+    __u32           offset;
+    unsigned long   userptr;
+    struct v4l2_plane *planes;
+} m;
+__u32            length;
+__u32            input;
+__u32            reserved;
+</code></pre><p>};<br>这里面包含了index也就是几号缓冲区，<br>flags表示当前缓冲区的状态（如下）：<br>/<em>  Flags for ‘flags’ field </em>/</p>
+<p>#define V4L2_BUF_FLAG_MAPPED    0x0001  /<em> Buffer is mapped (flag) </em>/</p>
+<p>#define V4L2_BUF_FLAG_QUEUED    0x0002    /<em> Buffer is queued for processing </em>/</p>
+<p>#define V4L2_BUF_FLAG_DONE    0x0004    /<em> Buffer is ready </em>/</p>
+<p>#define V4L2_BUF_FLAG_KEYFRAME    0x0008    /<em> Image is a keyframe (I-frame) </em>/</p>
+<p>#define V4L2_BUF_FLAG_PFRAME    0x0010    /<em> Image is a P-frame </em>/</p>
+<p>#define V4L2_BUF_FLAG_BFRAME    0x0020    /<em> Image is a B-frame </em>/<br>/<em> Buffer is ready, but the data contained within is corrupted. </em>/</p>
+<p>#define V4L2_BUF_FLAG_ERROR    0x0040</p>
+<p>#define V4L2_BUF_FLAG_TIMECODE    0x0100    /<em> timecode field is valid </em>/</p>
+<p>#define V4L2_BUF_FLAG_INPUT     0x0200  /<em> input field is valid </em>/</p>
+<p>#define V4L2_BUF_FLAG_PREPARED    0x0400    /<em> Buffer is prepared for queuing </em>/<br>/<em> Cache handling flags </em>/</p>
+<p>#define V4L2_BUF_FLAG_NO_CACHE_INVALIDATE    0x0800</p>
+<p>#define V4L2_BUF_FLAG_NO_CACHE_CLEAN        0x1000<br>等等。<br>总之，通过v4l2_buffer，对驱动做queue和dequeue的操作，就可以把buffer[i]里面的视频数据正确取出来。<br>所以v4l2_buffer可以理解为针对真正的缓冲区buffers[]的管理数据，其和buffers是一一对应的。<br>这个概念非常类似于网卡驱动中的Transmit buffer descriptor list和transmit buffer直接的关系，也就是一个缓冲区的描述符和缓冲区本身的一一对应的关系。<br>所以有关flags，是这样反映其管理的缓冲区的状态的：<br>最早VIDIOC_REQBUFS的时候，flags是0x0000<br>mmap完成后，flags是V4L2_BUF_FLAG_MAPPED        0x0001<br>VIDIOC_QBUF后，flags是0x0003，也就是V4L2_BUF_FLAG_MAPPED+V4L2_BUF_FLAG_QUEUED<br>在驱动采集完成并放入视频数据后，flags是0x0005，也就是V4L2_BUF_FLAG_MAPPED+V4L2_BUF_FLAG_DONE<br>在应用程序做了VIDIOC_DQBUF后，flags是0x0001，也就是V4L2_BUF_FLAG_MAPPED<br>================================V4L2子系统====================================</p>
+<p>V4L2 旨在支持多种设备:<br>video capture interface  （影像捕获接口）<br>video output interface  （视频输出接口）<br>video  overlay  interface（视频覆盖接口）方便视频显示设备直接从捕获设备上获取数据。视频数据直接从捕获设备传到显示设备，无需经过CPU。<br>V4L2的驱动，后续每一步讲解，其实都会和上面提过的用户空间的程序联系起来。看完这段，就能理解用户空间为什么要做上面提到的操作的流程。</p>
+<p>包含头文件：</p>
+<p>#include &lt;linux/videodev2.h&gt;</p>
+<p>#include &lt;media/videobuf2-vmalloc.h&gt;</p>
+<p>#include &lt;media/v4l2-device.h&gt;</p>
+<p>#include &lt;media/v4l2-ioctl.h&gt;</p>
+<p>#include &lt;media/v4l2-ctrls.h&gt;</p>
+<p>#include &lt;media/v4l2-fh.h&gt;</p>
+<p>#include &lt;media/v4l2-event.h&gt;</p>
+<p>#include &lt;media/v4l2-common.h&gt;</p>
+<p>从数据结构上看，《v4l2数据结构框图.png》已经画的非常清楚了。其中绿色的方框，都是需要实现的部分。</p>
+<p>V4L2几个重要结构体。<br>  struct video_device：主要的任务就是负责向内核注册字符设备<br>  struct v4l2_device：一个硬件设备可能包含多个子设备，比如一个电视卡除了有capture设备，可能还有VBI设备或者FM tunner。而v4l2_device就是所有这些设备的根节点，负责管理所有的子设备。<br>  struct v4l2_subdev：子设备，负责实现具体的功能，例如一个具体的摄像头设备，就属于一个subdev。<br>v4l2_device,v4l2_subdev可以看作所有设备和子设备的基类。<br>soc_camera_host结构体，就是继承v4l2_device，并添加了互斥锁、子设备列表等成员变量。 </p>
+<ol>
+<li><p>视频设备注册<br>v4l2驱动的最终目的是使用video_register_device()来向V4L2层注册video_device<br>int video_register_device(struct video_device <em>vfd, int type, int nr)<br>这里 vfd 是设备的结构体(video_device)，type 的值表示设备类型，nr 是期望的子设备号（为-1 则注册时自动分配）。<br>type如果是摄像头，则应该是VFL_TYPE_GRABBER。<br>#define VFL_TYPE_GRABBER    0<br>#define VFL_TYPE_VBI        1<br>#define VFL_TYPE_RADIO        2<br>#define VFL_TYPE_SUBDEV        3<br>#define VFL_TYPE_MAX        4<br>通常设备一旦注册，它的函数可能就会被立即调用，所以在一切准备就绪前，不要调用 video_register_device()。<br>设备注销函数为：<br>void video_unregister_device(struct video_device </em>vfd);<br>有关video_device结构体，定义如下：<br>struct video_device<br>{<br>#if defined(CONFIG_MEDIA_CONTROLLER)<br>struct media_entity entity;<br>#endif<br>/<em> device ops </em>/<br>const struct v4l2_file_operations *fops;</p>
+<p>/<em> sysfs </em>/<br>struct device dev;        /<em> v4l device </em>/<br>struct cdev <em>cdev;        /</em> character device */</p>
+<p>/<em> Set either parent or v4l2_dev if your driver uses v4l2_device </em>/<br>struct device <em>parent;        /</em> device parent <em>/<br>struct v4l2_device </em>v4l2_dev;    /<em> v4l2_device parent </em>/</p>
+<p>/<em> Control handler associated with this device node. May be NULL. </em>/<br>struct v4l2_ctrl_handler *ctrl_handler;</p>
+<p>/<em> Priority state. If NULL, then v4l2_dev-&gt;prio will be used. </em>/<br>struct v4l2_prio_state *prio;</p>
+<p>/<em> device info </em>/<br>char name[32];<br>int vfl_type;<br>/<em> ‘minor’ is set to -1 if the registration failed </em>/<br>int minor;<br>u16 num;<br>/<em> use bitops to set/clear/test flags </em>/<br>unsigned long flags;<br>/<em> attribute to differentiate multiple indices on one physical device </em>/<br>int index;</p>
+<p>/<em> V4L2 file handles </em>/<br>spinlock_t        fh_lock; /<em> Lock for all v4l2_fhs </em>/<br>struct list_head    fh_list; /<em> List of struct v4l2_fh </em>/</p>
+<p>int debug;            /<em> Activates debug level</em>/</p>
+<p>/<em> Video standard vars </em>/<br>v4l2_std_id tvnorms;        /<em> Supported tv norms </em>/<br>v4l2_std_id current_norm;    /<em> Current tvnorm </em>/</p>
+<p>/<em> callbacks </em>/<br>void (<em>release)(struct video_device </em>vdev);</p>
+<p>/<em> ioctl callbacks </em>/<br>const struct v4l2_ioctl_ops *ioctl_ops;</p>
+<p>/<em> serialization lock </em>/<br>struct mutex *lock;<br>};<br>这里面比较重要的成员是：<br>.name<br>.fops           即v4l2_file_operations，v4l2版本的file_operations<br>.ioctl_ops     即v4l2_ioctl_ops，v4l2版本的ioctl_ops<br>.release<br>.v4l_dev        指向v4l2_device结构体<br>.current_norm    当前默认激活的视频制式（如PAL）</p>
+</li>
+</ol>
+<p>2.在open()  和  release()<br>v4l2_file_operations()回调函数需要实现open()  和  release()<br>open()可以直接使用v4l2_fh_open()</p>
+<p>3.ioctl()处理<br>因为视频硬件有大量的可操作旋钮（配置寄存器），可能比其它任何外设都要多。<br>所以如果需要每个驱动都去实现一遍这所有的回调函数的话，数量非常大。<br>在video_device-&gt;v4l2_file_operations-&gt;unlocked_ioctl里面。<br>目前的做法是kernel已经帮你实现了大部分的通用部分的ioctl。<br>驱动只需实现一小部分和自己特定操作相关的ioctl即可。<br>kernel在v4l2-ioctl.c实现了__video_do_ioctl()，由video_ioctl2()包裹。<br>所以.unlocked_ioctl = video_ioctl2,<br>即可以实现默认的ioctl的注册。<br>另外，video_device-&gt;ioctl_ops也包含了需要注册的一系列回调函数v4l2_ioctl_ops()    。这和video_device-&gt;v4l2_file_operations-&gt;unlocked_ioctl又是什么关系？？<br>其实这就是实现了类似重载的思想。<br>就是一般情况下，都用video_ioctl2()来处理ioctl。但处理的过程中，会检查，video_device-&gt;ioctl_ops是否定义了同名的回调函数。<br>很多video_ioctl2()的分支，其实都没有具体的实现。如果video_device-&gt;ioctl_ops定义了，则执行video_device-&gt;ioctl_ops。<br>否则就return走人了。<br>所以对驱动来说，video_device-&gt;v4l2_file_operations-&gt;unlocked_ioctl永远是固定的video_ioctl2()。而需要驱动自己实现重载的，就是video_device-&gt;ioctl_ops.<br>此处以VIDIOC_QUERYCAP的实现为例：<br>video_device-&gt;ioctl_ops-&gt;vidioc_querycap需要注册回调函数，以实现VIDIOC_QUERYCAP的处理。如：<br>static const struct v4l2_ioctl_ops vivi_ioctl_ops = {<br>    .vidioc_querycap      = vidioc_querycap,<br>    …<br>}<br>static int vidioc_querycap(struct file <em>file, void  </em>priv, struct v4l2_capability <em>cap)<br>{<br>    struct vivi_dev </em>dev = video_drvdata(file);</p>
+<pre><code>strcpy(cap-&gt;driver, &quot;vivi&quot;);
+strcpy(cap-&gt;card, &quot;vivi&quot;);
+strlcpy(cap-&gt;bus_info, dev-&gt;v4l2_dev.name, sizeof(cap-&gt;bus_info));
+cap-&gt;capabilities = V4L2_CAP_VIDEO_CAPTURE | V4L2_CAP_STREAMING | \
+            V4L2_CAP_READWRITE;
+return 0;
+</code></pre><p>}<br>可以看到其实就是拷一些字串信息出来，并填好cap-&gt;capabilities<br>在用户调用VIDIOC_QUERYCAP ioctl操作的时候，先进入的是：<strong>video_do_ioctl()的VIDIOC_QUERYCAP分支：<br>static long </strong>video_do_ioctl(struct file <em>file,<br>        unsigned int cmd, void </em>arg)<br>{<br>    struct video_device <em>vfd = video_devdata(file);<br>    const struct v4l2_ioctl_ops </em>ops = vfd-&gt;ioctl_ops;<br>…<br>    case VIDIOC_QUERYCAP:<br>    {<br>        struct v4l2_capability <em>cap = (struct v4l2_capability </em>)arg;</p>
+<pre><code>    if (!ops-&gt;vidioc_querycap)    //可见，如果此处定义了vidioc_querycap回调，则执行驱动自定义版本。否则啥也不干直接break走人。
+        break;
+
+    cap-&gt;version = LINUX_VERSION_CODE;
+    ret = ops-&gt;vidioc_querycap(file, fh, cap);
+    if (!ret)
+        dbgarg(cmd, &quot;driver=%s, card=%s, bus=%s, &quot;
+                &quot;version=0x%08x, &quot;
+                &quot;capabilities=0x%08x\n&quot;,
+                cap-&gt;driver, cap-&gt;card, cap-&gt;bus_info,
+                cap-&gt;version,
+                cap-&gt;capabilities);
+    break;
+}
+</code></pre><p>…<br>}<br>常见的ioctl类型列举如下：<br>制式类：<br>VIDIOC_ENUMSTD<br>    这在上面解释应用程序的时候也提到了，主要是涉及返回制式。<br>    V4L2 使用 v4l2_std_id 来代表视频标准，它是一个 64 位的掩码。<br>    每个标准变种在掩码中就是一位。所以标准NTSC 的 定 义 为 V4L2_STD_NTSC_M,  值为 0x1000 ；<br>VIDIOC_G_STD<br>    返回当前激活的制式，也就是.current_norm<br>VIDIOC_S_STD<br>    对硬件设置新的制式，并更新.current_norm<br>VIDIOC_QUERYSTD<br>输入类：<br>VIDIOC_ENUMINPUT<br>    枚举所有可用的输入，返回v4l2_input<br>    例如可以返回<br>    inp-&gt;type = V4L2_INPUT_TYPE_CAMERA;<br>    inp-&gt;std = V4L2_STD_525_60;<br>    其中<br>    /<em> Standards for Countries with 60Hz Line frequency </em>/</p>
+<pre><code>#define V4L2_STD_525_60        (V4L2_STD_PAL_M        |\
+             V4L2_STD_PAL_60    |\
+             V4L2_STD_NTSC        |\
+             V4L2_STD_NTSC_443)
+这里的例子是只有一种输入，就是摄像头类型的输入。
+</code></pre><p>VIDIOC_S_INPUT<br>    改变当前的输入<br>VIDIOC_G_INPUT<br>    获取当前的输入<br>输出类：<br>VIDIOC_ENUMOUTPUT<br>VIDIOC_G_OUTPUT<br>VIDIOC_S_OUTPUT<br>    因为一般v4l2都是摄像头驱动。这个只有电视卡驱动才用到输出，不常用。<br>格式协商类：<br>在一开始的视频基础知识介绍中，介绍了基本的颜色格式。<br>VIDIOC_ENUM_FMT<br>    对应驱动中的int (<em>vidioc_enum_fmt_cap)(struct file </em>file, void <em>private_data, struct v4l2_fmtdesc </em>f);<br>    FMT是指例如v4l2_BUF_TYPE_VIDEO_CAPTURE<br>VIDIOC_G_FMT<br>    对应驱动中的int (<em>vidioc_g_fmt_cap)(struct file </em>file, void <em>private_data, struct v4l2_format </em>f);<br>VIDIOC_TRY_FMT<br>    顾名思义，尝试改变格式。所以硬件正在工作的时候，也可以尝试，此时不会对硬件做出任何实际的改动。<br>    如果“try”函数成功返回，最终格式就己经在工作了并可以直接编程进硬件。<br>VIDIOC_S_FMT<br>    如果硬件正在工作或己经开辟了流缓冲区，则不能调用这个接口</p>
+<p>4.帧传输<br>分为两大类方法：<br>read/write系统调用（不常见，但有些简单的应用会调用这个方法）<br>视频流IO方式（最常用，一般指mmap）<br>a.read/write系统调用<br>Video4Linux2 规范并没有规定要实现 read()和 write()，然而很多简单的应用希望使用这种系统调用，所以驱动作 者 应 尽 可 能 实 现 这 两 个 系 统 调 用 。<br>之前介绍应用的时候，提到过VIDIOC_QUERYCAP。如果驱动支持read/write方法，则需要在回复VIDIOC_QUERYCAP的时候，把V4L2_CAP_READWRITE置位。<br>具体就是指要实现v4l2_file_operations-&gt;read()和write()，另外，也需要实现v4l2_file_operations-&gt;poll()。<br>一般大致的操作是：<br>应用调用read()，然后驱动告诉硬件开始捕获帧，捕获完成后，把此帧发送到用户空间并返回，如果将来一段时间没有新的read()请求过来，则停止硬件。<br>另外因为read()的话，返回的是用户空间的地址，所以如果涉及DMA的话，要用支持scatter的DMA才行（才能直接DMA到虚拟地址）<br>在做read/write之前，会涉及一些参数的设置，也就是：<br>VIDIOC_G_PARM和VIDIOC_S_PARM参数<br>这两个ioctl接口，会调用到下面两个驱动的方法：<br>int (<em>vidioc_g_parm) (struct file </em>file, void <em>private_data, struct v4l2_streamparm </em>parms);<br>int (<em>vidioc_s_parm) (struct file </em>file, void <em>private_data, struct v4l2_streamparm </em>parms);<br>上面的接口涉及struct v4l2_streamparm入参：<br>/<em>    Stream type-dependent parameters
+ </em>/<br>struct v4l2_streamparm {<br>    enum v4l2_buf_type type;<br>    union {<br>        struct v4l2_captureparm    capture;<br>        struct v4l2_outputparm    output;<br>        __u8    raw_data[200];  /<em> user-defined </em>/<br>    } parm;<br>};<br>这些成员中：<br>type描述的是所涉及操作的类型，例如V4L2_BUF_TYPE_VIDEO_CAPTURE视频捕捉设备<br>也可以是V4L2_BUF_TYPE_VIDEO_OUTPUT视频输出设备。<br>当其值是V4L2_BUF_TYPE_PRIVATE的时候，raw_data 字段用来传递一些私有的、不可移植的，甚至是不鼓励使用的数据给内核  。<br>当设备是V4L2_BUF_TYPE_VIDEO_CAPTURE的时候，会涉及struct v4l2_captureparm    capture;<br>/*</p>
+<ul>
+<li><p>C A P T U R E   P A R A M E T E R S<br><em>/<br>struct v4l2_captureparm {<br>__u32           capability;      /</em>  Supported modes <em>/<br>__u32           capturemode;      /</em>  Current mode <em>/<br>struct v4l2_fract  timeperframe;  /</em>  Time per frame in .1us units <em>/<br>__u32           extendedmode;  /</em>  Driver-specific extensions <em>/<br>__u32              readbuffers;   /</em>  # of buffers for read */<br><strong>u32           reserved[4];<br>};<br>capability目前只有一个选项：V4L2_CAP_TIMEPERFRAME，表示帧率可变。<br>capturemode 目前只有一个选项： V4L2_MODE_HIGHQUALITY，是硬件牺牲一部分功能包括支持的格式、曝光时间等），从而输出最高质量的单个帧。<br>timeperframe 成员用于指定想要使用的帧率，它也是一个结构体：<br>struct v4l2_fract {
+</strong>u32    numerator;<br><strong>u32    denominator;<br>};<br>numerator  和 denominator 所描述的系数给出的是成功的帧之间的时间间隔。<br>extendedmode没有明确意义<br>readbuffers字段是 read()操作被调用时内核应为输入帧准备的缓冲区数量。（没看懂）<br>至于V4L2_BUF_TYPE_VIDEO_OUTPUT视频输出设备，会涉及struct v4l2_outputparm，但不常用，就不细说了，基本上可以参考V4L2_BUF_TYPE_VIDEO_CAPTURE视频捕捉设备<br>struct v4l2_outputparm<br>{
+</strong>u32      capability;<br><strong>u32      outputmode;<br>struct v4l2_fract  timeperframe;
+</strong>u32      extendedmode;<br><strong>u32      writebuffers;
+</strong>u32      reserved[4];<br>};<br>所以现在回到上面的VIDIOC_G_PARM和VIDIOC_S_PARM：<br>当应用想要查询当前参数时，它可以发出一个 VIDIOC_G_PARM 调用，从而调用驱动的 vidioc_g_parm()。<br>设置参数将调用 vidioc_s_parm()。在这种情况下，驱动将参数设为与应用所提供的参数尽可能近的值，并调整 v4l2_streamparm 结构体以反应当前值  。<br>如果应用提供 timeperframe 为 0，驱动应设置为与当前视频制式相对应的帧率。如果 readbuffers  或writebuffers 是 0，驱动应返回现行设置而非删除缓冲区。<br>b.视频流IO方式<br>流IO分成两种方式：<br>V4L2_MEMORY_MMAP和V4L2_MEMORY_USERPTR。<br>V4L2_MEMORY_MMAP最常见，在驱动里面先分配好大块内存，然后由应用通过mmap，将内核的空间映射到用户空间。<br>这些缓冲区可以是大而连续 DMA 缓冲区（以供DMA使用）、通过 vmalloc()创建的虚拟缓冲区，或者直接在设备的 I/O 内存中开辟的缓冲区（如果硬件支持） 。<br>V4L2_MEMORY_USERPTR不太常用，是在用户空间中开辟缓冲区，但驱动去操作这个缓冲区会比较困难。<br>另外，当硬件上支持scatter/gather DMA的时候，一个叫做video-buf的API层可以使驱动写的更容易。<br>总的来说，如果驱动支持视频流IO方式，则VIDIOC_QUERYCAP的时候，应该置位V4L2_CAP_STREAMING。<br>在使用流IO方式的时候，帧以 v4l2_buffer 的格式在应用和驱动之间传输。<br>这个结构体在之前介绍应用程序的时候已提过，其基本作用就是用来管理缓冲区的。<br>正如之前提到过，一个缓冲区可以有三种基本状态：<br>用户空间状态：即VIDIOC_DQBUF之后的状态，缓冲区里有新的视频帧，此时缓冲区被用户空间独占，驱动不能操作。<br>传入队列状态：即VIDIOC_QBUF之后的状态，缓冲区的帧早已被应用程序取走，此时缓冲区等待着驱动去填充新的帧。<br>传出队列状态：即驱动已经把新的帧填入缓冲区以后的状态，此时的缓冲区等待着应用程序用VIDIOC_DQBUF取走。<br>有关v4l2_buffer，之前讲应用程序的时候提到过。那这里细说下v4l2_buffer结构体的成员：<br>struct v4l2_buffer {<br><strong>u32    index;    鉴别缓冲区的序号， 它只在内存映射缓冲区中使用。与其它可以在 V4L2 接口中枚举的对象一样，内存映射缓冲区的 index 从 0 开始，依次递增。<br>enum v4l2_buf_type      type;    缓冲区 类型，通常是 V4L2_BUF_TYPE_VIDEO_CAPTURE或V4L2_BUF_TYPE_VIDEO_OUTPUT。
+</strong>u32            bytesused;    缓冲区中的图像的数据的大小，下面还有个成员<strong>u32 length;就是缓冲区大小。所以缓冲区大小至少也要有图像大小，即bytesused&lt;=length
+</strong>u32            flags;    之前讲应用程序的时候解释了，表示当前缓冲区的状态<br>enum v4l2_field        field;    和interlace the data有关，即 - transferring all of the even scan lines first, followed by the odd lines.</p>
+<pre><code>例如V4L2_FIELD_NONE (fields are not interlaced), V4l2_FIELD_TOP (top field only), or V4L2_FIELD_ANY (don&apos;t care)
+</code></pre><p>struct timeval        timestamp;    时间戳， 对于输入设备来说，代表帧捕获的时间。<br>struct v4l2_timecode    timecode;    时间编码，和下面的sequence成员一起的。每一帧传送时，它都会在 sequence 成员中存入当前序号。<br>__u32            sequence;</p>
+<p>/<em> memory location </em>/<br>enum v4l2_memory        memory;    用来描述内存映射缓冲区/用户空间缓冲区</p>
+<pre><code>对于内存映射缓冲区，m.offset  描述的是缓冲区的位置。
+对于用户空间缓冲区而言， m.userptr是缓冲区的用户空间地址。
+</code></pre><p>union {<br>  <strong>u32           offset;<br>  unsigned long   userptr;<br>  struct v4l2_plane *planes;<br>} m;
+</strong>u32            length;<br><strong>u32            input;
+</strong>u32            reserved;<br>};<br>这里解释下VIDIOC_REQBUFS ioctl的驱动实现：<br>之前讲应用程序的时候提到过，应用需要通过VIDIOC_REQBUFS来向驱动申请缓冲区。<br>对应到驱动就是要实现：<br>int (<em>vidioc_reqbufs) (struct file </em>file, void <em>private_data,    struct v4l2_requestbuffers </em>req);<br>这个函数的重点是入参struct v4l2_requestbuffers <em>req<br>struct v4l2_requestbuffers<br>{<br><strong>u32        count;<br>enum v4l2_buf_type  type;<br>enum v4l2_memory  memory;
+</strong>u32        reserved[2];<br>};<br>有关应用程序需要申请的缓冲区的细节，都体现在struct v4l2_requestbuffers这个结构体里面了。<br>count需要填上期望使用的缓冲区数<br>type需要填上V4L2_BUF_TYPE_VIDEO_CAPTURE(视频捕获设备)，或者 V4L2_BUF_TYPE_VIDEO_OUTPUT（视频输出设备）<br>memory一般设置为V4L2_MEMORY_MMAP，表示用的是mmap<br>注意，驱动一般会开辟比用户申请的count缓冲区数，更多些的缓冲区。<br>如果应用请求的比这个驱动的缓冲区数小，它可能得到比实际申请的多一些。<br>一般都是申请2个或者3个。<br>把缓冲数弄的大些，总是有好处的。<br>以camera为例，因为其图形捕捉其实是一个固定的速率。<br>如果这时候应用程序速度变慢，这将很容易导致丢帧。<br>另外，应用可以通过设置 count 字段为 0 的方式来释放掉所有已存在的缓冲区。在这种情况下，驱动必须在释放缓冲前停止所有的 DMA 操作，否则会发生非常严重问题即DMA破坏正常的内存内容。<br>在做完VIDIOC_REQBUFS以后，应用程序需要执行VIDIOC_QUERYBUF来查询刚刚申请的缓冲区是否已经可以做后续的mmap操作：<br>对应到驱动就是要实现：<br>int (</em>vidioc_querybuf)(struct file <em>file, void </em>private_data,    struct v4l2_buffer <em>buf);<br>可以看到此处关键的入参是struct v4l2_buffer </em>buf，因为刚刚才解释过v4l2_buffer，这里只讲几点：<br>应用程序需要设置：<br>type,memory,index<br>而驱动要保证 index 有意义（VIDIOC_QUERYBUF的关键作用所在），并添充 buf 中的其余字段。<br>通常来说，驱动内部存储着一个 v4l2_buffer 结构体数组,  所以 vidioc_querybuf()方法的核心只是一个结构体赋值。<br>在此之后，应用程序便可以用mmap把内核缓冲区映射到自己的地址空间了。<br>见下面这个之前提到过的应用程序的例程：<br>if(!ioctl(fd,VIDIOC_QUERYBUF,&amp;buf)){<br>buffers[i].length = buf.length;<br>buffers[i].start = mmap(NULL,buf.length,PROT_READ|PROT_WRITE,MAP_SHARED,fd,buf.m.offset);//根据刚刚查询到的缓冲区大小，做mmap映射。<br>……<br>}<br>注意，mmap的最后一个入参off_t offset，是buf.m.offset，即驱动对于  VIDIOC_QUERYBUF 调用返回的buf的那个偏移值<br>mmap完成后，驱动应在相关的 v4l2_buffer 结构体中调置 V4L2_BUF_FLAG_MAPPED 标签。<br>另外只要缓冲区在任何地方被映射了，它就不能在内核中释放。所以驱动也必须在 open()和 close()  中设定 VMA  操作，这样它才能跟踪映射了缓冲区的进程数。<br>在完成映射以后，应用首先要发出一个 VIDIOC_QBUF  ioctl()调用。<br>对应到驱动就是要实现：<br>int (<em>vidioc_qbuf) (struct file </em>file, void <em>private_data, struct v4l2_buffer </em>buf);<br>驱动要做的就是：<br>驱动只能进行一些显式的检查(type和 index 是否有效、缓冲区是否在驱动队列中、缓冲区已映射等) ，把缓冲区放进传入队列里  ( 设置V4L2_BUF_FLAG_QUEUED  标签)，并返回。<br>在传输开始后，驱动会开始填充缓冲区，并填上序号和时间戳。<br>最后，应用程序会用VIDIOC_DQBUF<br>对应到驱动就是要实现：<br>int (<em>vidioc_dqbuf) (struct file </em>file, void <em>private_data,   struct v4l2_buffer </em>buf)<br>如果传出队列是空的，这个VIDIOC_DQBUF调用通常会处于阻塞状态直到有缓冲区可用。<br>如果视频设备是以O_NONBLOCK 方式打开的，在队列为空的情况下驱动就该返回-EAGAIN。当然，这个要求也暗示驱动必须为流 I/O 支持 poll()。<br>最后还有一个和帧传输的ioctl是VIDIOC_STREAMON/VIDIOC_STREAMOFF<br>对应到驱动就是要实现：<br>int (<em>vidioc_streamon) (struct file </em>file, void <em>private_data,   enum v4l2_buf_type type);<br>int (</em>vidioc_streamoff)(struct file <em>file, void </em>private_data,    enum v4l2_buf_type type);<br>让设备开始/停止工作</p>
+</li>
+</ul>
+<p>5.参数控制<br>一般指在视频捕捉过程中，动态的改变视频的参数。例如亮度对比度：</p>
+<p>#define V4L2_CID_USER_CLASS         (V4L2_CTRL_CLASS_USER | 1)</p>
+<p>#define V4L2_CID_BRIGHTNESS        (V4L2_CID_BASE+0)</p>
+<p>#define V4L2_CID_CONTRAST        (V4L2_CID_BASE+1)</p>
+<p>#define V4L2_CID_SATURATION        (V4L2_CID_BASE+2)</p>
+<p>#define V4L2_CID_HUE            (V4L2_CID_BASE+3)</p>
+<p>#define V4L2_CID_AUDIO_VOLUME        (V4L2_CID_BASE+5)</p>
+<p>#define V4L2_CID_AUDIO_BALANCE        (V4L2_CID_BASE+6)</p>
+<p>#define V4L2_CID_AUDIO_BASS        (V4L2_CID_BASE+7)</p>
+<p>#define V4L2_CID_AUDIO_TREBLE        (V4L2_CID_BASE+8)</p>
+<p>#define V4L2_CID_AUDIO_MUTE        (V4L2_CID_BASE+9)</p>
+<p>#define V4L2_CID_AUDIO_LOUDNESS        (V4L2_CID_BASE+10)</p>
+<p>#define V4L2_CID_BLACK_LEVEL        (V4L2_CID_BASE+11) /<em> Deprecated </em>/</p>
+<p>#define V4L2_CID_AUTO_WHITE_BALANCE    (V4L2_CID_BASE+12)</p>
+<p>#define V4L2_CID_DO_WHITE_BALANCE    (V4L2_CID_BASE+13)</p>
+<p>#define V4L2_CID_RED_BALANCE        (V4L2_CID_BASE+14)</p>
+<p>#define V4L2_CID_BLUE_BALANCE        (V4L2_CID_BASE+15)</p>
+<p>#define V4L2_CID_GAMMA            (V4L2_CID_BASE+16)</p>
+<p>#define V4L2_CID_WHITENESS        (V4L2_CID_GAMMA) /<em> Deprecated </em>/</p>
+<p>#define V4L2_CID_EXPOSURE        (V4L2_CID_BASE+17)</p>
+<p>#define V4L2_CID_AUTOGAIN        (V4L2_CID_BASE+18)</p>
+<p>#define V4L2_CID_GAIN            (V4L2_CID_BASE+19)</p>
+<p>#define V4L2_CID_HFLIP            (V4L2_CID_BASE+20)</p>
+<p>#define V4L2_CID_VFLIP            (V4L2_CID_BASE+21)<br>总体上说，v4l2针对这种ioctl，因为其设置的种类繁多。所以驱动不用再为每种参数控制都写一个函数。而是通过vidioc_g_ctrl/vidioc_s_ctrl作为需要驱动实现的统一的接口。<br>应用程序在操作之前，可以通过VIDIOC_QUERYCTRL来查询驱动所支持的接口，对应驱动中的：<br>int (<em>vidioc_queryctrl)(struct file </em>file, void <em>private_data,    struct v4l2_queryctrl </em>qc);<br>驱动需要关心是用控制信息来填充v4l2_queryctrl <em>qc结构体<br>struct v4l2_queryctrl<br>{<br><strong>u32        id;<br>enum v4l2_ctrl_type  type;
+</strong>u8        name[32];<br><strong>s32        minimum;
+</strong>s32        maximum;<br><strong>s32        step;
+</strong>s32        default_value;<br><strong>u32        flags;
+</strong>u32        reserved[2];<br>};<br>这个v4l2_queryctrl，除了id成员，别的都应该由驱动填充。<br>被查询的控制操作将会通过 id 传 送 。意思是，每次查询，只能查询单一的一种操作是不是被驱动支持。<br>作 为 一 个 特 殊 的 情 况 ， 应 用 可 以 通 过 设 定V4L2_CTRL_FLAG_NEXT_CTRL 位的方式传递控制 id。 当这种情况发生时，驱动会返回关于下一个所支<br>持的控制 id 的信息，这比应用给出的 ID 要高。无论在何种情况下，id 都应设为实际上被描述的控制操作的 id。<br>type表示当前控制动作的类型：<br>V4L2_CTRL_TYPE_INTEGER、V4L2_CTRL_TYPE_BOOLEAN、V4L2_CTRL_TYPE_MENU (针对<br>一组固定的选项)  或 V4L2_CTRL_TYPE_BUTTON (针对一些设定时会忽略任何给出值的控制操作)。<br>minimum 和 maximum  描述的是控制所实现的值的范围<br>default_value 顾名思义就是默认值——仅管他只对整型、布尔型和菜单控制适用。<br>flags则是驱动回答应用的途径，主要指是不是支持当前id的操作等：<br>V4L2_CTRL_FLAG_DISABLED  ：控制操作不可用，应用应忽略它。<br>V4L2_CTRL_FLAG_GRABBED  ；控制暂时不可变，可能是因为另一个应用正在使用它。<br>V4L2_CTRL_FLAG_READ_ONLY  ：可查看，但不可改变的控制操作。<br>V4L2_CTRL_FLAG_UPDATE：调整这个参数可以会对其他控制操作造成影响。<br>V4L2_CTRL_FLAG_INACTIVE  ：与当前设备配置无关的控制操作。<br>V4L2_CTRL_FLAG_SLIDER  ：暗示应用在表现这个操作的时候可以使用类似于滚动条的接口。<br>另外，之前提到type包含一种V4L2_CTRL_TYPE_MENU。<br>对于菜单型的诸多控制操作，应用很可能希望枚举可能的值，通过VIDIOC_QUERYMENU来查询具体的值。对应驱动中的：<br>int (</em>vidioc_querymenu)(struct file <em>file, void </em>private_data,  struct v4l2_querymenu <em>qm);<br>其中关键的struct v4l2_querymenu </em>qm入参如下：<br>struct v4l2_querymenu<br>{<br><strong>u32    id;
+</strong>u32    index;<br><strong>u8    name[32];
+</strong>u32    reserved;<br>};<br>id不用解释了，和上面一样，是相关菜单控制操作的 ID 值。除了这个值以外，别的值都是需要驱动填充的。<br>index  为某特定菜单 ID 值的索引值。name是菜单项的名字。<br>介绍了上面这些，现在就可以正式开始设置/读取控制项了：<br>VIDIOC_G_CTRL, VIDIOC_S_CTRL<br>对应驱动的：<br>int (<em>vidioc_g_ctrl)(struct file </em>file, void <em>private_data,   struct v4l2_control </em>ctrl);<br>int (<em>vidioc_s_ctrl)(struct file </em>file, void <em>private_data,   struct v4l2_control </em>ctrl);<br>驱动需根据id，进行相应的操作。</p>
+<p>具体的驱动的例子，可以参考vivi例程驱动解析.txt也就是内核中的vivi.c<br>注意在vivi.c里面，涉及了一种vb2_xxx的API。也就是videobuf2框架。<br>这套框架可以理解为V4L2的API上再包装一层。<br>然后驱动在实现各个ioctl的时候，其实最终会调用到videobuf2的API，例如：<br>static int vidioc_qbuf(struct file <em>file, void </em>priv, struct v4l2_buffer <em>p)<br>{<br>    struct vivi_dev </em>dev = video_drvdata(file);<br>    return vb2_qbuf(&amp;dev-&gt;vb_vidq, p);<br>}<br>而要使用videobuf2的API，需要向videobuf2注册以下信息：<br>vb2_queue    填充好后，通过vb2_queue_init()初始化。vb2_queue比较重要的成员包括vb2_ops。<br>        vb2_ops包含了针对buf的各个操作函数，会在ioctl里面调用类似vb2_qbuf的接口的时候，自动被调用。</p>
+<p>详情如下：<br>struct vb2_queue {<br>    enum v4l2_buf_type        type;<br>    unsigned int            io_modes;<br>    unsigned int            io_flags;</p>
+<pre><code>const struct vb2_ops        *ops;
+const struct vb2_mem_ops    *mem_ops;
+void                *drv_priv;
+unsigned int            buf_struct_size;
+</code></pre><p>/<em> private: internal use only </em>/<br>    enum v4l2_memory        memory;<br>    struct vb2_buffer        *bufs[VIDEO_MAX_FRAME];<br>    unsigned int            num_buffers;</p>
+<pre><code>struct list_head        queued_list;
+
+atomic_t            queued_count;
+struct list_head        done_list;
+spinlock_t            done_lock;
+wait_queue_head_t        done_wq;
+
+void                *alloc_ctx[VIDEO_MAX_PLANES];
+unsigned int            plane_sizes[VIDEO_MAX_PLANES];
+
+unsigned int            streaming:1;
+
+struct vb2_fileio_data        *fileio;
+</code></pre><p>};</p>
+<p>struct vb2_ops {<br>    int (<em>queue_setup)(struct vb2_queue </em>q, const struct v4l2_format <em>fmt,<br>               unsigned int </em>num_buffers, unsigned int <em>num_planes,<br>               unsigned int sizes[], void </em>alloc_ctxs[]);</p>
+<pre><code>void (*wait_prepare)(struct vb2_queue *q);
+void (*wait_finish)(struct vb2_queue *q);
+
+int (*buf_init)(struct vb2_buffer *vb);
+int (*buf_prepare)(struct vb2_buffer *vb);
+int (*buf_finish)(struct vb2_buffer *vb);
+void (*buf_cleanup)(struct vb2_buffer *vb);
+
+int (*start_streaming)(struct vb2_queue *q, unsigned int count);
+int (*stop_streaming)(struct vb2_queue *q);
+
+void (*buf_queue)(struct vb2_buffer *vb);
+</code></pre><p>};<br>有关vb2，具体可以参考：<br>《深入理解linux内核v4l2框架之videobuf2.pdf》<br>《vb2_buffer结构探究.pdf》<br>《vb2_buffer和videobuf_buffer比较分析.pdf》</p>
+<p>===============================V4L2 API的接口文档=====================================<br><a href="https://linuxtv.org/downloads/v4l-dvb-apis/uapi/v4l/v4l2.html" target="_blank" rel="noopener">https://linuxtv.org/downloads/v4l-dvb-apis/uapi/v4l/v4l2.html</a></p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/07/12/AudioTrack分析/" rel="next" title="AudioTrack分析">
+                <i class="fa fa-chevron-left"></i> AudioTrack分析
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Semiyd</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives">
+                
+                    <span class="site-state-item-count">206</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">105</span>
+                    <span class="site-state-item-name">categories</span>
+                  </a>
+                </div>
+              
+
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Semiyd</span>
+
+  
+
+  
+</div>
+
+
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> v3.7.1</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://theme-next.org">NexT.Muse</a> v6.3.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+	
+    
+
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.3.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.3.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.3.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.3.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.3.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
