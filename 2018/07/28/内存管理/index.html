@@ -115,7 +115,7 @@
 <meta property="og:site_name" content="Semiyd&#39;s Blog">
 <meta property="og:description" content="内存管理">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-07-28T08:15:06.842Z">
+<meta property="og:updated_time" content="2020-07-12T13:34:28.946Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="内存管理">
 <meta name="twitter:description" content="内存管理">
@@ -322,12 +322,24 @@
                 
               
 
-              <time title="Created: 2018-07-28 15:21:12 / Modified: 16:15:06" itemprop="dateCreated datePublished" datetime="2018-07-28T15:21:12+08:00">2018-07-28</time>
+              <time title="Created: 2018-07-28 15:21:12" itemprop="dateCreated datePublished" datetime="2018-07-28T15:21:12+08:00">2018-07-28</time>
             
 
             
               
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2020-07-12 21:34:28" itemprop="dateModified" datetime="2020-07-12T21:34:28+08:00">2020-07-12</time>
               
             
           </span>
@@ -392,7 +404,8 @@
       
 
       
-        <p><center><strong>内存管理</strong></center><br><a id="more"></a><br>====================================内存管理====================================================<br>linux内存管理的最小单位是页，而不是字节。页大小，也就是PAGE_SIZE常量，大部分体系架构包括ARM，都是4k.<br>内核和用户空间皆使用虚拟地址<br>内核有自己的地址空间<br>每个进程也有自己独立的地址空间<br>这些空间之间互不干涉</p>
+        <p><center><strong>内存管理</strong></center><br><a id="more"></a></p>
+<p>====================================内存管理====================================================<br>linux内存管理的最小单位是页，而不是字节。页大小，也就是PAGE_SIZE常量，大部分体系架构包括ARM，都是4k.<br>内核和用户空间皆使用虚拟地址<br>内核有自己的地址空间<br>每个进程也有自己独立的地址空间<br>这些空间之间互不干涉</p>
 <p>最基本的知识就是下面这些概念：<br>内核地址 物理地址 虚拟地址 总线地址 线性地址  逻辑地址<br>由最底层往上开始解释：</p>
 <p>物理地址：Physical Address<br>    这个不用解释了。CPU地址总线上的寻址物理内存的地址。</p>
 <p>总线地址:<br>    总线地址是从设备角度上看到的内存地址，物理地址是从CPU角度上看到的未经转换的内存地址(经过转换的那叫虚拟地址)<br>    由于有时候接口总线是通过桥接电路被连接，桥接电路会将IO地址映射为不同的物理地址。</p>
@@ -472,6 +485,7 @@
     再回到896MB这个设定。对于x86平台，那么既然是896低端内存，就剩下了128MB的高端内存，也就是vmalloc部分的内存。
     vmalloc的大小可以在bootargs里面设置，默认128MB.
     这个128MB，也是x86平台，vmalloc的最小保留大小。见arch\x86\mm\pgtable_32.c的unsigned int __VMALLOC_RESERVE = 128 &lt;&lt; 20;
+    说白了就是，随着低端内存的增加，因为总的大小内核空间只有1G嘛。所以会逐渐挤占vmalloc和ioremap区的大小。那么这里就规定，最小不得小于128MB。也就是低端内存到了896MB，不能再大了。
     那比如说，现在实际的物理内存是3G.前896MB是低端内存直接映射。假设是1G/3G的配比。那内核现在就只能在128MB的高端内存里面，去访问3G物理内存中没映射到低端内存的剩下部分。
     这是如何做到的呢？
     针对896MB的设定情形，在128MB也就是0xF8000000~0xFFFFFFFF这段地址，内核会根据vmalloc需要的大小，找个相同大小的空闲的地址空间，借用一会。
@@ -548,20 +562,102 @@ Virtual kernel memory layout:
           .data : 0x8087a000 - 0x808dac60   ( 388 kB)
           .bss : 0x808dac84 - 0x80a1e0f8   (1294 kB)
 </code></pre><p>虚拟地址 逻辑地址 线性地址    的关系是？<br>    首先逻辑地址=虚拟地址<br>    在linux中，不再专门分段，只是分页。所以逻辑地址=虚拟地址=线性地址。</p>
-<p>参考资料：<br>C:\Document\Document\Linux\Kernel\学习资料\User space memory access from the Linux kernel.pdf<br>C:\Document\Document\Linux\Kernel\学习资料\我理解的逻辑地址、线性地址、物理地址和虚拟地址.pdf<br>C:\Document\Document\Linux\Kernel\学习资料\虚拟地址转物理地址.pdf<br>C:\Document\Document\Linux\Kernel\学习资料\linux内存管理.pdf<br>C:\Document\Document\Linux\Kernel\学习资料\malloc实现原理.pdf<br>C:\Document\Document\Linux\Kernel\学习资料\Linux驱动虚拟地址和物理地址的映射.pdf<br>C:\Document\Document\Linux\Kernel\学习资料\How does ioremap convert physical address to virtual address.pdf        此文解释了物理地址映射到虚拟地址的过程<br>C:\Document\Document\Linux\Kernel\学习资料\free-electrons.com系列资料\Linux kernel and driver development course\linux-kernel-slides.pdf    page249有关内存管理的部分<br>C:\Document\Document\Linux\Kernel\学习资料\Linux设备驱动程序学习（20）-内存映射和DMA-基本概念.pdf<br>C:\Document\Document\Linux\Kernel\学习资料\Linux设备驱动程序学习（21）-内存映射和DMA-数据结构.pdf<br>C:\Document\Document\Linux\Kernel\学习资料\Virtual Memory I the problem [LWN_net].pdf<br>C:\Document\Document\Linux\Kernel\学习资料\kmalloc and vmalloc  Linux kernel memory allocation API Limits.pdf<br>C:\Document\Document\Linux\Kernel\学习资料\内存泄漏检测kmemleak示例.pdf<br>C:\Document\Document\Linux\Kernel\学习资料\Linux内核高-低端内存设置代码跟踪（ARM构架）.pdf<br>Documentation\vm\highmem.txt<br>Documentation\arm\memory.txt<br>C:\Document\Document\Linux\Kernel\学习资料\Linux用户空间与内核空间（理解高端内存）.pdf<br>C:\Document\Document\Linux\Kernel\学习资料\linux内核的high memory概念详解.pdf<br>C:\Document\Document\Linux\Kernel\学习资料\我所理解的high memory.pdf<br>C:\Document\Document\Linux\Kernel\学习资料\linux arm vmalloc详解.pdf<br>C:\Document\Document\Linux\Kernel\学习资料\linux support for ARM LPAE.pdf    有关ARM LPAE的内容在这<br>C:\Document\Document\Linux\Kernel\学习资料\arm mm memory layout.pdf        有关如何调整vmalloc区，遇到有空洞的bank怎么办，参考这篇文章<br>========================================内存分配和映射===================================================<br>内存分配：<br>    malloc:<br>        用于用户空间的分配。大小无限制。<br>    kmalloc：<br>        用于内核空间的物理连续地址分配。<br>            具体参数的使用：(所谓GFP_打头的参数，就是<strong>get_free_pages的首字母缩写，因为kmalloc内部是依赖于</strong>get_free_pages的)<br>            可以睡眠，分配失败就睡眠                     GFP_KERNEL<br>            可用于中断上下文，不可以睡眠，分配失败就放弃      GFP_ATOMIC<br>            软中断                    GFP_ATOMIC<br>            Tasklet                    GFP_ATOMIC<br>            用于DMA的内存        GFP_DMA    此标志能够保证是在dma_mask有效范围内的内存地址里面去分配<br>            用于DMA的内存，可以睡眠      GFP_DMA | GFP_KERNEL<br>            用于DMA的内存，不可以睡眠     GFP_DMA |GFP_ATOMIC<br>            还有些不常用的标志包括：<br>            用于为用户空间页分配内存，会阻塞    GFP_USER<br>            不允许任何IO初始化    GFP_NOIO<br>            不允许进行任何文件系统调用    GFP_NOFS<br>            指定高端内存来分配    GFP_HIGHMEM<br>            请求一个较长时间不访问的页    <strong>GFP_COLD<br>            高优先级的请求，允许获得内核保留的紧急情况才能用的页    </strong>GFP_HIGH    </p>
-<pre><code>        GFP_KERNEL 会引起休眠的原因是，系统空闲内存不够分配的时候，会把当前申请内存的进程转入休眠以等待空闲的页面
+<p>参考资料：<br>C:\Document\Document\Linux\Kernel\学习资料\User space memory access from the Linux kernel.pdf<br>C:\Document\Document\Linux\Kernel\学习资料\我理解的逻辑地址、线性地址、物理地址和虚拟地址.pdf<br>C:\Document\Document\Linux\Kernel\学习资料\虚拟地址转物理地址.pdf<br>C:\Document\Document\Linux\Kernel\学习资料\linux内存管理.pdf<br>C:\Document\Document\Linux\Kernel\学习资料\malloc实现原理.pdf<br>C:\Document\Document\Linux\Kernel\学习资料\Linux驱动虚拟地址和物理地址的映射.pdf<br>C:\Document\Document\Linux\Kernel\学习资料\How does ioremap convert physical address to virtual address.pdf        此文解释了物理地址映射到虚拟地址的过程<br>C:\Document\Document\Linux\Kernel\学习资料\free-electrons.com系列资料\Linux kernel and driver development course\linux-kernel-slides.pdf    page249有关内存管理的部分<br>C:\Document\Document\Linux\Kernel\学习资料\Linux设备驱动程序学习（20）-内存映射和DMA-基本概念.pdf<br>C:\Document\Document\Linux\Kernel\学习资料\Linux设备驱动程序学习（21）-内存映射和DMA-数据结构.pdf<br>C:\Document\Document\Linux\Kernel\学习资料\Virtual Memory I the problem [LWN_net].pdf<br>C:\Document\Document\Linux\Kernel\学习资料\kmalloc and vmalloc  Linux kernel memory allocation API Limits.pdf<br>C:\Document\Document\Linux\Kernel\学习资料\内存泄漏检测kmemleak示例.pdf<br>C:\Document\Document\Linux\Kernel\学习资料\Linux内核高-低端内存设置代码跟踪（ARM构架）.pdf<br>Documentation\vm\highmem.txt<br>Documentation\arm\memory.txt<br>C:\Document\Document\Linux\Kernel\学习资料\Linux用户空间与内核空间（理解高端内存）.pdf<br>C:\Document\Document\Linux\Kernel\学习资料\linux内核的high memory概念详解.pdf<br>C:\Document\Document\Linux\Kernel\学习资料\我所理解的high memory.pdf<br>C:\Document\Document\Linux\Kernel\学习资料\linux arm vmalloc详解.pdf<br>C:\Document\Document\Linux\Kernel\学习资料\linux support for ARM LPAE.pdf    有关ARM LPAE的内容在这<br>C:\Document\Document\Linux\Kernel\学习资料\arm mm memory layout.pdf        有关如何调整vmalloc区，遇到有空洞的bank怎么办，参考这篇文章<br>========================================内存分配和映射===================================================<br>伙伴系统：<br>    buddy system是一个内存管理的思路。<br>    在实际应用中，经常需要分配一组连续的页框，而频繁地申请和释放不同大小的连续页框，必然导致在已分配页框的内存块中分散了许多小块的空闲页框。<br>    这样，即使这些页框是空闲的，其他需要分配连续页框的应用也很难得到满足。<br>    为了避免出现这种情况，Linux内核中引入了伙伴系统算法(buddy system)。把所有的空闲页框分组为11个块链表，<br>    每个块链表分别包含大小为1，2，4，8，16，32，64，128，256，512和1024个连续页框的页框块。最大可以申请1024个连续页框，对应4MB大小的连续内存。<br>    每个页框块的第一个页框的物理地址是该块大小的整数倍。<br>    假设要申请一个256个页框的块，先从256个页框的链表中查找空闲块，如果没有，就去512个页框的链表中找，找到了则将页框块分为2个256个页框的块，<br>    一个分配给应用，另外一个移到256个页框的链表中。如果512个页框的链表中仍没有空闲块，继续向1024个页框的链表查找，如果仍然没有，则返回错误。<br>    在释放内存页时，会检查其伙伴是否也是空闲的，如果是就将它和它的伙伴合并为更大的空闲内存块，该检查会递归进行，<br>    直到发现伙伴正在被使用或者已经合并成了最大的内存块。</p>
+<p>内存分配：<br>    malloc:<br>        用于用户空间的分配。大小无限制。<br>    alloc_page:<br>        伙伴系统中，分配物理页的基本API。    </p>
+<pre><code>    #define alloc_page(gfp_mask) alloc_pages(gfp_mask, 0)
+    返回分配到的物理页面page结构体。
+kmalloc：
+    static __always_inline void *kmalloc(size_t size, gfp_t flags)，定于位于include\linux\slab_def.h
+    使用需包含头文件#include &lt;linux/slab.h&gt;
+    用于内核空间的物理连续地址分配。
+        具体参数的使用：(所谓GFP_打头的参数，就是__get_free_pages的首字母缩写，因为kmalloc内部是依赖于__get_free_pages的)
+        可以睡眠，分配失败就睡眠                 GFP_KERNEL    
+        可用于中断上下文，不可以睡眠，分配失败就放弃      GFP_ATOMIC
+        软中断                    GFP_ATOMIC
+        Tasklet                    GFP_ATOMIC
+        用于DMA的内存        GFP_DMA    此标志能够保证是在dma_mask有效范围内的内存地址里面去分配
+        用于DMA的内存，可以睡眠      GFP_DMA | GFP_KERNEL
+        用于DMA的内存，不可以睡眠     GFP_DMA |GFP_ATOMIC
+        还有些不常用的标志包括：
+        用于为用户空间页分配内存，会阻塞    GFP_USER
+        不允许任何IO初始化    GFP_NOIO
+        不允许进行任何文件系统调用    GFP_NOFS
+        指定高端内存来分配    GFP_HIGHMEM    
+        请求一个较长时间不访问的页    __GFP_COLD    
+        高优先级的请求，允许获得内核保留的紧急情况才能用的页    __GFP_HIGH    
+
+        GFP_KERNEL 会引起休眠的原因是，系统空闲内存不够分配的时候，会把当前申请内存的进程转入休眠以等待空闲的页面
+            GFP_KERNEL不能在中断里面使用的原因有2：
+            1.会睡眠
+            2.会尝试回收swap区域。因回收swap区域（__shrink_dcache_sb()）会用到spinlock，这个同样的__shrink_dcache_sb会
+            周期性的被kswapd0回收的时候调用，也用同一个spinlock保护。如果正好被kswapd0持锁，中断里面会去尝试持有spinlock，导致死锁。
+            见《LINUX KERNEL SPINLOCK使用不当的后果.pdf》
         GFP_ATOMIC不会休眠的原因是，内核通常会原子性的预留一些空闲的页面，使用GFP_ATOMIC标志时，
         kmalloc()甚至可以用掉最后一个空闲页面，当最后一个空闲页面也没有时，分配就会失败
     物理地址的连续对DMA有用
-    kmalloc分配的大小有1GB限制
+    kmalloc分配的大小一般最多是128KB，前提是在KMALLOC_MAX_SIZE&lt;128KB的情况下。为什么？
+        根据kmalloc源码，在include\linux\slab_def.h，CACHE这个宏是在slab_def.h下面定义的，作用是检查当前需要分配的值，是不是小于某个阈值。
+        小于则返回成功，大于则继续尝试下一个更大的阈值。
+        根据代码include/linux/kmalloc_sizes.h，会定义很多个CACHE宏，用来依次尝试使用越来越大的阈值，来和当前需要分配的大小作比较。
+        其中默认情况下最大的值是131072字节，也就是128KB即默认情况下最大的大小，如果KMALLOC_MAX_SIZE小于128KB的话。
+        那么多大能多大呢？这个限制随着体系和内核配置选项而变化. 
+        所以如果你的代码是要完全可移植, 它不能指望可以分配任何大于 128 KB！ 
+        以am3354的3.2内核为例：
+        根据KMALLOC_MAX_SIZE的宏定义
+        #define KMALLOC_MAX_SIZE    (1UL &lt;&lt; KMALLOC_SHIFT_HIGH)
+        然后KMALLOC_SHIFT_HIGH的定义是：
+        /*
+         * The largest kmalloc size supported by the slab allocators is
+         * 32 megabyte (2^25) or the maximum allocatable page order if that is
+         * less than 32 MB.
+         *
+         * WARNING: Its not easy to increase this value since the allocators have
+         * to do various tricks to work around compiler limitations in order to
+         * ensure proper constant folding.
+         */
+        #define KMALLOC_SHIFT_HIGH    ((MAX_ORDER + PAGE_SHIFT - 1) &lt;= 25 ? \
+                        (MAX_ORDER + PAGE_SHIFT - 1) : 25)
+        可以看到这个宏就是个三元运算符，结局就是最大不得超过25.
+        也就是KMALLOC_MAX_SIZE所定义的二进制的1后面跟25个0.也就是32MB.
+        那当前MAX_ORDER的值是11.或者有定义CONFIG_FORCE_MAX_ZONEORDER的话，MAX_ORDER=CONFIG_FORCE_MAX_ZONEORDER
+        这就是取决于Kconfig里面CONFIG_FORCE_MAX_ZONEORDER的值了。
+        PAGE_SHIFT会决定页的大小，页是4096，所以PAGE_SHIFT一般默认是12，2的12次方是4096.
+        所以至少当前am3354平台的内核，KMALLOC_SHIFT_HIGH是11+12-1=22，等于order是22，2的22次方，等于4MB.这个值和上面提到的伙伴系统的4MB就对上了。
+        当然，不同体系架构，这个值是不一样的。但最多不会超过32MB。
+        参考《Kmalloc申请的最大内存.pdf》
+        实际在x86的4.9 debian内核中，kmalloc超过32MB的时候，直接crash了：
+        [  +0.000004]  [&lt;ffffffff89d34524&gt;] ? dump_stack+0x5c/0x78
+        [  +0.000002]  [&lt;ffffffff89a7a5cb&gt;] ? __warn+0xcb/0xf0
+        [  +0.000001]  [&lt;ffffffff89b8ca86&gt;] ? __alloc_pages_slowpath+0xa46/0xbb0
+        [  +0.000002]  [&lt;ffffffff89f45c5c&gt;] ? netlink_broadcast_filtered+0x14c/0x3e0
+        [  +0.000002]  [&lt;ffffffff89b8b5ba&gt;] ? get_page_from_freelist+0x43a/0xb20
+        [  +0.000001]  [&lt;ffffffff89d37dc5&gt;] ? kobject_uevent_env+0x155/0x500
+        [  +0.000001]  [&lt;ffffffff89d37dc5&gt;] ? kobject_uevent_env+0x155/0x500
+        [  +0.000010]  [&lt;ffffffff89b8cdf1&gt;] ? __alloc_pages_nodemask+0x201/0x260
+        [  +0.000003]  [&lt;ffffffff89bde751&gt;] ? alloc_pages_current+0x91/0x140
+        [  +0.000001]  [&lt;ffffffffc0062000&gt;] ? 0xffffffffc0062000
+        [  +0.000002]  [&lt;ffffffff89bac1d4&gt;] ? kmalloc_order+0x14/0x40
+        [  +0.000001]  [&lt;ffffffff89bac21d&gt;] ? kmalloc_order_trace+0x1d/0xa0
+        [  +0.000001]  [&lt;ffffffffc0062000&gt;] ? 0xffffffffc0062000
+        [  +0.000003]  [&lt;ffffffffc006206b&gt;] ? hello_init+0x6b/0x1000 [kmalloc_test]
+        [  +0.000001]  [&lt;ffffffff89a0218e&gt;] ? do_one_initcall+0x4e/0x180
+        [  +0.000002]  [&lt;ffffffff89bcbde6&gt;] ? __vunmap+0x76/0xc0
+        [  +0.000001]  [&lt;ffffffff89b81531&gt;] ? do_init_module+0x5b/0x1f6
+        [  +0.000002]  [&lt;ffffffff89b04aaa&gt;] ? load_module+0x25ba/0x2ac0
+        [  +0.000002]  [&lt;ffffffff89b011d0&gt;] ? __symbol_put+0x60/0x60
+        [  +0.000001]  [&lt;ffffffff89b051f6&gt;] ? SYSC_finit_module+0xc6/0xf0
+        [  +0.000002]  [&lt;ffffffff89a03b7d&gt;] ? do_syscall_64+0x8d/0xf0
+        [  +0.000002]  [&lt;ffffffff8a01924e&gt;] ? entry_SYSCALL_64_after_swapgs+0x58/0xc6
+        而且在x86平台上，实际上最大能kmalloc的数目，就是4MB整。和am3354平台一样。
     分配到的地址是逻辑地址（也属于虚拟地址），和物理地址只有一个固定偏移
     变种：kzalloc()，分配并清零分配到的数据
 vmalloc：
+    使用需包含头文件#include &lt;linux/vmalloc.h&gt;
     用于内核空间的大内存的地址分配。物理地址不一定连续（所以不能用于DMA），分配速度比kmalloc慢。
     可能睡眠，不能用于中断上下文
     分配到的地址是虚拟地址，和物理地址由页表映射，无直接对应关系。原因是每次vmalloc，都要建立页表。
-look aside buffers：
 slabs：
+    #include &lt;linux/slab.h&gt;
     kmalloc分配小内存就基于slab
     典型的API包括：
     kmem_cache_alloc()
@@ -581,9 +677,40 @@ kmemdup:
 kmemleak:
     检查内存泄漏情况，适用于各个cpu体系架构。
     参见：C:\Document\Document\Linux\Kernel\学习资料\内存泄漏检测kmemleak示例.pdf
-</code></pre><p>内存映射：<br>    ioremap:        （用来访问cpu的寄存器地址）<br>        cpu的寄存器地址，分为两种。<br>            I/O-mapped：<br>                x86架构，为外设专门实现了一个单独的地址空间，称为”I/O地址空间”或者”I/O端口空间”，CPU通过专门的I/O指令（如X86的IN和OUT指令）来访问这一空间中的地址单元。<br>            Memory-mapped<br>                ARM等RISC架构，只实现一个物理地址空间，外设I/O端口成为内存的一部分。<br>                此时，CPU可以象访问一个内存单元那样访问外设I/O端口，而不需要设立专门的外设I/O指令。<br>        返回的是虚拟地址，和vmalloc一样的，也需要新建页表。<br>        但是和vmalloc不同的是，ioremap并不实际分配内存，而是通过建立页表将设备寄存器地址映射到内核虚拟地址空间(位于内核的vmalloc映射区域).<br>        返回的地址不能直接使用，需要通过专用的<strong>raw_writel()，</strong>raw_readl()来访问（为了保证驱动跨平台的可移植性）<br>        通过ioremap()获得的虚拟地址应该被iounmap()函数释放<br>        devm_ioremap()的作用一样是无需在退出的时候，执行iounmap()。<br>    request_mem_region:<br>        这个函数是和ioremap配对一起使用的。<br>        用法就是先request_mem_region进行申请，在申请完成后再用ioremap进行映射。<br>        request_mem_region成功的话，会返回一个非NULL指针，并且cat /proc/iomem能看到分配的I/O。<br>        其他的变种有：<br>        check_mem_region()宏，检查指定的I/O内存资源是否已被占用。<br>        release_mem_region()宏，释放指定的I/O内存资源。<br>    phys_to_virt<br>        从物理地址然后加一个固定的偏移得到虚拟地址。<br>    mmap<br>        mmap映射一个设备，意味着使用户空间的一段地址关联到外设内存上<br>        这使得只要程序在分配的地址范围内进行读取或者写入，实际上就是对设备的访问。<br>        这种数据传输是直接的，不需要用到内核空间作为数据转移的中间站。<br>    unsigned int <strong>get_free_pages(unsigned int gfp_mask, unsigned int order)<br>        该函数是基于页的分配函数，因此在分配整数页内存并且物理地址必须连续的时候<br>        使用面向页的分配技术会更好些，这样会减少内存碎片的出现，该函数分配若干物理内存连续的页面，返回值是该内存区第一个页的逻辑地址.<br>        内存页释放函数如下：<br>        void free_pages(unsignedlong addr, unsigned long order)<br>            释放页时要谨慎，只能释放属于你的页，传递错误的地址或者错误的order值，都可能导致系统崩溃.<br>    readb/readw/readl和writeb/writew/writel<br>        刚刚提到的ioremap的地址，是需要用以上这些API来访问的。不要用直接指针的方式访问，用这个更安全。<br>        b对应字节，w对应word双字节，l对应四字节。<br>        因为arm是32位的多。所以一般都用readl和writel。<br>        代码举例：writel其实就是比</strong>raw_writel多了个内存屏障。<br>        void writel(u32 b, volatile void <strong>iomem *addr)<br>        {
-            </strong>raw_writel(b, addr);<br>            mb();<br>        }</p>
-<p>参考资料：</p>
+</code></pre><p>内存映射：<br>    ioremap:        （用来访问cpu的寄存器地址）<br>        cpu的寄存器地址，分为两种。<br>            I/O-mapped：<br>                x86架构，为外设专门实现了一个单独的地址空间，称为”I/O地址空间”或者”I/O端口空间”，CPU通过专门的I/O指令（如X86的IN和OUT指令）来访问这一空间中的地址单元。<br>            Memory-mapped<br>                ARM等RISC架构，只实现一个物理地址空间，外设I/O端口成为内存的一部分。<br>                此时，CPU可以象访问一个内存单元那样访问外设I/O端口，而不需要设立专门的外设I/O指令。<br>        返回的是虚拟地址，和vmalloc一样的，也需要新建页表。<br>        但是和vmalloc不同的是，ioremap并不实际分配内存，而是通过建立页表将设备寄存器地址映射到内核虚拟地址空间(位于内核的vmalloc映射区域).<br>        返回的地址不能直接使用，需要通过专用的<strong>raw_writel()，</strong>raw_readl()来访问（为了保证驱动跨平台的可移植性）<br>        通过ioremap()获得的虚拟地址应该被iounmap()函数释放<br>        devm_ioremap()的作用一样是无需在退出的时候，执行iounmap()。<br>        变体之：ioremap_wc / ioremap_nocache，解释如下：<br>        As noted earlier, this article covers the two most common flavors of MMIO, uncached MMIO and write-combining MMIO. In uncached MMIO,<br>        each read and write is independent and in some sense atomic, with no combining, prefetching, or caching of any kind. The ioremap_nocache() function<br>        is used to map uncached MMIO registers. In write-combining MMIO, both reads and writes can be both coalesced and reordered, even the non-_relaxed()<br>        reads and writes. Memory that is write combining is also normally “prefetchable”, and these terms sometimes appear to be used interchangeably.<br>         The ioremap_wc() function is used to map write-combining MMIO registers.<br>        参考《Semantics of MMIO mapping attributes across architectures [LWN.net]》<br>    request_mem_region:<br>        这个函数是和ioremap配对一起使用的。<br>        用法就是先request_mem_region进行申请，在申请完成后再用ioremap进行映射。<br>        request_mem_region成功的话，会返回一个非NULL指针，并且cat /proc/iomem能看到分配的I/O。<br>        其他的变种有：<br>        check_mem_region()宏，检查指定的I/O内存资源是否已被占用。<br>        release_mem_region()宏，释放指定的I/O内存资源。<br>    phys_to_virt </p>
+<pre><code>    #include &lt;linux/&gt;
+    typedef unsigned long long    u64;
+    typedef u64 phys_addr_t;
+    static inline phys_addr_t virt_to_phys(volatile void *address)
+    static inline void *phys_to_virt(unsigned long address)
+    从物理地址然后加一个固定的偏移得到虚拟地址。
+    以64bit debian kernel为例，kmalloc得到的地址和物理地址之间，偏移总是FFFF9B6EC0000000
+mmap
+    mmap映射一个设备，意味着使用户空间的一段虚拟地址关联到外设内存上
+    这使得只要程序在分配的地址范围内进行读取或者写入，实际上就是对设备的访问。
+    这种数据传输是直接的，不需要用到内核空间作为数据转移的中间站。
+    见《认真分析mmap：是什么 为什么 怎么用》，写的非常清晰。
+    在\Linux\Application\系统调用API\笔记.txt里面，也有mmap相关的笔记。
+    fd参数为0的例子：
+    https://www.poftut.com/mmap-tutorial-with-examples-in-c-and-cpp-programming-languages/
+
+unsigned int __get_free_pages(unsigned int gfp_mask, unsigned int order)
+    该函数是基于页的分配函数，因此在分配整数页内存并且物理地址必须连续的时候
+    使用面向页的分配技术会更好些，这样会减少内存碎片的出现，该函数分配若干物理内存连续的页面，返回值是该内存区第一个页的逻辑地址.
+    内存页释放函数如下：
+    void free_pages(unsignedlong addr, unsigned long order)
+        释放页时要谨慎，只能释放属于你的页，传递错误的地址或者错误的order值，都可能导致系统崩溃.
+readb/readw/readl和writeb/writew/writel
+    刚刚提到的ioremap的地址，是需要用以上这些API来访问的。不要用直接指针的方式访问，用这个更安全。
+    b对应字节，w对应word双字节，l对应四字节。
+    因为arm是32位的多。所以一般都用readl和writel。
+    代码举例：writel其实就是比__raw_writel多了个内存屏障。
+    void writel(u32 b, volatile void __iomem *addr)
+    {
+        __raw_writel(b, addr);
+        mb();
+    }
+</code></pre><p>参考资料：</p>
 <h1 id="http-blog-chinaunix-net-uid-27717694-id-4333971-html"><a href="#http-blog-chinaunix-net-uid-27717694-id-4333971-html" class="headerlink" title="http://blog.chinaunix.net/uid-27717694-id-4333971.html"></a><a href="http://blog.chinaunix.net/uid-27717694-id-4333971.html" target="_blank" rel="noopener">http://blog.chinaunix.net/uid-27717694-id-4333971.html</a></h1><p>========================================内核和MMU===================================================<br>MMU有三个主要的作用：<br>1.重定位：就是换入换出的概念，解决物理内存的不足问题。<br>2.保护：保护进程间内存不互相破坏，并且保护内核代码不受应用程序破坏<br>3.共享：实现不同进程的内存共享，还有内核和应用之间的内存共享。</p>
 <p>要实现MMU的以上的功能，比如在物理内存中告诉MMU映射信息<br>页表就是包含这种信息的数据结构。它是一个多级树形数组，包含了虚拟地址到物理地址的映射信息，还有一些关联的标志位。<br>页表具体的数据结构，根据不同的体系架构有所不同。因为页表是直接提供给MMU单元去读取的。不同的架构的MMU不同，所以提供给MMU识别的数据结构是不同的。</p>
 <p>linux使用MMU的大致过程如下：<br>1.cpu上电默认是关闭MMU的。<br>2.u-boot成功引导kernel后，kernel会在物理内存中初始化页表。之后将页表的入口的物理地址告诉MMU。<br>3.启动MMU<br>4.此后就是用的都是虚拟地址了。具体地址转换的过程，就是MMU通过CR3控制寄存器的值，作为当前页面的指针，进而根据分页内存映射机制，把地址进行转换。</p>
@@ -699,7 +826,7 @@ kmemleak:
                 
                   <a href="/archives">
                 
-                    <span class="site-state-item-count">217</span>
+                    <span class="site-state-item-count">229</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -934,7 +1061,19 @@ kmemleak:
                     
                       
                     
-                    <span class="site-state-item-count">111</span>
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">117</span>
                     <span class="site-state-item-name">categories</span>
                   </a>
                 </div>

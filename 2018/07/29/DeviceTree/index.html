@@ -115,7 +115,7 @@
 <meta property="og:site_name" content="Semiyd&#39;s Blog">
 <meta property="og:description" content="DeviceTree">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-07-29T02:14:28.120Z">
+<meta property="og:updated_time" content="2020-07-12T13:38:17.966Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="DeviceTree">
 <meta name="twitter:description" content="DeviceTree">
@@ -322,12 +322,24 @@
                 
               
 
-              <time title="Created: 2018-07-29 09:10:33 / Modified: 10:14:28" itemprop="dateCreated datePublished" datetime="2018-07-29T09:10:33+08:00">2018-07-29</time>
+              <time title="Created: 2018-07-29 09:10:33" itemprop="dateCreated datePublished" datetime="2018-07-29T09:10:33+08:00">2018-07-29</time>
             
 
             
               
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2020-07-12 21:38:17" itemprop="dateModified" datetime="2020-07-12T21:38:17+08:00">2020-07-12</time>
               
             
           </span>
@@ -399,31 +411,69 @@
       
 
       
-        <p><center><strong>DeviceTree</strong></center><br><a id="more"></a></p>
-<p>总体上说，dts就是一份配置表<br>至于这个表，和具体kernel代码里面的联系，由下面这类字段完成：<br>compatible = “ti,tilcdc,panel”;<br>上面这个dts的字段，其实搜ti,tilcdc,panel，可以在kernel里面对应的驱动搜到一样的字段(用of_device_id结构体注册过同样的字段)。<br>这种compatible匹配的情况，kernel的驱动就可以例如调用probe函数，然后根据dts里面的配置完成具体的初始化工作(dts相当于以前的platform_device)<br>在drivers/下面的kernel驱动文件夹里，在原有的老文件内部，增加了很多叫of_xxx.c的驱动文件，就是专门来解析dts的。</p>
-<p>==================device tree涉及的驱动层部分===========================<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line">The compatible string used to bind a device with the driver</span><br><span class="line">static struct of_device_id mxs_auart_dt_ids[] = &#123;</span><br><span class="line">&#123;</span><br><span class="line">.compatible = &quot;fsl,imx28-auart&quot;,</span><br><span class="line">.data = &amp;mxs_auart_devtype[IMX28_AUART]</span><br><span class="line">&#125;, &#123;</span><br><span class="line">.compatible = &quot;fsl,imx23-auart&quot;,</span><br><span class="line">.data = &amp;mxs_auart_devtype[IMX23_AUART]</span><br><span class="line">&#125;, &#123; /* sentinel */ &#125;</span><br><span class="line">&#125;;</span><br><span class="line">MODULE_DEVICE_TABLE(of, mxs_auart_dt_ids);</span><br><span class="line">[...]</span><br><span class="line">static struct platform_driver mxs_auart_driver = &#123;</span><br><span class="line">.probe = mxs_auart_probe,</span><br><span class="line">.remove = mxs_auart_remove,</span><br><span class="line">.driver = &#123;</span><br><span class="line">.name = &quot;mxs-auart&quot;,</span><br><span class="line">.of_match_table = mxs_auart_dt_ids,</span><br><span class="line">&#125;,</span><br><span class="line">&#125;;</span><br><span class="line">Code from drivers/tty/serial/mxs-auart.c</span><br><span class="line"></span><br><span class="line">of_match_device allows to get the matching entry in the</span><br><span class="line">mxs_auart_dt_ids table.</span><br><span class="line">I Useful to get the driver-specific data field, typically used to</span><br><span class="line">alter the behavior of the driver depending on the variant of</span><br><span class="line">the detected device.</span><br><span class="line">static int mxs_auart_probe(struct platform_device *pdev)</span><br><span class="line">&#123;</span><br><span class="line">const struct of_device_id *of_id =</span><br><span class="line">of_match_device(mxs_auart_dt_ids, &amp;pdev-&gt;dev);</span><br><span class="line">if (of_id) &#123;</span><br><span class="line">/* Use of_id-&gt;data here */</span><br><span class="line">[...]</span><br><span class="line">&#125;</span><br><span class="line">[...]</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">dts文件顶层的compatible 属性，在代码里面的对应：</span><br><span class="line">static const char *mxs_dt_compat[] __initdata = &#123;</span><br><span class="line">&quot;fsl,imx28&quot;,</span><br><span class="line">&quot;fsl,imx23&quot;,</span><br><span class="line">NULL,</span><br><span class="line">&#125;;</span><br><span class="line">DT_MACHINE_START(MXS, &quot;Freescale MXS (Device Tree)&quot;)</span><br><span class="line">.dt_compat = mxs_dt_compat,</span><br><span class="line">[...]</span><br><span class="line">MACHINE_END</span><br><span class="line">此时device tree顶层的compatible属性如下面的例子：</span><br><span class="line">/ &#123;</span><br><span class="line">model = &quot;Freescale i.MX28 Evaluation Kit&quot;;</span><br><span class="line">compatible = &quot;fsl,imx28-evk&quot;, &quot;fsl,imx28&quot;;</span><br><span class="line">之前machine_is_xxx()接口，现在变成了of_machine_is_compatible(&quot;fsl,imx28-evk&quot;)这种接口，用来判断machine</span><br></pre></td></tr></table></figure></p>
+        <p><center><strong>DeviceTree</strong></center><br><a id="more"></a><br>总体上说，dts就是一份配置表<br>至于这个表，和具体kernel代码里面的联系，由下面这类字段完成：<br>compatible = “ti,tilcdc,panel”;<br>上面这个dts的字段，其实搜ti,tilcdc,panel，可以在kernel里面对应的驱动搜到一样的字段(用of_device_id结构体注册过同样的字段)。<br>这种compatible匹配的情况，kernel的驱动就可以例如调用probe函数，然后根据dts里面的配置完成具体的初始化工作(dts相当于以前的platform_device)<br>在drivers/下面的kernel驱动文件夹里，在原有的老文件内部，增加了很多叫of_xxx.c的驱动文件，就是专门来解析dts的。</p>
+<p>==================device tree涉及的驱动层部分===========================<br>The compatible string used to bind a device with the driver<br>static struct of_device_id mxs_auart_dt_ids[] = {<br>{<br>.compatible = “fsl,imx28-auart”,<br>.data = &amp;mxs_auart_devtype[IMX28_AUART]<br>}, {<br>.compatible = “fsl,imx23-auart”,<br>.data = &amp;mxs_auart_devtype[IMX23_AUART]<br>}, { /<em> sentinel </em>/ }<br>};<br>MODULE_DEVICE_TABLE(of, mxs_auart_dt_ids);<br>[…]<br>static struct platform_driver mxs_auart_driver = {<br>.probe = mxs_auart_probe,<br>.remove = mxs_auart_remove,<br>.driver = {<br>.name = “mxs-auart”,<br>.of_match_table = mxs_auart_dt_ids,<br>},<br>};<br>Code from drivers/tty/serial/mxs-auart.c</p>
+<p>of_match_device allows to get the matching entry in the<br>mxs_auart_dt_ids table.<br>I Useful to get the driver-specific data field, typically used to<br>alter the behavior of the driver depending on the variant of<br>the detected device.<br>static int mxs_auart_probe(struct platform_device <em>pdev)<br>{<br>const struct of_device_id </em>of_id =<br>of_match_device(mxs_auart_dt_ids, &amp;pdev-&gt;dev);<br>if (of_id) {<br>/<em> Use of_id-&gt;data here </em>/<br>[…]<br>}<br>[…]<br>}</p>
+<p>dts文件顶层的compatible 属性，在代码里面的对应：<br>static const char *mxs_dt_compat[] __initdata = {<br>“fsl,imx28”,<br>“fsl,imx23”,<br>NULL,<br>};<br>DT_MACHINE_START(MXS, “Freescale MXS (Device Tree)”)<br>.dt_compat = mxs_dt_compat,<br>[…]<br>MACHINE_END<br>此时device tree顶层的compatible属性如下面的例子：<br>/ {<br>model = “Freescale i.MX28 Evaluation Kit”;<br>compatible = “fsl,imx28-evk”, “fsl,imx28”;<br>之前machine_is_xxx()接口，现在变成了of_machine_is_compatible(“fsl,imx28-evk”)这种接口，用来判断machine</p>
 <p>==================device tree涉及的驱动层部分===========================</p>
 <p>=======================bindings的概念===============================<br>所谓的bindings，就是指有哪些properties，这些properties有哪些 values<br>哪些properties是mandatory或者是optional，等等这类的信息，也就是描述device tree如何配置的细节</p>
 <p>所有相关的文档目录都在：Documentation/devicetree/bindings/</p>
 <p>里面有怎样配置具体的某个mcu的device tree的文档。</p>
-<p>When creating a new device tree representation for a device, a<br>binding should be created that fully describes the<br>required properties and value of the device.<br>========================bindings的概念=============================<br>========================bus属性=============================<br>bus通常用来描述<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">举例：</span><br><span class="line">apbh@80000000 &#123;</span><br><span class="line">	compatible = &quot;simple-bus&quot;;</span><br><span class="line">	#address-cells = &lt;1&gt;;</span><br><span class="line">	#size-cells = &lt;1&gt;;</span><br><span class="line">	reg = &lt;0x80000000 0x3c900&gt;;</span><br><span class="line">	ranges;</span><br><span class="line">	[...]</span><br><span class="line">	hsadc: hsadc@80002000 &#123;</span><br><span class="line">		reg = &lt;0x80002000 0x2000&gt;;</span><br><span class="line">		interrupts = &lt;13&gt;;</span><br><span class="line">		dmas = &lt;&amp;dma_apbh 12&gt;;</span><br><span class="line">		dma-names = &quot;rx&quot;;</span><br><span class="line">		status = &quot;disabled&quot;;</span><br><span class="line">	&#125;;</span><br><span class="line">	[...]</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<p>When creating a new device tree representation for a device, a<br>binding should be created that fully describes the<br>required properties and value of the device.<br>========================bindings的概念=============================<br>========================bus属性=============================<br>bus通常用来描述</p>
+<p>举例：<br>apbh@80000000 {<br>    compatible = “simple-bus”;</p>
+<pre><code>#address-cells = &lt;1&gt;;
+#size-cells = &lt;1&gt;;
+reg = &lt;0x80000000 0x3c900&gt;;
+ranges;
+[...]
+hsadc: hsadc@80002000 {
+    reg = &lt;0x80002000 0x2000&gt;;
+    interrupts = &lt;13&gt;;
+    dmas = &lt;&amp;dma_apbh 12&gt;;
+    dma-names = &quot;rx&quot;;
+    status = &quot;disabled&quot;;
+};
+[...]
+</code></pre><p>};</p>
 <p>compatible属性：<br>    定义总线的控制器，例如I2C, SPI, PCI,<br>    例子中是simple-bus，也就是不需要特别的驱动的和内存直接映射的总线</p>
 <p>什么叫cells？<br>    是“属性”的一种。<br>    就是一个32bit unsigned integers，用尖括号表示。例如#size-cells = <1><br>    “属性”除了cell，其实还有：<br>    text string或者string list，用双引号表示。例如device_type = “memory”<br>    binary data，用方括号表示。例如binary-property = [0x01 0x23 0x45 0x67]<br>    所以，后面要介绍的#address-cells，#size-cells，都属于cells这种属性。</1></p>
-<p>#address-cells属性：<br>表示下面的子节点的reg属性里面，有几个地址的属性。<br>例如#address-cells = <1>;，就是1个地址。<br>注意，这个地址的值，可以是直接内存映射出来的cpu可以访问的内存地址。比如是cpu的串口控制器的地址，例如0x101f0000这种内存地址。<br>也可以是某个i2c/spi的值，比如i2c的地址字节，spi的cs号，也就是虽然不能直接内存地址访问，但是仍然用来寻址的这类值。<br>统称为address。<br>最简单的例子就是cpus结点：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">cpus &#123;</span><br><span class="line">    #address-cells = &lt;1&gt;;</span><br><span class="line">    #size-cells = &lt;0&gt;;</span><br><span class="line">    cpu@0 &#123;</span><br><span class="line">        compatible = &quot;arm,cortex-a9&quot;;</span><br><span class="line">        reg = &lt;0&gt;;</span><br><span class="line">    &#125;;</span><br><span class="line">    cpu@1 &#123;</span><br><span class="line">        compatible = &quot;arm,cortex-a9&quot;;</span><br><span class="line">        reg = &lt;1&gt;;</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></1></p>
-<p>#size-cells属性：<br>表示下面的子节点的reg属性里面，每个地址的属性，有多大的地址范围大小（如果地址存在范围的概念的话，比如直接内存映射出来的cpu的某个以太网控制器的寄存器地址，就是一段范围）<br>例如：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">	/ &#123;			这个称为root node，根结点</span><br><span class="line"> 	   #address-cells = &lt;1&gt;;</span><br><span class="line">	    #size-cells = &lt;1&gt;;</span><br><span class="line"></span><br><span class="line"> 	   ...</span><br><span class="line"></span><br><span class="line"> 	   serial@101f0000 &#123;</span><br><span class="line"> 	       compatible = &quot;arm,pl011&quot;;</span><br><span class="line"> 	       reg = &lt;0x101f0000 0x1000 &gt;;		可见这个串口控制器的地址的范围大小是0x1000</span><br><span class="line"> 	   &#125;;</span><br><span class="line">```       </span><br><span class="line">当然，如果是i2c设备，就没有size-cells这个属性了，因为i2c的地址其实就是地址字节，不存在范围多少的问题。</span><br><span class="line">如下：</span><br></pre></td></tr></table></figure></p>
-<pre><code>i2c@1,0 {
-    compatible = &quot;acme,a1234-i2c-bus&quot;;
-    #address-cells = &lt;1&gt;;
+<p>#address-cells属性：<br>    表示下面的子节点的reg属性里面，有几个地址的属性。<br>    例如#address-cells = <1>;，就是1个地址。<br>    注意，这个地址的值，可以是直接内存映射出来的cpu可以访问的内存地址。比如是cpu的串口控制器的地址，例如0x101f0000这种内存地址。<br>    也可以是某个i2c/spi的值，比如i2c的地址字节，spi的cs号，也就是虽然不能直接内存地址访问，但是仍然用来寻址的这类值。<br>    统称为address。<br>    最简单的例子就是cpus结点：<br>        cpus {</1></p>
+<pre><code>    #address-cells = &lt;1&gt;;
     #size-cells = &lt;0&gt;;
-    reg = &lt;1 0 0x1000&gt;;
-    rtc@58 {
-        compatible = &quot;maxim,ds1338&quot;;
-        reg = &lt;58&gt;;
+    cpu@0 {
+        compatible = &quot;arm,cortex-a9&quot;;
+        reg = &lt;0&gt;;
+    };
+    cpu@1 {
+        compatible = &quot;arm,cortex-a9&quot;;
+        reg = &lt;1&gt;;
     };
 };
-</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">reg属性</span><br><span class="line">	表示子节点里面，#address-cells和#size-cells具体是多少。</span><br><span class="line">	这个reg的值，在kernel里面，是可以通过of_xxx这种API，去获取的，从而被驱动程序引用到。</span><br><span class="line"></span><br><span class="line">再举例：</span><br></pre></td></tr></table></figure>
-<pre><code>external-bus {
-    #address-cells = &lt;2&gt;;
+</code></pre><p>#size-cells属性：<br>    表示下面的子节点的reg属性里面，每个地址的属性，有多大的地址范围大小（如果地址存在范围的概念的话，比如直接内存映射出来的cpu的某个以太网控制器的寄存器地址，就是一段范围）<br>    例如：<br>    / {            这个称为root node，根结点</p>
+<pre><code>    #address-cells = &lt;1&gt;;
+    #size-cells = &lt;1&gt;;
+
+    ...
+
+    serial@101f0000 {
+        compatible = &quot;arm,pl011&quot;;
+        reg = &lt;0x101f0000 0x1000 &gt;;        可见这个串口控制器的地址的范围大小是0x1000
+    };
+当然，如果是i2c设备，就没有size-cells这个属性了，因为i2c的地址其实就是地址字节，不存在范围多少的问题。
+如下：
+        i2c@1,0 {
+            compatible = &quot;acme,a1234-i2c-bus&quot;;
+            #address-cells = &lt;1&gt;;
+            #size-cells = &lt;0&gt;;
+            reg = &lt;1 0 0x1000&gt;;
+            rtc@58 {
+                compatible = &quot;maxim,ds1338&quot;;
+                reg = &lt;58&gt;;
+            };
+        };
+</code></pre><p>reg属性<br>    表示子节点里面，#address-cells和#size-cells具体是多少。<br>    这个reg的值，在kernel里面，是可以通过of_xxx这种API，去获取的，从而被驱动程序引用到。</p>
+<p>再举例：<br>    external-bus {</p>
+<pre><code>    #address-cells = &lt;2&gt;;
     #size-cells = &lt;1&gt;;
 
     ethernet@0,0 {
@@ -444,17 +494,15 @@
         reg = &lt;2 0 0x4000000&gt;;
     };
 };
-</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">这个例子，external-bus的子节点，都有2个地址属性。其作用是：（举例子而已）</span><br><span class="line">&lt;片选号  偏移量	地址范围&gt;</span><br><span class="line">上面这个“片选号”是人为的设定，你可以自定义这个地址真正的作用，最终完全取决于内核代码里面是如何使用这些地址的值的。</span><br><span class="line"></span><br><span class="line">ranges属性：</span><br><span class="line">	那么ranges又是什么东西？</span><br><span class="line">	其实ranges是指，不同地址空间之间的转换关系。</span><br><span class="line">	是这样的。对dts而言，首先，它有个root node，也就是根节点。根节点描述的是从CPU的视角来观察的地址空间。也就是那些内存地址，例如serial@101f0000的0x101f0000</span><br><span class="line">	那么默认，根节点的第一级子节点，都是可以直接使用cpu的地址空间的。最简单的例子如下：</span><br></pre></td></tr></table></figure>
-<pre><code>/ {        这个称为root node，根结点
-    intc: interrupt-controller@00a01000 {        根节点的第一级子节点，直接使用cpu的地址空间，也就是00a01000 
-        compatible = &quot;arm,cortex-a7-gic&quot;;
-        #interrupt-cells = &lt;3&gt;;
+</code></pre><p>这个例子，external-bus的子节点，都有2个地址属性。其作用是：（举例子而已）<br>&lt;片选号  偏移量    地址范围&gt;<br>上面这个“片选号”是人为的设定，你可以自定义这个地址真正的作用，最终完全取决于内核代码里面是如何使用这些地址的值的。</p>
+<p>ranges属性：<br>    那么ranges又是什么东西？<br>    其实ranges是指，不同地址空间之间的转换关系。<br>    是这样的。对dts而言，首先，它有个root node，也就是根节点。根节点描述的是从CPU的视角来观察的地址空间。也就是那些内存地址，例如serial@101f0000的0x101f0000<br>    那么默认，根节点的第一级子节点，都是可以直接使用cpu的地址空间的。最简单的例子如下：<br>    / {        这个称为root node，根结点<br>        intc: interrupt-controller@00a01000 {        根节点的第一级子节点，直接使用cpu的地址空间，也就是00a01000<br>            compatible = “arm,cortex-a7-gic”;</p>
+<pre><code>        #interrupt-cells = &lt;3&gt;;
         interrupt-controller;
         reg = &lt;0x00a01000 0x1000&gt;,
               &lt;0x00a02000 0x100&gt;;
     };
-</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">那么现在再看一个例子，就是根节点下面的二级子节点，里面有些地址信息。但是这些地址信息，其实是可以直接翻译/对应到CPU的内存地址空间的。这时候就用ranges翻译下：</span><br></pre></td></tr></table></figure>
-<p>/dts-v1/;</p>
+那么现在再看一个例子，就是根节点下面的二级子节点，里面有些地址信息。但是这些地址信息，其实是可以直接翻译/对应到CPU的内存地址空间的。这时候就用ranges翻译下：
+</code></pre><p>/dts-v1/;</p>
 <p>/ {        这个称为root node，根结点<br>    compatible = “acme,coyotes-revenge”;</p>
 <pre><code>#address-cells = &lt;1&gt;;
 #size-cells = &lt;1&gt;;
@@ -487,8 +535,9 @@ external-bus {        根节点的第一级子节点
         reg = &lt;2 0 0x4000000&gt;;
     };
 };
-</code></pre><p>};<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">也就是说，这个第二级的子节点，虽然用的是不同的地址空间，但其实可以翻译/对应到CPU的地址空间。具体怎么对应，看ranges的值即可。</span><br><span class="line"></span><br><span class="line">那么还有一种情况，就是ranges;这么一写，没有具体内容。意思是，子节点和父节点，内存的映射，是1:1的，不存在翻译的过程。举例如下：</span><br></pre></td></tr></table></figure></p>
-<p>/ {<br>    soc {        根节点的第一级子节点</p>
+</code></pre><p>};<br>    也就是说，这个第二级的子节点，虽然用的是不同的地址空间，但其实可以翻译/对应到CPU的地址空间。具体怎么对应，看ranges的值即可。</p>
+<pre><code>那么还有一种情况，就是ranges;这么一写，没有具体内容。意思是，子节点和父节点，内存的映射，是1:1的，不存在翻译的过程。举例如下：
+</code></pre><p>/ {<br>    soc {        根节点的第一级子节点</p>
 <pre><code>#address-cells = &lt;1&gt;;
 #size-cells = &lt;1&gt;;
 compatible = &quot;simple-bus&quot;;
@@ -505,18 +554,26 @@ ocram: sram@00905000 {
     reg = &lt;0x00905000 0x1B000&gt;;
 };
  };
-</code></pre><p>};<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">还有种情况，就是根本不写ranges。这种情况最典型的就是i2c的子节点。i2c结点一般都代表i2c主控，子节点代表i2c的从设备的i2c driver。</span><br></pre></td></tr></table></figure></p>
-<pre><code>i2c@1,0 {
-    compatible = &quot;acme,a1234-i2c-bus&quot;;
-    #address-cells = &lt;1&gt;;
-    #size-cells = &lt;0&gt;;
-    reg = &lt;1 0 0x1000&gt;;
-    rtc@58 {
-        compatible = &quot;maxim,ds1338&quot;;
-        reg = &lt;58&gt;;
+</code></pre><p>};</p>
+<pre><code>还有种情况，就是根本不写ranges。这种情况最典型的就是i2c的子节点。i2c结点一般都代表i2c主控，子节点代表i2c的从设备的i2c driver。
+    i2c@1,0 {
+        compatible = &quot;acme,a1234-i2c-bus&quot;;
+        #address-cells = &lt;1&gt;;
+        #size-cells = &lt;0&gt;;
+        reg = &lt;1 0 0x1000&gt;;
+        rtc@58 {
+            compatible = &quot;maxim,ds1338&quot;;
+            reg = &lt;58&gt;;
+        };
     };
-};
-</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">因为i2c的地址，没法直接对应到cpu的内存地址空间，所以可以不写ranges。</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">那么唠叨了半天，到底要ranges何用？</span><br><span class="line">主要原因是这样，有些设备，使用了和cpu内存地址完全不同的地址空间的同时，它又是可以映射到cpu的内存地址空间的。例如：</span><br><span class="line">PCI设备的地址</span><br><span class="line">DMA</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">编译错误分析：</span><br></pre></td></tr></table></figure>
+因为i2c的地址，没法直接对应到cpu的内存地址空间，所以可以不写ranges。
+
+
+那么唠叨了半天，到底要ranges何用？
+主要原因是这样，有些设备，使用了和cpu内存地址完全不同的地址空间的同时，它又是可以映射到cpu的内存地址空间的。例如：
+PCI设备的地址
+DMA
+</code></pre><p>编译错误分析：</p>
 <pre><code>spi { compatible = &quot;spi-gpio&quot;;
     #address-cells = &lt;0x1&gt;;
     ranges;
@@ -537,8 +594,16 @@ ocram: sram@00905000 {
         spi-cpol;
     };
 };
-</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">编译出错：							</span><br><span class="line">Warning (reg_format): &quot;reg&quot; property in /spi-gpio/gpio_spi@0 has invalid length (4 bytes) (#address-cells == 1, #size-cells == 1)</span><br><span class="line">Warning (avoid_default_addr_size): Relying on default #size-cells value for /spi-gpio/gpio_spi@0</span><br><span class="line">其实是因为，没去标明#size-cells 的大小，导致后续检查reg的时候，编译器迷惑了，觉得reg写的格式不对</span><br><span class="line">改成		</span><br><span class="line">spi &#123; compatible = &quot;spi-gpio&quot;;</span><br><span class="line">    #address-cells = &lt;0x1&gt;;</span><br><span class="line">    #size-cells = &lt;0&gt;;</span><br><span class="line">就可以编译通过了</span><br><span class="line"></span><br><span class="line">bus属性=============================</span><br><span class="line">Interrupt和gpio属性=============================</span><br><span class="line">举例：</span><br><span class="line">1.预先定义的东西：</span><br></pre></td></tr></table></figure>
-<p>arch/arm/boot/dts/am33xx.dtsi：<br>        //定义总的中断控制器<br>        intc: interrupt-controller@48200000 {<br>            compatible = “ti,am33xx-intc”;<br>            interrupt-controller;</p>
+编译出错：                            
+Warning (reg_format): &quot;reg&quot; property in /spi-gpio/gpio_spi@0 has invalid length (4 bytes) (#address-cells == 1, #size-cells == 1)
+Warning (avoid_default_addr_size): Relying on default #size-cells value for /spi-gpio/gpio_spi@0
+其实是因为，没去标明#size-cells 的大小，导致后续检查reg的时候，编译器迷惑了，觉得reg写的格式不对
+改成        
+spi { compatible = &quot;spi-gpio&quot;;
+    #address-cells = &lt;0x1&gt;;
+    #size-cells = &lt;0&gt;;
+就可以编译通过了
+</code></pre><p>========================bus属性=============================<br>========================Interrupt和gpio属性=============================<br>举例：<br>1.预先定义的东西：<br>arch/arm/boot/dts/am33xx.dtsi：<br>        //定义总的中断控制器<br>        intc: interrupt-controller@48200000 {<br>            compatible = “ti,am33xx-intc”;<br>            interrupt-controller;</p>
 <pre><code>    #interrupt-cells = &lt;1&gt;;        这个表示中断的具体格式的数目，比如interrupts = &lt;0 8 IRQ_TYPE_LEVEL_HIGH&gt;;，包含3个元素。所以就等于3.这里是&lt;1&gt;，表示就填一个字
     reg = &lt;0x48200000 0x1000&gt;;
 };
@@ -593,49 +658,121 @@ gpio1: gpio@4804c000 {            gpio1这组gpio的控制器定义
 - #interrupt-cells : Specifies the number of cells needed to encode interrupt
          source, should be 1 for intc        #interrupt-cells此处被规定为一个字节，就是中断号
 ...
-</code></pre><p>“interrupts-extended”的概念：<br>    如果父中断，不止一个，怎么办？<br>    The “interrupts-extended” property is a special form for use when a node needs to reference multiple interrupt parents.<br>    Each entry in this property contains both the parent phandle and the interrupt specifier. “interrupts-extended” should only be used when a device has multiple interrupt parents.<br>    这时候就要用到”interrupts-extended”。这个东西基本上和”interrupts”是一类概念，只是”interrupts-extended”表示的相当于复数，里面可以放不止一个父中断源。<br>举例：<br>tps659038: tps659038@58 {<br>    compatible = “ti,tps659038”;<br>    reg = <0x58>;<br>    interrupts-extended = &lt;&amp;gpio1 0 IRQ_TYPE_LEVEL_HIGH<br>               &amp;dra7_pmx_core 0x418&gt;;</0x58></p>
+</code></pre><p>“interrupts-extended”的概念：<br>    如果父中断，不止一个，怎么办？<br>    The “interrupts-extended” property is a special form for use when a node needs to reference multiple interrupt parents.<br>    Each entry in this property contains both the parent phandle and the interrupt specifier. “interrupts-extended” should only be used when a device has multiple interrupt parents.<br>    这时候就要用到”interrupts-extended”。这个东西基本上和”interrupts”是一类概念，只是”interrupts-extended”表示的相当于复数，里面可以放不止一个父中断。<br>    设备会连接不同的中断控制器，然后可以触发不同的中断，由各自不同的中断控制器来接收处理。<br>举例：<br>tps659038: tps659038@58 {<br>    compatible = “ti,tps659038”;<br>    reg = <0x58>;<br>    interrupts-extended = &lt;&amp;gpio1 0 IRQ_TYPE_LEVEL_HIGH<br>               &amp;dra7_pmx_core 0x418&gt;;</0x58></p>
 <pre><code>#interrupt-cells = &lt;2&gt;;
 interrupt-controller;
 [...]
-</code></pre><p>}<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">2.实际使用的方法：</span><br><span class="line">am335x-evm.dts:</span><br></pre></td></tr></table></figure></p>
-<pre><code>//i2c触屏控制芯片的例子
-&amp;i2c2 {
-    pinctrl-names = &quot;default&quot;;
-    pinctrl-0 = &lt;&amp;i2c2_pins&gt;;
+</code></pre><p>}</p>
+<p>2.实际使用的方法：<br>am335x-evm.dts:<br>        //i2c触屏控制芯片的例子<br>        &amp;i2c2 {<br>            pinctrl-names = “default”;<br>            pinctrl-0 = &lt;&amp;i2c2_pins&gt;;<br>            status = “okay”;<br>            clock-frequency = <400000>;<br>            gt911a: gt911a@5d {<br>                compatible = “goodix,gt911a”;<br>                pinctrl-names = “default”;<br>                pinctrl-0 = &lt;&amp;touchscreen_pins&gt;;<br>                reg = <0x5d>;<br>                interrupt-parent = &lt;&amp;gpio1&gt;;    这个代表是gpio1这组的，因为我们是gpio1_18作为中断。<br>                interrupts = <18 2="">;        这个是中断脚gpio1_18，后面的2代表下降沿触发，具体定义参考Documentation/devicetree/bindings/gpio/gpio-omap.txt #interrupt-cells<br>                reset-gpios = &lt;&amp;gpio1 26 0&gt;;    这个是reset脚gpio1_26，最后的0不代表任何意义，具体定义参考Documentation/devicetree/bindings/gpio/gpio-omap.txt #gpio-cells<br>                int-gpios = &lt;&amp;gpio1 18 0&gt;;        同上<br>            };<br>        };</18></0x5d></400000></p>
+<pre><code>//mmc卡控制器的例子
+&amp;mmc1 {                
     status = &quot;okay&quot;;
-    clock-frequency = &lt;400000&gt;;
-    gt911a: gt911a@5d {
-        compatible = &quot;goodix,gt911a&quot;;
-        pinctrl-names = &quot;default&quot;;
-        pinctrl-0 = &lt;&amp;touchscreen_pins&gt;;
-        reg = &lt;0x5d&gt;;
-        interrupt-parent = &lt;&amp;gpio1&gt;;    这个代表是gpio1这组的，因为我们是gpio1_18作为中断。
-        interrupts = &lt;18 2&gt;;        这个是中断脚gpio1_18，后面的2代表下降沿触发，具体定义参考Documentation/devicetree/bindings/gpio/gpio-omap.txt #interrupt-cells
-        reset-gpios = &lt;&amp;gpio1 26 0&gt;;    这个是reset脚gpio1_26，最后的0不代表任何意义，具体定义参考Documentation/devicetree/bindings/gpio/gpio-omap.txt #gpio-cells
-        int-gpios = &lt;&amp;gpio1 18 0&gt;;        同上
+    vmmc-supply = &lt;&amp;vmmc_reg&gt;;
+    bus-width = &lt;4&gt;;
+    pinctrl-names = &quot;default&quot;;
+    pinctrl-0 = &lt;&amp;mmc1_pins&gt;;
+    cd-gpios = &lt;&amp;gpio0 6 GPIO_ACTIVE_LOW&gt;;    
+    wp-gpios = &lt;&amp;gpio0 7 GPIO_ACTIVE_HIGH&gt;;
+};
+</code></pre><p>代码中对dts信息的获取：<br>    如何在platform设备中获取dts里面配置的中断信息？<br>        txirq = platform_get_irq_byname(pdev, “edma-tx”);<br>        此时对应dts里面的定义：<br>        interrupts = <0 8="" irq_type_level_high="">;<br>        interrupt-names = “edma-tx”;<br>        这样platform设备就得到具体的中断号了。</0></p>
+<pre><code>如何在i2c设备中获取dts中配置的中断信息？
+    在代码中，一旦dts中配置的i2c的中断。那么代码中probe函数的入参，也就是i2c_client的irq成员，就自动被赋值成dts里面配置的中断号了，且无需gpio_to_irq再转了。
+    例如 static int goodix_ts_probe(struct i2c_client *client, const struct i2c_device_id *id)
+    static struct i2c_driver goodix_ts_driver = {
+        .probe      = goodix_ts_probe,
+    对于goodix_ts_probe来说，client-&gt;irq就直接可以拿来request_irq()了
+
+如何在代码中获取gpio信息？
+    在触屏控制芯片的例子代码中，ts-&gt;reset_pin = of_get_named_gpio(dev-&gt;of_node,&quot;reset-gpios&quot;,0);可以获取reset-gpio的号。这个参数node是struct device的成员。
+    在mmc卡控制器的例子中，比较特殊：
+        在drivers\mmc\host\omap_hsmmc.c的omap_hsmmc_probe()，调用了ret = mmc_of_parse(mmc);
+        而在drivers\mmc\core\host.c的mmc_of_parse()，里面有句mmc_gpiod_request_ro(host, &quot;wp&quot;, 0, false, 0, &amp;ro_gpio_invert);这个函数
+        最终通过dts取出了wp-gpios的字段。同理还有cd-gpios
+        由于并未直接使用of_get_named_gpio()，所以在内核代码里面直接搜wp-gpios是搜不到的。
+        至于mmc_gpiod_request_ro()最终如何真正从dts中取出wp-gpios的值，这个函数很深，一路调用下去，最终会调用of_find_gpio()，这就是取出wp-gpios的地方了。
+        有关mmc卡的dts的配置，可参考文档：
+        Documentation/devicetree/bindings/mmc/mmc.txt
+</code></pre><p>几个概念总结：（下面这些全部在Documentation/devicetree/bindings下面定义）<br>interrupt-controller    表明这个是个中断控制器</p>
+<p>#interrupt-cells    这个表示中断的具体格式的数目，比如interrupts = <0 8="" irq_type_level_high="">;，包含3个元素，0 8 IRQ_TYPE_LEVEL_HIGH。这个是驱动自定义的。所以就等于3<br>interrupts        表示中断号，具体格式需要服从父节点的#interrupt-cells定义<br>interrupt-parent    表明父类继承的是哪个中断控制器<br>gpio-controller    这句话表明这个是个gpio控制器</0></p>
+<p>#gpio-cells    表示gpio的具体格式的数目</p>
+<p>gpio hogging的概念<br>                        hogging的意思是：<br>                            对于一些即使是将来也不可能属于任何驱动的gpio，内核可以在开机的时候<br>                            申请并设置下gpio的默认状态，比如这边的PIO line 111 (AMP_CONTROL) hogged as output/high<br>                        hog以后，就不可以在sysfs里面export对应的脚了，因为被request过了。<br>                        并且，只有用hog的情况下，才能真正把gpio的状态确定下来，比如开机输出为高。否则不带gpio-hog，则输出值的设定其实是无效果的。<br>                        以AMP_CONTROL    gpio0_15为例<br>                        &amp;gpio0 {<br>                            pinctrl-names = “default”;<br>                            pinctrl-0 = &lt;&amp;etcs_gpio_default&gt;;</p>
+<pre><code>    p15 {
+        gpio-hog;
+        gpios = &lt;15 GPIO_ACTIVE_LOW&gt;;        指低为有效值
+        output-high;                指输出有效值
+        line-name = &quot;AMP_CONTROL&quot;;
     };
 };
-</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">```</span><br><span class="line">		//mmc卡控制器的例子</span><br><span class="line">		&amp;mmc1 &#123;				</span><br><span class="line">			status = &quot;okay&quot;;</span><br><span class="line">			vmmc-supply = &lt;&amp;vmmc_reg&gt;;</span><br><span class="line">			bus-width = &lt;4&gt;;</span><br><span class="line">			pinctrl-names = &quot;default&quot;;</span><br><span class="line">			pinctrl-0 = &lt;&amp;mmc1_pins&gt;;</span><br><span class="line">			cd-gpios = &lt;&amp;gpio0 6 GPIO_ACTIVE_LOW&gt;;	</span><br><span class="line">			wp-gpios = &lt;&amp;gpio0 7 GPIO_ACTIVE_HIGH&gt;;</span><br><span class="line">		&#125;;</span><br></pre></td></tr></table></figure>
-<p>代码中对dts信息的获取：<br>    如何在platform设备中获取dts里面配置的中断信息？<br>        txirq = platform_get_irq_byname(pdev, “edma-tx”);<br>        此时对应dts里面的定义：<br>        interrupts = <0 8="" irq_type_level_high="">;<br>        interrupt-names = “edma-tx”;<br>        这样platform设备就得到具体的中断号了。</0></p>
-<p>如何在i2c设备中获取dts中配置的中断信息？<br>在代码中，一旦dts中配置的i2c的中断。那么代码中probe函数的入参，也就是i2c_client的irq成员，就自动被赋值成dts里面配置的中断号了，且无需gpio_to_irq再转了。<br>例如 static int goodix_ts_probe(struct i2c_client <em>client, const struct i2c_device_id </em>id)<br>static struct i2c_driver goodix_ts_driver = {<br>    .probe      = goodix_ts_probe,<br>对于goodix_ts_probe来说，client-&gt;irq就直接可以拿来request_irq()了</p>
-<p>如何在代码中获取gpio信息？<br>在触屏控制芯片的例子代码中，ts-&gt;reset_pin = of_get_named_gpio(dev-&gt;of_node,”reset-gpios”,0);可以获取reset-gpio的号。这个参数node是struct device的成员。<br>在mmc卡控制器的例子中，比较特殊：<br>    在drivers\mmc\host\omap_hsmmc.c的omap_hsmmc_probe()，调用了ret = mmc_of_parse(mmc);<br>    而在drivers\mmc\core\host.c的mmc_of_parse()，里面有句mmc_gpiod_request_ro(host, “wp”, 0, false, 0, &amp;ro_gpio_invert);这个函数<br>    最终通过dts取出了wp-gpios的字段。同理还有cd-gpios<br>    由于并未直接使用of_get_named_gpio()，所以在内核代码里面直接搜wp-gpios是搜不到的。<br>    至于mmc_gpiod_request_ro()最终如何真正从dts中取出wp-gpios的值，这个函数很深，一路调用下去，最终会调用of_find_gpio()，这就是取出wp-gpios的地方了。<br>    有关mmc卡的dts的配置，可参考文档：<br>    Documentation/devicetree/bindings/mmc/mmc.txt</p>
-<p>几个概念总结：（下面这些全部在Documentation/devicetree/bindings下面定义）<br>interrupt-controller    表明这个是个中断控制器<br>#interrupt-cells    这个表示中断的具体格式的数目，比如interrupts = <0 8="" irq_type_level_high="">;，包含3个元素，0 8 IRQ_TYPE_LEVEL_HIGH。这个是驱动自定义的。所以就等于3<br>interrupts        表示中断号，具体格式需要服从父节点的#interrupt-cells定义<br>interrupt-parent    表明父类继承的是哪个中断控制器<br>gpio-controller    这句话表明这个是个gpio控制器<br>#gpio-cells    表示gpio的具体格式的数目</0></p>
-<p>gpio hogging的概念<br>                        hogging的意思是：<br>                            对于一些即使是将来也不可能属于任何驱动的gpio，内核可以在开机的时候<br>                            申请并设置下gpio的默认状态，比如这边的PIO line 111 (AMP_CONTROL) hogged as output/high<br>                        hog以后，就不可以在sysfs里面export对应的脚了，因为被request过了。<br>                        并且，只有用hog的情况下，才能真正把gpio的状态确定下来，比如开机输出为高。否则不带gpio-hog，则输出值的设定其实是无效果的。<br>                        以AMP_CONTROL    gpio0_15为例<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&amp;gpio0 &#123;</span><br><span class="line">	pinctrl-names = &quot;default&quot;;</span><br><span class="line">	pinctrl-0 = &lt;&amp;etcs_gpio_default&gt;;</span><br><span class="line"></span><br><span class="line">	p15 &#123;</span><br><span class="line">		gpio-hog;</span><br><span class="line">		gpios = &lt;15 GPIO_ACTIVE_LOW&gt;;		指低为有效值</span><br><span class="line">		output-high;				指输出有效值</span><br><span class="line">		line-name = &quot;AMP_CONTROL&quot;;</span><br><span class="line">	&#125;;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
-<p>开机有这句话打出<br>GPIO line 111 (AMP_CONTROL) hogged as output/high</p>
-<p>配置内核来使能debugfs<br>Symbol: DEBUG_FS [=y]<br>  Type  : boolean<br>  Prompt: Debug Filesystem<br>    Defined at lib/Kconfig.debug:77<br>   Location:<br>    -&gt; Kernel hacking<br>       启动目标硬件并挂载debugfs<br>mount -t debugfs none /sys/kernel/debug<br>cat /sys/kernel/debug/gpio可以看到hogging过后已经被申请占用的脚<br>GPIOs 0-31, platform/4804c000.gpio, gpio:<br> gpio-16  (                    |wlan-en-regulator   ) out lo</p>
-<p>GPIOs 32-63, platform/481ac000.gpio, gpio:</p>
-<p>GPIOs 64-95, platform/481ae000.gpio, gpio:</p>
-<p>GPIOs 96-127, platform/44e07000.gpio, gpio:<br> gpio-102 (                    |cd                  ) in  hi IRQ<br> gpio-103 (                    |wp                  ) in  lo<br> gpio-111 (                    |AMP_CONTROL         ) out lo        &lt;——-可看到这个是hogging已经request掉的gpio<br> gpio-115 (                    |GTP_RST_PORT        ) in  lo<br> gpio-116 (                    |GTP_INT_IRQ         ) in  lo IRQ<br> gpio-125 (                    |?                   ) out lo</p>
-<p>GPIOs 504-509, platform/tps65910-gpio, tps65910, can sleep:</p>
-<p>GPIOs 510-511, platform/50000000.gpmc, omap-gpmc:<br> gpio-510 (                    |rb                  ) in  hi<br>此时如果：<br>echo 111 &gt; /sys/class/gpio/export<br>-sh: echo: write error: Device or resource busy<br>也就是说这个引脚资源已经被申请掉了。且不可释放。<br>Interrupt和gpio属性=============================</p>
-<p>clock属性=============================<br>clock实例：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">soc 	&#123;</span><br><span class="line">	coreclk: mvebu-sar@18230 &#123;</span><br><span class="line">		compatible = &quot;marvell,armada-xp-core-clock&quot;;</span><br><span class="line">		reg = &lt;0x18230 0x08&gt;;</span><br><span class="line">		#clock-cells = &lt;1&gt;;</span><br><span class="line">	&#125;;</span><br><span class="line"></span><br><span class="line">	cpuclk: clock-complex@18700 &#123;</span><br><span class="line">		#clock-cells = &lt;1&gt;;</span><br><span class="line">		compatible = &quot;marvell,armada-xp-cpu-clock&quot;;</span><br><span class="line">		reg = &lt;0x18700 0xA0&gt;;</span><br><span class="line">		clocks = &lt;&amp;coreclk 1&gt;;</span><br><span class="line">	&#125;;</span><br><span class="line"></span><br><span class="line">	gateclk: clock-gating-control@18220 &#123;</span><br><span class="line">		compatible = &quot;marvell,armada-xp-gating-clock&quot;;</span><br><span class="line">		reg = &lt;0x18220 0x4&gt;;</span><br><span class="line">		clocks = &lt;&amp;coreclk 0&gt;;</span><br><span class="line">		#clock-cells = &lt;1&gt;;</span><br><span class="line">	&#125;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">clocks &#123;</span><br><span class="line">	/* 25 MHz reference crystal */</span><br><span class="line">	refclk: oscillator &#123;</span><br><span class="line">		compatible = &quot;fixed-clock&quot;;</span><br><span class="line">		#clock-cells = &lt;0&gt;;</span><br><span class="line">		clock-frequency = &lt;25000000&gt;;</span><br><span class="line">	&#125;;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
-<p>clock的使用者：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">CPU, using a cpuclk</span><br><span class="line"></span><br><span class="line">cpu@0 &#123;</span><br><span class="line">	device_type = &quot;cpu&quot;;</span><br><span class="line">	compatible = &quot;marvell,sheeva-v7&quot;;</span><br><span class="line">	reg = &lt;0&gt;;</span><br><span class="line">	clocks = &lt;&amp;cpuclk 0&gt;;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">Timer, using either a coreclk or refclk</span><br><span class="line"></span><br><span class="line">timer@20300 &#123;</span><br><span class="line">	compatible = &quot;marvell,armada-xp-timer&quot;;</span><br><span class="line">	clocks = &lt;&amp;coreclk 2&gt;, &lt;&amp;refclk&gt;;</span><br><span class="line">	clock-names = &quot;nbclk&quot;, &quot;fixed&quot;;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">USB, using a gateclk</span><br><span class="line">usb@52000 &#123;</span><br><span class="line">	compatible = &quot;marvell,orion-ehci&quot;;</span><br><span class="line">	reg = &lt;0x52000 0x500&gt;;</span><br><span class="line">	interrupts = &lt;47&gt;;</span><br><span class="line">	clocks = &lt;&amp;gateclk 20&gt;;</span><br><span class="line">	status = &quot;disabled&quot;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>========================clock属性=============================</p>
-<p>========================pinctrl属性=============================<br>举例：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">ssp0: ssp@80010000 &#123;</span><br><span class="line">	pinctrl-names = &quot;default&quot;;</span><br><span class="line">	pinctrl-0 = &lt;&amp;mmc0_8bit_pins_a</span><br><span class="line">		&amp;mmc0_cd_cfg &amp;mmc0_sck_cfg&gt;;</span><br><span class="line">	[...]</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
-<p>具体见<br>Linux\Kernel\驱动\Pinctrl\笔记.txt<br>========================pinctrl属性=============================</p>
-<p>========================of函数=============================<br>linux下devicetree中常用的of函数<br>从device_node中获取信息：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">int of_property_read_u8_array(const struct device_node *np, const char *propname,u8 *out_values, size_t sz);</span><br><span class="line">int of_property_read_u16_array(const struct device_node *np, const char *propname,u16 *out_values, size_t sz);</span><br><span class="line">int of_property_read_u32_array(const struct device_node *np, const char *propname,u32 *out_values, size_t sz);</span><br></pre></td></tr></table></figure></p>
-<p>从设备结点np中读取属性名为propname，类型为8、16、32、位整型数组的属性值，并放入out_values，sz指明了要读取的个数。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">static inline int of_property_read_u8(const struct device_node *np,const char *propname,u8 *out_value) </span><br><span class="line">static inline int of_property_read_u16(const struct device_node *np,const char *propname,u8 *out_value) </span><br><span class="line">static inline int of_property_read_u32(const struct device_node *np,const char *propname,u8 *out_value)</span><br></pre></td></tr></table></figure></p>
-<p>从设备结点np中读取属性名为propname，类型为8、16、32位的属性值，并放入out_values。实际上这里调用的就是sz为1的of_property_read_uxx_array函数。</p>
+开机有这句话打出
+GPIO line 111 (AMP_CONTROL) hogged as output/high
+
+配置内核来使能debugfs
+ Symbol: DEBUG_FS [=y]
+  Type  : boolean
+  Prompt: Debug Filesystem
+    Defined at lib/Kconfig.debug:77
+    Location:
+    -&gt; Kernel hacking
+       启动目标硬件并挂载debugfs
+mount -t debugfs none /sys/kernel/debug
+cat /sys/kernel/debug/gpio可以看到hogging过后已经被申请占用的脚
+GPIOs 0-31, platform/4804c000.gpio, gpio:
+ gpio-16  (                    |wlan-en-regulator   ) out lo
+
+GPIOs 32-63, platform/481ac000.gpio, gpio:
+
+GPIOs 64-95, platform/481ae000.gpio, gpio:
+
+GPIOs 96-127, platform/44e07000.gpio, gpio:
+ gpio-102 (                    |cd                  ) in  hi IRQ
+ gpio-103 (                    |wp                  ) in  lo
+ gpio-111 (                    |AMP_CONTROL         ) out lo        &lt;-------可看到这个是hogging已经request掉的gpio
+ gpio-115 (                    |GTP_RST_PORT        ) in  lo
+ gpio-116 (                    |GTP_INT_IRQ         ) in  lo IRQ
+ gpio-125 (                    |?                   ) out lo
+
+GPIOs 504-509, platform/tps65910-gpio, tps65910, can sleep:
+
+GPIOs 510-511, platform/50000000.gpmc, omap-gpmc:
+ gpio-510 (                    |rb                  ) in  hi
+此时如果：
+echo 111 &gt; /sys/class/gpio/export
+-sh: echo: write error: Device or resource busy
+也就是说这个引脚资源已经被申请掉了。且不可释放。
+</code></pre><p>========================Interrupt和gpio属性=============================</p>
+<p>========================clock属性=============================<br>clock实例：</p>
+<p>soc     {<br>    coreclk: mvebu-sar@18230 {<br>        compatible = “marvell,armada-xp-core-clock”;<br>        reg = <0x18230 0x08="">;</0x18230></p>
+<pre><code>    #clock-cells = &lt;1&gt;;
+};
+
+cpuclk: clock-complex@18700 {
+    #clock-cells = &lt;1&gt;;
+    compatible = &quot;marvell,armada-xp-cpu-clock&quot;;
+    reg = &lt;0x18700 0xA0&gt;;
+    clocks = &lt;&amp;coreclk 1&gt;;
+};
+
+gateclk: clock-gating-control@18220 {
+    compatible = &quot;marvell,armada-xp-gating-clock&quot;;
+    reg = &lt;0x18220 0x4&gt;;
+    clocks = &lt;&amp;coreclk 0&gt;;
+    #clock-cells = &lt;1&gt;;
+};
+</code></pre><p>}</p>
+<p>clocks {<br>    /<em> 25 MHz reference crystal </em>/<br>    refclk: oscillator {<br>        compatible = “fixed-clock”;</p>
+<pre><code>    #clock-cells = &lt;0&gt;;
+    clock-frequency = &lt;25000000&gt;;
+};
+</code></pre><p>};</p>
+<p>clock的使用者：</p>
+<p>CPU, using a cpuclk</p>
+<p>cpu@0 {<br>    device_type = “cpu”;<br>    compatible = “marvell,sheeva-v7”;<br>    reg = <0>;<br>    clocks = &lt;&amp;cpuclk 0&gt;;<br>};</0></p>
+<p>Timer, using either a coreclk or refclk</p>
+<p>timer@20300 {<br>    compatible = “marvell,armada-xp-timer”;<br>    clocks = &lt;&amp;coreclk 2&gt;, &lt;&amp;refclk&gt;;<br>    clock-names = “nbclk”, “fixed”;<br>};</p>
+<p>USB, using a gateclk<br>usb@52000 {<br>    compatible = “marvell,orion-ehci”;<br>    reg = <0x52000 0x500="">;<br>    interrupts = <47>;<br>    clocks = &lt;&amp;gateclk 20&gt;;<br>    status = “disabled”;<br>}<br>========================clock属性=============================</47></0x52000></p>
+<p>========================pinctrl属性=============================<br>举例：<br>ssp0: ssp@80010000 {<br>    pinctrl-names = “default”;<br>    pinctrl-0 = &lt;&amp;mmc0_8bit_pins_a<br>        &amp;mmc0_cd_cfg &amp;mmc0_sck_cfg&gt;;<br>    […]<br>};<br>具体见<br>Linux\Kernel\驱动\Pinctrl\笔记.txt<br>========================pinctrl属性=============================</p>
+<p>========================of函数=============================<br>linux下devicetree中常用的of函数<br>这个函数的第一个参数就是device_node结构体。<br>这个device_node，是作为device结构体中的一个成员出现的。<br>struct device {<br>    …<br>    struct device_node    <em>of_node; /</em> associated device tree node <em>/<br>    …<br>}<br>所以有了device，就找到了device_node。<br>从device_node中获取信息：<br>int of_property_read_u8_array(const struct device_node </em>np, const char <em>propname,u8 </em>out_values, size_t sz);<br>int of_property_read_u16_array(const struct device_node <em>np, const char </em>propname,u16 <em>out_values, size_t sz);<br>int of_property_read_u32_array(const struct device_node </em>np, const char <em>propname,u32 </em>out_values, size_t sz);<br>从设备结点np中读取属性名为propname，类型为8、16、32、位整型数组的属性值，并放入out_values，sz指明了要读取的个数。</p>
+<p>static inline int of_property_read_u8(const struct device_node <em>np,const char </em>propname,u8 <em>out_value)<br>static inline int of_property_read_u16(const struct device_node </em>np,const char <em>propname,u8 </em>out_value)<br>static inline int of_property_read_u32(const struct device_node <em>np,const char </em>propname,u8 *out_value)<br>从设备结点np中读取属性名为propname，类型为8、16、32位的属性值，并放入out_values。实际上这里调用的就是sz为1的of_property_read_uxx_array函数。</p>
 <p>int of_property_read_u32_index(const struct device_node <em>np,const char</em>propname,u32 index, u32 *out_value)<br>从设备结点np中读取属性名为propname的属性值中第index个u32数值给out_value</p>
 <p>int of_property_read_u64(conststruct device_node <em>np, const char </em>propname,u64 *out_value)<br>从设备结点np中读取属性名为propname，类型为64位的属性值，并放入out_values</p>
 <p>int of_property_read_string(struct device_node <em>np, const char </em>propname,const char**out_string)<br>从设备结点np中读取属性名为propname的字符串型属性值</p>
@@ -664,22 +801,95 @@ interrupt-controller;
 <p>struct platform_device<em> of_device_alloc(struct device_node </em>np,const char <em>bus_id,struct device </em>parent)<br>根据device node，bus_id以及父节点创建该设备的platform_device结构，同时会初始化它的resource成员。</p>
 <p>int of_platform_bus_probe(struct device_node <em>root,const struct of_device_id </em>matches,struct device *parent)<br>遍历of_allnodes中的节点挂接到of_platform_bus_type总线上,由于此时of_platform_bus_type总线上还没有驱动,所以此时不进行匹配</p>
 <p>int of_platform_populate(struct device_node <em>root,const struct of_device_id </em>matches,const struct of_dev_auxdata <em>lookup,struct device </em>parent)<br>遍历of_allnodes中的所有节点，生成并初始化所以节点的platform_device结构</p>
-<p>struct platform_device<em> of_find_device_by_node(struct device_node </em>np)<br>根据device_node查找返回该设备对应的platform_device结构<br>========================of函数=============================<br>========================compatible节点实际使用的例子1=============================<br>dts配置：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&amp;i2c2 &#123;</span><br><span class="line">	pinctrl-names = &quot;default&quot;;</span><br><span class="line">	pinctrl-0 = &lt;&amp;i2c2_pins&gt;;</span><br><span class="line"></span><br><span class="line">	status = &quot;okay&quot;;</span><br><span class="line">	clock-frequency = &lt;400000&gt;;</span><br><span class="line"></span><br><span class="line">	gt911a: gt911a@5d &#123;</span><br><span class="line">		compatible = &quot;goodix,gt911a&quot;;</span><br><span class="line">		reg = &lt;0x5d&gt;;</span><br><span class="line">	&#125;;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
-<p>注意到这个gt911a的compatible字段是”goodix,gt911a”</p>
-<p>代码里面的设置：（gt9xx.c）<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">static const struct of_device_id gt911a_of_match[] = &#123;</span><br><span class="line">	&#123; .compatible = &quot;goodix,gt911a&quot;, &#125;,</span><br><span class="line">	&#123; &#125;</span><br><span class="line">&#125;;</span><br><span class="line">MODULE_DEVICE_TABLE(of, gt911a_of_match);</span><br><span class="line"></span><br><span class="line">static struct i2c_driver goodix_ts_driver = &#123;</span><br><span class="line">    .probe      = goodix_ts_probe,</span><br><span class="line">    .remove     = goodix_ts_remove,</span><br><span class="line">#ifndef CONFIG_HAS_EARLYSUSPEND</span><br><span class="line">    //.suspend    = goodix_ts_early_suspend,</span><br><span class="line">    //.resume     = goodix_ts_late_resume,</span><br><span class="line">#endif</span><br><span class="line">    .id_table   = goodix_ts_id,</span><br><span class="line">    .driver = &#123;</span><br><span class="line">        .name     = GTP_I2C_NAME,</span><br><span class="line">        .owner    = THIS_MODULE,</span><br><span class="line">	.of_match_table = gt911a_of_match,</span><br><span class="line">    &#125;,</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
-<p>可以看到，定义了一个of_device_id gt911a_of_match[]的结构体，这里面就有.compatible = “goodix,gt911a”，和dts一致。<br>并且这个of_device_id结构体，是要注册到i2c_driver.driver.of_match_table的。<br>这样开机的时候，kernel发现代码的compatible字段和dts的compatible字段匹配，就会调用i2c_driver.probe函数了</p>
-<p>另外。针对i2c_driver，其实不是用of_match_table一样可以通过dts匹配到i2c_driver然后probe。细节如下：<br>    其实是因为，以i2c_driver为例。<br>    可以有两种方法，通过dts匹配到i2c_driver从而进行probe。<br>    1.i2c_driver.driver.of_match_table.compatible定义一个字段，然后在dts里面的compatible = “xxx”;使用这个字段<br>    2.i2c_driver.id_table.name定义一个字段，然后在dts里面的compatible = “xxx”;使用这个字段<br>    给人的感觉，其实第一种方法，是比较通用的方法，因为这个of_match_table.compatible，是在device_driver{}结构体里面的。<br>    而第二种方法，是针对i2c_driver比较简便的方法，这样就不用特别去定义of_match_table.compatible了。<br>见下面这个例子：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&amp;i2c0 &#123;</span><br><span class="line">	...</span><br><span class="line">	24c512@52 &#123;</span><br><span class="line">		compatible = &quot;24c512&quot;;		其实这个24c512字段，仅存在于i2c_driver.id_table.name中，drivers\misc\eeprom\at24.c中并无of_match_table</span><br><span class="line">		reg = &lt;0x52&gt;;</span><br><span class="line">	&#125;;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<p>struct platform_device<em> of_find_device_by_node(struct device_node </em>np)<br>根据device_node查找返回该设备对应的platform_device结构<br>========================of函数=============================<br>========================compatible节点实际使用的例子1=============================<br>dts配置：<br>&amp;i2c2 {<br>    pinctrl-names = “default”;<br>    pinctrl-0 = &lt;&amp;i2c2_pins&gt;;</p>
+<pre><code>status = &quot;okay&quot;;
+clock-frequency = &lt;400000&gt;;
+
+gt911a: gt911a@5d {
+    compatible = &quot;goodix,gt911a&quot;;
+    reg = &lt;0x5d&gt;;
+};
+</code></pre><p>};<br>注意到这个gt911a的compatible字段是”goodix,gt911a”</p>
+<p>代码里面的设置：（gt9xx.c）<br>static const struct of_device_id gt911a_of_match[] = {<br>    { .compatible = “goodix,gt911a”, },<br>    { }<br>};<br>MODULE_DEVICE_TABLE(of, gt911a_of_match);</p>
+<p>static struct i2c_driver goodix_ts_driver = {<br>    .probe      = goodix_ts_probe,<br>    .remove     = goodix_ts_remove,</p>
+<p>#ifndef CONFIG_HAS_EARLYSUSPEND<br>    //.suspend    = goodix_ts_early_suspend,<br>    //.resume     = goodix_ts_late_resume,</p>
+<p>#endif<br>    .id_table   = goodix_ts_id,<br>    .driver = {<br>        .name     = GTP_I2C_NAME,<br>        .owner    = THIS_MODULE,<br>    .of_match_table = gt911a_of_match,<br>    },<br>};<br>可以看到，定义了一个of_device_id gt911a_of_match[]的结构体，这里面就有.compatible = “goodix,gt911a”，和dts一致。<br>并且这个of_device_id结构体，是要注册到i2c_driver.driver.of_match_table的。<br>这样开机的时候，kernel发现代码的compatible字段和dts的compatible字段匹配，就会调用i2c_driver.probe函数了</p>
+<p>另外。针对i2c_driver，其实不是用of_match_table一样可以通过dts匹配到i2c_driver然后probe。细节如下：<br>    其实是因为，以i2c_driver为例。<br>    可以有两种方法，通过dts匹配到i2c_driver从而进行probe。<br>    1.i2c_driver.driver.of_match_table.compatible定义一个字段，然后在dts里面的compatible = “xxx”;使用这个字段<br>    2.i2c_driver.id_table.name定义一个字段，然后在dts里面的compatible = “xxx”;使用这个字段<br>    给人的感觉，其实第一种方法，是比较通用的方法，因为这个of_match_table.compatible，是在device_driver{}结构体里面的。<br>    而第二种方法，是针对i2c_driver比较简便的方法，这样就不用特别去定义of_match_table.compatible了。<br>见下面这个例子：<br>&amp;i2c0 {<br>    …<br>    24c512@52 {<br>        compatible = “24c512”;        其实这个24c512字段，仅存在于i2c_driver.id_table.name中，drivers\misc\eeprom\at24.c中并无of_match_table<br>        reg = <0x52>;<br>    };<br>};</0x52></p>
 <p>========================compatible节点实际使用的例子1=============================</p>
-<p>========================compatible节点实际使用的例子2=============================<br>上面的例子1，实际是引用了#include “am33xx.dtsi”这里面的i2c2<br>所以书写的时候，需要写&amp;i2c2<br>这属于#include “am33xx.dtsi”来包含SOC的一些已有的功能。<br>那如果是单独使用内核驱动中的一些compatible字段呢？<br>以内核的Device Drivers  —&gt;[<em>] LED Support  —&gt;&lt;</em>&gt;   LED Support for GPIO connected LEDs驱动为例。<br>需要这么做：<br>1.加入相应的头文件，这样就可以使用一些现成的宏定义了<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;dt-bindings/gpio/gpio.h&gt;</span><br></pre></td></tr></table></figure></p>
-<p>打开include/dt-bindings/gpio/gpio.h，可以看到一些可供使用的宏定义：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">/* Bit 0 express polarity */</span><br><span class="line">#define GPIO_ACTIVE_HIGH 0</span><br><span class="line">#define GPIO_ACTIVE_LOW 1</span><br></pre></td></tr></table></figure></p>
-<p>3.2.在dts头部的大括号里面加，不要在dts后部应用SOC的节点（如&amp;i2c2）那里加。如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">/ &#123;</span><br><span class="line">	model = &quot;TI AM335x EVM&quot;;</span><br><span class="line">	compatible = &quot;ti,am335x-evm&quot;, &quot;ti,am33xx&quot;;</span><br><span class="line"></span><br><span class="line">	cpus &#123;</span><br><span class="line">		cpu@0 &#123;</span><br><span class="line">			cpu0-supply = &lt;&amp;vdd1_reg&gt;;</span><br><span class="line">		&#125;;</span><br><span class="line">	&#125;;</span><br><span class="line"></span><br><span class="line">	memory &#123;</span><br><span class="line">		device_type = &quot;memory&quot;;</span><br><span class="line">		reg = &lt;0x80000000 0x20000000&gt;; /* 512 MB */</span><br><span class="line">	&#125;;</span><br><span class="line"></span><br><span class="line">	leds &#123;							&lt;----------------------在这里加</span><br><span class="line">		pinctrl-names = &quot;default&quot;;</span><br><span class="line">		pinctrl-0 = &lt;&amp;user_leds_default&gt;;</span><br><span class="line">		compatible = &quot;gpio-leds&quot;;</span><br><span class="line">		beep &#123;</span><br><span class="line">			label = &quot;etcs-beep&quot;;</span><br><span class="line">			gpios = &lt;&amp;gpio0 29 GPIO_ACTIVE_HIGH&gt;;</span><br><span class="line">			default-state = &quot;off&quot;;</span><br><span class="line">		&#125;;</span><br><span class="line">	&#125;;</span><br><span class="line">&#125;;</span><br><span class="line">								</span><br><span class="line">&amp;uart0 &#123;</span><br><span class="line">	pinctrl-names = &quot;default&quot;;</span><br><span class="line">	pinctrl-0 = &lt;&amp;uart0_pins&gt;;</span><br><span class="line"></span><br><span class="line">	status = &quot;okay&quot;;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
-<p>========================compatible节点实际使用的例子2=============================</p>
-<p>========================spi_device节点实际使用的例子=============================<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">&amp;spi0 &#123;</span><br><span class="line">	status = &quot;okay&quot;;</span><br><span class="line">	pinctrl-names = &quot;default&quot;;</span><br><span class="line">	pinctrl-0 = &lt;&amp;spi0_pins_default&gt;;</span><br><span class="line"></span><br><span class="line">	gpio_spi: gpio_spi@0 &#123;</span><br><span class="line">		compatible = &quot;fairchild,74hc595&quot;;</span><br><span class="line">		gpio-controller;				//Marks the device node as a gpio controller.</span><br><span class="line">		#gpio-cells = &lt;2&gt;;				//Should be two.  The first cell is the pin number and the second cell is used to specify the gpio polarity:</span><br><span class="line">		reg = &lt;0&gt;;				//chip select number</span><br><span class="line">		registers-number = &lt;2&gt;;			//Number of daisy-chained shift registers</span><br><span class="line">		spi-max-frequency = &lt;100000&gt;;		//SPI频率</span><br><span class="line">		spi-cpha;					//意味着spi-cpha=1</span><br><span class="line">		spi-cpol;					//意味着spi-cpol=1</span><br><span class="line">	&#125;;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">- spi-cpol        - (optional) Empty property indicating device requires inverse clock polarity (CPOL) mode</span><br><span class="line">- spi-cpha        - (optional) Empty property indicating device requires shifted clock phase (CPHA) mode</span><br></pre></td></tr></table></figure></p>
+<p>========================compatible节点实际使用的例子2=============================<br>上面的例子1，实际是引用了#include “am33xx.dtsi”这里面的i2c2<br>所以书写的时候，需要写&amp;i2c2<br>这属于#include “am33xx.dtsi”来包含SOC的一些已有的功能。<br>那如果是单独使用内核驱动中的一些compatible字段呢？<br>以内核的Device Drivers  —&gt;[<em>] LED Support  —&gt;&lt;</em>&gt;   LED Support for GPIO connected LEDs驱动为例。<br>需要这么做：<br>1.加入相应的头文件，这样就可以使用一些现成的宏定义了</p>
+<p>#include &lt;dt-bindings/gpio/gpio.h&gt;<br>打开include/dt-bindings/gpio/gpio.h，可以看到一些可供使用的宏定义：<br>/<em> Bit 0 express polarity </em>/</p>
+<p>#define GPIO_ACTIVE_HIGH 0</p>
+<p>#define GPIO_ACTIVE_LOW 1<br>2.在dts头部的大括号里面加，不要在dts后部应用SOC的节点（如&amp;i2c2）那里加。如下：<br>/ {<br>    model = “TI AM335x EVM”;<br>    compatible = “ti,am335x-evm”, “ti,am33xx”;</p>
+<pre><code>cpus {
+    cpu@0 {
+        cpu0-supply = &lt;&amp;vdd1_reg&gt;;
+    };
+};
+
+memory {
+    device_type = &quot;memory&quot;;
+    reg = &lt;0x80000000 0x20000000&gt;; /* 512 MB */
+};
+
+leds {                            &lt;----------------------在这里加
+    pinctrl-names = &quot;default&quot;;
+    pinctrl-0 = &lt;&amp;user_leds_default&gt;;
+    compatible = &quot;gpio-leds&quot;;
+    beep {
+        label = &quot;etcs-beep&quot;;
+        gpios = &lt;&amp;gpio0 29 GPIO_ACTIVE_HIGH&gt;;
+        default-state = &quot;off&quot;;
+    };
+};
+</code></pre><p>};</p>
+<p>&amp;uart0 {<br>    pinctrl-names = “default”;<br>    pinctrl-0 = &lt;&amp;uart0_pins&gt;;</p>
+<pre><code>status = &quot;okay&quot;;
+</code></pre><p>};<br>                                &lt;———————-不能在这里加<br>========================compatible节点实际使用的例子2=============================</p>
+<p>========================spi_device节点实际使用的例子=============================<br>&amp;spi0 {<br>    status = “okay”;<br>    pinctrl-names = “default”;<br>    pinctrl-0 = &lt;&amp;spi0_pins_default&gt;;</p>
+<pre><code>gpio_spi: gpio_spi@0 {
+    compatible = &quot;fairchild,74hc595&quot;;
+    gpio-controller;                //Marks the device node as a gpio controller.
+    #gpio-cells = &lt;2&gt;;                //Should be two.  The first cell is the pin number and the second cell is used to specify the gpio polarity:
+    reg = &lt;0&gt;;                //chip select number
+    registers-number = &lt;2&gt;;            //Number of daisy-chained shift registers
+    spi-max-frequency = &lt;100000&gt;;        //SPI频率
+    spi-cpha;                    //意味着spi-cpha=1
+    spi-cpol;                    //意味着spi-cpol=1
+};
+</code></pre><p>};</p>
+<ul>
+<li>spi-cpol        - (optional) Empty property indicating device requires inverse clock polarity (CPOL) mode</li>
+<li>spi-cpha        - (optional) Empty property indicating device requires shifted clock phase (CPHA) mode</li>
+</ul>
 <p>参考文档：<br>Documentation\devicetree\bindings\spi\spi-bus.txt<br>========================spi_device节点实际使用的例子=============================</p>
-<p>========================gpio-controller节点的定义及其引用的例子=============================<br>定义一个gpio-controller。对应驱动里面，就是gpiochip_add()<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">&amp;spi0 &#123;</span><br><span class="line">	status = &quot;okay&quot;;</span><br><span class="line">	pinctrl-names = &quot;default&quot;;</span><br><span class="line">	pinctrl-0 = &lt;&amp;spi0_pins_default&gt;;</span><br><span class="line"></span><br><span class="line">	gpio_spi: gpio_spi@0 &#123;</span><br><span class="line">		compatible = &quot;fairchild,74hc595&quot;;</span><br><span class="line">		gpio-controller;				//Marks the device node as a gpio controller.</span><br><span class="line">		#gpio-cells = &lt;2&gt;;				//Should be two.  The first cell is the pin number and the second cell is used to specify the gpio polarity:</span><br><span class="line">		reg = &lt;0&gt;;				//chip select number</span><br><span class="line">		registers-number = &lt;2&gt;;			//Number of daisy-chained shift registers</span><br><span class="line">		spi-max-frequency = &lt;100000&gt;;		//SPI频率</span><br><span class="line">		spi-cpha;					//意味着spi-cpha=1</span><br><span class="line">		spi-cpol;					//意味着spi-cpol=1</span><br><span class="line">	&#125;;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
-<p>上面这个例子中，这个gpio-controller的名字是gpio_spi</p>
-<p>实际去引用这个gpio-controller：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">hogging的例子：</span><br><span class="line">			&amp;gpio_spi &#123;				</span><br><span class="line">				gpio496 &#123;</span><br><span class="line">					gpio-hog;</span><br><span class="line">					gpios = &lt;0 GPIO_ACTIVE_LOW&gt;;		</span><br><span class="line">					output-low;				</span><br><span class="line">					line-name = &quot;D11_green&quot;;</span><br><span class="line">				&#125;;</span><br><span class="line">				gpio497 &#123;</span><br><span class="line">					gpio-hog;</span><br><span class="line">					gpios = &lt;1 GPIO_ACTIVE_LOW&gt;;		</span><br><span class="line">					output-low;				</span><br><span class="line">					line-name = &quot;D11_yellow&quot;;</span><br><span class="line">				&#125;;</span><br><span class="line">			&#125;;</span><br><span class="line">gpio-led的例子：</span><br><span class="line">leds &#123;</span><br><span class="line">	pinctrl-names = &quot;default&quot;;</span><br><span class="line">	pinctrl-0 = &lt;&amp;user_leds_default&gt;;</span><br><span class="line">	compatible = &quot;gpio-leds&quot;;</span><br><span class="line"></span><br><span class="line">	D11_green &#123;</span><br><span class="line">		label = &quot;D11_green&quot;;</span><br><span class="line">		gpios = &lt;&amp;gpio_spi 0 GPIO_ACTIVE_LOW&gt;;</span><br><span class="line">		default-state = &quot;off&quot;;</span><br><span class="line">	&#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>========================gpio-controller节点的定义及其引用的例子=============================</p>
+<p>========================gpio-controller节点的定义及其引用的例子=============================<br>定义一个gpio-controller。对应驱动里面，就是gpiochip_add()<br>&amp;spi0 {<br>    status = “okay”;<br>    pinctrl-names = “default”;<br>    pinctrl-0 = &lt;&amp;spi0_pins_default&gt;;</p>
+<pre><code>gpio_spi: gpio_spi@0 {
+    compatible = &quot;fairchild,74hc595&quot;;
+    gpio-controller;                //Marks the device node as a gpio controller.
+    #gpio-cells = &lt;2&gt;;                //Should be two.  The first cell is the pin number and the second cell is used to specify the gpio polarity:
+    reg = &lt;0&gt;;                //chip select number
+    registers-number = &lt;2&gt;;            //Number of daisy-chained shift registers
+    spi-max-frequency = &lt;100000&gt;;        //SPI频率
+    spi-cpha;                    //意味着spi-cpha=1
+    spi-cpol;                    //意味着spi-cpol=1
+};
+</code></pre><p>};<br>上面这个例子中，这个gpio-controller的名字是gpio_spi</p>
+<p>实际去引用这个gpio-controller：<br>    hogging的例子：<br>                &amp;gpio_spi {<br>                    gpio496 {<br>                        gpio-hog;<br>                        gpios = <0 gpio_active_low="">;<br>                        output-low;<br>                        line-name = “D11_green”;<br>                    };<br>                    gpio497 {<br>                        gpio-hog;<br>                        gpios = <1 gpio_active_low="">;<br>                        output-low;<br>                        line-name = “D11_yellow”;<br>                    };<br>                };<br>    gpio-led的例子：<br>    leds {<br>        pinctrl-names = “default”;<br>        pinctrl-0 = &lt;&amp;user_leds_default&gt;;<br>        compatible = “gpio-leds”;</1></0></p>
+<pre><code>    D11_green {
+        label = &quot;D11_green&quot;;
+        gpios = &lt;&amp;gpio_spi 0 GPIO_ACTIVE_LOW&gt;;
+        default-state = &quot;off&quot;;
+    };
+}
+</code></pre><p>========================gpio-controller节点的定义及其引用的例子=============================</p>
+<p>========================kernel启动以后查看device tree的配置=============================<br>a. /sys/firmware/fdt               </p>
+<p>进入/sys/firmware目录后便可看到二个文件，一个是devicetree文件夹，另一个是fdt（原始dtb文件，可以用hexdump -C fdt 将其打印出来查看就会发现里面的数据和dtb文件是一致的）。</p>
+<p>b. /sys/firmware/devicetree</p>
+<p>以目录结构呈现的dtb文件。 根节点对应base目录, 每一个节点对应一个目录, 每一个属性对应一个文件</p>
+<p>c. /sys/devices/platform</p>
+<p>系统中所有的platform_device, 有来自设备树的, 也有来有.c文件中注册的<br>对于来自设备树的platform_device,可以进入 /sys/devices/platform/&lt;设备名&gt;/of_node 查看它的设备树属性（例如进入/sys/devices/platform/led/后若发现该目录下有of_node节点，就表明该platform_device来自设备树）</p>
+<p>d. /proc/device-tree</p>
+<p>是链接文件, 指向 /sys/firmware/devicetree/base<br>========================kernel启动以后查看device tree的配置=============================</p>
 
       
     </div>
@@ -780,7 +990,7 @@ interrupt-controller;
                 
                   <a href="/archives">
                 
-                    <span class="site-state-item-count">217</span>
+                    <span class="site-state-item-count">229</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -1015,7 +1225,19 @@ interrupt-controller;
                     
                       
                     
-                    <span class="site-state-item-count">111</span>
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">117</span>
                     <span class="site-state-item-name">categories</span>
                   </a>
                 </div>

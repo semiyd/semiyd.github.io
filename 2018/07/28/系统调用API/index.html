@@ -115,7 +115,7 @@
 <meta property="og:site_name" content="Semiyd&#39;s Blog">
 <meta property="og:description" content="系统调用API">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-07-28T03:06:55.113Z">
+<meta property="og:updated_time" content="2020-07-12T13:14:08.787Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="系统调用API">
 <meta name="twitter:description" content="系统调用API">
@@ -322,12 +322,24 @@
                 
               
 
-              <time title="Created: 2018-07-28 11:05:06 / Modified: 11:06:55" itemprop="dateCreated datePublished" datetime="2018-07-28T11:05:06+08:00">2018-07-28</time>
+              <time title="Created: 2018-07-28 11:05:06" itemprop="dateCreated datePublished" datetime="2018-07-28T11:05:06+08:00">2018-07-28</time>
             
 
             
               
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2020-07-12 21:14:08" itemprop="dateModified" datetime="2020-07-12T21:14:08+08:00">2020-07-12</time>
               
             
           </span>
@@ -392,7 +404,9 @@
       
 
       
-        <p><center><strong>系统调用API</strong></center><br><a id="more"></a><br>====================================用户空间文件操作API====================================================<br>系统调用：<br>int creat(const char <em>filename, mode_t mode);        创建文件<br>int umask(int newmask);                将umask设置为newmask，然后返回旧的umask，它只影响读、写和执行权限。<br>open    两套接口<br>　　    int open(const char </em>pathname, int flags);<br>        打开一个文件<br>　　    int open(const char <em>pathname, int flags, mode_t mode);<br>        如果flags里面包括O_CREAT，则使用这个API，mode表示文件权限<br>    flag常用的种类：<br>        O_RDONLY 以只读方式打开文件<br>        O_WRONLY 以只写方式打开文件<br>        O_RDWR以可读写方式打开文件。<br>            上述三种旗标是互斥的,也就是不可同时使用,但可与下列的旗标利用 OR(|)运算符组合。<br>        O_CREAT 若欲打开的文件不存在则自动建立该文件。<br>        O_TRUNC 若文件存在并且以可写的方式打开时,则清空文件<br>        O_APPEND 当读写文件时会从文件尾开始移动, 也就是所写入的数据会以附加的方式加入到文件后面。<br>        O_NONBLOCK 以不可阻塞的方式打开文件,也就是无论有无数据读取或等待,都会立即返回进程之中。所以默认都是以阻塞方式打开的。<br>    mode常用的种类：<br>        S_IRUSR        用户可以读<br>        S_IWUSR     用户可以写<br>        S_IXUSR        用户可以执行<br>        S_IRWXU    用户可以读写执行<br>        S_IRGRP        组可以读<br>        S_IWGRP        组可以写<br>        S_IXGRP        组可以执行<br>        S_IRWXG    组可以读写执行<br>        等等<br>int close(int fd);                    关闭文件<br>int read(int fd, const void </em>buf, size_t length);        读取length个字节到buf缓冲区<br>int write(int fd, const void *buf, size_t length);        写入length个字节从buf缓冲区到文件<br>int lseek(int fd, offset_t offset, int whence);        对于例如块设备，指定特定的位置进行定位。然后后续可以用read write读写。<br>    whence的种类：<br>        SEEK_SET:    相对于文件头<br>        SEEK_CUR:    相对于文件读写指针的当前位置<br>        SEEK_END:    相对于文件末尾<br>int ioctl(int fd, unsigned long cmd, …);<br>    这个是个三个参数的API，同printf的…可变参数不同，ioctl的只有三个参数，…代表第三个参数，”…”的意思是让内核不要检查这个参数的类型。</p>
+        <p><center><strong>系统调用API</strong></center><br><a id="more"></a><br>====================================用户空间文件操作API====================================================<br>系统调用：<br>int creat(const char <em>filename, mode_t mode);        创建文件<br>int umask(int newmask);                将umask设置为newmask，然后返回旧的umask，它只影响读、写和执行权限。<br>open    两套接口<br>　　    int open(const char </em>pathname, int flags);<br>        打开一个文件<br>　　    int open(const char *pathname, int flags, mode_t mode);<br>        如果flags里面包括O_CREAT，则使用这个API，mode表示文件权限<br>    flag常用的种类：<br>        O_RDONLY 以只读方式打开文件<br>        O_WRONLY 以只写方式打开文件<br>        O_RDWR以可读写方式打开文件。<br>            上述三种旗标是互斥的,也就是不可同时使用,但可与下列的旗标利用 OR(|)运算符组合。<br>        O_CREAT 若欲打开的文件不存在则自动建立该文件。<br>        O_TRUNC 若文件存在并且以可写的方式打开时,则清空文件<br>        O_APPEND 当读写文件时会从文件尾开始移动, 也就是所写入的数据会以附加的方式加入到文件后面。<br>        O_NONBLOCK 以不可阻塞的方式打开文件,也就是无论有无数据读取或等待,都会立即返回进程之中。所以默认都是以阻塞方式打开的。<br>    mode常用的种类：<br>        S_IRUSR        用户可以读<br>        S_IWUSR     用户可以写<br>        S_IXUSR        用户可以执行<br>        S_IRWXU    用户可以读写执行<br>        S_IRGRP        组可以读<br>        S_IWGRP        组可以写<br>        S_IXGRP        组可以执行<br>        S_IRWXG    组可以读写执行<br>        等等<br>int close(int fd);                    关闭文件</p>
+<p>int read(int fd, const void <em>buf, size_t length);        读取length个字节到buf缓冲区<br>int write(int fd, const void </em>buf, size_t length);        写入length个字节从buf缓冲区到文件<br>注意，length长度是字节，加入现在有个int类型的数组w_array，要写1000个元素的话，要这么写：nr = write(fd,w_array,1000*sizeof(int));</p>
+<p>int lseek(int fd, offset_t offset, int whence);        对于例如块设备，指定特定的位置进行定位。然后后续可以用read write读写。<br>    whence的种类：<br>        SEEK_SET:    相对于文件头<br>        SEEK_CUR:    相对于文件读写指针的当前位置<br>        SEEK_END:    相对于文件末尾<br>int ioctl(int fd, unsigned long cmd, …);<br>    这个是个三个参数的API，同printf的…可变参数不同，ioctl的只有三个参数，…代表第三个参数，”…”的意思是让内核不要检查这个参数的类型。</p>
 <pre><code>ioctl的cmd命令，一定要用linux标准的定义，如使用_IOR生成的cmd。如果随便乱写，比如1，2
 Linux内核一般会自动地过滤到一些不合法的cmd定义，比如你自己定义的1，2，
 cmd为1，2没有type、没有number，没有direction，也没有size，Linux内核自动过滤掉你的ioctl请求，你的ioctl根本就没有到驱动ioctl上就被返回错误了。
@@ -466,11 +480,13 @@ static unsigned drv_poll(struct file *file, poll_table *wait)
     unsigned int mask = 0;
     poll_wait(file, &amp;my_waitq, wait); // 不会立即休眠
     if (有数据)//判断是否有数据
-        mask |= POLLIN | POLLRDNORM;
+        mask |= POLLIN | POLLRDNORM; //表示可读。POLLOUT | POLLWRNORM 表示可写
     return mask;
 }
 驱动接口poll本身不会阻塞进程，只是返回后，系统会根据返回值是否阻塞进程，如阻塞，需求驱动去唤醒（有数据时wake up）。
-</code></pre><p>epoll<br>    其实就是poll的增强版<br>    当文件描述符数量很大，IO频繁的时候，poll或者select效率会明显下降。<br>    所以主要用于大规模并发的监听很多socket的时候，类似这种服务器程序，需要用epoll()。</p>
+所以进程还是被阻塞，这点和select一样。但是它没有最大连接数的限制，原因是它是基于链表来存储的.
+有关select()/poll() 的内核实现，参考《select()_poll() 的内核实现.pdf》
+</code></pre><p>epoll<br>    其实就是poll的增强版<br>    当文件描述符数量很大，IO频繁的时候，poll或者select效率会明显下降。<br>    所以主要用于大规模并发的监听很多socket的时候，类似这种服务器程序，需要用epoll()。<br>    epoll最大好处在于不会随着监听fd数目增加，而降低效率。因为select采用轮询方式处理，fd越多，耗时越多。    </p>
 <p>void <em> mmap(void </em>addr,size_t length,int prot, int flags,int fd,off_t offset);<br>    内存映射，简而言之就是将用户空间的一段内存区域映射到内核空间，映射成功后，用户对这段内存区域的修改可以直接反映到内核空间，<br>    同样，内核空间对这段区域的修改也直接反映用户空间。那么对于内核空间<---->用户空间两者之间需要大量数据传输等操作的话效率是非常高的。（相比copy_to_user这种）<br>    mmap并不分配空间, 只是将文件映射到调用进程的地址空间里（但是会占掉你的 virutal memory）, 然后你就可以用memcpy等操作写文件, 而不用write()了.<br>    主要用于和视频，显示有关的应用场景中。<br>    针对void <em> mmap(void </em>addr,size_t length,int prot, int flags,int fd,off_t offset);的详细解释：<br>        1、返回值是映射到用户空间的地址。这是一个通用型指针，这样就保证了各种类型的申请方式。<br>        2、void *addr 是程序员所希望的虚拟地址作为起始映射地址，通常填NULL，内核自动分配。<br>        3、size_t length当然是指需要映射的区域大小。<br>        4、int prot是指对读写权限。<br>            常用的是PROT_EXEC（可执行）,PROT_READ（可读）,PROT_WRITE（可写）,PROT_NONE（不可访问）。<br>        5、int flags主要是指对这段区域的映射方式，主要分为两种方式MAP_SHARE,MAP_PRIVATE.<br>            其中的MAP_SHARE是指对映射区域的写操作会更新到文件中，这样就相当于直接操作文件。这个较为常用。<br>            而MAP_PRIVATE通常采用一种称为”写时保护的机制”实现映射，对映射区的写操作不会更新到文件中，实现方法是将需要被写操作的页复制到重新分配的新页中，然后再对新的页进行写操作。<br>            原来的映射并没有改变，但是读操作并不会重新分配物理内存空间。（这段叨叨了半天，没看懂）<br>        6、int fd是指将被映射的文件描述符<br>        7、off_t offset是指从文件的具体位置开始映射，通常情况下可以设置为0，即从开头映射。<br>    例子代码：</----></p>
 <pre><code>#include&lt;fcntl.h&gt;
 #include&lt;unistd.h&gt;
@@ -649,7 +665,8 @@ pgprot_noncached()实际上同时禁止了cache和write buffer。
 <p>#include &lt;stdio.h&gt;        //包含printf()</p>
 <p>#include &lt;string.h&gt;    //包含strlen()<br>//系统调用诸如open() write() close()等，本身是无需包含任何头文件即可编译的</p>
 <p>#define LENGTH 100<br>void main(void)<br>{<br>    int fd, len;<br>    char str[LENGTH];<br>    fd = open(“hello.txt”, O_CREAT | O_RDWR, S_IRUSR | S_IWUSR);<br>    if(fd)<br>        {<br>            write(fd, “Hello World”, strlen(“Hello World”));<br>            close(fd);<br>        }<br>    fd = open(“hello.txt”, O_RDWR);<br>    len = read(fd, str, LENGTH);<br>    str[len] = ‘\0’;<br>    printf(“%s\n”, str);<br>    close(fd);<br>}</p>
-<p>C库文件操作API：<br>    C库函数的文件操作是独立于具体的操作系统平台的，不管是再DOS、Windows、Linux还是在VxWorks中都是使用这些函数。<br>    FILE <em>fopen(const char </em>filename,const char <em>mode)<br>    size_t fread(void </em>ptr,size_t size,size_t n,FILE <em>stream)<br>    size_t fwrite(const void </em>ptr,size_t size,size_t n,FILE <em>stream)<br>    int fseek(FILE </em>stream,long offset,int whence)<br>    int mkdir(char <em>dir,int mode)            新建目录<br>    char </em>getcwd(char *buffer,size_t size)        获取路径</p>
+<p>C库文件操作API：<br>    C库函数的文件操作是独立于具体的操作系统平台的，不管是再DOS、Windows、Linux还是在VxWorks中都是使用这些函数。<br>    FILE <em>fopen(const char </em>filename,const char <em>mode)<br>    size_t fread(void </em>ptr,size_t size,size_t n,FILE <em>stream)<br>    size_t fwrite(const void </em>ptr,size_t size,size_t n,FILE <em>stream)<br>    int fseek(FILE </em>stream,long offset,int whence)<br>    int mkdir(char <em>dir,int mode)            新建目录<br>    char </em>getcwd(char *buffer,size_t size)        获取路径<br>====================================用户空间线程API====================================================<br>pthread_create（依赖c库libpthread？）<br>perror（需要返回值能真正对应实际的错误，比如-ENOMEM等）</p>
+<p>====================================glibc库介绍====================================================<br>参考    Linux\Kernel\学习资料\glibc 各个库作用介绍.pdf</p>
 
       
     </div>
@@ -750,7 +767,7 @@ pgprot_noncached()实际上同时禁止了cache和write buffer。
                 
                   <a href="/archives">
                 
-                    <span class="site-state-item-count">217</span>
+                    <span class="site-state-item-count">229</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -985,7 +1002,19 @@ pgprot_noncached()实际上同时禁止了cache和write buffer。
                     
                       
                     
-                    <span class="site-state-item-count">111</span>
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">117</span>
                     <span class="site-state-item-name">categories</span>
                   </a>
                 </div>
