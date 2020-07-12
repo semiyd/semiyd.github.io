@@ -1,0 +1,1076 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.3.0" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.3.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.3.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.3.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.3.0" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '6.3.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="HIDL笔记">
+<meta property="og:type" content="article">
+<meta property="og:title" content="HIDL笔记">
+<meta property="og:url" content="http://yoursite.com/2020/07/05/HIDL笔记/index.html">
+<meta property="og:site_name" content="Semiyd&#39;s Blog">
+<meta property="og:description" content="HIDL笔记">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2020-07-05T13:35:27.724Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="HIDL笔记">
+<meta name="twitter:description" content="HIDL笔记">
+
+
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2020/07/05/HIDL笔记/"/>
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>HIDL笔记 | Semiyd's Blog</title>
+  
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Semiyd's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br />Home</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+    <a href="/categories/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-th"></i> <br />Categories</a>
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/07/05/HIDL笔记/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Semiyd">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Semiyd's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">HIDL笔记
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2020-07-05 21:30:50 / Modified: 21:35:27" itemprop="dateCreated datePublished" datetime="2020-07-05T21:30:50+08:00">2020-07-05</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Android/" itemprop="url" rel="index"><span itemprop="name">Android</span></a></span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Android/Native/" itemprop="url" rel="index"><span itemprop="name">Native</span></a></span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Android/Native/HIDL/" itemprop="url" rel="index"><span itemprop="name">HIDL</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><center><strong>HIDL笔记</strong></center><br><a id="more"></a></p>
+<p>—————————–HIDL介绍———————————<br>参考《Android HIDL学习***》系列文章<br>HIDL 即HAL interface definition language，在 Android Project Treble 中被起草，在 Android O 中被全面使用。(参考《学习 Android O HIDL》)<br>HIDL的设计目的是为了能够在不重新编译HALs的情况下能够替换framework。HALs将由供应商或SOC制造商构建，并放在设备的vendor下的分区中，<br>而framework框架在它自己的分区中发挥作用，能够被OTA替换而不重新编译HALs。</p>
+<p>HIDL有什么好处？<br>1.兼容性高<br>在进程间创建可靠的共用接口，而这些进程可能有不同的架构、工具链和构建配置。HIDL接口是版本化的，在发布后不能更改。<br>所以即使framework发生升级，编译framework的编译器都变了，仍然无需改动HAL。<br>2.效率高<br>除了RPC，HIDL还提供了shared memory （共享内存）和 Fast Message Queue (FMQ)来支持高速的数据传输。<br>3.直观<br>对于RPC，HIDL只使用参数(参见AIDL)，避免了内存所有权的棘手问题;不能有效通过方法返回的值通过回调函数返回。既不将数据传递到HIDL，也不从HIDL接收数据，改变数据的所有权。数据只需要在被调用函数的持续时间内存在，并且可以在被调用函数返回后立即销毁。（这段没看懂）</p>
+<p>在HIDL之前，HAL以.so库文件的方式存在，放在system.img里。<br>引入HIDL以后，vendor设计的HAL都以独立的service存在，每一个HAL模块都是一个独立的binder server进程，Android framework想用调用HAL的接口就必须作为binder的client来调用。</p>
+<p>HIDL是基于Interface这个结构的，Interface可以理解为和c++的class差不多。每个interface都是package的一部分。<br>而HIDL的package，就是android的package.subpackage的包名格式。发布出来的HIDL package一般放在hardware/interfaces或者vendor/vendorName。包名和包所在的文件夹名是基本对应的。比如说：<br>package <a href="mailto:android.hardware.example.extension.light@2.0" target="_blank" rel="noopener">android.hardware.example.extension.light@2.0</a><br>其实就在：<br>hardware/interfaces/example/extension/light/2.0<br>一些相关的package和路径如下：<br>Package Prefix    Location<br>android.hardware.<em>    hardware/interfaces/</em><br>android.frameworks.<em>    frameworks/hardware/interfaces/</em><br>android.system.<em>    system/hardware/interfaces/</em><br>android.hidl.<em>    system/libhidl/transport/</em><br>一个package的例子是：<a href="mailto:android.hardware.foo@1.0" target="_blank" rel="noopener">android.hardware.foo@1.0</a>。注意这个package后面跟了个版本号。<br>每个package目录都包含.hal文件，里面定义了interface，称为interface file。<br>每个.hal头部都需要包含package信息和版本信息。、<br>types.hal也就是每个package目录都有的文件，里面定义了package里面所涉及的数据类型。<br>每个interfaced是长这个样子的：<br>interface IBar extends IFoo { // IFoo is another interface<br>    // embedded types<br>    struct MyStruct {/<em>…</em>/};</p>
+<pre><code>// interface methods
+create(int32_t id) generates (MyStruct s);
+close();
+</code></pre><p>};<br>这里可以看到extends关键词，顾名思义是从另外一个interface名叫IFoo扩展而来。默认情况下，不写extends，则是自动从<a href="mailto:android.hidl.base@1.0" target="_blank" rel="noopener">android.hidl.base@1.0</a>::IBase扩展而来。<br>这个IBase interface，如果默认扩展过来的话，有一些保留的接口，在自定义的interface里面不能重复去声明，这些保留的接口包括：<br>•    ping<br>•    interfaceChain<br>•    interfaceDescriptor<br>•    notifySyspropsChanged<br>•    linkToDeath<br>•    unlinkToDeath<br>•    setHALInstrumentation<br>•    getDebugInfo<br>•    debug<br>•    getHashChain</p>
+<p>Import语法：<br>这个和java的import意思一样，可以import导入别的package，从而使用别的interface。<br>Import的对象可以是某个package。或者某个package里面的特定的interface，例如：<br>import <a href="mailto:android.hardware.nfc@1.0" target="_blank" rel="noopener">android.hardware.nfc@1.0</a>;            // import a whole package<br>import <a href="mailto:android.hardware.example@1.0" target="_blank" rel="noopener">android.hardware.example@1.0</a>::IQuux; // import an interface and types.hal<br>import <a href="mailto:android.hardware.example@1.0" target="_blank" rel="noopener">android.hardware.example@1.0</a>::types; // import just types.hal<br>如果在types.hal里面import，则整个package的所有hal都能看到import的内容。也称为package-level import。<br>如果在单独的hal文件里面import，则import的内容只能当前的interface file内部看到。</p>
+<p>Interface Hashing<br>之所谓会涉及哈希，是因为interface是由版本控制的。也就是说，某个特定版本的interface，一旦发布以后，要求不能改变ABI(Application Binary Interface )，可以理解为API接口不能改变。这样是为了保证升级system.img的时候，用不着跟着改动vendor.img。<br>在每个package root directory ，hardware/interfaces或者vendor/vendor名字/hardware/interfaces，都会有个current.txt，其中包含了所有当前package的.hal文件名。<br>例如：</p>
+<h1 id="current-txt-files-support-comments-starting-with-a-‘-’-character"><a href="#current-txt-files-support-comments-starting-with-a-‘-’-character" class="headerlink" title="current.txt files support comments starting with a ‘#’ character"></a>current.txt files support comments starting with a ‘#’ character</h1><h1 id="this-file-for-instance-would-be-vendor-foo-hardware-interfaces-current-txt"><a href="#this-file-for-instance-would-be-vendor-foo-hardware-interfaces-current-txt" class="headerlink" title="this file, for instance, would be vendor/foo/hardware/interfaces/current.txt"></a>this file, for instance, would be vendor/foo/hardware/interfaces/current.txt</h1><h1 id="Each-line-has-a-SHA-256-hash-followed-by-the-name-of-an-interface"><a href="#Each-line-has-a-SHA-256-hash-followed-by-the-name-of-an-interface" class="headerlink" title="Each line has a SHA-256 hash followed by the name of an interface."></a>Each line has a SHA-256 hash followed by the name of an interface.</h1><h1 id="They-have-been-shortened-in-this-doc-for-brevity-but-they-are"><a href="#They-have-been-shortened-in-this-doc-for-brevity-but-they-are" class="headerlink" title="They have been shortened in this doc for brevity but they are"></a>They have been shortened in this doc for brevity but they are</h1><h1 id="64-characters-in-length-in-an-actual-current-txt-file"><a href="#64-characters-in-length-in-an-actual-current-txt-file" class="headerlink" title="64 characters in length in an actual current.txt file."></a>64 characters in length in an actual current.txt file.</h1><p>d4ed2f0e…995f9ec4 <a href="mailto:vendor.awesome.foo@1.0" target="_blank" rel="noopener">vendor.awesome.foo@1.0</a>::IFoo # comments can also go here</p>
+<h1 id="types-hal-files-are-also-noted-in-types-hal-files"><a href="#types-hal-files-are-also-noted-in-types-hal-files" class="headerlink" title="types.hal files are also noted in types.hal files"></a>types.hal files are also noted in types.hal files</h1><p>c84da9f5…f8ea2648 <a href="mailto:vendor.awesome.foo@1.0" target="_blank" rel="noopener">vendor.awesome.foo@1.0</a>::types</p>
+<h1 id="Multiple-hashes-can-be-in-the-file-for-the-same-interface-This-can-be-used"><a href="#Multiple-hashes-can-be-in-the-file-for-the-same-interface-This-can-be-used" class="headerlink" title="Multiple hashes can be in the file for the same interface. This can be used"></a>Multiple hashes can be in the file for the same interface. This can be used</h1><h1 id="to-note-how-ABI-sustaining-changes-were-made-to-the-interface"><a href="#to-note-how-ABI-sustaining-changes-were-made-to-the-interface" class="headerlink" title="to note how ABI sustaining changes were made to the interface."></a>to note how ABI sustaining changes were made to the interface.</h1><h1 id="For-instance-here-is-another-hash-for-IFoo"><a href="#For-instance-here-is-another-hash-for-IFoo" class="headerlink" title="For instance, here is another hash for IFoo:"></a>For instance, here is another hash for IFoo:</h1><h1 id="Fixes-type-where-“FooCallback”-was-misspelled-in-comment-on-“FooStruct”"><a href="#Fixes-type-where-“FooCallback”-was-misspelled-in-comment-on-“FooStruct”" class="headerlink" title="Fixes type where “FooCallback” was misspelled in comment on “FooStruct”"></a>Fixes type where “FooCallback” was misspelled in comment on “FooStruct”</h1><p>822998d7…74d63b8c <a href="mailto:vendor.awesome.foo@1.0" target="_blank" rel="noopener">vendor.awesome.foo@1.0</a>::IFoo<br>之前提到过了保留接口getHashChain，其实就可以用来获取哈希。<br>现在来看看哈希是怎么起作用的？<br>首先，如果是开发过程中的HAL，则不会去生成hash。current.txt里面空空如也，这时候用hidl-gen编译，可以编译通过。<br>然后如果确定要发布，就需要用hidl-gen产生哈希，例如：<br>hidl-gen -L hash -r vendor.awesome:vendor/awesome/hardware/interfaces -r android.hardware:hardware/interfaces -r android.hidl:system/libhidl/transport <a href="mailto:vendor.awesome.nfc@1.0" target="_blank" rel="noopener">vendor.awesome.nfc@1.0</a><br>9626fd18…f9d298a6 <a href="mailto:vendor.awesome.nfc@1.0" target="_blank" rel="noopener">vendor.awesome.nfc@1.0</a>::types<br>07ac2dc9…11e3cf57 <a href="mailto:vendor.awesome.nfc@1.0" target="_blank" rel="noopener">vendor.awesome.nfc@1.0</a>::INfc<br>f2fe5442…72655de6 <a href="mailto:vendor.awesome.nfc@1.0" target="_blank" rel="noopener">vendor.awesome.nfc@1.0</a>::INfcClientCallback<br>这时候如果改动了interface代码，再用hidl-gen编译，则hidl-gen会发现当前current.txt里面已有哈希。<br>如果编译后的哈希和current.txt的一样，则编译通过。<br>如果哈希值发生变化：<br>1.如果ABI并未发生实质性的改变，例如只改了注释，改了入参名字等，则通过修改current.txt，可以编译通过。<br>2.如果ABI发生真的变化，则要求major或者minor版本号升级。<br>这里叨叨了半天，其实想实现的无非就是，特定版本的interface，要求API是固定的（称为ABI Stability）。这样有利于system和vendor的分离。如果API要改，那么请改interface版本号！（否则是通不过VTS测试的）<br>在版本号不变的情况下，哪些能改，哪些不能改，如下：<br>Changes allowed    •    Changing a comment (unless this changes the meaning of a method).<br>•    Changing the name of a parameter.<br>•    Changing the name of a return parameter.<br>•    Changing annotations.<br>Changes not allowed    •    Reordering arguments, methods, etc…<br>•    Renaming an interface or moving it to a new package.<br>•    Renaming a package.<br>•    Adding a method/struct field/etc… anywhere in the interface.<br>•    Anything that would break a C++ vtable.<br>•    etc..</p>
+<p>Services &amp; Data Transfer<br>这章主要是讲如何把hidl注册为服务。那么client端，也就是system.img里面，如何去获取服务。并且获取服务后，如何传输数据的。<br>先来看看服务端：<br>在vendor.img里面，HIDL interface server需要注册成带名字的服务。这个服务名字无需和interface或者package名一致。如果不特别声明名字，则默认为default名，当然在特定的interface内部，default最多由一个，再多，就要自己起名字了。例如：<br>status_t status = myFoo-&gt;registerAsService();<br>status_t anotherStatus = anotherFoo-&gt;registerAsService(“another_foo_service”);  // if needed<br>另外，之前提过，interface本身是带版本的。<br>通过android::hardware::IInterface::getInterfaceVersion() 调用，可以获取当前interface的版本号。<br>在注册服务的时候，当前的interface的版本信息也就被自动注册了进去。<br>再来看客户端：<br>在获取服务的时候，client端需要指明interface名/版本，以及service名（如果不是default）：<br>// C++<br>sp&lt;V1_1::IFooService&gt; service = V1_1::IFooService::getService();<br>sp&lt;V1_1::IFooService&gt; alternateService = V1_1::IFooService::getService(“another_foo_service”);<br>// Java<br>V1_1.IFooService service = V1_1.IFooService.getService(true /<em> retry </em>/);<br>V1_1.IFooService alternateService = V1_1.IFooService.getService(“another”, true /<em> retry </em>/);<br>上面有c++和java两个版本。<br>有关数据传送部分：<br>作为client，要把数据传给service，需要调用.hal里面声明的service的API。传输数据有两类方法：<br>Blocking 顾名思义，client端调用了以后，会阻塞直至service返回结果。<br>Oneway 顾名思义，就是非阻塞方式，除非RPC通信的数据量超过上限，会返回错误，否则就直接正常返回。在直通模式下，为了模拟出这种非阻塞的效果，安卓会起一个线程。</p>
+<p>有关回调函数：<br>HAL独立为一个单独的进程，client也是一个单独的进程，那么对于一般的模块而言，都是需要从底层（HAL以及以下）获取数据，比如sensor，需要获取sensor数据，Camera，需要获取camera的raw、yuv等数据流，<br>那么对于软件设计而言，如果是同步的话，很简单，我们通过getXXX()函数来获取即可，但是如果是异步的，比如底层的实现是中端的机制，你不知道他什么时候会出来数据，<br>那么这个时候通常的，我们会通过callback来实现异步的回调。</p>
+<p>具体的步骤，大致就是：<br>client向server注册回调函数<br>server保存回调函数<br>server因为数据来了，满足了回调函数的条件，执行了client的回调函数。<br>client得知数据来了</p>
+<p>Client和Service之间的数据传输方式：<br>除了最常用的PRC外，还有就是Shared memory和Fast Message Queue了。<br>这两种额外的方式只能用于c++的HIDL。</p>
+<p>1.RPC。<br>    简单的说，就是两个进程之间，通过binder RPC方式通信。从进程角度，感觉好像直接在和对方进程通信。实则是先进入内核空间，经过/dev/binder处理，然后再会到用户空间，到达对方的进程。<br>有关RPC/Binder方面的细节，<br>参考<br>《Using Binder IPC.pdf》<br>《Android8.0 Binder之面向系统服务.pdf》<br>《Binder驱动介绍.pdf》<br>《Binder.pdf》<br>2.Shared memory其实就是使用HIDL内置的memory类型数据，分配好空间以后，就可以在client端的进程里面映射从而使用这个共享内存了。类似kernel的mmap。<br>《HIDL Memory Block.pdf》<br>3.Fast Message Queue (FMQ).基本上和现在流行的消息总线差不多，可以看成一种简化版本的message queue。有sync模式（仅一个reader）因为同步所以不允许溢出。Unsync模式，有很多reader，可以溢出，reader们来不及读，自然就丢失数据了。每个FMQ只允许有一个writer。详情参见《Fast Message Queue.pdf》<br>RPC通信会涉及kernel的操作，调度等。FMQ则完全在用户空间进行。</p>
+<p>HIDL的线程模型的并发注意点：<br>对于直通式的HIDL来说，如果使用了oneway方式，为了模拟出这种非阻塞的效果，安卓会起一个线程。<br>对于绑定式的HIDL来说，比较复杂些。分为service端和client端两头来讲述：<br>1.因为作为service，其实可能有数个不同的client来调用其服务。那如何并行的处理这些client的请求呢？service端准备了一个线程池。池子里面都是空线程。当一个client连接上来的时候，service就从线程池里面捡一个线程出来，在那个线程上处理client的请求。借助线程池，service端就是并行的处理client的请求了。所以使用线程池的坏处是会引发并发问题，即使client只有一个，如果client使用oneway方式，先后调用了两个不同的interface，则一样会发生并发。唯一能保证序列执行的，是client用oneway数次呼叫同一个interface。<br>2.作为client，分两类来说：<br>    a.如果是blocking calls，就是没有用oneway修饰的调用。在一下的几个条件发生之前，client进程是阻塞的。<br>        发生传输错误，由Return::isOk()返回错误码。<br>        Server端此时调用了client的callback。<br>        Server端返回了返回值。<br>现在考虑注册了callback的情况。假如说注册了callback。Server又因为callback条件符合，可能会马上调用callback。这个过程可能甚至在client调用注册callback的大function返回之前就杀到了。如果client此时其实使用的是blocking calls，则注册callback的大function肯定是还没返回（因为被阻塞）。Callback又是执行在function一样的线程上，所以此时要小心并发的产生。<br>    b.如果是oneway，client不能server做完事情就马上返回了。接下来唧唧歪歪的实在看不懂，贴上原文：<br>At the surface (and in aggregate), this means the function call takes half the time because it is executing half the code, but when writing implementations that are performance sensitive, this has some scheduling implications. Normally, using a oneway call causes the caller to continue to be scheduled whereas using a normal synchronous call causes the scheduler to immediately transfer from the caller to the callee process. This is a performance optimization in binder. For services where the oneway call must be executed in the target process with a high priority, the scheduling policy of the receiving service can be changed. In C++, using libhidltransport’s methodsetMinSchedulerPolicy with the scheduler priorities and policies defined in sched.h ensures that all calls into the service run at least at the set scheduling policy and priority.</p>
+<p>如何把传统HAL转换成HIDL？</p>
+<p>============================下面是一些例子=====================================<br>HIDL直通模式实现举例：<br>1.进入代码目录<br>cd hardware/interfaces/<br>2.创建HIDL目录<br>mkdir -p hardware/interfaces/naruto/1.0/default<br>3.创建接口描述文件INaruto.hal<br>package <a href="mailto:android.hardware.naruto@1.0" target="_blank" rel="noopener">android.hardware.naruto@1.0</a>;</p>
+<p>interface INaruto {//注意这个类型就是interface<br>    helloWorld(string name) generates (string result);<br>};<br>这里我们定义了一个INaruto接口文件，简单的添加了一个helloWorld接口，传入是一个string，返回一个string，后面我们会来实现这个接口。<br>4.使用hidl-gen工具</p>
+<h1 id="PACKAGE-android-hardware-naruto-1-0"><a href="#PACKAGE-android-hardware-naruto-1-0" class="headerlink" title="PACKAGE=android.hardware.naruto@1.0"></a><a href="mailto:PACKAGE=android.hardware.naruto@1.0" target="_blank" rel="noopener">PACKAGE=android.hardware.naruto@1.0</a></h1><h1 id="LOC-hardware-interfaces-naruto-1-0-default"><a href="#LOC-hardware-interfaces-naruto-1-0-default" class="headerlink" title="LOC=hardware/interfaces/naruto/1.0/default/"></a>LOC=hardware/interfaces/naruto/1.0/default/</h1><h1 id="make-hidl-gen-j64"><a href="#make-hidl-gen-j64" class="headerlink" title="make hidl-gen -j64"></a>make hidl-gen -j64</h1><h1 id="hidl-gen-o-LOC-Lc-impl-randroid-hardware-hardware-interfaces-randroid-hidl-system-libhidl-transport-PACKAGE"><a href="#hidl-gen-o-LOC-Lc-impl-randroid-hardware-hardware-interfaces-randroid-hidl-system-libhidl-transport-PACKAGE" class="headerlink" title="hidl-gen -o $LOC -Lc++-impl -randroid.hardware:hardware/interfaces -randroid.hidl:system/libhidl/transport $PACKAGE"></a>hidl-gen -o $LOC -Lc++-impl -randroid.hardware:hardware/interfaces -randroid.hidl:system/libhidl/transport $PACKAGE</h1><h1 id="hidl-gen-o-LOC-Landroidbp-impl-randroid-hardware-hardware-interfaces-randroid-hidl-system-libhidl-transport-PACKAGE"><a href="#hidl-gen-o-LOC-Landroidbp-impl-randroid-hardware-hardware-interfaces-randroid-hidl-system-libhidl-transport-PACKAGE" class="headerlink" title="hidl-gen -o $LOC -Landroidbp-impl -randroid.hardware:hardware/interfaces -randroid.hidl:system/libhidl/transport $PACKAGE"></a>hidl-gen -o $LOC -Landroidbp-impl -randroid.hardware:hardware/interfaces -randroid.hidl:system/libhidl/transport $PACKAGE</h1><p>5.使用脚本来更新Makefile，自动生成Android,mk, Android.bp</p>
+<h1 id="hardware-interfaces-update-makefiles-sh"><a href="#hardware-interfaces-update-makefiles-sh" class="headerlink" title="./hardware/interfaces/update-makefiles.sh"></a>./hardware/interfaces/update-makefiles.sh</h1><p>6.添加两个空文件<br>touch <a href="mailto:hardware/interfaces/naruto/1.0/default/android.hardware.naruto@1.0-service.rc" target="_blank" rel="noopener">hardware/interfaces/naruto/1.0/default/android.hardware.naruto@1.0-service.rc</a></p>
+<p>touch hardware/interfaces/naruto/1.0/default/service.cpp</p>
+<p>至此，代码目录hardware/interface/naruto:结构如下：<br>├── 1.0</p>
+<p>│   ├── Android.bp</p>
+<p>│   ├── Android.mk</p>
+<p>│   ├── default</p>
+<p>│   │   ├── Android.bp</p>
+<p>│   │   ├── <a href="mailto:android.hardware.naruto@1.0-service.rc" target="_blank" rel="noopener">android.hardware.naruto@1.0-service.rc</a></p>
+<p>│   │   ├── Naruto.cpp</p>
+<p>│   │   ├── Naruto.h</p>
+<p>│   │   └── service.cpp</p>
+<p>│   └── INaruto.hal<br>、<br>└── Android.bp</p>
+<p>写代码就写了一个INaruto.hal，其余代码都是自动生成的，特别是生成了Naruto.cpp和Naruto.h这两个文件，是实现接口的关键文件。<br>7.打开Naruto.h和Naruto.cpp文件编辑<br>首先打开Naruto.h文件：<br>struct Naruto : public INaruto {<br>    // Methods from INaruto follow.<br>    Return<void> helloWorld(const hidl_string&amp; name, helloWorld_cb _hidl_cb) override;<br>    // Methods from ::android::hidl::base::V1_0::IBase follow.<br>};</void></p>
+<p>// FIXME: most likely delete, this is only for passthrough implementations<br>// extern “C” INaruto<em> HIDL_FETCH_INaruto(const char</em> name);<br>这里可以看到，// FIXME的意思，是他下面这句话，就是选择直通模式来编码。<br>以直通模式为例（因为现阶段多数厂家为了兼容性，还是用直通的情况多，后续当然应该用绑定式），选择打开// extern “C” INaruto<em> HIDL_FETCH_INaruto(const char</em> name);这句话。<br>完整的Naruto.h如下：</p>
+<h1 id="ifndef-ANDROID-HARDWARE-NARUTO-V1-0-NARUTO-H"><a href="#ifndef-ANDROID-HARDWARE-NARUTO-V1-0-NARUTO-H" class="headerlink" title="ifndef ANDROID_HARDWARE_NARUTO_V1_0_NARUTO_H"></a>ifndef ANDROID_HARDWARE_NARUTO_V1_0_NARUTO_H</h1><h1 id="define-ANDROID-HARDWARE-NARUTO-V1-0-NARUTO-H"><a href="#define-ANDROID-HARDWARE-NARUTO-V1-0-NARUTO-H" class="headerlink" title="define ANDROID_HARDWARE_NARUTO_V1_0_NARUTO_H"></a>define ANDROID_HARDWARE_NARUTO_V1_0_NARUTO_H</h1><h1 id="include-lt-android-hardware-naruto-1-0-INaruto-h-gt"><a href="#include-lt-android-hardware-naruto-1-0-INaruto-h-gt" class="headerlink" title="include &lt;android/hardware/naruto/1.0/INaruto.h&gt;"></a>include &lt;android/hardware/naruto/1.0/INaruto.h&gt;</h1><h1 id="include-lt-hidl-MQDescriptor-h-gt"><a href="#include-lt-hidl-MQDescriptor-h-gt" class="headerlink" title="include &lt;hidl/MQDescriptor.h&gt;"></a>include &lt;hidl/MQDescriptor.h&gt;</h1><h1 id="include-lt-hidl-Status-h-gt"><a href="#include-lt-hidl-Status-h-gt" class="headerlink" title="include &lt;hidl/Status.h&gt;"></a>include &lt;hidl/Status.h&gt;</h1><p>namespace android {<br>namespace hardware {<br>namespace naruto {<br>namespace V1_0 {<br>namespace implementation {</p>
+<p>using ::android::hardware::hidl_array;<br>using ::android::hardware::hidl_memory;<br>using ::android::hardware::hidl_string;<br>using ::android::hardware::hidl_vec;<br>using ::android::hardware::Return;<br>using ::android::hardware::Void;<br>using ::android::sp;</p>
+<p>struct Naruto : public INaruto {<br>    // Methods from INaruto follow.<br>    Return<void> helloWorld(const hidl_string&amp; name, helloWorld_cb _hidl_cb) override;<br>    // Methods from ::android::hidl::base::V1_0::IBase follow.<br>};</void></p>
+<p>// FIXME: most likely delete, this is only for passthrough implementations<br>extern “C” INaruto<em> HIDL_FETCH_INaruto(const char</em> name);            这里打开了！</p>
+<p>}  // namespace implementation<br>}  // namespace V1_0<br>}  // namespace naruto<br>}  // namespace hardware<br>}  // namespace android</p>
+<h1 id="endif-ANDROID-HARDWARE-NARUTO-V1-0-NARUTO-H"><a href="#endif-ANDROID-HARDWARE-NARUTO-V1-0-NARUTO-H" class="headerlink" title="endif  // ANDROID_HARDWARE_NARUTO_V1_0_NARUTO_H"></a>endif  // ANDROID_HARDWARE_NARUTO_V1_0_NARUTO_H</h1><p>打开Naruto.cpp实现具体的代码：</p>
+<h1 id="include-“Naruto-h”"><a href="#include-“Naruto-h”" class="headerlink" title="include “Naruto.h”"></a>include “Naruto.h”</h1><p>namespace android {<br>namespace hardware {<br>namespace naruto {<br>namespace V1_0 {<br>namespace implementation {</p>
+<p>// Methods from INaruto follow.<br>Return<void> Naruto::helloWorld(const hidl_string&amp; name, helloWorld_cb _hidl_cb) {<br>    // TODO implement<br>    char buf[100];<br>    ::memset(buf, 0x00, 100);<br>    ::snprintf(buf, 100, “Hello World, %s”, name.c_str());<br>    hidl_string result(buf);</void></p>
+<pre><code>_hidl_cb(result);
+return Void();
+</code></pre><p>}</p>
+<p>// Methods from ::android::hidl::base::V1_0::IBase follow.</p>
+<p>INaruto<em> HIDL_FETCH_INaruto(const char</em> /<em> name </em>/) {<br>    return new Naruto();<br>}</p>
+<p>}  // namespace implementation<br>}  // namespace V1_0<br>}  // namespace naruto<br>}  // namespace hardware<br>}  // namespace android<br>可以看到此处添加helloWorld函数的实现（最早是在.hal文件里面声明了会有这么个helloWorld函数接口的），简单的做了字符串拼接<br>打开Android.bp：<br>cc_library_shared {<br>    name: “<a href="mailto:android.hardware.naruto@1.0-impl" target="_blank" rel="noopener">android.hardware.naruto@1.0-impl</a>“,<br>    relative_install_path: “hw”,<br>    proprietary: true,<br>    srcs: [<br>        “Naruto.cpp”,<br>    ],<br>    shared_libs: [<br>        “libhidlbase”,<br>        “libhidltransport”,<br>        “libutils”,<br>        “<a href="mailto:android.hardware.naruto@1.0" target="_blank" rel="noopener">android.hardware.naruto@1.0</a>“,<br>    ],<br>}<br>最终会生成一个<a href="mailto:android.hardware.naruto@1.0-impl.so" target="_blank" rel="noopener">android.hardware.naruto@1.0-impl.so</a>, 生成在/vendor/lib64/hw/下。<br>用mmm编译：<br>$ mmm hardware/interfaces/naruto/1.0/default/ </p>
+<p>PLATFORM_VERSION_CODENAME=REL<br>PLATFORM_VERSION=8.1.0<br>TARGET_PRODUCT=hon660<br>TARGET_BUILD_VARIANT=userdebug<br>TARGET_BUILD_TYPE=release<br>TARGET_ARCH=arm64<br>TARGET_ARCH_VARIANT=armv8-a<br>TARGET_CPU_VARIANT=generic<br>TARGET_2ND_ARCH=arm<br>TARGET_2ND_ARCH_VARIANT=armv7-a-neon<br>TARGET_2ND_CPU_VARIANT=cortex-a53<br>HOST_ARCH=x86_64<br>HOST_2ND_ARCH=x86<br>HOST_OS=linux<br>HOST_OS_EXTRA=Linux-3.16.0-48-generic-x86_64-with-Ubuntu-14.04-trusty<br>HOST_CROSS_OS=windows<br>HOST_CROSS_ARCH=x86<br>HOST_CROSS_2ND_ARCH=x86_64<br>HOST_BUILD_TYPE=release<br>BUILD_ID=OPM1.171019.011 </p>
+<h1 id="OUT-DIR-out"><a href="#OUT-DIR-out" class="headerlink" title="OUT_DIR=out"></a>OUT_DIR=out</h1><p>[2/2] bootstrap out/soong/.minibootstrap/build.ninja.in<br>[1/1] out/soong/.bootstrap/bin/minibp out/soong/.bootstrap/build.ninja<br>[2/3] glob hardware/interfaces/*/Android.bp<br>[1/1] out/soong/.bootstrap/bin/soong_build out/soong/build.ninja<br>No need to regenerate ninja file<br>[100% 3/3] out/soong/.bootstrap/bin/soong_build out/soong/build.ninja<br>[100% 18/18] build <a href="mailto:&#39;out/target/product/hon660/obj/SHARED_LIBRARIES/android.hardware.naruto@1.0-imp" target="_blank" rel="noopener">&#39;out/target/product/hon660/obj/SHARED_LIBRARIES/android.hardware.naruto@1.0-imp</a><a href="mailto:l_intermediates/android.hardware.naruto@1.0-impl.so.toc" target="_blank" rel="noopener">l_intermediates/android.hardware.naruto@1.0-impl.so.toc</a>‘ </p>
+<h4 id="build-completed-successfully-02-35-mm-ss"><a href="#build-completed-successfully-02-35-mm-ss" class="headerlink" title="build completed successfully (02:35 (mm:ss))"></a>build completed successfully (02:35 (mm:ss))</h4><p>编译通过。<br>这里总结一下就是：<br>先写好.hal文件，然后用hidl-gen工具，生成一堆cpp和.h头文件。<br>这其中，Naruto.h作为API函数接口文件，将来会被server和client编译的时候用到。<br>最后会编译生成：<br><a href="mailto:android.hardware.naruto@1.0-impl.so" target="_blank" rel="noopener">android.hardware.naruto@1.0-impl.so</a>:     binder server端的库<br><a href="mailto:android.hardware.naruto@1.0.so" target="_blank" rel="noopener">android.hardware.naruto@1.0.so</a>:         binder client端的库<br><a href="mailto:android.hardware.naruto@1.0-service.rc" target="_blank" rel="noopener">android.hardware.naruto@1.0-service.rc</a>:     Android native 进程入口<br>回到之前touch的两个空文件：<br>touch <a href="mailto:hardware/interfaces/naruto/1.0/default/android.hardware.naruto@1.0-service.rc" target="_blank" rel="noopener">hardware/interfaces/naruto/1.0/default/android.hardware.naruto@1.0-service.rc</a></p>
+<p>touch hardware/interfaces/naruto/1.0/default/service.cpp</p>
+<p>针对<a href="mailto:android.hardware.naruto@1.0-service.rc" target="_blank" rel="noopener">android.hardware.naruto@1.0-service.rc</a>，内容如下<br>：<br>service naruto_hal_service <a href="mailto:/vendor/bin/hw/android.hardware.naruto@1.0-service" target="_blank" rel="noopener">/vendor/bin/hw/android.hardware.naruto@1.0-service</a><br>    class hal<br>    user system<br>    group system<br>意思就是在设备启动的时候执行<a href="mailto:/vendor/bin/hw/android.hardware.naruto@1.0-service" target="_blank" rel="noopener">/vendor/bin/hw/android.hardware.naruto@1.0-service</a>程序<br>针对service.cpp</p>
+<p>，内容如下<br>：</p>
+<h1 id="define-LOG-TAG-“android-hardware-naruto-1-0-service“"><a href="#define-LOG-TAG-“android-hardware-naruto-1-0-service“" class="headerlink" title="define LOG_TAG “android.hardware.naruto@1.0-service“"></a>define LOG_TAG “<a href="mailto:android.hardware.naruto@1.0-service" target="_blank" rel="noopener">android.hardware.naruto@1.0-service</a>“</h1><h1 id="include-lt-android-hardware-naruto-1-0-INaruto-h-gt-1"><a href="#include-lt-android-hardware-naruto-1-0-INaruto-h-gt-1" class="headerlink" title="include &lt;android/hardware/naruto/1.0/INaruto.h&gt;"></a>include &lt;android/hardware/naruto/1.0/INaruto.h&gt;</h1><h1 id="include-lt-hidl-LegacySupport-h-gt"><a href="#include-lt-hidl-LegacySupport-h-gt" class="headerlink" title="include &lt;hidl/LegacySupport.h&gt;"></a>include &lt;hidl/LegacySupport.h&gt;</h1><p>using android::hardware::naruto::V1_0::INaruto;<br>using android::hardware::defaultPassthroughServiceImplementation;</p>
+<p>int main() {<br>    return defaultPassthroughServiceImplementation<inaruto>();可以看到，注册了INaruto接口文件里面的接口，作为binder server端<br>}<br>写好这两个文件后，编译，就完成了两件事情：<br>1.server端的进程启动<br>2.server端共享库<br>这时候还剩下client端的代码实现：（naruto_test.cpp）</inaruto></p>
+<h1 id="include-lt-android-hardware-naruto-1-0-INaruto-h-gt-2"><a href="#include-lt-android-hardware-naruto-1-0-INaruto-h-gt-2" class="headerlink" title="include &lt;android/hardware/naruto/1.0/INaruto.h&gt;"></a>include &lt;android/hardware/naruto/1.0/INaruto.h&gt;</h1><h1 id="include-lt-hidl-Status-h-gt-1"><a href="#include-lt-hidl-Status-h-gt-1" class="headerlink" title="include &lt;hidl/Status.h&gt;"></a>include &lt;hidl/Status.h&gt;</h1><h1 id="include-lt-hidl-LegacySupport-h-gt-1"><a href="#include-lt-hidl-LegacySupport-h-gt-1" class="headerlink" title="include &lt;hidl/LegacySupport.h&gt;"></a>include &lt;hidl/LegacySupport.h&gt;</h1><h1 id="include-lt-utils-misc-h-gt"><a href="#include-lt-utils-misc-h-gt" class="headerlink" title="include &lt;utils/misc.h&gt;"></a>include &lt;utils/misc.h&gt;</h1><h1 id="include-lt-hidl-HidlSupport-h-gt"><a href="#include-lt-hidl-HidlSupport-h-gt" class="headerlink" title="include &lt;hidl/HidlSupport.h&gt;"></a>include &lt;hidl/HidlSupport.h&gt;</h1><h1 id="include-lt-stdio-h-gt"><a href="#include-lt-stdio-h-gt" class="headerlink" title="include &lt;stdio.h&gt;"></a>include &lt;stdio.h&gt;</h1><p>using android::hardware::naruto::V1_0::INaruto;<br>using android::sp;<br>using android::hardware::hidl_string;</p>
+<p>int main()<br>{<br>    int ret;</p>
+<pre><code>android::sp&lt;INaruto&gt; service = INaruto::getService();
+if(service == nullptr) {
+    printf(&quot;Failed to get service\n&quot;);
+    return -1;
+}
+
+service-&gt;helloWorld(&quot;JayZhang&quot;, [&amp;](hidl_string result) {
+            printf(&quot;%s\n&quot;, result.c_str());
+    });
+
+return 0;
+</code></pre><p>}<br>实例化binder service，通过INaruto::getService()，获取到binder server端接接口代理类service<br>然后就可以调用他的方法service-&gt;helloWorld()了<br>注意这里例子代码的入参用的是”JayZhang”<br>上面的client代码的makefile如下：<br>LOCAL_PATH := $(call my-dir)</p>
+<p>include $(CLEAR_VARS)</p>
+<p>LOCAL_PROPRIETARY_MODULE := true</p>
+<p>LOCAL_MODULE := naruto_test</p>
+<p>LOCAL_SRC_FILES := \</p>
+<pre><code>client.cpp \
+</code></pre><p>LOCAL_SHARED_LIBRARIES := \</p>
+<p>   liblog \</p>
+<p>   libhidlbase \</p>
+<p>   libutils \</p>
+<p>   <a href="mailto:android.hardware.naruto@1.0" target="_blank" rel="noopener">android.hardware.naruto@1.0</a> \</p>
+<p>include $(BUILD_EXECUTABLE)</p>
+<p>可以看到，这时候编译的时候，就链接了动态库<a href="mailto:android.hardware.naruto@1.0" target="_blank" rel="noopener">android.hardware.naruto@1.0</a>了。<br>记得在manifest文件里添加vendor接口的定义，不然在client端是没法拿到service的，在相应的manifest.xml里面加入：</p>
+<p><hal format="hidl"><br>    <name>android.hardware.naruto</name><br>    <transport>hwbinder</transport><br>    <version>1.0</version><br>    <interface><br>        <name>INaruto</name><br>        <instance>default</instance><br>    </interface><br></hal><br>最后来测试下：<br>1.手动运行service：<br><a href="mailto:/vendor/bin/hw/android.hardware.naruto@1.0-service" target="_blank" rel="noopener">/vendor/bin/hw/android.hardware.naruto@1.0-service</a><br>2.运行测试代码<br>./naruto_test</p>
+<p>Hello World, JayZhang<br>测试代码传入”JayZhang”字符串，结果输出”Hello World, JayZhang”, 实现了效果。</p>
+<p>一个实际的回调函数的例子：<br>先写一个简单的hal，IHello.hal：<br>package <a href="mailto:vendor.sample.hello@1.0" target="_blank" rel="noopener">vendor.sample.hello@1.0</a>;</p>
+<p>import IHelloCallback;</p>
+<p>interface IHello {<br>    init();<br>    release();<br>    setCallback(IHelloCallback callback);        让client端设置一个callback方法到server端<br>};<br>这个callback方法是IHelloCallback类型的，我们在另一个文件IHelloCallback.hal里面定义IHelloCallback：<br>package <a href="mailto:vendor.sample.hello@1.0" target="_blank" rel="noopener">vendor.sample.hello@1.0</a>;</p>
+<p>interface IHelloCallback {<br> oneway onNotify(HalEvent event);<br>};<br>用onNotify()接口，注册了一个回调方法,让server传一个HalEvent的结构体到client端，这个结构体也是自定义的，在types.hal，可以定义自己喜欢的类型，这里是一个简单的int成员变量<br>见types.hal：<br>package <a href="mailto:vendor.sample.hello@1.0" target="_blank" rel="noopener">vendor.sample.hello@1.0</a>;</p>
+<p>struct HalEvent {<br> int32_t value;<br>};<br>所有这些都定义好后，用hidl-gen生成源码：<br>hidl-gen -o vendor/honeywell/common/sample/hidl-impl/sample/ -Lc++-impl -rvendor.sample:vendor/honeywell/common/sample/interfaces -randroid.hidl:system/libhidl/transport <a href="mailto:vendor.sample.hello@1.0" target="_blank" rel="noopener">vendor.sample.hello@1.0</a></p>
+<p>生成了一坨代码：<br>├── Android.mk<br>├── hidl-impl<br>│ ├── Android.mk<br>│ └── sample │<br>├── Android.bp <strong><em><br>│ ├── HelloCallback.cpp</em></strong> <strong><em><br>│ ├── HelloCallback.h</em></strong> <strong><em><br>│ ├── Hello.cpp</em></strong> <strong><em><br>│ └── Hello.h</em></strong><br>└── interfaces<br> ├── Android.bp<br> └── hello<br> └── 1.0<br> ├── Android.bp<br> ├── IHelloCallback.hal<br> ├── IHello.hal<br> └── types.hal</p>
+<p>在vendor分区，要起一个service（service.cpp）来handle这个HIDL 接口</p>
+<p>#include &lt;vendor/sample/hello/1.0/IHello.h&gt;</p>
+<p>#include &lt;hidl/LegacySupport.h&gt;</p>
+<p>using vendor::sample::hello::V1_0::IHello;<br>using android::hardware::defaultPassthroughServiceImplementation;</p>
+<p>int main()<br>{<br> return defaultPassthroughServiceImplementation<ihello>();<br>}<br>service.cpp对应的makefile：</ihello></p>
+<p>现在来实现hello.cpp这个server段的主体：</p>
+<p>#define LOG_TAG     “Sample”</p>
+<p>#include “Hello.h”</p>
+<p>#include &lt;log/log.h&gt;</p>
+<p>namespace vendor {<br>namespace sample {<br>namespace hello {<br>namespace V1_0 {<br>namespace implementation {</p>
+<p>sp<ihellocallback> Hello::mCallback = nullptr;</ihellocallback></p>
+<p>// Methods from ::vendor::sample::hello::V1_0::IHello follow.<br>Return<void> Hello::init() {<br> mExit = false;<br> run(“sample”);<br> return Void();<br>}</void></p>
+<p>Return<void> Hello::release() {<br> mExit = true;<br> return Void();<br>}</void></p>
+<p>Return<void> Hello::setCallback(const sp&lt;::vendor::sample::hello::V1_0::IHelloCallback&gt;&amp; callback) {<br> mCallback = callback;<br> if(mCallback != nullptr) {<br> ALOGD(“setCallback: done”);<br> }</void></p>
+<p>return Void();</p>
+<p>}</p>
+<p>bool Hello::threadLoop()<br>{<br> static int32_t count = 0;<br> HalEvent event;<br> while(!mExit) {<br> ::sleep(1);<br> event.value = count ++;<br> if(mCallback != nullptr) {<br> mCallback-&gt;onNotify(event);<br> }<br> }<br> ALOGD(“threadLoop: exit”);<br> return false;<br>}</p>
+<p>// Methods from ::android::hidl::base::V1_0::IBase follow.</p>
+<p>IHello<em> HIDL_FETCH_IHello(const char</em> /<em> name </em>/) {<br> return new Hello();<br>}<br>//<br>}  // namespace implementation<br>}  // namespace V1_0<br>}  // namespace hello<br>}  // namespace sample<br>}  // namespace vendor<br>在init函数里面调用run方法去启动线程，线程的主体是threadLoop函数，可以看到在线程里面，是一个死循环，会每隔1秒钟去callback一次方法，还是很简单的。</p>
+<p>最后来看client端，也就是framework端的实现：</p>
+<p>#define LOG_TAG     “TestHello”</p>
+<p>#include &lt;log/log.h&gt;</p>
+<p>#include &lt;vendor/sample/hello/1.0/types.h&gt;</p>
+<p>#include &lt;vendor/sample/hello/1.0/IHello.h&gt;</p>
+<p>#include &lt;vendor/sample/hello/1.0/IHelloCallback.h&gt;</p>
+<p>#include &lt;hidl/Status.h&gt;</p>
+<p>#include &lt;hidl/HidlSupport.h&gt;</p>
+<p>using android::sp;<br>using android::hardware::Return;<br>using android::hardware::Void;</p>
+<p>using vendor::sample::hello::V1_0::HalEvent;<br>using vendor::sample::hello::V1_0::IHello;<br>using vendor::sample::hello::V1_0::IHelloCallback;</p>
+<p>class HelloCallback: public IHelloCallback {<br>public:<br> HelloCallback() {</p>
+<p>}</p>
+<p>~HelloCallback() {</p>
+<p>}</p>
+<p>Return<void> onNotify(const HalEvent&amp; event) {</void></p>
+<p> ALOGD(“onNotify: value = %d”, event.value);</p>
+<p> return Void();<br>}</p>
+<p>};</p>
+<p>int main(void)<br>{<br> sp<ihello> service = IHello::getService();<br> if(service == nullptr) {<br> ALOGE(“main: failed to get hello service”);<br> return -1;<br> }</ihello></p>
+<p>sp<hellocallback> callback = new HelloCallback();<br>service-&gt;setCallback(callback);<br>service-&gt;init();</hellocallback></p>
+<p>::sleep(10);<br>service-&gt;release();</p>
+<p>return 0;</p>
+<p>}<br>在client端就是简单的打印了callback回来的event里面的数据。<br>下面是makefile的代码:<br>cc_binary {<br> name: “test_hello”,<br> srcs: [<br> “test_hello.cpp”,<br> ],<br> shared_libs: [<br> “liblog”,<br> “libutils”,<br> “libhidlbase”,<br> “libhidltransport”,<br> “libutils”,<br> “<a href="mailto:vendor.sample.hello@1.0" target="_blank" rel="noopener">vendor.sample.hello@1.0</a>“,<br> ],<br>}<br>现在可以手动运行测试程序了</p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/07/05/Android-HAL概述/" rel="next" title="Android HAL概述">
+                <i class="fa fa-chevron-left"></i> Android HAL概述
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Semiyd</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives">
+                
+                    <span class="site-state-item-count">201</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">99</span>
+                    <span class="site-state-item-name">categories</span>
+                  </a>
+                </div>
+              
+
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#current-txt-files-support-comments-starting-with-a-‘-’-character"><span class="nav-number">1.</span> <span class="nav-text">current.txt files support comments starting with a ‘#’ character</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#this-file-for-instance-would-be-vendor-foo-hardware-interfaces-current-txt"><span class="nav-number">2.</span> <span class="nav-text">this file, for instance, would be vendor/foo/hardware/interfaces/current.txt</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Each-line-has-a-SHA-256-hash-followed-by-the-name-of-an-interface"><span class="nav-number">3.</span> <span class="nav-text">Each line has a SHA-256 hash followed by the name of an interface.</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#They-have-been-shortened-in-this-doc-for-brevity-but-they-are"><span class="nav-number">4.</span> <span class="nav-text">They have been shortened in this doc for brevity but they are</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#64-characters-in-length-in-an-actual-current-txt-file"><span class="nav-number">5.</span> <span class="nav-text">64 characters in length in an actual current.txt file.</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#types-hal-files-are-also-noted-in-types-hal-files"><span class="nav-number">6.</span> <span class="nav-text">types.hal files are also noted in types.hal files</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Multiple-hashes-can-be-in-the-file-for-the-same-interface-This-can-be-used"><span class="nav-number">7.</span> <span class="nav-text">Multiple hashes can be in the file for the same interface. This can be used</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#to-note-how-ABI-sustaining-changes-were-made-to-the-interface"><span class="nav-number">8.</span> <span class="nav-text">to note how ABI sustaining changes were made to the interface.</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#For-instance-here-is-another-hash-for-IFoo"><span class="nav-number">9.</span> <span class="nav-text">For instance, here is another hash for IFoo:</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Fixes-type-where-“FooCallback”-was-misspelled-in-comment-on-“FooStruct”"><span class="nav-number">10.</span> <span class="nav-text">Fixes type where “FooCallback” was misspelled in comment on “FooStruct”</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#PACKAGE-android-hardware-naruto-1-0"><span class="nav-number">11.</span> <span class="nav-text">PACKAGE=android.hardware.naruto@1.0</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#LOC-hardware-interfaces-naruto-1-0-default"><span class="nav-number">12.</span> <span class="nav-text">LOC=hardware/interfaces/naruto/1.0/default/</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#make-hidl-gen-j64"><span class="nav-number">13.</span> <span class="nav-text">make hidl-gen -j64</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#hidl-gen-o-LOC-Lc-impl-randroid-hardware-hardware-interfaces-randroid-hidl-system-libhidl-transport-PACKAGE"><span class="nav-number">14.</span> <span class="nav-text">hidl-gen -o $LOC -Lc++-impl -randroid.hardware:hardware/interfaces -randroid.hidl:system/libhidl/transport $PACKAGE</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#hidl-gen-o-LOC-Landroidbp-impl-randroid-hardware-hardware-interfaces-randroid-hidl-system-libhidl-transport-PACKAGE"><span class="nav-number">15.</span> <span class="nav-text">hidl-gen -o $LOC -Landroidbp-impl -randroid.hardware:hardware/interfaces -randroid.hidl:system/libhidl/transport $PACKAGE</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#hardware-interfaces-update-makefiles-sh"><span class="nav-number">16.</span> <span class="nav-text">./hardware/interfaces/update-makefiles.sh</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ifndef-ANDROID-HARDWARE-NARUTO-V1-0-NARUTO-H"><span class="nav-number">17.</span> <span class="nav-text">ifndef ANDROID_HARDWARE_NARUTO_V1_0_NARUTO_H</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#define-ANDROID-HARDWARE-NARUTO-V1-0-NARUTO-H"><span class="nav-number">18.</span> <span class="nav-text">define ANDROID_HARDWARE_NARUTO_V1_0_NARUTO_H</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#include-lt-android-hardware-naruto-1-0-INaruto-h-gt"><span class="nav-number">19.</span> <span class="nav-text">include &lt;android/hardware/naruto/1.0/INaruto.h&gt;</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#include-lt-hidl-MQDescriptor-h-gt"><span class="nav-number">20.</span> <span class="nav-text">include &lt;hidl/MQDescriptor.h&gt;</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#include-lt-hidl-Status-h-gt"><span class="nav-number">21.</span> <span class="nav-text">include &lt;hidl/Status.h&gt;</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#endif-ANDROID-HARDWARE-NARUTO-V1-0-NARUTO-H"><span class="nav-number">22.</span> <span class="nav-text">endif  // ANDROID_HARDWARE_NARUTO_V1_0_NARUTO_H</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#include-“Naruto-h”"><span class="nav-number">23.</span> <span class="nav-text">include “Naruto.h”</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#OUT-DIR-out"><span class="nav-number">24.</span> <span class="nav-text">OUT_DIR=out</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#build-completed-successfully-02-35-mm-ss"><span class="nav-number">24.0.0.1.</span> <span class="nav-text">build completed successfully (02:35 (mm:ss))</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#define-LOG-TAG-“android-hardware-naruto-1-0-service“"><span class="nav-number">25.</span> <span class="nav-text">define LOG_TAG “android.hardware.naruto@1.0-service“</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#include-lt-android-hardware-naruto-1-0-INaruto-h-gt-1"><span class="nav-number">26.</span> <span class="nav-text">include &lt;android/hardware/naruto/1.0/INaruto.h&gt;</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#include-lt-hidl-LegacySupport-h-gt"><span class="nav-number">27.</span> <span class="nav-text">include &lt;hidl/LegacySupport.h&gt;</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#include-lt-android-hardware-naruto-1-0-INaruto-h-gt-2"><span class="nav-number">28.</span> <span class="nav-text">include &lt;android/hardware/naruto/1.0/INaruto.h&gt;</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#include-lt-hidl-Status-h-gt-1"><span class="nav-number">29.</span> <span class="nav-text">include &lt;hidl/Status.h&gt;</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#include-lt-hidl-LegacySupport-h-gt-1"><span class="nav-number">30.</span> <span class="nav-text">include &lt;hidl/LegacySupport.h&gt;</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#include-lt-utils-misc-h-gt"><span class="nav-number">31.</span> <span class="nav-text">include &lt;utils/misc.h&gt;</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#include-lt-hidl-HidlSupport-h-gt"><span class="nav-number">32.</span> <span class="nav-text">include &lt;hidl/HidlSupport.h&gt;</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#include-lt-stdio-h-gt"><span class="nav-number">33.</span> <span class="nav-text">include &lt;stdio.h&gt;</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Semiyd</span>
+
+  
+
+  
+</div>
+
+
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> v3.7.1</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://theme-next.org">NexT.Muse</a> v6.3.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+	
+    
+
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.3.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.3.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.3.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.3.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.3.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
