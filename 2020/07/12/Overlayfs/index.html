@@ -1,0 +1,1103 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.3.0" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.3.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.3.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.3.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.3.0" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '6.3.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="Overlayfs">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Overlayfs">
+<meta property="og:url" content="http://yoursite.com/2020/07/12/Overlayfs/index.html">
+<meta property="og:site_name" content="Semiyd&#39;s Blog">
+<meta property="og:description" content="Overlayfs">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2020-07-12T07:25:26.002Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Overlayfs">
+<meta name="twitter:description" content="Overlayfs">
+
+
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2020/07/12/Overlayfs/"/>
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>Overlayfs | Semiyd's Blog</title>
+  
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Semiyd's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br />Home</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+    <a href="/categories/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-th"></i> <br />Categories</a>
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/07/12/Overlayfs/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Semiyd">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Semiyd's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Overlayfs
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2020-07-12 15:23:51 / Modified: 15:25:26" itemprop="dateCreated datePublished" datetime="2020-07-12T15:23:51+08:00">2020-07-12</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Linux/" itemprop="url" rel="index"><span itemprop="name">Linux</span></a></span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Linux/Rootfs/" itemprop="url" rel="index"><span itemprop="name">Rootfs</span></a></span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Linux/Rootfs/Filesystem/" itemprop="url" rel="index"><span itemprop="name">Filesystem</span></a></span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Linux/Rootfs/Filesystem/Overlayfs/" itemprop="url" rel="index"><span itemprop="name">Overlayfs</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><center><strong>Overlayfs</strong></center><br><a id="more"></a></p>
+<p>Overlayfs是干啥的？<br>看这个例子：</p>
+<p>SquashFS与JFFS2文件系统的整合形成的overlayfs机制<br>对用户而言,OpenWrt的整个文件系统是完全动态可读写的,而其中的固件部分是用SquashFS实施的只读压缩文件系统,<br>而用户所有的对文件系统的增删改都是用类似“差值”的形态存储在JFFS2文件系统中的,二者用overlayfs机制黏合,对用户完全透明。<br>因此我们可以在文件系统中肆意发挥、随便折腾,出现任何问题则可像手机一样恢复出厂设置,并提供fail-safe模式帮助用户修复系统。</p>
+<p>Written by: Neil Brown<br>Please see MAINTAINERS file for where to send questions.</p>
+<h1 id="Overlay-Filesystem"><a href="#Overlay-Filesystem" class="headerlink" title="Overlay Filesystem"></a>Overlay Filesystem</h1><p>This document describes a prototype for a new approach to providing<br>overlay-filesystem functionality in Linux (sometimes referred to as<br>union-filesystems).  An overlay-filesystem tries to present a<br>filesystem which is the result over overlaying one filesystem on top<br>of the other.</p>
+<h2 id="Overlay-objects"><a href="#Overlay-objects" class="headerlink" title="Overlay objects"></a>Overlay objects</h2><p>The overlay filesystem approach is ‘hybrid’, because the objects that<br>appear in the filesystem do not always appear to belong to that filesystem.<br>In many cases, an object accessed in the union will be indistinguishable<br>from accessing the corresponding object from the original filesystem.<br>This is most obvious from the ‘st_dev’ field returned by stat(2).</p>
+<p>While directories will report an st_dev from the overlay-filesystem,<br>non-directory objects may report an st_dev from the lower filesystem or<br>upper filesystem that is providing the object.  Similarly st_ino will<br>only be unique when combined with st_dev, and both of these can change<br>over the lifetime of a non-directory object.  Many applications and<br>tools ignore these values and will not be affected.</p>
+<p>In the special case of all overlay layers on the same underlying<br>filesystem, all objects will report an st_dev from the overlay<br>filesystem and st_ino from the underlying filesystem.  This will<br>make the overlay mount more compliant with filesystem scanners and<br>overlay objects will be distinguishable from the corresponding<br>objects in the original filesystem.</p>
+<p>On 64bit systems, even if all overlay layers are not on the same<br>underlying filesystem, the same compliant behavior could be achieved<br>with the “xino” feature.  The “xino” feature composes a unique object<br>identifier from the real object st_ino and an underlying fsid index.<br>If all underlying filesystems support NFS file handles and export file<br>handles with 32bit inode number encoding (e.g. ext4), overlay filesystem<br>will use the high inode number bits for fsid.  Even when the underlying<br>filesystem uses 64bit inode numbers, users can still enable the “xino”<br>feature with the “-o xino=on” overlay mount option.  That is useful for the<br>case of underlying filesystems like xfs and tmpfs, which use 64bit inode<br>numbers, but are very unlikely to use the high inode number bit.</p>
+<h2 id="Upper-and-Lower"><a href="#Upper-and-Lower" class="headerlink" title="Upper and Lower"></a>Upper and Lower</h2><p>An overlay filesystem combines two filesystems - an ‘upper’ filesystem<br>and a ‘lower’ filesystem.  When a name exists in both filesystems, the<br>object in the ‘upper’ filesystem is visible while the object in the<br>‘lower’ filesystem is either hidden or, in the case of directories,<br>merged with the ‘upper’ object.</p>
+<p>It would be more correct to refer to an upper and lower ‘directory<br>tree’ rather than ‘filesystem’ as it is quite possible for both<br>directory trees to be in the same filesystem and there is no<br>requirement that the root of a filesystem be given for either upper or<br>lower.</p>
+<p>The lower filesystem can be any filesystem supported by Linux and does<br>not need to be writable.  The lower filesystem can even be another<br>overlayfs.  The upper filesystem will normally be writable and if it<br>is it must support the creation of trusted.* extended attributes, and<br>must provide valid d_type in readdir responses, so NFS is not suitable.</p>
+<p>A read-only overlay of two read-only filesystems may use any<br>filesystem type.</p>
+<h2 id="Directories"><a href="#Directories" class="headerlink" title="Directories"></a>Directories</h2><p>Overlaying mainly involves directories.  If a given name appears in both<br>upper and lower filesystems and refers to a non-directory in either,<br>then the lower object is hidden - the name refers only to the upper<br>object.</p>
+<p>Where both upper and lower objects are directories, a merged directory<br>is formed.</p>
+<p>At mount time, the two directories given as mount options “lowerdir” and<br>“upperdir” are combined into a merged directory:</p>
+<p>  mount -t overlay overlay -olowerdir=/lower,upperdir=/upper,\<br>  workdir=/work /merged</p>
+<p>The “workdir” needs to be an empty directory on the same filesystem<br>as upperdir.</p>
+<p>Then whenever a lookup is requested in such a merged directory, the<br>lookup is performed in each actual directory and the combined result<br>is cached in the dentry belonging to the overlay filesystem.  If both<br>actual lookups find directories, both are stored and a merged<br>directory is created, otherwise only one is stored: the upper if it<br>exists, else the lower.</p>
+<p>Only the lists of names from directories are merged.  Other content<br>such as metadata and extended attributes are reported for the upper<br>directory only.  These attributes of the lower directory are hidden.</p>
+<h2 id="whiteouts-and-opaque-directories"><a href="#whiteouts-and-opaque-directories" class="headerlink" title="whiteouts and opaque directories"></a>whiteouts and opaque directories</h2><p>In order to support rm and rmdir without changing the lower<br>filesystem, an overlay filesystem needs to record in the upper filesystem<br>that files have been removed.  This is done using whiteouts and opaque<br>directories (non-directories are always opaque).</p>
+<p>A whiteout is created as a character device with 0/0 device number.<br>When a whiteout is found in the upper level of a merged directory, any<br>matching name in the lower level is ignored, and the whiteout itself<br>is also hidden.</p>
+<p>A directory is made opaque by setting the xattr “trusted.overlay.opaque”<br>to “y”.  Where the upper filesystem contains an opaque directory, any<br>directory in the lower filesystem with the same name is ignored.</p>
+<h2 id="readdir"><a href="#readdir" class="headerlink" title="readdir"></a>readdir</h2><p>When a ‘readdir’ request is made on a merged directory, the upper and<br>lower directories are each read and the name lists merged in the<br>obvious way (upper is read first, then lower - entries that already<br>exist are not re-added).  This merged name list is cached in the<br>‘struct file’ and so remains as long as the file is kept open.  If the<br>directory is opened and read by two processes at the same time, they<br>will each have separate caches.  A seekdir to the start of the<br>directory (offset 0) followed by a readdir will cause the cache to be<br>discarded and rebuilt.</p>
+<p>This means that changes to the merged directory do not appear while a<br>directory is being read.  This is unlikely to be noticed by many<br>programs.</p>
+<p>seek offsets are assigned sequentially when the directories are read.<br>Thus if</p>
+<ul>
+<li>read part of a directory</li>
+<li>remember an offset, and close the directory</li>
+<li>re-open the directory some time later</li>
+<li>seek to the remembered offset</li>
+</ul>
+<p>there may be little correlation between the old and new locations in<br>the list of filenames, particularly if anything has changed in the<br>directory.</p>
+<p>Readdir on directories that are not merged is simply handled by the<br>underlying directory (upper or lower).</p>
+<h2 id="renaming-directories"><a href="#renaming-directories" class="headerlink" title="renaming directories"></a>renaming directories</h2><p>When renaming a directory that is on the lower layer or merged (i.e. the<br>directory was not created on the upper layer to start with) overlayfs can<br>handle it in two different ways:</p>
+<ol>
+<li><p>return EXDEV error: this error is returned by rename(2) when trying to<br>move a file or directory across filesystem boundaries.  Hence<br>applications are usually prepared to hande this error (mv(1) for example<br>recursively copies the directory tree).  This is the default behavior.</p>
+</li>
+<li><p>If the “redirect_dir” feature is enabled, then the directory will be<br>copied up (but not the contents).  Then the “trusted.overlay.redirect”<br>extended attribute is set to the path of the original location from the<br>root of the overlay.  Finally the directory is moved to the new<br>location.</p>
+</li>
+</ol>
+<p>There are several ways to tune the “redirect_dir” feature.</p>
+<p>Kernel config options:</p>
+<ul>
+<li>OVERLAY_FS_REDIRECT_DIR:<br>  If this is enabled, then redirect_dir is turned on by  default.</li>
+<li>OVERLAY_FS_REDIRECT_ALWAYS_FOLLOW:<br>  If this is enabled, then redirects are always followed by default. Enabling<br>  this results in a less secure configuration.  Enable this option only when<br>  worried about backward compatibility with kernels that have the redirect_dir<br>  feature and follow redirects even if turned off.</li>
+</ul>
+<p>Module options (can also be changed through /sys/module/overlay/parameters/*):</p>
+<ul>
+<li>“redirect_dir=BOOL”:<br>  See OVERLAY_FS_REDIRECT_DIR kernel config option above.</li>
+<li>“redirect_always_follow=BOOL”:<br>  See OVERLAY_FS_REDIRECT_ALWAYS_FOLLOW kernel config option above.</li>
+<li>“redirect_max=NUM”:<br>  The maximum number of bytes in an absolute redirect (default is 256).</li>
+</ul>
+<p>Mount options:</p>
+<ul>
+<li>“redirect_dir=on”:<br>  Redirects are enabled.</li>
+<li>“redirect_dir=follow”:<br>  Redirects are not created, but followed.</li>
+<li>“redirect_dir=off”:<br>  Redirects are not created and only followed if “redirect_always_follow”<br>  feature is enabled in the kernel/module config.</li>
+<li>“redirect_dir=nofollow”:<br>  Redirects are not created and not followed (equivalent to “redirect_dir=off”<br>  if “redirect_always_follow” feature is not enabled).</li>
+</ul>
+<p>When the NFS export feature is enabled, every copied up directory is<br>indexed by the file handle of the lower inode and a file handle of the<br>upper directory is stored in a “trusted.overlay.upper” extended attribute<br>on the index entry.  On lookup of a merged directory, if the upper<br>directory does not match the file handle stores in the index, that is an<br>indication that multiple upper directories may be redirected to the same<br>lower directory.  In that case, lookup returns an error and warns about<br>a possible inconsistency.</p>
+<p>Because lower layer redirects cannot be verified with the index, enabling<br>NFS export support on an overlay filesystem with no upper layer requires<br>turning off redirect follow (e.g. “redirect_dir=nofollow”).</p>
+<h2 id="Non-directories"><a href="#Non-directories" class="headerlink" title="Non-directories"></a>Non-directories</h2><p>Objects that are not directories (files, symlinks, device-special<br>files etc.) are presented either from the upper or lower filesystem as<br>appropriate.  When a file in the lower filesystem is accessed in a way<br>the requires write-access, such as opening for write access, changing<br>some metadata etc., the file is first copied from the lower filesystem<br>to the upper filesystem (copy_up).  Note that creating a hard-link<br>also requires copy_up, though of course creation of a symlink does<br>not.</p>
+<p>The copy_up may turn out to be unnecessary, for example if the file is<br>opened for read-write but the data is not modified.</p>
+<p>The copy_up process first makes sure that the containing directory<br>exists in the upper filesystem - creating it and any parents as<br>necessary.  It then creates the object with the same metadata (owner,<br>mode, mtime, symlink-target etc.) and then if the object is a file, the<br>data is copied from the lower to the upper filesystem.  Finally any<br>extended attributes are copied up.</p>
+<p>Once the copy_up is complete, the overlay filesystem simply<br>provides direct access to the newly created file in the upper<br>filesystem - future operations on the file are barely noticed by the<br>overlay filesystem (though an operation on the name of the file such as<br>rename or unlink will of course be noticed and handled).</p>
+<h2 id="Multiple-lower-layers"><a href="#Multiple-lower-layers" class="headerlink" title="Multiple lower layers"></a>Multiple lower layers</h2><p>Multiple lower layers can now be given using the the colon (“:”) as a<br>separator character between the directory names.  For example:</p>
+<p>  mount -t overlay overlay -olowerdir=/lower1:/lower2:/lower3 /merged</p>
+<p>As the example shows, “upperdir=” and “workdir=” may be omitted.  In<br>that case the overlay will be read-only.</p>
+<p>The specified lower directories will be stacked beginning from the<br>rightmost one and going left.  In the above example lower1 will be the<br>top, lower2 the middle and lower3 the bottom layer.</p>
+<h2 id="Metadata-only-copy-up"><a href="#Metadata-only-copy-up" class="headerlink" title="Metadata only copy up"></a>Metadata only copy up</h2><p>When metadata only copy up feature is enabled, overlayfs will only copy<br>up metadata (as opposed to whole file), when a metadata specific operation<br>like chown/chmod is performed. Full file will be copied up later when<br>file is opened for WRITE operation.</p>
+<p>In other words, this is delayed data copy up operation and data is copied<br>up when there is a need to actually modify data.</p>
+<p>There are multiple ways to enable/disable this feature. A config option<br>CONFIG_OVERLAY_FS_METACOPY can be set/unset to enable/disable this feature<br>by default. Or one can enable/disable it at module load time with module<br>parameter metacopy=on/off. Lastly, there is also a per mount option<br>metacopy=on/off to enable/disable this feature per mount.</p>
+<p>Do not use metacopy=on with untrusted upper/lower directories. Otherwise<br>it is possible that an attacker can create a handcrafted file with<br>appropriate REDIRECT and METACOPY xattrs, and gain access to file on lower<br>pointed by REDIRECT. This should not be possible on local system as setting<br>“trusted.” xattrs will require CAP_SYS_ADMIN. But it should be possible<br>for untrusted layers like from a pen drive.</p>
+<p>Note: redirect_dir={off|nofollow|follow(*)} conflicts with metacopy=on, and<br>results in an error.</p>
+<p>(*) redirect_dir=follow only conflicts with metacopy=on if upperdir=… is<br>given.</p>
+<h2 id="Sharing-and-copying-layers"><a href="#Sharing-and-copying-layers" class="headerlink" title="Sharing and copying layers"></a>Sharing and copying layers</h2><p>Lower layers may be shared among several overlay mounts and that is indeed<br>a very common practice.  An overlay mount may use the same lower layer<br>path as another overlay mount and it may use a lower layer path that is<br>beneath or above the path of another overlay lower layer path.</p>
+<p>Using an upper layer path and/or a workdir path that are already used by<br>another overlay mount is not allowed and may fail with EBUSY.  Using<br>partially overlapping paths is not allowed but will not fail with EBUSY.<br>If files are accessed from two overlayfs mounts which share or overlap the<br>upper layer and/or workdir path the behavior of the overlay is undefined,<br>though it will not result in a crash or deadlock.</p>
+<p>Mounting an overlay using an upper layer path, where the upper layer path<br>was previously used by another mounted overlay in combination with a<br>different lower layer path, is allowed, unless the “inodes index” feature<br>or “metadata only copy up” feature is enabled.</p>
+<p>With the “inodes index” feature, on the first time mount, an NFS file<br>handle of the lower layer root directory, along with the UUID of the lower<br>filesystem, are encoded and stored in the “trusted.overlay.origin” extended<br>attribute on the upper layer root directory.  On subsequent mount attempts,<br>the lower root directory file handle and lower filesystem UUID are compared<br>to the stored origin in upper root directory.  On failure to verify the<br>lower root origin, mount will fail with ESTALE.  An overlayfs mount with<br>“inodes index” enabled will fail with EOPNOTSUPP if the lower filesystem<br>does not support NFS export, lower filesystem does not have a valid UUID or<br>if the upper filesystem does not support extended attributes.</p>
+<p>For “metadata only copy up” feature there is no verification mechanism at<br>mount time. So if same upper is mounted with different set of lower, mount<br>probably will succeed but expect the unexpected later on. So don’t do it.</p>
+<p>It is quite a common practice to copy overlay layers to a different<br>directory tree on the same or different underlying filesystem, and even<br>to a different machine.  With the “inodes index” feature, trying to mount<br>the copied layers will fail the verification of the lower root file handle.</p>
+<h2 id="Non-standard-behavior"><a href="#Non-standard-behavior" class="headerlink" title="Non-standard behavior"></a>Non-standard behavior</h2><p>Current version of overlayfs can act as a mostly POSIX compliant<br>filesystem.</p>
+<p>This is the list of cases that overlayfs doesn’t currently handle:</p>
+<p>a) POSIX mandates updating st_atime for reads.  This is currently not<br>done in the case when the file resides on a lower layer.</p>
+<p>b) If a file residing on a lower layer is opened for read-only and then<br>memory mapped with MAP_SHARED, then subsequent changes to the file are not<br>reflected in the memory mapping.</p>
+<p>The following options allow overlayfs to act more like a standards<br>compliant filesystem:</p>
+<p>1) “redirect_dir”</p>
+<p>Enabled with the mount option or module option: “redirect_dir=on” or with<br>the kernel config option CONFIG_OVERLAY_FS_REDIRECT_DIR=y.</p>
+<p>If this feature is disabled, then rename(2) on a lower or merged directory<br>will fail with EXDEV (“Invalid cross-device link”).</p>
+<p>2) “inode index”</p>
+<p>Enabled with the mount option or module option “index=on” or with the<br>kernel config option CONFIG_OVERLAY_FS_INDEX=y.</p>
+<p>If this feature is disabled and a file with multiple hard links is copied<br>up, then this will “break” the link.  Changes will not be propagated to<br>other names referring to the same inode.</p>
+<p>3) “xino”</p>
+<p>Enabled with the mount option “xino=auto” or “xino=on”, with the module<br>option “xino_auto=on” or with the kernel config option<br>CONFIG_OVERLAY_FS_XINO_AUTO=y.  Also implicitly enabled by using the same<br>underlying filesystem for all layers making up the overlay.</p>
+<p>If this feature is disabled or the underlying filesystem doesn’t have<br>enough free bits in the inode number, then overlayfs will not be able to<br>guarantee that the values of st_ino and st_dev returned by stat(2) and the<br>value of d_ino returned by readdir(3) will act like on a normal filesystem.<br>E.g. the value of st_dev may be different for two objects in the same<br>overlay filesystem and the value of st_ino for directory objects may not be<br>persistent and could change even while the overlay filesystem is mounted.</p>
+<h2 id="Changes-to-underlying-filesystems"><a href="#Changes-to-underlying-filesystems" class="headerlink" title="Changes to underlying filesystems"></a>Changes to underlying filesystems</h2><p>Offline changes, when the overlay is not mounted, are allowed to either<br>the upper or the lower trees.</p>
+<p>Changes to the underlying filesystems while part of a mounted overlay<br>filesystem are not allowed.  If the underlying filesystem is changed,<br>the behavior of the overlay is undefined, though it will not result in<br>a crash or deadlock.</p>
+<p>When the overlay NFS export feature is enabled, overlay filesystems<br>behavior on offline changes of the underlying lower layer is different<br>than the behavior when NFS export is disabled.</p>
+<p>On every copy_up, an NFS file handle of the lower inode, along with the<br>UUID of the lower filesystem, are encoded and stored in an extended<br>attribute “trusted.overlay.origin” on the upper inode.</p>
+<p>When the NFS export feature is enabled, a lookup of a merged directory,<br>that found a lower directory at the lookup path or at the path pointed<br>to by the “trusted.overlay.redirect” extended attribute, will verify<br>that the found lower directory file handle and lower filesystem UUID<br>match the origin file handle that was stored at copy_up time.  If a<br>found lower directory does not match the stored origin, that directory<br>will not be merged with the upper directory.</p>
+<h2 id="NFS-export"><a href="#NFS-export" class="headerlink" title="NFS export"></a>NFS export</h2><p>When the underlying filesystems supports NFS export and the “nfs_export”<br>feature is enabled, an overlay filesystem may be exported to NFS.</p>
+<p>With the “nfs_export” feature, on copy_up of any lower object, an index<br>entry is created under the index directory.  The index entry name is the<br>hexadecimal representation of the copy up origin file handle.  For a<br>non-directory object, the index entry is a hard link to the upper inode.<br>For a directory object, the index entry has an extended attribute<br>“trusted.overlay.upper” with an encoded file handle of the upper<br>directory inode.</p>
+<p>When encoding a file handle from an overlay filesystem object, the<br>following rules apply:</p>
+<ol>
+<li>For a non-upper object, encode a lower file handle from lower inode</li>
+<li>For an indexed object, encode a lower file handle from copy_up origin</li>
+<li>For a pure-upper object and for an existing non-indexed upper object,<br>encode an upper file handle from upper inode</li>
+</ol>
+<p>The encoded overlay file handle includes:</p>
+<ul>
+<li>Header including path type information (e.g. lower/upper)</li>
+<li>UUID of the underlying filesystem</li>
+<li>Underlying filesystem encoding of underlying inode</li>
+</ul>
+<p>This encoding format is identical to the encoding format file handles that<br>are stored in extended attribute “trusted.overlay.origin”.</p>
+<p>When decoding an overlay file handle, the following steps are followed:</p>
+<ol>
+<li>Find underlying layer by UUID and path type information.</li>
+<li>Decode the underlying filesystem file handle to underlying dentry.</li>
+<li>For a lower file handle, lookup the handle in index directory by name.</li>
+<li>If a whiteout is found in index, return ESTALE. This represents an<br>overlay object that was deleted after its file handle was encoded.</li>
+<li>For a non-directory, instantiate a disconnected overlay dentry from the<br>decoded underlying dentry, the path type and index inode, if found.</li>
+<li>For a directory, use the connected underlying decoded dentry, path type<br>and index, to lookup a connected overlay dentry.</li>
+</ol>
+<p>Decoding a non-directory file handle may return a disconnected dentry.<br>copy_up of that disconnected dentry will create an upper index entry with<br>no upper alias.</p>
+<p>When overlay filesystem has multiple lower layers, a middle layer<br>directory may have a “redirect” to lower directory.  Because middle layer<br>“redirects” are not indexed, a lower file handle that was encoded from the<br>“redirect” origin directory, cannot be used to find the middle or upper<br>layer directory.  Similarly, a lower file handle that was encoded from a<br>descendant of the “redirect” origin directory, cannot be used to<br>reconstruct a connected overlay path.  To mitigate the cases of<br>directories that cannot be decoded from a lower file handle, these<br>directories are copied up on encode and encoded as an upper file handle.<br>On an overlay filesystem with no upper layer this mitigation cannot be<br>used NFS export in this setup requires turning off redirect follow (e.g.<br>“redirect_dir=nofollow”).</p>
+<p>The overlay filesystem does not support non-directory connectable file<br>handles, so exporting with the ‘subtree_check’ exportfs configuration will<br>cause failures to lookup files over NFS.</p>
+<p>When the NFS export feature is enabled, all directory index entries are<br>verified on mount time to check that upper file handles are not stale.<br>This verification may cause significant overhead in some cases.</p>
+<h2 id="Testsuite"><a href="#Testsuite" class="headerlink" title="Testsuite"></a>Testsuite</h2><p>There’s a testsuite originally developed by David Howells and currently<br>maintained by Amir Goldstein at:</p>
+<p>  <a href="https://github.com/amir73il/unionmount-testsuite.git" target="_blank" rel="noopener">https://github.com/amir73il/unionmount-testsuite.git</a></p>
+<p>Run as root:</p>
+<h1 id="cd-unionmount-testsuite"><a href="#cd-unionmount-testsuite" class="headerlink" title="cd unionmount-testsuite"></a>cd unionmount-testsuite</h1><h1 id="run-–ov-–verify"><a href="#run-–ov-–verify" class="headerlink" title="./run –ov –verify"></a>./run –ov –verify</h1>
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/07/12/音频通路配置/" rel="next" title="音频通路配置">
+                <i class="fa fa-chevron-left"></i> 音频通路配置
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Semiyd</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives">
+                
+                    <span class="site-state-item-count">217</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">111</span>
+                    <span class="site-state-item-name">categories</span>
+                  </a>
+                </div>
+              
+
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Overlay-Filesystem"><span class="nav-number">1.</span> <span class="nav-text">Overlay Filesystem</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Overlay-objects"><span class="nav-number">1.1.</span> <span class="nav-text">Overlay objects</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Upper-and-Lower"><span class="nav-number">1.2.</span> <span class="nav-text">Upper and Lower</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Directories"><span class="nav-number">1.3.</span> <span class="nav-text">Directories</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#whiteouts-and-opaque-directories"><span class="nav-number">1.4.</span> <span class="nav-text">whiteouts and opaque directories</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#readdir"><span class="nav-number">1.5.</span> <span class="nav-text">readdir</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#renaming-directories"><span class="nav-number">1.6.</span> <span class="nav-text">renaming directories</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Non-directories"><span class="nav-number">1.7.</span> <span class="nav-text">Non-directories</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Multiple-lower-layers"><span class="nav-number">1.8.</span> <span class="nav-text">Multiple lower layers</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Metadata-only-copy-up"><span class="nav-number">1.9.</span> <span class="nav-text">Metadata only copy up</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Sharing-and-copying-layers"><span class="nav-number">1.10.</span> <span class="nav-text">Sharing and copying layers</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Non-standard-behavior"><span class="nav-number">1.11.</span> <span class="nav-text">Non-standard behavior</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Changes-to-underlying-filesystems"><span class="nav-number">1.12.</span> <span class="nav-text">Changes to underlying filesystems</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#NFS-export"><span class="nav-number">1.13.</span> <span class="nav-text">NFS export</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Testsuite"><span class="nav-number">1.14.</span> <span class="nav-text">Testsuite</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#cd-unionmount-testsuite"><span class="nav-number">2.</span> <span class="nav-text">cd unionmount-testsuite</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#run-–ov-–verify"><span class="nav-number">3.</span> <span class="nav-text">./run –ov –verify</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Semiyd</span>
+
+  
+
+  
+</div>
+
+
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> v3.7.1</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://theme-next.org">NexT.Muse</a> v6.3.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+	
+    
+
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.3.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.3.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.3.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.3.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.3.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

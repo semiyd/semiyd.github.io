@@ -115,7 +115,7 @@
 <meta property="og:site_name" content="Semiyd&#39;s Blog">
 <meta property="og:description" content="调度和抢占">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-08-12T03:10:24.423Z">
+<meta property="og:updated_time" content="2020-07-12T07:16:11.809Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="调度和抢占">
 <meta name="twitter:description" content="调度和抢占">
@@ -339,7 +339,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2018-08-12 11:10:24" itemprop="dateModified" datetime="2018-08-12T11:10:24+08:00">2018-08-12</time>
+                <time title="Modified: 2020-07-12 15:16:11" itemprop="dateModified" datetime="2020-07-12T15:16:11+08:00">2020-07-12</time>
               
             
           </span>
@@ -404,37 +404,292 @@
       
 
       
-        <p><center><strong>调度和抢占</strong></center><br><a id="more"></a><br>抢占：<br>    所谓抢占，就是指进程间的切换。<br>    那么用户的进程，因为执行的时候，分为在用户空间还是内核空间（通过系统调用进入）执行。<br>    所以也就分在用户空间还是内核空间执行两种情况讨论。<br>    用户空间运行：<br>        假设进程A在执行。此时来了个硬件中断，打断了进程A.等中断执行完毕的时候，如果此时有更高优先级的进程B在排队的话。那么就会抢先A而直接执行B。<br>        等B的时间片用完后，再执行A剩下来的部分。<br>        也就是说，用户空间总是可抢占的。<br>    内核空间运行：<br>        参见同级目录    抢占示意图.png<br>        假设进程A在执行。后来A调用了系统调用，进入了内核态。<br>        然后在内核态，因为访问一下关键的数据，进入critical section。<br>        此时，如果突然来了个硬件中断。则A的系统调用由此被中断打断。<br>        那么假设在中断中，唤醒了一个更高优先级的任务。<br>        在中断退出后，回到A的系统调用，因为此时系统调用仍然在critical section<br>        需要往前跑几步，才能跑出critical section。<br>        那么现在关键来了。<br>        如果是非抢占的内核，此时需要等到A的系统调用完全完成，才会切换到高优先级的任务。（尽管此时A其实也还没完全完成，因为仅仅是完成了他的系统调用部分）<br>        如果是抢占式内核，则一旦出了critical section，则马上被强制切换到高优先级任务。(因为critical section出于保护，是关闭抢占的)<br>            等高优先级任务完成后，再返回到A的系统调用，等A的系统调用完成了，再完成A剩下部分的代码的执行。</p>
-<p>抢占的API：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">preempt_enable()</span><br><span class="line">preempt_disable()</span><br></pre></td></tr></table></figure></p>
-<p>抢占的时机：<br>        要发生抢占，说白了就是要调用schedule()。<br>        所以发生抢占的时机，就是什么时候schedule()被调用。<br>        那么schedule()调用，分为主动调用和被动调用两种情况。<br>        主动调用，比如当前进程调用了可睡眠的函数，里面最终会去调用schedule()。<br>        被动调用，是指在中断，异常，或者系统调用结束后，可能会去调用schedule()。<br>        主动调用就不用特别分析了。下面主要看看被动调用。<br>        以中断返回为例：<br>        在do_IRQ()返回后，会调用ret_from_except()。<br>        那么这个ret_from_except()，会去检查，当前中断打断的是用户空间还是内核空间的程序。<br>        如果打断的是用户空间，则在ret_from_except的最后，就直接去调用schedule。<br>        这就是为什么，在用户空间运行的时候，进程始终是可以被抢占的。(也就是进程在没有调用系统调用，仅仅在用户态执行的时候)<br>        那么如果打断的是内核空间，在ret_from_except的最后，如果内核支持抢占的话，这时候也会最后去调用schedule。<br>        这样就实现了中断返回的时候对内核态的抢占。</p>
-<p>进程的状态：<br>    进程状态分为5种：<br>        TASK_RUNNING<br>            处于运行状态或者在就绪的队列里<br>        TASK_INTERRUPTIBLE<br>            处于等待某个信号/事件的浅睡状态。如果事件发生，就会变成TASK_RUNNING<br>            事件是指wait queue的这种事件<br>            信号是指kill, raise, alarm等系统信号。如SIGKILL<br>            此时不处于run queue里面了。<br>        TASK_UNINTERRUPTIBLE<br>            处于等待某个事件的深睡状态。只能被wake_up()唤醒。<br>            但不能被信号打断，比如被kill掉或被信号放入run queue。适用于不能被打断的处理流程，不太常用。<br>        TASK_STOPPED<br>            处于停止状态<br>        TASK_TRACED<br>            strace的时候debug的状态<br>            除了上面5种状态，还有下面两种特殊的状态。<br>        EXIT_ZOMBIE<br>            进程本身已经终止，但父进程尚没有调用wait 系统调用来清除它的僵尸孩子。<br>        EXIT_DEAD<br>            终止状态<br>    那么内核针对这些不同状态的进程，是如何统一归类管理的呢？<br>    与TASK_RUNNING相关的有struct rq{}结构体，也就是per-CPU runqueue data structure，定义位于kernel/sched.c。运行队列链表rq把处于TASK_RUNNING状态的所有进程组织在一起。<br>    至于TASK_STOPPED、EXIT_ZOMBIE 或 EXIT_DEAD，没有他们建立专门的链表。<br>    由于处于暂停、僵死、死亡状态进程的访问比较简单，或者通过PID，或者通过特定父进程的子进程链表，所以不必对这三种状态进程分组。<br>    对于处于TASK_INTERRUPTIBLE或TASK_UNINTERRUPTIBLE状态的进程则由waitqueue来管理。详见    Linux\Kernel\阻塞和非阻塞\阻塞\waitqueue\</p>
-<p>进程优先级的确定：<br>nice值：<br>        范围是-20到19，一共40级。默认值是0<br>        值越小，优先级越高。<br>        可以用nice命令，对将要运行的程序进行优先级的设置<br>        nice -n 10 app<br>        这样app的nice就是10.<br>        另外，可以用renice命令，对一个正在运行的进程进行nice值的调整。<br>        renice -5 -p 5200<br>        那么从字面上理解，越nice的人，抢占资源的意愿越弱，也就是nice值越高。<br>        越不nice的人，抢占资源的意愿越强，也就是nice值越低。<br>        那么nice值设定好以后，是不变的。除非用renice去改动它。<br>        所以nice值称为静态优先级。</p>
-<p>priority值：<br>        相对于nice值，priority值，就是动态优先级。为什么叫动态？因为内核会根据进程运行的情况，进行动态的微调。（在O1调度算法里面会解释这个细节）<br>        所以priority值本身是不可以改的。要改，只能改nice。等于通过nice去改priority。<br>        nice其实是priority的组成部分。后面会解释为什么。<br>        linux实现140个优先级的范围。和nice一样，值越小，优先级越高。<br>        linux的进程被分为两种，实时进程（也就是RT进程），和非实时进程（非RT进程）<br>        见以下代码：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">include\linux\sched.h</span><br><span class="line">		#define MAX_USER_RT_PRIO	100</span><br><span class="line">		#define MAX_RT_PRIO		MAX_USER_RT_PRIO</span><br><span class="line">		#define DEFAULT_PRIO		(MAX_RT_PRIO + 20)</span><br><span class="line">		#define MAX_PRIO			(MAX_RT_PRIO + 40)</span><br></pre></td></tr></table></figure></p>
-<p>对于非RT进程，优先级最高也就是100（MAX_USER_RT_PRIO），最低就是140（MAX_PRIO）。<br>那么对于非RT进程，默认优先级就是120.<br>如果通过调整nice值，那么nice因为是-20到19.<br>所以最多就是在100~139这个范围内调整。<br>换句话说，对于非RT进程，决定priority，其实靠nice就可以了。<br>对于RT进程，那么他的优先级就是0~99，最大值就是100（MAX_USER_RT_PRIO）</p>
-<p>通过ps -l可以查看到nice值和priority值。<br>xxx@CH4WDT22X8DB2:~$ ps -l<br>F S   UID   PID  PPID  C PRI  NI ADDR SZ WCHAN  TTY          TIME CMD<br>0 S  1000 25186 12278  0  80   0 -  2186 wait   pts/11   00:00:00 bash<br>0 R  1000 31805 25186  0  80   0 -  1254 -      pts/11   00:00:00 ps</p>
-<p>PRI就是priority值。NI是nice值。</p>
-<p>所以可以理解为nice值是针对整个优先级进行微调。但是不能通过nice值的调整，把一个非RT进程调整的和RT进程一样的优先。<br>当然，最终真正算数的，是priority。nice其实是priority的组成部分。</p>
-<p>另外，这里涉及一个shell命令。chrt。</p>
-<p>xxx@CH4WDT22X8DB2:~$ chrt</p>
+        <p><center><strong>调度和抢占</strong></center><br><a id="more"></a><br>进程切换的两种情形：（详见）<br>    进程切换有自愿(Voluntary)和强制(Involuntary)之分，自愿切换意味着进程需要等待某种资源，强制切换则与抢占(Preemption)有关。</p>
+<p>抢占：<br>    所谓抢占，就是指进程间的切换。<br>    那么用户的进程，因为执行的时候，分为在用户空间还是内核空间（通过系统调用进入）执行。<br>    所以也就分在用户空间还是内核空间执行两种情况讨论。<br>    用户空间运行：<br>        假设进程A在执行。此时来了个硬件中断，打断了进程A.等中断执行完毕的时候，如果此时有更高优先级的进程B在排队的话。那么就会抢先A而直接执行B。<br>        等B的时间片用完后，再执行A剩下来的部分。<br>        也就是说，用户空间总是可抢占的（但有条件/时机，也不是说抢就抢的）。<br>        这个条件有二。1.从系统调用(syscall)返回用户态时。2.从中断返回用户态时<br>    内核空间运行：<br>        参见同级目录    抢占示意图.png<br>        假设进程A在执行。后来A调用了系统调用，进入了内核态。<br>        然后在内核态，因为访问一下关键的数据，进入critical section。<br>        此时，如果突然来了个硬件中断。则A的系统调用由此被中断打断。<br>        那么假设在中断中，唤醒了一个更高优先级的任务。<br>        在中断退出后，回到A的系统调用，因为此时系统调用仍然在critical section<br>        需要往前跑几步，才能跑出critical section。<br>        那么现在关键来了。<br>        如果是非抢占的内核，此时需要等到A的系统调用完全完成，才会切换到高优先级的任务。（尽管此时A其实也还没完全完成，因为仅仅是完成了他的系统调用部分）<br>        如果是抢占式内核，则一旦出了critical section，则马上被强制切换到高优先级任务。(因为critical section出于保护，是关闭抢占的)<br>            等高优先级任务完成后，再返回到A的系统调用，等A的系统调用完成了，再完成A剩下部分的代码的执行。<br>        其实这里啰里啰唆说了一堆，就是想表明：<br>        所谓抢占，就是进程即使在内核空间运行，也会被别人抢占，不能幸免。</p>
+<pre><code>抢占开关API：
+    preempt_enable()
+    preempt_disable()
+
+抢占的时机：（详见《抢占发生的时机总结》）
+    要发生抢占，说白了就是要调用schedule()。
+    所以发生抢占的时机，就是什么时候schedule()被调用。
+    那么schedule()调用，分为主动调用和被动调用两种情况。
+    主动调用，比如当前进程调用了可睡眠的函数，里面最终会去调用schedule()。
+    被动调用，是指在中断，异常，或者系统调用结束后，可能会去调用schedule()。
+    主动调用就不用特别分析了。下面主要看看被动调用。
+    以中断返回为例：
+    在do_IRQ()返回后，会调用ret_from_except()。
+    那么这个ret_from_except()，会去检查，当前中断打断的是用户空间还是内核空间的程序。
+    如果打断的是用户空间，则在ret_from_except的最后，就直接去调用schedule。
+    这就是为什么，在用户空间运行的时候，进程始终是可以被抢占的。(也就是进程在没有调用系统调用，仅仅在用户态执行的时候)
+    那么如果打断的是内核空间，在ret_from_except的最后，如果内核支持抢占的话，这时候也会最后去调用schedule。
+    这样就实现了中断返回的时候对内核态的抢占。
+    抢占的过程分两步，第一步触发抢占，第二步执行抢占，这两步中间不一定是连续的，有些特殊情况下甚至会间隔相当长的时间：
+    触发抢占：给正在CPU上运行的当前进程设置一个请求重新调度的标志(TIF_NEED_RESCHED)，仅此而已，此时进程并没有切换。
+        这个标志位类似TASK_UNINTERRUPTIBLE，只是标志位，不代表实际有动作马上执行。
+        这个时机有：
+        周期性的时钟中断
+        唤醒进程的时候
+        新进程创建的时候
+        进程修改nice值的时候
+        进行负载均衡的时候
+    执行抢占：在随后的某个时刻，内核会检查TIF_NEED_RESCHED标志并调用schedule()执行抢占。
+        用户态抢占的时机有：
+            从系统调用(syscall)返回用户态时
+            从中断返回用户态时。
+        内核态抢占的时机有：
+            中断处理程序返回内核空间
+            当内核从禁止抢占状态变成允许抢占的时候（例如调用preempt_enable()）
+    触发抢占的时机很多。
+    执行抢占的时机很有限。
+    看完《抢占发生的时机总结》，会明白《抢占示意图.png》其实只是一个结果。导致这一结果的，是《抢占发生的时机总结》
+    里面所述的规则。
+</code></pre><p>进程的状态：<br>    进程状态分为5种：<br>        TASK_RUNNING<br>            处于运行状态或者在就绪的队列里<br>        TASK_INTERRUPTIBLE<br>            处于等待某个信号/事件的浅睡状态。如果事件发生，就会变成TASK_RUNNING<br>            事件是指wait queue的这种事件<br>            信号是指kill, raise, alarm等系统信号。如SIGKILL<br>            此时不处于run queue里面了。<br>        TASK_UNINTERRUPTIBLE<br>            处于等待某个事件的深睡状态。只能被wake_up()唤醒。<br>            但不能被信号打断，比如被kill掉或被信号放入run queue。适用于不能被打断的处理流程，不太常用。<br>        TASK_STOPPED<br>            处于停止状态<br>        TASK_TRACED<br>            strace的时候debug的状态<br>            除了上面5种状态，还有下面两种特殊的状态。<br>        EXIT_ZOMBIE<br>            进程本身已经终止，但父进程尚没有调用wait 系统调用来清除它的僵尸孩子。<br>        EXIT_DEAD<br>            终止状态<br>    那么内核针对这些不同状态的进程，是如何统一归类管理的呢？<br>    与TASK_RUNNING相关的有struct rq{}结构体，也就是per-CPU runqueue data structure，定义位于kernel/sched.c。运行队列链表rq把处于TASK_RUNNING状态的所有进程组织在一起。<br>    至于TASK_STOPPED、EXIT_ZOMBIE 或 EXIT_DEAD，没有他们建立专门的链表。<br>    由于处于暂停、僵死、死亡状态进程的访问比较简单，或者通过PID，或者通过特定父进程的子进程链表，所以不必对这三种状态进程分组。<br>    对于处于TASK_INTERRUPTIBLE或TASK_UNINTERRUPTIBLE状态的进程则由waitqueue来管理。详见    Linux\Kernel\阻塞和非阻塞\阻塞\waitqueue\</p>
+<p>进程优先级的确定：<br>    nice值：<br>        范围是-20到19，一共40级。默认值是0<br>        值越小，优先级越高。<br>        可以用nice命令，对将要运行的程序进行优先级的设置<br>        nice -n 10 app<br>        这样app的nice就是10.<br>        另外，可以用renice命令，对一个正在运行的进程进行nice值的调整。<br>        renice -5 -p 5200<br>        那么从字面上理解，越nice的人，抢占资源的意愿越弱，也就是nice值越高。<br>        越不nice的人，抢占资源的意愿越强，也就是nice值越低。<br>        那么nice值设定好以后，是不变的。除非用renice去改动它。<br>        所以nice值称为静态优先级。</p>
+<pre><code>priority值：
+    相对于nice值，priority值，就是动态优先级。为什么叫动态？因为内核会根据进程运行的情况，进行动态的微调。（在O1调度算法里面会解释这个细节）
+    所以priority值本身是不可以改的。要改，只能改nice。等于通过nice去改priority。
+    nice其实是priority的组成部分。后面会解释为什么。
+    linux实现140个优先级的范围。和nice一样，值越小，优先级越高。
+
+    linux的进程被分为两种，实时进程（也就是RT进程），和非实时进程（非RT进程）
+
+    见以下代码：    include\linux\sched.h
+    #define MAX_USER_RT_PRIO    100
+    #define MAX_RT_PRIO        MAX_USER_RT_PRIO
+    #define DEFAULT_PRIO        (MAX_RT_PRIO + 20)
+    #define MAX_PRIO            (MAX_RT_PRIO + 40)
+
+    对于非RT进程，优先级最高也就是100（MAX_USER_RT_PRIO），最低就是140（MAX_PRIO）。
+    那么对于非RT进程，默认优先级就是120.
+    如果通过调整nice值，那么nice因为是-20到19.
+    所以最多就是在100~139这个范围内调整。
+    换句话说，对于非RT进程，决定priority，其实靠nice就可以了。
+    对于RT进程，那么他的优先级就是0~99，最大值就是100（MAX_USER_RT_PRIO）
+
+通过ps -l可以查看到nice值和priority值。
+    yandong@CH4WDT22X8DB2:~$ ps -l
+    F S   UID   PID  PPID  C PRI  NI ADDR SZ WCHAN  TTY          TIME CMD
+    0 S  1000 25186 12278  0  80   0 -  2186 wait   pts/11   00:00:00 bash
+    0 R  1000 31805 25186  0  80   0 -  1254 -      pts/11   00:00:00 ps
+
+    PRI就是priority值。NI是nice值。
+
+所以可以理解为nice值是针对整个优先级进行微调。但是不能通过nice值的调整，把一个非RT进程调整的和RT进程一样的优先。
+当然，最终真正算数的，是priority。nice其实是priority的组成部分。
+
+
+
+另外，这里涉及一个shell命令。chrt。
+</code></pre><p>yandong@CH4WDT22X8DB2:~$ chrt</p>
 <p>chrt - manipulate real-time attributes of a process</p>
 <p>Set policy:<br>  chrt [options] [<policy>] <priority> [-p <pid> | <command> [<arg>…]]</arg></pid></priority></policy></p>
 <p>Get policy:<br>  chrt [options] -p <pid></pid></p>
 <p>Scheduling policies:<br>  -b | –batch         set policy to SCHED_BATCH<br>  -f | –fifo          set policy to SCHED_FIFO<br>  -i | –idle          set policy to SCHED_IDLE<br>  -o | –other         set policy to SCHED_OTHER<br>  -r | –rr            set policy to SCHED_RR (default)</p>
 <p>Scheduling flags:<br>  -R | –reset-on-fork set SCHED_RESET_ON_FORK for FIFO or RR</p>
 <p>Options:<br>  -a | –all-tasks     operate on all the tasks (threads) for a given pid<br>  -h | –help          display this help<br>  -m | –max           show min and max valid priorities<br>  -p | –pid           operate on existing given pid<br>  -v | –verbose       display status information<br>  -V | –version       output version information<br>        这个命令，可以用来查看，设置一个进程的实时优先级状态。<br>        那么，linux针对RT和非RT进程。调度的策略是不同的。<br>        也就是说，针对非RT进程的调度策略，在实时性上，是没法满足RT进程的调度的时间要求的。</p>
-<p>针对RT进程的调度策略有：SCHED_RR，SCHED_FIFO<br>    SCHED_RR就是round robin，时间片轮转。时间片是100ms。时间片到了，就换人。很简单。<br>    SCHED_FIFO就是队列方式，优先级一样的情况下，谁先开始执行的，就先调度谁，除非它退出或者让出CPU.<br>针对非RT进程的调度策略有：SCHED_BATCH，SCHED_OTHER,SCHED_IDLE<br>    非RT的调度复杂的多。涉及的调度算法是O1和CFS.有关O1算法和CFS算法，后面在调度的章节里面再具体解释。</p>
-<p>系统整体的调度策略是：<br>    如果系统中有RT进程，则优先执行RT进程。直到RT进程退出，或者RT进程主动让出CPU（睡眠）时，才会去调度非RT进程。</p>
-<p>那么让一个进程作为RT进程来运行呢？<br>chrt -f 10 app    -f是指用SCHED_FIFO，也就是RT进程的调度方式了。优先级设置为10.<br>chrt -p $$<br>    可以显示当前的进程调度方式是SCHED_FIFO，优先级是10.</p>
-<p>调度：<br>    上面说到，RT进程的调度有：<br>        SCHED_RR就是round robin，时间片轮转。时间片是100ms。时间片到了，就换人。很简单。<br>        SCHED_FIFO就是队列方式，优先级一样的情况下，谁先开始执行的，就先调度谁，除非它退出或者让出CPU.<br>    非RT进程的调度有：SCHED_BATCH，SCHED_OTHER,SCHED_IDLE,涉及的调度算法是O1和CFS.<br>    O1和CFS调度算法的细节:<br>        linux 2.6.23以后，O1算法就被CFS算法替换了。所以现在新的内核里面，默认的非RT进程的调度算法，就是CFS。<br>        O1算法：<br>            O1的名字来源于其算法的时间复杂度是O1。<br>            O1是基于时间片分配的思路来设计的。<br>            假设时间片的基本单位是10ms.那么针对优先级高的进程，就会得到较大的时间片。反之优先级低的进程，就获得较小的时间片。（都是10ms的倍数）<br>            即使是nice值一样的进程（对于非RT进程，nice值一样，意味着priority值一样），O1也会根据其对cpu的占用情况，分为两种：cpu消耗型和io消耗型。<br>            顾名思义，cpu消耗型，就是主要做算数运算的程序。并且通常不会主动放弃cpu，除非被打断，或者时间片耗尽。<br>            io消耗型，就是时间片没耗尽，就主动让出cpu了。例如一些交互程序，vi,emacs。<br>            那么现在假设。有两个进程在跑。priority一样。都是默认的120的非RT进程。<br>            nice为0<br>            一个进程是vi。一个进程是算数运算的程序。<br>            那么内核此时因为都是120的优先级。所以会给这两个程序分配相同的时间片长度，假设是500ms.<br>            此时人来输入一个字符。那么很可能此时cpu正在做算数运算。<br>            又因为这两个进程的优先级一样，不存在谁打断谁的问题。所以只好等算数运算的进程时间片结束以后，vi再响应。<br>            这样就会让人觉得很卡顿。<br>            所以针对这种情况。O1算法会把进程区分出来，到底属于cpu消耗型，还是io消耗型。<br>            区分以后，会动态的微调priority值，范围是+-5<br>            这种特定的情况，O1会提高io消耗型的进程的优先级，增加其时间片长度。并且降低cpu消耗型的进程优先级，减少其时间片长度。<br>            这样用户体验能得到改善。<br>            不过这种微调，在CFS里面就不需要了。后面会解释。</p>
-<p>那么，在调度的时候，其实只关心TASK_RUNNING状态下的进程。别的状态下的进程，不会被放到调度队列中去。<br>对于调度队列，这里面又分成两种状态。<br>一种是进程已经被调度到CPU上正在执行。<br>二是进程在队列中，正等待被调度执行。<br>那么，假设cpu有4核。需要执行的进程一共有8个。那么任何一瞬间，其实真正得到运行的进程，只有4个。另外4个则处于等待的状态。<br>所以说，系统当前同时进行调度的进程数，去除以cpu的核心数，这个比值，可以一定程度的反应系统繁忙的程度。<br>有关这个繁忙程度，有个概念是load average。<br>xxx@CH4WDT22X8DB2:~$ uptime<br> 16:44:29 up 45 days,  7:35,  9 users,  load average: 1.05, 0.70, 5.09</p>
-<p>over the last 1 minute: The computer was overloaded by 5% on average. On average, .05 processes were waiting for the CPU. (1.05)</p>
-<p>over the last 5 minutes: The CPU idled for 30% of the time. (0.70)</p>
-<p>over the last 15 minutes: The computer was overloaded by 409% on average. On average, 4.09 processes were waiting for the CPU. (5.09)</p>
-<p>O1算法大致有下面这些规则：<br>1.父进程fork出来的子进程，会和父进程平分其时间片。如果父进程原来是100ms.则fork以后，父进程和子进程各占50ms.<br>    这样做的原因是为了防止进程通过fork方式大量占有时间片。<br>2.TASK_RUNNING状态的进程。之前也提到，分为正在调度的和等待调度的。O1算法把这两种分类，分别对应到两个队列。<br>    一个队列是活动队列，也就是正在cpu上运行的。二是过期队列，这里面的进程时间片已耗尽，等待下一次执行。<br>3。考虑上面1的情况，父进程fork出来一个新的子进程。子进程获得一个时间片。子进程放入队列，等待调度到cpu执行。<br>    然后内核在每个tick（通常是100Hz也就是10ms周期）结束的时候，检查：<br>    是不是当前进程时间片耗尽？是不是有更高优先级的进程需要调度？<br>    如果是，则将当前进程状态终止，换成等待队列中优先级最高的进程来执行。<br>CFS算法：<br>2.6.23以后，O1算法就被CFS算法替换了。针对一般优先级的进程，CFS作为SCHED_OTHER的算法使用。<br>CFS就是完全公平调度的缩写。<br>那么如何实现完全公平的调度？<br>做法就是，当有n个进程在等待调度执行。调度器会在一个比较短的特定时间长度以内，把n个进程全部调度一遍，让他们都享用到cpu的时间。<br>这就是所谓的完全公平调度。<br>那么既然调度器在比较大的特定时间长度以内，会调用完所有的进度。<br>也就是说，RUNNING状态的进程，从一次调度到下一次，中间最大的延迟，就是这个时间。<br>这个时间被称为调度周期，也就是sched_latency_ns。<br>进程越多，在sched_latency_ns不变的情况下，每个进程分到的时间片就越小。<br>调度器只需要对所有进程维护一个累积占用CPU时间数，就可以衡量出每个进程目前占用的CPU时间总量是不是过大或者过小，<br>这个数字记录在每个进程的vruntime中。所有待执行进程都以vruntime为key放到一个由红黑树组成的队列中，每次被调度执行的进程，<br>都是这个红黑树的最左子树上的那个进程，即vruntime时间最少的进程，这样就保证了所有进程的相对公平。    （这段没怎么看懂）<br>但总之就是照顾公平，谁分配到的时间小，就调度谁。</p>
-<p>调度的具体驱动机制如下：<br>1.tick时钟来的时候，会去调度队列检查是否需要调度。<br>2.当前进程状态发生转换时，比如退出或者休眠<br>3.除了休眠外，如果调用sched_yield()，在不发生进程状态变化的情况下，主动让出cpu。<br>4.当前进程的vruntime时间大于进程的理想占用时间delta_exec &gt; ideal_runtime。 ideal_runtime其实就是sched_latency_ns／进程数n。<br>    说白了就是你这个进程，占用的时间太多了，多于平均时间。<br>5.从中断/异常/系统调用返回，会发生调度检查。<br>相关API:<br>schedule()<br>作用是申请系统去发生调度。调度与否由内核决定，不是一定执行了就会被调度的。调度完成后回到原函数继续执行。<br>函数的关键结果是设置一个叫做next的变量，使它指向被选中的进程，该进程将取代当前进程。<br>如果系统中没有优先权高于当前进程的可运行进程，最终next与current相等，不发生任何进程切换。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">asmlinkage void __sched schedule(void)</span><br><span class="line">&#123;</span><br><span class="line">	struct task_struct *tsk = current;//current是当前进程</span><br><span class="line">	sched_submit_work(tsk);//说是避免死锁，具体原理待分析</span><br><span class="line">	__schedule();//这就是调度的主函数了</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>具体的流程分析，参见“schedule()函数（重点）.pdf”<br>cond_resched()<br>这个函数本质上还是schedule()，区别在于，相比普通的schedule()，会很快被调度回来，甚至立刻被调度回来。换言之，即把自己重新以抢占的形式调度回来。<br>如果执行后发生的调度，则返回1，否则返回0.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">#define cond_resched() (&#123;			\</span><br><span class="line">	__might_sleep(__FILE__, __LINE__, 0);	\</span><br><span class="line">	_cond_resched();			\</span><br><span class="line">&#125;)</span><br><span class="line">int __sched _cond_resched(void)</span><br><span class="line">&#123;</span><br><span class="line">	if (should_resched()) &#123;</span><br><span class="line">		__cond_resched();</span><br><span class="line">		return 1;</span><br><span class="line">	&#125;</span><br><span class="line">	return 0;</span><br><span class="line">&#125;</span><br><span class="line">static void __cond_resched(void)</span><br><span class="line">&#123;</span><br><span class="line">	add_preempt_count(PREEMPT_ACTIVE);</span><br><span class="line">	__schedule();</span><br><span class="line">	sub_preempt_count(PREEMPT_ACTIVE);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>PREEMPT_ACTIVE这个宏是抢占式内核里对优先级的一个计数而且是一个很大的计数，基本可以理解为：<br>把优先级提高。所以在重调度前，先将当前进程放到队列前列，这导致内核在重新调度时有很大的几率会优先把原进程调度回来。在回到调度点后再除去自身的优先级。</p>
+<pre><code>    针对RT进程的调度策略有：SCHED_RR，SCHED_FIFO
+        SCHED_RR就是round robin，时间片轮转。时间片是100ms。时间片到了，就换人。很简单。
+        SCHED_FIFO就是队列方式，优先级一样的情况下，谁先开始执行的，就先调度谁，除非它退出或者让出CPU.
+    针对非RT进程的调度策略有：SCHED_BATCH，SCHED_OTHER,SCHED_IDLE
+        非RT的调度复杂的多。涉及的调度算法是O1和CFS.有关O1算法和CFS算法，后面在调度的章节里面再具体解释。
 
+    系统整体的调度策略是：
+        如果系统中有RT进程，则优先执行RT进程。直到RT进程退出，或者RT进程主动让出CPU（睡眠）时，才会去调度非RT进程。
+
+那么让一个进程作为RT进程来运行呢？
+    chrt -f 10 app    -f是指用SCHED_FIFO，也就是RT进程的调度方式了。优先级设置为10.此命令用来启动app。
+    chrt -p $$ pid
+        可以显示当前的进程调度方式是SCHED_FIFO，优先级是10.
+
+PREEMPT_ACTIVE标志在内核抢占中的作用
+    参见《PREEMPT_ACTIVE标志在内核抢占中的作用》
+    简单的说，就是如果抢占发生在一个进程刚刚准备入睡，但仍然在检查入睡条件的阶段。如果这时候被抢占,
+    抢占方会调用schedule()，导致被抢占的进程还没来得及研究要不要入睡，就被移除出了runqueue。
+    导致可能被抢占的进程被意外睡眠，无法唤醒，甚至导致竞态的情况产生。
+    for (;;) {
+        prepare_to_wait(&amp;wq, &amp;__wait, TASK_UNINTERRUPTIBLE);
+        &lt;&lt;&lt;&lt;如果此时突然被抢占。则来不及检查condition，就被强迫入睡，移除出runqueue。
+        if (condition)
+            break;
+        schedule();
+    }
+    所以解决办法是：
+    如果因为抢占引发的调度，就使用schedule()函数来调度，而是使用preempt_schedule()。（正常的调度仍然执行schedule()）
+    preempt_schedule()设置PREEMPT_ACTIVE标志，内部再去调用schedule()
+    而schedule()会检查这个标志，如果设置了PREEMPT_ACTIVE标志，意味着这是从抢占过程中进入schedule()，
+    对于不是TASK_RUNNING(state != 0)的进程，就不会调用deactivate_task()把进程从Run Queue移除。
+</code></pre><p>调度：<br>    上面说到，RT进程的调度有：<br>        SCHED_RR就是round robin，时间片轮转。时间片是100ms。时间片到了，就换人。很简单。<br>        SCHED_FIFO就是队列方式，优先级一样的情况下，谁先开始执行的，就先调度谁，除非它退出或者让出CPU.<br>            正因如此，如果有个RT进程优先级设置成最高99，用SCHED_FIFO则会导致soft lockup。<br>            导致检测softlockup的内核线程[watchdog/x]，也得不到执行，从而内核获知发生了soft lockup。<br>    非RT进程的调度有：SCHED_BATCH，SCHED_OTHER,SCHED_IDLE,涉及的调度算法是O1和CFS.<br>    O1和CFS调度算法的细节:<br>        linux 2.6.23以后，O1算法就被CFS算法替换了。所以现在新的内核里面，默认的非RT进程的调度算法，就是CFS。<br>        O1算法：<br>            O1的名字来源于其算法的时间复杂度是O1。<br>            O1是基于时间片分配的思路来设计的。<br>            假设时间片的基本单位是10ms.那么针对优先级高的进程，就会得到较大的时间片。反之优先级低的进程，就获得较小的时间片。（都是10ms的倍数）<br>            即使是nice值一样的进程（对于非RT进程，nice值一样，意味着priority值一样），O1也会根据其对cpu的占用情况，分为两种：cpu消耗型和io消耗型。<br>            顾名思义，cpu消耗型，就是主要做算数运算的程序。并且通常不会主动放弃cpu，除非被打断，或者时间片耗尽。<br>            io消耗型，就是时间片没耗尽，就主动让出cpu了。例如一些交互程序，vi,emacs。<br>            那么现在假设。有两个进程在跑。priority一样。都是默认的120的非RT进程。<br>            nice为0<br>            一个进程是vi。一个进程是算数运算的程序。<br>            那么内核此时因为都是120的优先级。所以会给这两个程序分配相同的时间片长度，假设是500ms.<br>            此时人来输入一个字符。那么很可能此时cpu正在做算数运算。<br>            又因为这两个进程的优先级一样，不存在谁打断谁的问题。所以只好等算数运算的进程时间片结束以后，vi再响应。<br>            这样就会让人觉得很卡顿。<br>            所以针对这种情况。O1算法会把进程区分出来，到底属于cpu消耗型，还是io消耗型。<br>            区分以后，会动态的微调priority值，范围是+-5<br>            这种特定的情况，O1会提高io消耗型的进程的优先级，增加其时间片长度。并且降低cpu消耗型的进程优先级，减少其时间片长度。<br>            这样用户体验能得到改善。<br>            不过这种微调，在CFS里面就不需要了。后面会解释。</p>
+<pre><code>        那么，在调度的时候，其实只关心TASK_RUNNING状态下的进程。别的状态下的进程，不会被放到调度队列中去。
+        对于调度队列，这里面又分成两种状态。
+        一种是进程已经被调度到CPU上正在执行。    
+        二是进程在队列中，正等待被调度执行。
+        那么，假设cpu有4核。需要执行的进程一共有8个。那么任何一瞬间，其实真正得到运行的进程，只有4个。另外4个则处于等待的状态。
+        所以说，系统当前同时进行调度的进程数，去除以cpu的核心数，这个比值，可以一定程度的反应系统繁忙的程度。
+        有关这个繁忙程度，有个概念是load average。
+        yandong@CH4WDT22X8DB2:~$ uptime
+         16:44:29 up 45 days,  7:35,  9 users,  load average: 1.05, 0.70, 5.09
+
+        over the last 1 minute: The computer was overloaded by 5% on average. On average, .05 processes were waiting for the CPU. (1.05)
+
+        over the last 5 minutes: The CPU idled for 30% of the time. (0.70)
+
+        over the last 15 minutes: The computer was overloaded by 409% on average. On average, 4.09 processes were waiting for the CPU. (5.09)
+
+
+        O1算法大致有下面这些规则：
+        1.父进程fork出来的子进程，会和父进程平分其时间片。如果父进程原来是100ms.则fork以后，父进程和子进程各占50ms.        
+            这样做的原因是为了防止进程通过fork方式大量占有时间片。
+        2.TASK_RUNNING状态的进程。之前也提到，分为正在调度的和等待调度的。O1算法把这两种分类，分别对应到两个队列。
+            一个队列是活动队列，也就是正在cpu上运行的。二是过期队列，这里面的进程时间片已耗尽，等待下一次执行。
+        3。考虑上面1的情况，父进程fork出来一个新的子进程。子进程获得一个时间片。子进程放入队列，等待调度到cpu执行。
+            然后内核在每个tick（通常是100Hz也就是10ms周期）结束的时候，检查：
+            是不是当前进程时间片耗尽？是不是有更高优先级的进程需要调度？
+            如果是，则将当前进程状态终止，换成等待队列中优先级最高的进程来执行。
+    CFS算法：（参见《从几个问题开始理解CFS调度器》）
+        2.6.23以后，O1算法就被CFS算法替换了。针对一般优先级的进程，CFS作为SCHED_OTHER的算法使用。
+        CFS就是完全公平调度的缩写。
+        那么如何实现完全公平的调度？
+        做法就是，当有n个进程在等待调度执行。调度器会在一个比较短的特定时间长度以内，把n个进程全部调度一遍，让他们都享用到cpu的时间。
+        这就是所谓的完全公平调度。
+        那么既然调度器在比较大的特定时间长度以内，会调用完所有的进度。
+        也就是说，RUNNING状态的进程，从一次调度到下一次，中间最大的延迟，就是这个时间。
+        这个时间被称为调度周期。kernel有个默认的调度周期，也就是sched_latency_ns。sched_latency_ns默认值是20ms
+        进程越多，在sched_latency_ns不变的情况下，每个进程分到的时间片就越小。
+        调度器只需要对所有进程维护一个累积占用CPU时间数，就可以衡量出每个进程目前占用的CPU时间总量是不是过大或者过小，
+        这个数字记录在每个进程的vruntime中。所有待执行进程都以vruntime为key放到一个由红黑树组成的队列中，每次被调度执行的进程，
+        都是这个红黑树的最左子树上的那个进程，即vruntime时间最少的进程，这样就保证了所有进程的相对公平。    （这段没怎么看懂）        
+        但总之就是照顾公平，谁分配到的时间小，就调度谁。
+        首先，vruntime是记录时间流逝的单位，可以理解为和jiffies一样。
+        但这个vruntime，其实和真实的时间，是有差别的。
+        根据进程nice值的不同，每个进程都有自己的权重（weight）。
+        这个权重，会决定vruntime时间流逝的速度。
+        假设说，有个进程优先级较高，则vruntime实际的流逝的速度会比正常的系统时间要慢。这样，vruntime增加的就慢。
+        这样就变相的增加了此高优先级进程的运行时间。也就是说，对于不同优先级的进程，其每个人时间流速是不一样的。
+        而CFS在周期性检查并调度的时候，会把红黑树的最左节点的进程拿出来运行。
+        这样总的来说的效果就是：
+        每个调度实体（没组调度的情形下就是进程)的vruntime互相追赶，而每个调度实体的vruntime增加速度不同，权重越大的增加的越慢，这样就能获得更多的cpu执行时间。
+        所以总的来看，总是优先调度vruntime最小的那个进程的时间，也就是最“饥饿”的进程会最先被调度，从而保证了公平。
+
+        一些细节问题的考虑：
+        a.新创建进程的vruntime是多少？
+            假如新进程的vruntime初值为0的话，比老进程的值小很多，那么它在相当长的时间内都会保持抢占CPU的优势，老进程就要饿死了，这显然是不公平的。
+            CFS做法很简单，给新建进程分配一个初始的min_vruntime。与老进程保持在合理的差距范围内。
+        b.休眠进程的vruntime一直保持不变吗？
+            和上面问题类似。如果一个睡眠很久的进程突然醒过来，如果休眠进程的 vruntime 保持不变，而其他运行进程的 vruntime 一直在推进，
+            那么等到休眠进程终于唤醒的时候，它的vruntime比别人小很多，会使它获得长时间抢占CPU的优势，其他进程就要饿死了。
+            所以解决方法也是类似，以min_vruntime值为基础，给予一定的补偿，但不能补偿太多。
+        c.休眠进程在唤醒时会立刻抢占CPU吗？
+            这是由CFS的唤醒抢占 特性决定的，由于休眠进程在唤醒时会获得vruntime的补偿，所以它在醒来的时候有能力抢占
+            CPU是大概率事件，这也是CFS调度算法的本意，即保证交互式进程的响应速度，因为交互式进程等待用户输入会频繁休眠。
+            另外，主动休眠的进程同样也会在唤醒时获得补偿，例如通过调用sleep()、nanosleep()的方式，定时
+            醒来完成特定任务，这类进程往往并不要求快速响应，但是CFS不会把它们与交互式进程区分开来，它们同样也会在每次唤醒时获得vruntime补偿，这有可能会
+            导致其它更重要的应用进程被抢占，有损整体性能。
+            例如：
+            服务器上有两类应用进程，A进程定时循环检查有没有新任务，如果有的话就简单预处理后通知B进程，然后调用nanosleep()主动休
+            眠，醒来后再重复下一个循环；B进程负责数据运算，是CPU消耗型的；B进程的运行时间很长，而A进程每次运行时间都很短，但睡眠/唤醒却十分频繁，每次
+            唤醒就会抢占B，导致B的运行频繁被打断，大量的进程切换带来很大的开销，整体性能下降很厉害。那有什么办法吗？有，CFS可以禁止唤醒抢占 特性：
+            # echo NO_WAKEUP_PREEMPT &gt; /sys/kernel/debug/sched_features
+            禁用唤醒抢占 特性之后，刚唤醒的进程不会立即抢占运行中的进程，而是要等到运行进程用完时间片之后。
+        d.因为vruntime相互追赶的原因，会不会导致两个vruntime相近的进程频繁的互相交替运行，发生震荡？
+            为了避免过于短暂的进程切换造成太大的消耗，CFS设定了进程占用CPU的最小时间值，sched_min_granularity_ns，正在CPU上运行的进
+            程如果不跑足这个时间是不可以被调离CPU的。
+            sched_min_granularity_ns的另外一个作用是：
+            因为之前提过，kernel针对调度周期sched_latency_ns是有个默认值的。
+            但是如果进程数量太多的话，就会造成CPU时间片太小，如果小于sched_min_granularity_ns的话就以sched_min_granularity_ns为准；
+            所以如果单个cpu时间片太小的话，调度周期就不是sched_latency_ns，而是sched_min_granularity_ns * 进程数量。
+        e.进程从一个CPU迁移到另一个CPU上的时候vruntime会不会变？
+            如果一个进程从min_vruntime更小的CPU (A) 上迁移到min_vruntime更大的CPU (B) 上，可能就会占便宜了，因为CPU (B) 的运行队列中进程的vruntime普遍比较
+            大，迁移过来的进程就会获得更多的CPU时间片。这显然不太公平。
+            CFS的做法就是把一个cpu的vruntime，去换算成另外一个cpu的vruntime，这样就不至于有占便宜的情况：
+            当进程从一个CPU的运行队列中出来 (dequeue_entity) 的时候， 它的vruntime要减去队列的min_vruntime值；
+            而当进程加入另一个CPU的运行队列 ( enqueue_entiry) 时，它的vruntime要加上该队列的min_vruntime值。
+        f.vruntime溢出问题
+            之前提过vruntime是互相追赶的，所以很容易想到溢出了怎么办？
+            有关这点，在语法上，用到了c语言的一个技巧。
+            举个最简单的例子如下：
+                unsigned char a=251, b=254;
+                printf(&quot;original a=%d,b=%d\n&quot;,a,b);
+                //b+=5;
+                //a+=5;
+                printf(&quot;a=%d,b=%d\n&quot;,a,b);
+                printf(&quot;a&lt;b =%d\n&quot;,(signed char)(a-b) &lt; 0);
+                printf(&quot;(a-b) =%d\n&quot;,(a-b));
+                printf(&quot;(signed char)(a-b) =%d\n&quot;,(signed char)(a-b));
+            假设a+=5;运行：
+            original a=251,b=254
+            a=0,b=254
+            a&lt;b =0
+            (a-b) =-254
+            (signed char)(a-b) =2
+            所以a虽然溢出，但是实则比b大，所以结果正确。
+            假设b+=5;运行：
+            original a=251,b=254
+            a=251,b=3
+            a&lt;b =1
+            (a-b) =248
+            (signed char)(a-b) =-8
+            所以b虽然溢出，但是a比b小，所以结果正确。
+            至于这背后的数学原理，没太搞懂，只能mark一下。
+
+调度的具体驱动机制如下：
+    1.tick时钟来的时候，会去调度队列检查是否需要调度。
+    2.当前进程状态发生转换时，比如退出或者休眠
+    3.除了休眠外，如果调用sched_yield()，在不发生进程状态变化的情况下，主动让出cpu。
+    4.当前进程的vruntime时间大于进程的理想占用时间delta_exec &gt; ideal_runtime。 ideal_runtime其实就是sched_latency_ns／进程数n。
+        说白了就是你这个进程，占用的时间太多了，多于平均时间。
+    5.从中断/异常/系统调用返回，会发生调度检查。
+进程切换的类型：
+    进程切换分为自愿切换(Voluntary)和强制切换(Involuntary)
+    1.进程运行不下去了：(Voluntary)
+    比如因为要等待IO完成，或者等待某个资源、某个事件，典型的内核代码如下：
+    //把进程放进等待队列，把进程状态置为TASK_UNINTERRUPTIBLE
+    prepare_to_wait(waitq, wait, TASK_UNINTERRUPTIBLE);
+    //切换进程
+    schedule();
+    2.进程还在运行，但内核不让它继续使用CPU了：(Involuntary)
+    比如进程的时间片用完了，或者优先级更高的进程来了，所以该进程必须把CPU的使用权交出来；
+    3.进程还可以运行，但它自己的算法决定主动交出CPU给别的进程：(Involuntary)
+    用户程序可以通过系统调用sched_yield()来交出CPU，内核则可以通过函数cond_resched()或者yield()来做到。
+    这不是自愿切换，而是属于强制切换，因为进程仍然处于运行状态。
+    详见《进程切换：自愿(voluntary)与强制(involuntary)》
+
+相关API:
+    schedule()
+        作用是申请系统去发生调度。调度与否由内核决定，不是一定执行了就会被调度的。调度完成后回到原函数继续执行。
+        函数的关键结果是设置一个叫做next的变量，使它指向被选中的进程，该进程将取代当前进程。
+        如果系统中没有优先权高于当前进程的可运行进程，最终next与current相等，不发生任何进程切换。
+        asmlinkage void __sched schedule(void)
+        {
+            struct task_struct *tsk = current;//current是当前进程
+            sched_submit_work(tsk);//说是避免死锁，具体原理待分析
+            __schedule();//这就是调度的主函数了
+        }
+        具体的流程分析，参见“schedule()函数（重点）.pdf”
+    cond_resched()
+        这个函数本质上还是schedule()，区别在于，相比普通的schedule()，会很快被调度回来，甚至立刻被调度回来。换言之，即把自己重新以抢占的形式调度回来。    
+        如果执行后发生的调度，则返回1，否则返回0.
+        #define cond_resched() ({            \
+            __might_sleep(__FILE__, __LINE__, 0);    \
+            _cond_resched();            \
+        })
+        int __sched _cond_resched(void)
+        {
+            if (should_resched()) {
+                __cond_resched();
+                return 1;
+            }
+            return 0;
+        }
+        static void __cond_resched(void)
+        {
+            add_preempt_count(PREEMPT_ACTIVE);
+            __schedule();
+            sub_preempt_count(PREEMPT_ACTIVE);
+        }
+        PREEMPT_ACTIVE这个宏是抢占式内核里对优先级的一个计数而且是一个很大的计数，基本可以理解为：
+        把优先级提高。所以在重调度前，先将当前进程放到队列前列，这导致内核在重新调度时有很大的几率会优先把原进程调度回来。在回到调度点后再除去自身的优先级。
+</code></pre>
       
     </div>
 
@@ -534,7 +789,7 @@
                 
                   <a href="/archives">
                 
-                    <span class="site-state-item-count">213</span>
+                    <span class="site-state-item-count">217</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -765,7 +1020,11 @@
                     
                       
                     
-                    <span class="site-state-item-count">109</span>
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">111</span>
                     <span class="site-state-item-name">categories</span>
                   </a>
                 </div>
