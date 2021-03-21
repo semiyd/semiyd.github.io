@@ -1,0 +1,954 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.3.0" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.3.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.3.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.3.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.3.0" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '6.3.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="时间相关的接口">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Kernel API">
+<meta property="og:url" content="http://yoursite.com/2021/03/21/Kernel-API/index.html">
+<meta property="og:site_name" content="Semiyd&#39;s Blog">
+<meta property="og:description" content="时间相关的接口">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2021-03-21T07:00:42.082Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Kernel API">
+<meta name="twitter:description" content="时间相关的接口">
+
+
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2021/03/21/Kernel-API/"/>
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>Kernel API | Semiyd's Blog</title>
+  
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Semiyd's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br />Home</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+    <a href="/categories/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-th"></i> <br />Categories</a>
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/03/21/Kernel-API/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Semiyd">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Semiyd's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Kernel API
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2021-03-21 14:58:40 / Modified: 15:00:42" itemprop="dateCreated datePublished" datetime="2021-03-21T14:58:40+08:00">2021-03-21</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Linux/" itemprop="url" rel="index"><span itemprop="name">Linux</span></a></span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Linux/Kernel/" itemprop="url" rel="index"><span itemprop="name">Kernel</span></a></span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Linux/Kernel/其他接口/" itemprop="url" rel="index"><span itemprop="name">其他接口</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><center><strong>时间相关的接口</strong></center><br><a id="more"></a><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br><span class="line">235</span><br><span class="line">236</span><br><span class="line">237</span><br><span class="line">238</span><br><span class="line">239</span><br><span class="line">240</span><br><span class="line">241</span><br><span class="line">242</span><br><span class="line">243</span><br><span class="line">244</span><br><span class="line">245</span><br><span class="line">246</span><br><span class="line">247</span><br><span class="line">248</span><br><span class="line">249</span><br><span class="line">250</span><br><span class="line">251</span><br><span class="line">252</span><br><span class="line">253</span><br><span class="line">254</span><br><span class="line">255</span><br><span class="line">256</span><br><span class="line">257</span><br><span class="line">258</span><br><span class="line">259</span><br><span class="line">260</span><br><span class="line">261</span><br><span class="line">262</span><br><span class="line">263</span><br><span class="line">264</span><br><span class="line">265</span><br><span class="line">266</span><br><span class="line">267</span><br><span class="line">268</span><br><span class="line">269</span><br><span class="line">270</span><br><span class="line">271</span><br><span class="line">272</span><br><span class="line">273</span><br><span class="line">274</span><br><span class="line">275</span><br><span class="line">276</span><br><span class="line">277</span><br><span class="line">278</span><br><span class="line">279</span><br><span class="line">280</span><br><span class="line">281</span><br><span class="line">282</span><br><span class="line">283</span><br><span class="line">284</span><br><span class="line">285</span><br><span class="line">286</span><br><span class="line">287</span><br><span class="line">288</span><br><span class="line">289</span><br><span class="line">290</span><br><span class="line">291</span><br><span class="line">292</span><br><span class="line">293</span><br><span class="line">294</span><br><span class="line">295</span><br><span class="line">296</span><br><span class="line">297</span><br><span class="line">298</span><br><span class="line">299</span><br><span class="line">300</span><br><span class="line">301</span><br><span class="line">302</span><br><span class="line">303</span><br><span class="line">304</span><br><span class="line">305</span><br><span class="line">306</span><br><span class="line">307</span><br><span class="line">308</span><br><span class="line">309</span><br><span class="line">310</span><br><span class="line">311</span><br><span class="line">312</span><br><span class="line">313</span><br><span class="line">314</span><br><span class="line">315</span><br><span class="line">316</span><br><span class="line">317</span><br><span class="line">318</span><br><span class="line">319</span><br><span class="line">320</span><br><span class="line">321</span><br><span class="line">322</span><br><span class="line">323</span><br><span class="line">324</span><br><span class="line">325</span><br><span class="line">326</span><br><span class="line">327</span><br><span class="line">328</span><br><span class="line">329</span><br><span class="line">330</span><br><span class="line">331</span><br><span class="line">332</span><br><span class="line">333</span><br><span class="line">334</span><br><span class="line">335</span><br><span class="line">336</span><br><span class="line">337</span><br><span class="line">338</span><br><span class="line">339</span><br><span class="line">340</span><br><span class="line">341</span><br><span class="line">342</span><br><span class="line">343</span><br><span class="line">344</span><br><span class="line">345</span><br><span class="line">346</span><br><span class="line">347</span><br><span class="line">348</span><br><span class="line">349</span><br><span class="line">350</span><br><span class="line">351</span><br><span class="line">352</span><br><span class="line">353</span><br><span class="line">354</span><br><span class="line">355</span><br><span class="line">356</span><br><span class="line">357</span><br><span class="line">358</span><br><span class="line">359</span><br><span class="line">360</span><br><span class="line">361</span><br><span class="line">362</span><br><span class="line">363</span><br><span class="line">364</span><br><span class="line">365</span><br><span class="line">366</span><br><span class="line">367</span><br><span class="line">368</span><br><span class="line">369</span><br><span class="line">370</span><br><span class="line">371</span><br><span class="line">372</span><br><span class="line">373</span><br><span class="line">374</span><br><span class="line">375</span><br><span class="line">376</span><br><span class="line">377</span><br><span class="line">378</span><br><span class="line">379</span><br><span class="line">380</span><br><span class="line">381</span><br><span class="line">382</span><br><span class="line">383</span><br><span class="line">384</span><br><span class="line">385</span><br><span class="line">386</span><br><span class="line">387</span><br><span class="line">388</span><br><span class="line">389</span><br><span class="line">390</span><br><span class="line">391</span><br><span class="line">392</span><br><span class="line">393</span><br><span class="line">394</span><br><span class="line">395</span><br><span class="line">396</span><br><span class="line">397</span><br><span class="line">398</span><br><span class="line">399</span><br><span class="line">400</span><br><span class="line">401</span><br><span class="line">402</span><br><span class="line">403</span><br><span class="line">404</span><br><span class="line">405</span><br><span class="line">406</span><br><span class="line">407</span><br><span class="line">408</span><br><span class="line">409</span><br><span class="line">410</span><br><span class="line">411</span><br><span class="line">412</span><br><span class="line">413</span><br><span class="line">414</span><br><span class="line">415</span><br><span class="line">416</span><br><span class="line">417</span><br><span class="line">418</span><br><span class="line">419</span><br><span class="line">420</span><br><span class="line">421</span><br><span class="line">422</span><br><span class="line">423</span><br><span class="line">424</span><br><span class="line">425</span><br><span class="line">426</span><br><span class="line">427</span><br><span class="line">428</span><br><span class="line">429</span><br><span class="line">430</span><br><span class="line">431</span><br><span class="line">432</span><br><span class="line">433</span><br><span class="line">434</span><br><span class="line">435</span><br><span class="line">436</span><br><span class="line">437</span><br><span class="line">438</span><br><span class="line">439</span><br><span class="line">440</span><br><span class="line">441</span><br><span class="line">442</span><br><span class="line">443</span><br><span class="line">444</span><br><span class="line">445</span><br><span class="line">446</span><br><span class="line">447</span><br><span class="line">448</span><br><span class="line">449</span><br><span class="line">450</span><br><span class="line">451</span><br><span class="line">452</span><br><span class="line">453</span><br><span class="line">454</span><br><span class="line">455</span><br><span class="line">456</span><br><span class="line">457</span><br><span class="line">458</span><br><span class="line">459</span><br><span class="line">460</span><br><span class="line">461</span><br><span class="line">462</span><br><span class="line">463</span><br><span class="line">464</span><br><span class="line">465</span><br><span class="line">466</span><br><span class="line">467</span><br><span class="line">468</span><br><span class="line">469</span><br><span class="line">470</span><br><span class="line">471</span><br><span class="line">472</span><br><span class="line">473</span><br><span class="line">474</span><br><span class="line">475</span><br><span class="line">476</span><br><span class="line">477</span><br><span class="line">478</span><br><span class="line">479</span><br><span class="line">480</span><br><span class="line">481</span><br><span class="line">482</span><br><span class="line">483</span><br><span class="line">484</span><br><span class="line">485</span><br><span class="line">486</span><br><span class="line">487</span><br><span class="line">488</span><br><span class="line">489</span><br><span class="line">490</span><br><span class="line">491</span><br><span class="line">492</span><br><span class="line">493</span><br><span class="line">494</span><br><span class="line">495</span><br><span class="line">496</span><br><span class="line">497</span><br><span class="line">498</span><br><span class="line">499</span><br><span class="line">500</span><br><span class="line">501</span><br><span class="line">502</span><br><span class="line">503</span><br><span class="line">504</span><br><span class="line">505</span><br><span class="line">506</span><br><span class="line">507</span><br><span class="line">508</span><br><span class="line">509</span><br><span class="line">510</span><br><span class="line">511</span><br><span class="line">512</span><br><span class="line">513</span><br><span class="line">514</span><br><span class="line">515</span><br><span class="line">516</span><br><span class="line">517</span><br><span class="line">518</span><br><span class="line">519</span><br><span class="line">520</span><br><span class="line">521</span><br><span class="line">522</span><br><span class="line">523</span><br><span class="line">524</span><br><span class="line">525</span><br><span class="line">526</span><br><span class="line">527</span><br><span class="line">528</span><br><span class="line">529</span><br><span class="line">530</span><br><span class="line">531</span><br><span class="line">532</span><br><span class="line">533</span><br><span class="line">534</span><br><span class="line">535</span><br><span class="line">536</span><br><span class="line">537</span><br><span class="line">538</span><br><span class="line">539</span><br><span class="line">540</span><br><span class="line">541</span><br><span class="line">542</span><br><span class="line">543</span><br><span class="line">544</span><br><span class="line">545</span><br><span class="line">546</span><br><span class="line">547</span><br><span class="line">548</span><br><span class="line">549</span><br><span class="line">550</span><br><span class="line">551</span><br><span class="line">552</span><br><span class="line">553</span><br><span class="line">554</span><br><span class="line">555</span><br><span class="line">556</span><br><span class="line">557</span><br><span class="line">558</span><br><span class="line">559</span><br><span class="line">560</span><br><span class="line">561</span><br><span class="line">562</span><br><span class="line">563</span><br><span class="line">564</span><br><span class="line">565</span><br><span class="line">566</span><br><span class="line">567</span><br><span class="line">568</span><br><span class="line">569</span><br><span class="line">570</span><br><span class="line">571</span><br><span class="line">572</span><br><span class="line">573</span><br><span class="line">574</span><br><span class="line">575</span><br><span class="line">576</span><br><span class="line">577</span><br><span class="line">578</span><br><span class="line">579</span><br><span class="line">580</span><br><span class="line">581</span><br><span class="line">582</span><br><span class="line">583</span><br><span class="line">584</span><br><span class="line">585</span><br><span class="line">586</span><br><span class="line">587</span><br><span class="line">588</span><br><span class="line">589</span><br><span class="line">590</span><br><span class="line">591</span><br><span class="line">592</span><br><span class="line">593</span><br><span class="line">594</span><br><span class="line">595</span><br><span class="line">596</span><br><span class="line">597</span><br><span class="line">598</span><br><span class="line">599</span><br><span class="line">600</span><br><span class="line">601</span><br><span class="line">602</span><br><span class="line">603</span><br><span class="line">604</span><br><span class="line">605</span><br><span class="line">606</span><br><span class="line">607</span><br><span class="line">608</span><br><span class="line">609</span><br><span class="line">610</span><br><span class="line">611</span><br><span class="line">612</span><br><span class="line">613</span><br><span class="line">614</span><br><span class="line">615</span><br><span class="line">616</span><br><span class="line">617</span><br><span class="line">618</span><br><span class="line">619</span><br><span class="line">620</span><br><span class="line">621</span><br><span class="line">622</span><br><span class="line">623</span><br><span class="line">624</span><br><span class="line">625</span><br><span class="line">626</span><br><span class="line">627</span><br><span class="line">628</span><br><span class="line">629</span><br><span class="line">630</span><br><span class="line">631</span><br><span class="line">632</span><br><span class="line">633</span><br><span class="line">634</span><br><span class="line">635</span><br><span class="line">636</span><br><span class="line">637</span><br><span class="line">638</span><br><span class="line">639</span><br><span class="line">640</span><br><span class="line">641</span><br><span class="line">642</span><br><span class="line">643</span><br><span class="line">644</span><br><span class="line">645</span><br><span class="line">646</span><br><span class="line">647</span><br><span class="line">648</span><br><span class="line">649</span><br><span class="line">650</span><br><span class="line">651</span><br><span class="line">652</span><br><span class="line">653</span><br><span class="line">654</span><br><span class="line">655</span><br><span class="line">656</span><br><span class="line">657</span><br><span class="line">658</span><br><span class="line">659</span><br><span class="line">660</span><br><span class="line">661</span><br><span class="line">662</span><br><span class="line">663</span><br><span class="line">664</span><br><span class="line">665</span><br><span class="line">666</span><br><span class="line">667</span><br><span class="line">668</span><br><span class="line">669</span><br><span class="line">670</span><br><span class="line">671</span><br><span class="line">672</span><br><span class="line">673</span><br><span class="line">674</span><br><span class="line">675</span><br><span class="line">676</span><br><span class="line">677</span><br><span class="line">678</span><br><span class="line">679</span><br><span class="line">680</span><br><span class="line">681</span><br><span class="line">682</span><br><span class="line">683</span><br><span class="line">684</span><br><span class="line">685</span><br><span class="line">686</span><br><span class="line">687</span><br><span class="line">688</span><br><span class="line">689</span><br><span class="line">690</span><br><span class="line">691</span><br><span class="line">692</span><br><span class="line">693</span><br><span class="line">694</span><br><span class="line">695</span><br><span class="line">696</span><br><span class="line">697</span><br><span class="line">698</span><br><span class="line">699</span><br><span class="line">700</span><br><span class="line">701</span><br><span class="line">702</span><br><span class="line">703</span><br><span class="line">704</span><br><span class="line">705</span><br><span class="line">706</span><br><span class="line">707</span><br><span class="line">708</span><br><span class="line">709</span><br><span class="line">710</span><br><span class="line">711</span><br><span class="line">712</span><br><span class="line">713</span><br><span class="line">714</span><br><span class="line">715</span><br><span class="line">716</span><br><span class="line">717</span><br><span class="line">718</span><br><span class="line">719</span><br><span class="line">720</span><br><span class="line">721</span><br><span class="line">722</span><br><span class="line">723</span><br><span class="line">724</span><br><span class="line">725</span><br><span class="line">726</span><br><span class="line">727</span><br><span class="line">728</span><br><span class="line">729</span><br><span class="line">730</span><br><span class="line">731</span><br><span class="line">732</span><br><span class="line">733</span><br><span class="line">734</span><br><span class="line">735</span><br><span class="line">736</span><br><span class="line">737</span><br><span class="line">738</span><br><span class="line">739</span><br><span class="line">740</span><br><span class="line">741</span><br><span class="line">742</span><br><span class="line">743</span><br><span class="line">744</span><br><span class="line">745</span><br><span class="line">746</span><br><span class="line">747</span><br><span class="line">748</span><br><span class="line">749</span><br><span class="line">750</span><br><span class="line">751</span><br><span class="line">752</span><br><span class="line">753</span><br><span class="line">754</span><br><span class="line">755</span><br><span class="line">756</span><br><span class="line">757</span><br><span class="line">758</span><br><span class="line">759</span><br><span class="line">760</span><br><span class="line">761</span><br><span class="line">762</span><br><span class="line">763</span><br><span class="line">764</span><br><span class="line">765</span><br><span class="line">766</span><br><span class="line">767</span><br><span class="line">768</span><br><span class="line">769</span><br><span class="line">770</span><br><span class="line">771</span><br><span class="line">772</span><br><span class="line">773</span><br><span class="line">774</span><br><span class="line">775</span><br><span class="line">776</span><br><span class="line">777</span><br><span class="line">778</span><br><span class="line">779</span><br><span class="line">780</span><br><span class="line">781</span><br><span class="line">782</span><br><span class="line">783</span><br><span class="line">784</span><br><span class="line">785</span><br><span class="line">786</span><br><span class="line">787</span><br><span class="line">788</span><br><span class="line">789</span><br><span class="line">790</span><br><span class="line">791</span><br><span class="line">792</span><br><span class="line">793</span><br><span class="line">794</span><br><span class="line">795</span><br><span class="line">796</span><br><span class="line">797</span><br><span class="line">798</span><br><span class="line">799</span><br><span class="line">800</span><br><span class="line">801</span><br><span class="line">802</span><br><span class="line">803</span><br><span class="line">804</span><br><span class="line">805</span><br><span class="line">806</span><br><span class="line">807</span><br><span class="line">808</span><br><span class="line">809</span><br><span class="line">810</span><br><span class="line">811</span><br><span class="line">812</span><br><span class="line">813</span><br><span class="line">814</span><br><span class="line">815</span><br><span class="line">816</span><br><span class="line">817</span><br><span class="line">818</span><br><span class="line">819</span><br><span class="line">820</span><br><span class="line">821</span><br><span class="line">822</span><br><span class="line">823</span><br><span class="line">824</span><br><span class="line">825</span><br><span class="line">826</span><br><span class="line">827</span><br><span class="line">828</span><br><span class="line">829</span><br><span class="line">830</span><br><span class="line">831</span><br><span class="line">832</span><br><span class="line">833</span><br><span class="line">834</span><br><span class="line">835</span><br><span class="line">836</span><br></pre></td><td class="code"><pre><span class="line">========================================内核线程==================================================</span><br><span class="line">	用于帮助驱动完成一些异步事件的处理(接收异步事件，并调用用户空间的程序)和睡眠等待一些事件的，运行于内核的线程。</span><br><span class="line">	常见的已有的内核线程：</span><br><span class="line">		[kthreadd]</span><br><span class="line">			内核线程的父线程</span><br><span class="line">		[ksoftirqd/0]</span><br><span class="line">			用于处理中断下半部分，也就是tasklet</span><br><span class="line">		[events/0]</span><br><span class="line">			用来处理work queue </span><br><span class="line">		[pdflush]</span><br><span class="line">			批量把页缓冲写入磁盘的后台线程</span><br><span class="line">		[kjournald]</span><br><span class="line">			日志线程</span><br><span class="line">		[nfsd]</span><br><span class="line">			Network File System (NFS) 的后台线程</span><br><span class="line">	自定义内核线程</span><br><span class="line">		通常的使用过程包括：</span><br><span class="line">		用kernel_thread建立线程，wake_up_interruptible唤醒这个线程</span><br><span class="line">		线程本身如下：(这个例子，线程会等待别人唤醒，应该不属于最简单的内核线程的例子，不知为什么以前记录的这个笔记)</span><br><span class="line">		DECLARE_WAITQUEUE</span><br><span class="line">		daemonize</span><br><span class="line">		allow_signal</span><br><span class="line">		add_wait_queue</span><br><span class="line">		while(1)</span><br><span class="line">			set_current_state(TASK_INTERRUPTIBLE);</span><br><span class="line">			schedule</span><br><span class="line">			至此就是等待到相应的事件了。处理事件。</span><br><span class="line">			如果需要，调用用户空间的User Mode Helpers，在用户空间进一步处理事件。</span><br><span class="line">			如果收到关线程的信号，跳出循环</span><br><span class="line">		set_current_state(TASK_RUNNING);</span><br><span class="line">  		remove_wait_queue</span><br><span class="line">		在上述的基础上，还有一套Kthread的API，进行了进一步的包装，并且集成了completion interface，使用更加简单</span><br><span class="line">			通常的使用过程包括：</span><br><span class="line">			static struct task_struct * MyThread = NULL;  </span><br><span class="line">			static int MyPrintk(void *data)  </span><br><span class="line">			&#123;  	</span><br><span class="line">				while(!kthread_should_stop())  </span><br><span class="line">				&#123;  </span><br><span class="line">				做具体的事情。</span><br><span class="line">				&#125;  </span><br><span class="line">			&#125;  </span><br><span class="line">			static int __init init_kthread(void)  </span><br><span class="line">			&#123;  </span><br><span class="line">				MyThread = kthread_run(MyPrintk,&quot;hello world&quot;,&quot;mythread&quot;);  </span><br><span class="line">			&#125;  </span><br><span class="line">			static void __exit exit_kthread(void)  </span><br><span class="line">			&#123;  </span><br><span class="line">				if(MyThread)  </span><br><span class="line">				&#123;  </span><br><span class="line">					kthread_stop(MyThread);  </span><br><span class="line">				&#125;  </span><br><span class="line">			&#125;</span><br><span class="line">			module_init(init_kthread);  </span><br><span class="line">			module_exit(exit_kthread);  </span><br><span class="line"></span><br><span class="line">================================================================================================</span><br><span class="line"></span><br><span class="line">user mode helpers</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">================================================================================================</span><br><span class="line"></span><br><span class="line">链表操作：</span><br><span class="line">	INIT_LIST_HEAD() 	Initializes the list head </span><br><span class="line">	list_add() 		Adds an element after the list head </span><br><span class="line">	list_add_tail() 		Adds an element to the tail of the list </span><br><span class="line">	list_del() 			Deletes an element from the list </span><br><span class="line">	list_replace() 		Replaces an element in the list with another </span><br><span class="line">	list_entry() 		Loops through all nodes in the list </span><br><span class="line">	list_for_each_entry()/	Simpler list iteration interfaces	</span><br><span class="line">	list_for_each_entry_safe()	Simpler list iteration interfaces</span><br><span class="line">	list_empty() 		Checks whether there are any elements in the list </span><br><span class="line">	list_splice() 		Joins one list with another </span><br><span class="line">哈希表：</span><br><span class="line">	struct hlist_head </span><br><span class="line">	struct hlist_node </span><br><span class="line"></span><br><span class="line">================================================================================================</span><br><span class="line">Notifier Chains</span><br><span class="line">	用于注册发生某些系统事件的时候，各个内核子系统之间互相通知用的。</span><br><span class="line">	通知链只能用在各个子系统之间，而不能在内核和用户空间进行事件的通知。</span><br><span class="line">	系统事件包括：</span><br><span class="line">		系统关机（进行某种清理工作）</span><br><span class="line">		发生oops异常（进行某种应急处理）</span><br><span class="line">		网络设备变化，如网卡up/down</span><br><span class="line">		具体可以参考include/linux/notifier.h中的定义。</span><br><span class="line">	以网络为例，Linux的网络子系统一共有3个通知链：表示ipv4地址发生变化时的inetaddr_chain；表示ipv6地址发生变化的inet6addr_chain；还有表示设备注册、状态变化的netdev_chain。</span><br><span class="line">	那么netdev_chain这个通知链，后面挂了一溜的通知块notifier_block，每个notifier_block都代表一个监听者。每个notifier_block都指向下一个notifier_block，形成链表。</span><br><span class="line">	struct notifier_block &#123;</span><br><span class="line">		   int (*notifier_call)(struct notifier_block *, unsigned long, void *);	当相应事件发生时应该调用的函数，由监听者提供</span><br><span class="line">		   struct notifier_block *next;					用于链接成链表的指针；</span><br><span class="line">		   int priority;						回调函数的优先级，一般默认为0。</span><br><span class="line">	&#125;;</span><br><span class="line">	所以通知链是只整个通知的生产者，notifier_block是指生产者。工作的流程是，先注册通知链，再注册各个notifier_block。最后由生产者发出通知，会带上具体的通知内容（例如通知号）</span><br><span class="line">	消费者收到通知后，根据通知号，做具体的处理。</span><br><span class="line">	通知链分四种：</span><br><span class="line">	 *	Atomic notifier chains: Chain callbacks run in interrupt/atomic</span><br><span class="line">	 *		context. Callouts are not allowed to block.</span><br><span class="line">	 *	Blocking notifier chains: Chain callbacks run in process context.</span><br><span class="line">	 *		Callouts are allowed to block.</span><br><span class="line">	 *	Raw notifier chains: There are no restrictions on callbacks,</span><br><span class="line">	 *		registration, or unregistration.  All locking and protection</span><br><span class="line">	 *		must be provided by the caller.</span><br><span class="line">	 *	SRCU notifier chains: A variant of blocking notifier chains, with</span><br><span class="line">	 *		the same restrictions.</span><br><span class="line">	netdev_chain就是一种Raw notifier chains</span><br><span class="line">	代码例子：Linux\Kernel\其他接口\code\notifier</span><br><span class="line">================================================================================================</span><br><span class="line">fstab：</span><br><span class="line">================================================================================================</span><br><span class="line">procfs和sysfs和debugfs</span><br><span class="line">	/proc反映kernel内部的通用的信息</span><br><span class="line">	/sys和设备更相关</span><br><span class="line">		通过sysfs_create_bin_file()来建立sysfs节点。这样在用户空间，通过操作/sys/下面的某个文件，就等于是直接操作硬件</span><br><span class="line">		sysfs_create_group()</span><br><span class="line">		DEVICE_ATTR(coordinates, 0644, NULL, write_vms);//sysfs写节点的方法注册（write_vms()）</span><br><span class="line">		如何在内核中，建立一个sysfs节点，并在用户空间赋值，让内核读到？</span><br><span class="line">			准备工作：</span><br><span class="line">			static ssize_t gt9xx_device_read(struct file* filp, char __user *buffer, size_t length, loff_t* offset)</span><br><span class="line">			&#123;</span><br><span class="line">				return 0;</span><br><span class="line">			&#125;</span><br><span class="line"></span><br><span class="line">			static int gt9xx_device_open(struct inode* inode, struct file* filp)</span><br><span class="line">			&#123;</span><br><span class="line">				return 0;</span><br><span class="line">			&#125;</span><br><span class="line"></span><br><span class="line">			static int gt9xx_device_close(struct inode* inode, struct file* filp)</span><br><span class="line">			&#123;</span><br><span class="line">				return 0;</span><br><span class="line">			&#125;</span><br><span class="line"></span><br><span class="line">			static struct file_operations gt9xx_fops = &#123;</span><br><span class="line"> 			.read = gt9xx_device_read,</span><br><span class="line">			 .open = gt9xx_device_open,</span><br><span class="line">			 .release = gt9xx_device_close</span><br><span class="line">			&#125;;</span><br><span class="line"></span><br><span class="line">			//声明文件节点对应的回调函数</span><br><span class="line">			static DEVICE_ATTR(x, S_IWUSR, NULL, gt9xx_update_x);</span><br><span class="line">			static DEVICE_ATTR(y, S_IWUSR, NULL, gt9xx_update_y);</span><br><span class="line">			static DEVICE_ATTR(simulate, S_IWUSR, NULL, gt9xx_simulate);</span><br><span class="line"></span><br><span class="line">			 /* First, see if we can dynamically allocate a major for our device */</span><br><span class="line">			 gt9xx_major = register_chrdev(0, DEVICE_NAME, &amp;gt9xx_fops);</span><br><span class="line">	 </span><br><span class="line">			 /* We can either tie our device to a bus (existing, or one that we create)</span><br><span class="line">			  * or use a &quot;virtual&quot; device class. For this example, we choose the latter */</span><br><span class="line">			 gt9xx_class = class_create(THIS_MODULE, CLASS_NAME);</span><br><span class="line"></span><br><span class="line">	 </span><br><span class="line">			 /* With a class, the easiest way to instantiate a device is to call device_create() */</span><br><span class="line">			 gt9xx_device = device_create(gt9xx_class, NULL, MKDEV(gt9xx_major, 0), NULL, CLASS_NAME &quot;_&quot; DEVICE_NAME);</span><br><span class="line"></span><br><span class="line">			 /* Now we can create the sysfs endpoints (don&apos;t care about errors).</span><br><span class="line">			  * dev_attr_x and dev_attr_y come from the DEVICE_ATTR(...) earlier */</span><br><span class="line">			 retval = device_create_file(gt9xx_device, &amp;dev_attr_x);</span><br><span class="line">			 retval = device_create_file(gt9xx_device, &amp;dev_attr_y);</span><br><span class="line">			 retval = device_create_file(gt9xx_device, &amp;dev_attr_simulate);</span><br><span class="line">	 </span><br><span class="line">			随后有关获取用户空间的数据，有两种方法：通过kfifo或者直接使用.</span><br><span class="line">			总的来说，DEVICE_ATTR在定义属性的读写API时，其实传进来的时候，就已经是const char* buf了（参见下面的gt9xx_update_x的定义的入参）</span><br><span class="line">			也就是用户空间输入的数字，到内核里面，已经是字符数组了。所以。如果要直接当成数字使用，是需要转换格式的。</span><br><span class="line">			kfifo：</span><br><span class="line">				#define PARROT_MSG_FIFO_SIZE 1024</span><br><span class="line"></span><br><span class="line">				/* Use a Kernel FIFO for read operations */</span><br><span class="line">				static DECLARE_KFIFO(gt9xx_msg_fifo_x, char, PARROT_MSG_FIFO_SIZE);</span><br><span class="line">				static DECLARE_KFIFO(gt9xx_msg_fifo_y, char, PARROT_MSG_FIFO_SIZE);</span><br><span class="line">	</span><br><span class="line">				//记得在上面初始化的时候，同时初始化了这些fifo结构体</span><br><span class="line">					 INIT_KFIFO(gt9xx_msg_fifo_x);</span><br><span class="line">					 INIT_KFIFO(gt9xx_msg_fifo_y);</span><br><span class="line"></span><br><span class="line">				/* Placing data into the read FIFO is done through sysfs */</span><br><span class="line">				static ssize_t gt9xx_update_y(struct device* dev, struct device_attribute* attr, const char* buf, size_t count)</span><br><span class="line">				&#123;</span><br><span class="line">				 unsigned int copied;</span><br><span class="line"> </span><br><span class="line">				 if (kfifo_avail(&amp;gt9xx_msg_fifo_y) &lt; count) &#123;</span><br><span class="line">				  printk(&quot;not enough space left on fifo\n&quot;);</span><br><span class="line">				  return -ENOSPC;</span><br><span class="line">				 &#125;</span><br><span class="line"> </span><br><span class="line">				 /* The buffer is already in kernel space, so no need for ..._from_user() */</span><br><span class="line">				 copied = kfifo_in(&amp;gt9xx_msg_fifo_y, buf, count);</span><br><span class="line">				</span><br><span class="line">				 if (copied != count) &#123;</span><br><span class="line">				  printk(&quot;short write detected\n&quot;);</span><br><span class="line">				 &#125;</span><br><span class="line"></span><br><span class="line">				 return copied;</span><br><span class="line">				&#125;</span><br><span class="line"> </span><br><span class="line">				/* This sysfs entry resets the FIFO */</span><br><span class="line">				static ssize_t gt9xx_simulate(struct device* dev, struct device_attribute* attr, const char* buf, size_t count)</span><br><span class="line">				&#123;</span><br><span class="line">					char x;</span><br><span class="line">					char y;</span><br><span class="line">					unsigned int tmp=88;</span><br><span class="line"></span><br><span class="line">					//kfifo_put(&amp;gt9xx_msg_fifo_x, &amp;tmp);</span><br><span class="line">					//导出出来</span><br><span class="line">					kfifo_out(&amp;gt9xx_msg_fifo_x, &amp;x, 3);</span><br><span class="line">					kfifo_out(&amp;gt9xx_msg_fifo_y, &amp;y, 3);</span><br><span class="line">					//清零</span><br><span class="line">					kfifo_reset(&amp;gt9xx_msg_fifo_x);</span><br><span class="line">					kfifo_reset(&amp;gt9xx_msg_fifo_y);</span><br><span class="line">				 	return count;</span><br><span class="line">				&#125;</span><br><span class="line">				//字符设备的read函数示例，可以直接把刚刚收到的字符，返回到用户空间</span><br><span class="line">				static ssize_t gt9xx_device_read(struct file* filp, char __user *buffer, size_t length, loff_t* offset)</span><br><span class="line">				&#123;</span><br><span class="line">				 int retval;</span><br><span class="line">				 unsigned int copied;</span><br><span class="line"> </span><br><span class="line">				 if (kfifo_is_empty(&amp;parrot_msg_fifo)) &#123;</span><br><span class="line">				  return 0;</span><br><span class="line">				 &#125;</span><br><span class="line"> </span><br><span class="line">				 retval = kfifo_to_user(&amp;parrot_msg_fifo, buffer, parrot_msg_len[parrot_msg_idx_rd], &amp;copied);</span><br><span class="line"></span><br><span class="line">				 return retval ? retval : copied;</span><br><span class="line">				&#125;</span><br><span class="line"> 			直接用strict_strtoul转换</span><br><span class="line">				unsigned int x_axis = 0;</span><br><span class="line">				static ssize_t gt9xx_update_x(struct device* dev, struct device_attribute* attr, const char* buf, size_t count)</span><br><span class="line">				&#123;</span><br><span class="line">					if (strict_strtoul(buf, 10, &amp;x_axis))</span><br><span class="line">						return -EINVAL;</span><br><span class="line">					return count;</span><br><span class="line">				&#125;</span><br><span class="line">				这样，在用户空间输入的数字，就直接被转成可以用的数字了，保存在x_axis。</span><br><span class="line"></span><br><span class="line">	bus-device-driver 模型：</span><br><span class="line">		bus是指主控，如i2c主控制器</span><br><span class="line">		device是指连接上来的外部设备</span><br><span class="line">		driver是指驱动device的方法	</span><br><span class="line"></span><br><span class="line">/proc常用接口举例：</span><br><span class="line">	/proc/interrupts	查看各个中断号和中断名字</span><br><span class="line"> 		          CPU0</span><br><span class="line">		  4:          0      INTC  omap2_elm</span><br><span class="line">	 	12:          0      INTC  edma</span><br><span class="line">		 52:          0      INTC  can0</span><br><span class="line">		269:          0      GPIO  phy_interrupt</span><br><span class="line">	/proc/net/dev	查看网络子系统，各个接口的收发包的统计</span><br><span class="line">		Inter-|   Receive                                                |  Transmit</span><br><span class="line">		 face |bytes    packets errs drop fifo frame compressed multicast|bytes    packets errs drop fifo colls carrier compressed</span><br><span class="line">		    lo:     504       6    0    0    0     0          0         0      504       6    0    0    0     0       0          0</span><br><span class="line">		  eth1:       0       0    0    0    0     0          0         0        0       0    0    0    0     0       0          0</span><br><span class="line">		  can1:       0       0    0    0    0     0          0         0        0       0    0    0    0     0       0          0</span><br><span class="line">		  eth0:  315294    2351    0  781    0     0          0         0     1160      13    0    0    0     0       0          0</span><br><span class="line">		  can0:       0       0    0    0    0     0          0         0        0       0    0    0    0     0       0          0	</span><br><span class="line">	/proc/iomem	查看request_mem_region申请的resource的寄存器地址范围，注册platform驱动的时候会涉及</span><br><span class="line">		44e05000-44e053ff : omap_timer.0</span><br><span class="line">		  44e05000-44e053ff : omap_timer</span><br><span class="line">		44e07000-44e07fff : omap_gpio.0</span><br><span class="line">		44e09000-44e0afff : omap_uart.0</span><br><span class="line">		  44e09000-44e0afff : omap_uart</span><br><span class="line">		44e0b000-44e0bfff : omap_i2c.1</span><br><span class="line">		  44e0b000-44e0bfff : omap_i2c</span><br><span class="line">	/proc/version	查看内核版本和编译器信息</span><br><span class="line">		Linux version 3.2.0-EmbedSky (yandong@CH4WDT22X8DB2) (gcc version 4.4.6 (for TQ210 EmbedSky Tech) ) #97 Tue Dec 6 11:02:42 HKT 2016</span><br><span class="line">	/proc/cpuinfo	查看处理器和MACHINE名字信息</span><br><span class="line">		Processor       : ARMv7 Processor rev 2 (v7l)</span><br><span class="line">		BogoMIPS        : 795.44</span><br><span class="line">		Features        : swp half thumb fastmult vfp edsp thumbee neon vfpv3 tls</span><br><span class="line">		CPU implementer : 0x41</span><br><span class="line">		CPU architecture: 7</span><br><span class="line">		CPU variant     : 0x3</span><br><span class="line">		CPU part        : 0xc08</span><br><span class="line">		CPU revision    : 2</span><br><span class="line">		Hardware        : iq8_ncm_v21</span><br><span class="line">		Revision        : 0000</span><br><span class="line">		Serial          : 0000000000000000</span><br><span class="line">	/proc/kallsyms	查看被EXPORT_SYMBOL导出的内核符号表（很多很多函数名）</span><br><span class="line">		c080aec8 t omap_nand_init</span><br><span class="line">		c080b55c t omap2_mcspi_init</span><br><span class="line">		c080b5c0 t omap2_mcspi_probe</span><br><span class="line">		c080ddf4 t omap_i2c_init_driver</span><br><span class="line">		c080efb0 t omap_wdt_init</span><br><span class="line">	/proc/slabinfo	查看slab池的使用情况</span><br><span class="line">		# name            &lt;active_objs&gt; &lt;num_objs&gt; &lt;objsize&gt; &lt;objperslab&gt; &lt;pagesperslab&gt; : tunables &lt;limit&gt; &lt;batchcount&gt; &lt;sharedfactor&gt; : slabdata &lt;active_slabs&gt; &lt;num_slabs&gt; &lt;sharedavail&gt;</span><br><span class="line">		nfs_commit_data        4      9    448    9    1 : tunables   54   27    8 : slabdata      1      1      0</span><br><span class="line">		nfs_write_data        32     35    576    7    1 : tunables   54   27    8 : slabdata      5      5      0</span><br><span class="line">		dma-kmalloc-96         0      0    128   31    1 : tunables  120   60    8 : slabdata      0      0      0</span><br><span class="line">		kmalloc-4194304        0      0 4194304    1 1024 : tunables    1    1    0 : slabdata      0      0      0</span><br><span class="line">		kmem_cache           185    279    128   31    1 : tunables  120   60    8 : slabdata      9      9      0</span><br><span class="line">	/proc/vmallocinfo	查看vmalloc分配的情况</span><br><span class="line">		0xe0804000-0xe0807000   12288 _populate_mpu_rt_base+0x9c/0xc8 ioremap</span><br><span class="line">		0xe0808000-0xe080a000    8192 _populate_mpu_rt_base+0x9c/0xc8 ioremap</span><br><span class="line">		0xe080a000-0xe080c000    8192 _populate_mpu_rt_base+0x9c/0xc8 ioremap</span><br><span class="line">	/proc/meminfo	查看内存使用情况，包括highmen lowmen使用情况</span><br><span class="line">		MemTotal:         509988 kB</span><br><span class="line">		MemFree:          499944 kB</span><br><span class="line">		HighTotal:             0 kB</span><br><span class="line">		HighFree:              0 kB</span><br><span class="line">		LowTotal:         509988 kB</span><br><span class="line">		LowFree:          499944 kB</span><br><span class="line">		VmallocTotal:     499712 kB</span><br><span class="line">		VmallocUsed:        9244 kB</span><br><span class="line">	/proc/partitions	查看分区的情况</span><br><span class="line">		major minor  #blocks  name</span><br><span class="line">		 179        0    3817472 mmcblk1</span><br><span class="line">		 179        1     512000 mmcblk1p1</span><br><span class="line">		 179        2    3203072 mmcblk1p2</span><br><span class="line">		 179       24        512 mmcblk1rpmb</span><br><span class="line">		 179       16       2048 mmcblk1boot1</span><br><span class="line">		 179        8       2048 mmcblk1boot0</span><br><span class="line">	 /proc/mtd	查看mtd分区的情况</span><br><span class="line">		dev:    size   erasesize  name</span><br><span class="line">		mtd0: 00020000 00020000 &quot;NAND.SPL&quot;</span><br><span class="line">		mtd1: 00020000 00020000 &quot;NAND.SPL.backup1&quot;</span><br><span class="line">		mtd2: 00020000 00020000 &quot;NAND.SPL.backup2&quot;</span><br><span class="line">		mtd3: 00020000 00020000 &quot;NAND.SPL.backup3&quot;</span><br><span class="line">		mtd4: 001e0000 00020000 &quot;NAND.u-boot&quot;</span><br><span class="line">		mtd5: 00020000 00020000 &quot;NAND.u-boot-env&quot;</span><br><span class="line">		mtd6: 00300000 00020000 &quot;NAND.LOGO&quot;</span><br><span class="line">		mtd7: 00500000 00020000 &quot;NAND.kernel&quot;</span><br><span class="line">		mtd8: 3f580000 00020000 &quot;rootfs&quot;</span><br><span class="line">	/proc/cmdline	查看bootargs</span><br><span class="line">		setenv bootargs console=ttyO0,115200n8 root=ubi0:rootfs rw ubi.mtd=8 rootfstype=ubifs rootwait=1 ip=none vt.global_cursor_default=0 lcd=X800Y480 uart1_d_can=uart1 uart2_i2c2=uart2</span><br><span class="line"></span><br><span class="line">debugfs:</span><br><span class="line">	详见	C:\Document\Document\Linux\Kernel\学习资料\Linux内核里的DebugFS.pdf</span><br><span class="line">================================================================================================</span><br><span class="line">device_register和driver_register</span><br><span class="line">	以macb为例，可以先driver_register，然后再device_register</span><br><span class="line">	此时device_register的时候，会根据bus类型，（driver_register注册的driver和device_register注册的device一定有相同的bus类型）</span><br><span class="line">	先用device的bus，调用bus_for_each_drv()来匹配相同bus的driver。</span><br><span class="line">	找到driver后</span><br><span class="line">	然后首先尝试用driver的bus的match函数来做初级的匹配。如果match函数存在，且结果是不匹配，则不继续往下执行。</span><br><span class="line">	如果match函数压根不存在，或者match的结果是匹配，则执行下一步的probe。</span><br><span class="line">	如果bus有probe函数，调用bus的probe，否则：</span><br><span class="line">	调用driver的probe来探测，如果探测成功则绑定driver和device。（也就是device结构体的driver成员指向相应的driver结构体）</span><br><span class="line"></span><br><span class="line">================================================================================================</span><br><span class="line">Input子系统</span><br><span class="line">	分两大块，event driver和device driver</span><br><span class="line">	event driver就是指input子系统本身的接口。这个一般是不用写的，只要使用即可。如需要也可以自己定制一个event driver。（要用到input_register_handler()）</span><br><span class="line">	device driver是指输入设备自己的设备驱动。</span><br><span class="line"></span><br><span class="line">	event driver常用的接口有：</span><br><span class="line">	struct input_dev&#123;&#125;				输入设备结构体</span><br><span class="line">	input_allocate_device()			分配一个输入设备</span><br><span class="line">	set_bit()					设置输入设备的属性，如绝对还是相对坐标，是否有x,y坐标等</span><br><span class="line">	input_register_device()/input_unregister_device	注册/注销一个输入设备</span><br><span class="line">	input_report_rel()				上报相对坐标事件</span><br><span class="line">	input_sync()				事件上报结束，此时input子系统会把刚刚的3个时间打包到一个evdev包里面，通过/dev/input/eventX输出出去</span><br><span class="line">	event driver也有些细分的定制的类别，针对不同的设备，如鼠标的mousedev和键盘的keyboard event driver</span><br><span class="line"></span><br><span class="line">================================================================================================</span><br><span class="line">电源管理</span><br><span class="line">	</span><br><span class="line">device_init_wakeup()</span><br><span class="line">	一般在platform_driver的probe的时候调用。</span><br><span class="line">	如：</span><br><span class="line">		device_init_wakeup(&amp;client-&gt;dev,1);</span><br><span class="line">	有两个概念，can_wakeup和should_wakeup。</span><br><span class="line">	can_wakeup是指能不能唤醒</span><br><span class="line">	should_wakeup是指是不是使能唤醒</span><br><span class="line"></span><br><span class="line">大多数设备的should_wakeup的初始值都被设为false，也有例外，比如电源键、键盘和由ethtool设置了wake-on-LAN功能的网卡。</span><br><span class="line">	</span><br><span class="line">device_may_wakeup</span><br><span class="line">有关唤醒的细节，有需要的时候再仔细研究</span><br><span class="line">================================================================================================</span><br><span class="line">初始化，kernel启动流程</span><br><span class="line">arch\arm\boot\compressed\Head.s</span><br><span class="line">decompress_kernel		位于arch\arm\boot\compressed\Misc.c	</span><br><span class="line">start_kernel		位于init\Main.c</span><br><span class="line">setup_arch		位于arch\arm\kernel\Setup.c</span><br><span class="line">setup_machine</span><br><span class="line">customize_machine</span><br><span class="line">	执行MACHINE_START定义的.init。</span><br><span class="line">	也就是__define_initcall(&quot;3&quot;,fn,3)这个级别的</span><br><span class="line"></span><br><span class="line">至于MACHINE_START的其他成员</span><br><span class="line">2. init_irq在start_kernel() --&gt; init_IRQ() --&gt; init_arch_irq() 被调用</span><br><span class="line">3. map_io 在 setup_arch() --&gt; paging_init() --&gt; devicemaps_init()被调用</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">MACHINE_START和arch_initcall的关系？看执行顺序，MACHINE_START要在arch_initcall前面</span><br><span class="line">	arch_initcall就是__define_initcall(&quot;3&quot;,fn,3)。从这个来看，至少单独使用arch_initcall的初始化函数，和MACHINE_START的.init是同一个优先级被调用的。</span><br><span class="line"></span><br><span class="line">至于module_init，属于__define_initcall(&quot;6&quot;,fn,6)，也就是device_initcall</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">具体的流程待学习：</span><br><span class="line">http://blog.sina.com.cn/s/blog_7a38d67301014cqe.html</span><br><span class="line">http://www.cnblogs.com/innost/archive/2011/11/08/2241653.html</span><br><span class="line">http://www.linuxidc.com/Linux/2014-10/108034.htm</span><br><span class="line">C:\Document\Document\Linux\Kernel\学习资料\深入淺出 start_kernel().pdf</span><br><span class="line">================================================================================================</span><br><span class="line">Device Tree</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">================================================================================================</span><br><span class="line">IS_ERR(void *ptr),PTR_ERR(void *ptr), ERR_PTR(long error)</span><br><span class="line"></span><br><span class="line">对于指针，内核中，除了NULL指针是错误的以外，还有一系列的错误的指针。内核规定，当指针范围是0xfffff000~0xffffffff之间的时候，因为</span><br><span class="line">这段地址是被保留的，如果进入了这个地址的范围，则肯定是错误的。所以属于错误的情况。不仅如此，可以依据这个具体的指针的值，</span><br><span class="line">来代表一种实际的错误代码</span><br><span class="line">而通常很常用的方法就是先用IS_ERR()来判断是否是错误，然后如果是，那么就调用PTR_ERR()来返回这个错误代码。</span><br><span class="line">至于ERR_PTR()，则和PTR_ERR()相反，将错误号转化为指针，由于错误号在-1000~0间，返回的指针会落在最后一页也就是0xfffff000~0xffffffff之间。</span><br><span class="line"></span><br><span class="line">================================================================================================</span><br><span class="line">early_printk()</span><br><span class="line"></span><br><span class="line">用于打印kernel启动过程中早期的信息。</span><br><span class="line">内核启动的时候如果停留在底下的log就不动了，该怎么办？没有任何log输出，手足无措。</span><br><span class="line">Starting kernel ...     </span><br><span class="line">Uncompressing Linux... done, booting the kernel.</span><br><span class="line">这时候early printk就可以派上用场了。</span><br><span class="line">需要重新配置内核：</span><br><span class="line">Kernel hacking  ---&gt; Kernel debugging</span><br><span class="line">Kernel hacking  ---&gt; Kernel low-level debugging functions --&gt;   Early printk </span><br><span class="line">然后就能early_printk了。</span><br><span class="line"></span><br><span class="line">这一功能，需要你的arch实现底层的uart发送函数， 即include/mach/debug-macro.S中的addruart, senduart, waituart, busyuart等函数。</span><br><span class="line"></span><br><span class="line">在什么时候可以用printk，或者说在什么时候往前都必须要early_printk?					</span><br><span class="line">	printk的调用，如果放在kernel启动的早期阶段，最终还是可以打印出来的，只不过会被延后。</span><br><span class="line">	所以具体到kernel启动的哪个位置，printk可以正确反映执行的时间点而不会被延后了？					</span><br><span class="line">	如果什么时候printk和early_printk两者一起被打印了，说明printk没被延后了。	</span><br><span class="line">	实际实验证明，需要在start_kernel()-&gt;console_init()以后的打印信息，可以用printk。</span><br><span class="line">	在console_init()之前的信息，都必须用early_printk，否则如果在console_init()之前就死掉的话，就会打印不出来的。</span><br><span class="line"></span><br><span class="line">early_printk最早能反映什么时候？									</span><br><span class="line">	init\Main.c	start_kernel()一开始入口的地方</span><br><span class="line"></span><br><span class="line">想要比这个还要早就打印信息，怎么办？</span><br><span class="line">	不太会遇到，比start_kernel()还要早，就是arch\arm\boot\compressed\Misc.c的decompress_kernel()了。</span><br><span class="line">	这里面已不能用early_printk()（编译的时候链接不过），但是可以用putstr()</span><br><span class="line"></span><br><span class="line">early_printk和early_print的区别？									</span><br><span class="line">	kernel代码里面有early_print，从代码上看，仅仅是arch\arm\kernel\Setup.c里面定义的静态函数，别的文件没法调用</span><br><span class="line">	具体做的事情相当于early_printk再加一句printk，也就是打印两遍。不去管它，用early_printk就是。</span><br><span class="line"></span><br><span class="line">dump log_buf内存</span><br><span class="line">http://blog.csdn.net/zanget/article/details/6697787</span><br><span class="line">================================================================================================</span><br><span class="line">构建文件系统rootfs</span><br><span class="line">	编译busybox，make和make install以后，busybox负责生成bin,sbin,usr目录还有linuxrc文件。</span><br><span class="line">	构建rootfs，要新建以下的目录：</span><br><span class="line">	bin</span><br><span class="line">		busybox生成的可执行文件</span><br><span class="line">	dev	</span><br><span class="line">		设备文件结点由kernel自动建立。但rootfs里面先要事先建2个节点。/dev/console和/dev/null。mknod console c 5 1。mknod null c 1 3。</span><br><span class="line">	etc	</span><br><span class="line">		存放配置文件的地方。主要有以下这些文件/文件夹需要创建。</span><br><span class="line">		fstab</span><br><span class="line">			指明需要挂载的文件系统。</span><br><span class="line">			http://ckc620.blog.51cto.com/631254/394238/</span><br><span class="line">			http://blog.itpub.net/26723566/viewspace-753700/</span><br><span class="line">		group</span><br><span class="line">			用户组配置文件</span><br><span class="line">		inittab</span><br><span class="line">			init进程会读取配置文件inittab，里面有具体的init参数。</span><br><span class="line">		shadow</span><br><span class="line">			建个空文件即可</span><br><span class="line">		passwd</span><br><span class="line">			列出用户名，和密码对应的编码，使用passwd命令的时候会需要这个文件的参与</span><br><span class="line">		profile</span><br><span class="line">			用户环境配置文件。</span><br><span class="line">			http://blog.sina.com.cn/s/blog_65ec8dd601018840.html</span><br><span class="line">		mdev.conf</span><br><span class="line">			设置mdev（udev简化版）的自动挂载的配置。如自动挂载sd卡到某个目录。</span><br><span class="line">		resolv.conf</span><br><span class="line">			存放DNS信息</span><br><span class="line">		init.d/</span><br><span class="line">			这个目录存放rcS，里面可以放一些启动是需要运行的shell命令，包括mdev的启动。</span><br><span class="line">		sysconfig/	</span><br><span class="line">			这个目录存放HOSTNAME文件，这个文件的内容就是指明当前系统的host name。</span><br><span class="line">		rc.d/</span><br><span class="line">			里面会有一个init.d/的目录。在这个目录下会有httpd</span><br><span class="line">	home</span><br><span class="line">		下面放置用户名为名字的空文件家</span><br><span class="line">	lib</span><br><span class="line">		库文件。需要从交叉编译工具的lib/目录下，把现成的某个特定版本的编译工具，编译生成的lib拷过来。</span><br><span class="line">	mnt</span><br><span class="line">		空文件夹。如需挂载sd卡可以新建空目录。</span><br><span class="line">	opt</span><br><span class="line">		空文件夹。</span><br><span class="line">	proc</span><br><span class="line">		空文件夹。运行起来以后存在于RAM里面。</span><br><span class="line">	root</span><br><span class="line">		空文件夹。</span><br><span class="line">	sbin</span><br><span class="line">		busybox生成的可执行文件</span><br><span class="line">	sys</span><br><span class="line">		空文件夹。</span><br><span class="line">	tmp</span><br><span class="line">		空文件夹。</span><br><span class="line">	usr</span><br><span class="line">		bin/</span><br><span class="line">			大多数里面的小工具最终都是链接到busybox</span><br><span class="line">		lib/</span><br><span class="line">			可以放一下用户自己要用的.so库文件</span><br><span class="line">		sbin/	</span><br><span class="line">			大多数里面的小工具最终都是链接到busybox</span><br><span class="line">		local/</span><br><span class="line">			放一些本地的库或者资源等</span><br><span class="line">		share/</span><br><span class="line">			放时区档案，共享文件等。</span><br><span class="line">	var</span><br><span class="line">		空文件夹。</span><br><span class="line">=============================linux版本信息==========================================================</span><br><span class="line"></span><br><span class="line">从代码上看：</span><br><span class="line">在Linux内核的顶层Makefile中，顶端就有，格式为</span><br><span class="line">VERSION = 3</span><br><span class="line">PATCHLEVEL = 0</span><br><span class="line">SUBLEVEL = 8</span><br><span class="line">以上的版本号就是3.08</span><br><span class="line"></span><br><span class="line">从命令行看：</span><br><span class="line">cat /proc/version</span><br><span class="line">uname -a </span><br><span class="line">================================================================================================</span><br><span class="line">make uImage和mkimage，以及uImage生成的流程</span><br><span class="line"></span><br><span class="line">两者作用相同。</span><br><span class="line">mkimage的一般格式为：</span><br><span class="line">mkimage  -A arm -O linux -T kernel -C none -a 0x80008000 -e 0x80008000 -n &apos;linux-3.2.0&apos; -d zImage uImage</span><br><span class="line">而对应到make uImage</span><br><span class="line">其实最后还是用的mkimage，只不过是通过arch/arm/boot/Makefile下：</span><br><span class="line">cmd_uimage = $(CONFIG_SHELL) $(MKIMAGE) -A arm -O linux -T kernel \</span><br><span class="line">		   -C none -a $(LOADADDR) -e $(STARTADDR) \</span><br><span class="line">		   -n &apos;Linux-$(KERNELRELEASE)&apos; -d $&lt; $@</span><br><span class="line">执行了mkimage</span><br><span class="line"></span><br><span class="line">uImage生成的流程：		（参考http://blog.chinaunix.net/uid-10705106-id-3568457.html）</span><br><span class="line">1. 依据arch/arm/kernel/vmlinux.lds 生成linux内核源码根目录下的vmlinux，这个vmlinux属于未压缩，带调试信息、符号表的最初的内核，大小约23MB； </span><br><span class="line">2. 将上面的vmlinux去除调试信息、注释、符号表等内容，生成arch/arm/boot/Image，这是不带多余信息的linux内核，Image的大小约3.2MB； </span><br><span class="line">3. 将 arch/arm/boot/Image 用gzip -9 压缩生成arch/arm/boot/compressed/piggy.gz大小约1.5MB； </span><br><span class="line">4. 编译arch/arm/boot/compressed/piggy.S 生成arch/arm/boot/compressed/piggy.o大小约1.5MB，这里实际上是将piggy.gz通过piggy.S编译进piggy.o文件中。</span><br><span class="line">而piggy.S文件仅有6行，只是包含了文件piggy.gz; </span><br><span class="line">5. 依据arch/arm/boot/compressed/vmlinux.lds 将arch/arm/boot/compressed/目录下的文件head.o 、piggy.o 、misc.o链接生成 arch/arm/boot/compressed/vmlinux</span><br><span class="line">这个vmlinux是经过压缩且含有自解压代码的内核,大小约1.5MB; </span><br><span class="line">6. 将arch/arm/boot/compressed/vmlinux去除调试信息、注释、符号表等内容，生成arch/arm/boot/zImage大小约1.5MB;这已经是一个可以使用的linux内核映像文件了； </span><br><span class="line">7. 将arch/arm/boot/zImage添加64Bytes的相关信息打包为arch/arm/boot/uImage大小约1.5MB; </span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">===========================================头文件搜索路径的问题============================================</span><br><span class="line">1.用x86的gcc编译application</span><br><span class="line">	在虚拟机下面，输入echo &apos;main()&#123;&#125;&apos; | gcc -E -v -</span><br><span class="line">	在打印出来的信息中，有这么一段：</span><br><span class="line">		#include &quot;...&quot; search starts here:</span><br><span class="line">		#include &lt;...&gt; search starts here:</span><br><span class="line">		 /usr/lib/gcc/i686-linux-gnu/4.8/include</span><br><span class="line">		 /usr/local/include</span><br><span class="line">		 /usr/lib/gcc/i686-linux-gnu/4.8/include-fixed</span><br><span class="line">		 /usr/include/i386-linux-gnu</span><br><span class="line">		 /usr/include		-------&gt;主要在这里</span><br><span class="line">		End of search list.</span><br><span class="line">	这个就是默认的</span><br><span class="line">	一般都是在/usr/include/下面</span><br><span class="line"></span><br><span class="line">2.用arm的arm-linux-gcc交叉编译application</span><br><span class="line">	在虚拟机下面，输入echo &apos;main()&#123;&#125;&apos; | /usr/local/arm/4.3.2/bin/arm-none-linux-gnueabi-gcc -E -v -</span><br><span class="line">	在打印出来的信息中，有这么一段：</span><br><span class="line">		#include &quot;...&quot; search starts here:</span><br><span class="line">		#include &lt;...&gt; search starts here:</span><br><span class="line">		 /usr/local/arm/4.3.2/bin/../lib/gcc/arm-none-linux-gnueabi/4.3.2/include</span><br><span class="line">		 /usr/local/arm/4.3.2/bin/../lib/gcc/arm-none-linux-gnueabi/4.3.2/include-fixed</span><br><span class="line">		 /usr/local/arm/4.3.2/bin/../lib/gcc/arm-none-linux-gnueabi/4.3.2/../../../../arm-none-linux-gnueabi/include</span><br><span class="line">		 /usr/local/arm/4.3.2/bin/../arm-none-linux-gnueabi/libc/usr/include		-------&gt;主要在这里</span><br><span class="line">		End of search list.</span><br><span class="line">	注意这里的绝对路径 /usr/local/arm/4.3.2/bin/其实是根据，你实际把交叉工具链放在哪里，他就自动从绝对路径（比如 /usr/local/arm/4.3.2/bin/）开始找bin/../arm-none-linux-gnueabi/libc/usr/include</span><br><span class="line">	所以总之是在交叉编译工具链里面的（其实主要就是交叉编译工具编的glibc自带的库）</span><br><span class="line"></span><br><span class="line">3.编译内核驱动时</span><br><span class="line">	默认搜索的路径在内核的include/目录下</span><br><span class="line"></span><br><span class="line">	见这个例子：</span><br><span class="line">		#include &lt;linux/interrupt.h&gt;</span><br><span class="line">		#include &lt;linux/pm_runtime.h&gt;</span><br><span class="line">		#include &lt;linux/if_vlan.h&gt;</span><br><span class="line">		#include &lt;linux/net_switch_config.h&gt;</span><br><span class="line"></span><br><span class="line">		#include &lt;linux/cpsw.h&gt;</span><br><span class="line">		#include &lt;plat/dmtimer.h&gt;</span><br><span class="line">		#include &quot;cpsw_ale.h&quot;</span><br><span class="line">		#include &quot;davinci_cpdma.h&quot;</span><br><span class="line"></span><br><span class="line">		头文件分几种。</span><br><span class="line">		1.linux标准的头文件。直接去linux的标准路径下去include。例如#include &lt;linux/interrupt.h&gt;</span><br><span class="line">		2.当前同一目录下的，和具体驱动相关的头文件。使用&quot;&quot;来include。例如：#include &quot;cpsw_ale.h&quot;</span><br><span class="line">		3.可能需要被别的目录下的驱动也用到的头文件，则需要放到标准的linux搜索include的路径里面去。例如#include &lt;linux/cpsw.h&gt;，是放在include/linux/下面的。这样</span><br><span class="line">			别的目录下的别的驱动，也可以include到这个cpsw.h</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">4.通过-I参数特别指定</span><br><span class="line">	假设有个头文件，放在/home/new下。想要搜到这个头文件，</span><br><span class="line">	那么编译的时候，就要：</span><br><span class="line">	arm-linux-gcc -g -o app app.c -I/home/new</span><br><span class="line">	此时默认搜索路径依然有效。只是在默认的基础上，再多加个特别指定的路径。</span><br><span class="line"></span><br><span class="line">========================================call stack的查看==================================================</span><br><span class="line">kernel查看调用当前的函数的调用者是谁，看call stack，在没有jtag的情况下：</span><br><span class="line">在没有jtag的情况下。没法直观的看到call stack。这时候有个简单的办法。</span><br><span class="line">可以查看调用者。而不用printk慢慢摸，特别适合回调函数的情况（此时回调函数的名字往往是统一的，比如enable,write等等），这种情况很难用printk来查找谁调用 了。</span><br><span class="line">dump_stack();</span><br><span class="line">加了这句话，就可以看整个当时的call stack了。</span><br><span class="line"></span><br><span class="line">另外还有一个办法，但只能打印上一级的调用者</span><br><span class="line">printk(&quot;Caller is %pS\n&quot;, __builtin_return_address(0));</span><br><span class="line">如果要查看调用者上一级的Caller</span><br><span class="line">就使用</span><br><span class="line">printk(&quot;Caller is %pS\n&quot;, __builtin_return_address(1));（但实测这种情况会打印出来null，不起作用。）</span><br><span class="line">=====================================打印信息类的总结================================================</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">dev_err()</span><br><span class="line">	其实就是printk。只是包含了module/device名字。这样可以省得自己用printk，还要加上module/device名字了。</span><br><span class="line">================================================================================================</span><br><span class="line">================================================================================================</span><br><span class="line">初始化宏:</span><br><span class="line">__init ，标记内核启动时使用的初始化代码，内核启动完成后不再需要。表示gcc编译器在编译代码时，被此标记的代码置于.init.text 内存区域。它的宏定义是这样的：</span><br><span class="line">·   #define _ _init _ _attribute_ _ ((_ _section_ _ (&quot;.text.init&quot;))) </span><br><span class="line"> 	内核启动时打印如下语句：freeing unused kernel memory: 664k freed</span><br><span class="line">	表示正在释放.init.text和.init.data等区段</span><br><span class="line">·   __exit ，标记退出代码，对于非模块无效。</span><br><span class="line">·   __initdata ，标记内核启动时使用的初始化数据结构，内核启动完成后不再需要。以此标记的代码位于.init.data 内存区域。</span><br><span class="line">·   __devinit ，标记设备初始化使用的代码。</span><br><span class="line">·   __devinitdata ，标记初始化设备数据结构的函数。</span><br><span class="line">·   __devexit ，标记移除设备时使用的代码。</span><br><span class="line">·   xxx_initcall ，一系列的初始化代码，按降序优先级排列。</span><br><span class="line">================================================================================================</span><br><span class="line">container_of的使用：</span><br><span class="line"></span><br><span class="line">功能就是根据结构体成员来找指向结构体的指针。</span><br><span class="line">用法举例：</span><br><span class="line"></span><br><span class="line">struct ch452_led_data &#123;</span><br><span class="line">	struct led_classdev cdev;</span><br><span class="line">	...</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">static void ch452_led_set(struct led_classdev *led_cdev,...)</span><br><span class="line">	&#123;</span><br><span class="line">	struct ch452_led_data *led_dat =</span><br><span class="line">		container_of(led_cdev, struct ch452_led_data, cdev);</span><br><span class="line">	...</span><br><span class="line">	第一个参数就是成员指针，第二个参数是需要返回的结构体的类型，第三个参数是结构体成员定义时候的名字</span><br><span class="line"></span><br><span class="line">如果是根据结构体成员来找上一级结构体的话，是好用的。</span><br><span class="line">但是如果是根据结构体成员指针/指针数组来找上一级的话，就非常麻烦了，很不好用，即使真的用起来，代码可读性也很差。</span><br><span class="line">不符合container_of设计的大背景，也就是通过结构体成员来获取上一级结构体。</span><br><span class="line">这时候变通的方法是：</span><br><span class="line">	因为使用container_of无非就是想找到一些结构体的成员/成员指针</span><br><span class="line">	这些成员在当前所掌握的结构体指针(如上面的例子*led_cdev)的同一级甚至更上一级</span><br><span class="line">	所以办法就是，改变结构体的定义，在当前所掌握的结构体指针*led_cdev内部，增加一些指针成员，指向想要的别处结构体的成员，并在初始化的时候分配好。</span><br><span class="line">	后续就可以直接使用了。</span><br><span class="line"></span><br><span class="line">另外，container_of其实还可以一次性用来查找，上一级再上一级的结构体指针，举例如下：</span><br><span class="line">struct delayed_work &#123;</span><br><span class="line">	struct work_struct work;</span><br><span class="line">	struct timer_list timer;</span><br><span class="line">&#125;;</span><br><span class="line">struct ch452_data &#123;</span><br><span class="line">	struct delayed_work ch452_delayed_work; </span><br><span class="line">&#125;;</span><br><span class="line">现在已知struct work_struct work，怎么得到struct ch452_data结构体？</span><br><span class="line">办法如下：</span><br><span class="line">void ch452_work_func( struct work_struct *work)</span><br><span class="line">&#123;</span><br><span class="line">	struct ch452_data *data = container_of(work,</span><br><span class="line">						struct ch452_data, ch452_delayed_work.work);</span><br><span class="line">	这样就得到了struct ch452_data结构体</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">另外一个典型应用就是list_entry的定义：</span><br><span class="line">#define list_entry(ptr, type, member)  container_of(ptr, type, member)</span><br><span class="line">因为kernel的链表，不是链表结构体里面放每个结点内容，而且链表作为每个结点的结构体成员。</span><br><span class="line">struct ABC &#123;</span><br><span class="line">	char A;	</span><br><span class="line">	char B;</span><br><span class="line">	struct list_head list;</span><br><span class="line">&#125;</span><br><span class="line">所以对链表的操作是用list，然后又可以用list_entry去取结点内容struct ABC</span><br><span class="line">同样实现的还有遍历链表的接口</span><br><span class="line">list_for_each_entry                                                                                                                                                                                                                                                                  /**</span><br><span class="line">* list_for_each_entry     -     iterate over list of given type</span><br><span class="line">* @pos:     the type * to use as a loop cursor.</span><br><span class="line">* @head:     the head for your list.</span><br><span class="line">* @member:     the name of the list_struct within the struct.</span><br><span class="line">*/</span><br><span class="line">#define list_for_each_entry(pos, head, member)                    \</span><br><span class="line">     for (pos = list_entry((head)-&gt;next, typeof(*pos), member);     \</span><br><span class="line">          &amp;pos-&gt;member != (head);      \</span><br><span class="line">          pos = list_entry(pos-&gt;member.next, typeof(*pos), member))</span><br><span class="line">所以要通过链表，去找到对应结点的结构体。</span><br><span class="line"></span><br><span class="line">container_of的实现原理：</span><br><span class="line"></span><br><span class="line">将原理前，需要先看下两个内核的接口。</span><br><span class="line">1.typeof</span><br><span class="line">这个是gcc提供的预编译特性，所以是找不到定义的。运行时早就被gcc展开成真的类型了。作用如下：</span><br><span class="line">int a;</span><br><span class="line">typeof(a) b; //这等同于int b;</span><br><span class="line">typeof(&amp;a) c; //这等同于int* c;</span><br><span class="line">swap宏的例子：</span><br><span class="line">一个非常经典的例子就是交换变量。不要求x和y是严格等于type类型，只要x和y能够安全地完成隐式类型转换为type就可以安全通过编译，否则会抛出warning。</span><br><span class="line">/*</span><br><span class="line"> * swap - swap value of @a and @b</span><br><span class="line"> */</span><br><span class="line">#define swap(a, b) \</span><br><span class="line">    do &#123; typeof(a) __tmp = (a); (a) = (b); (b) = __tmp; &#125; while (0)</span><br><span class="line">2.offsetof宏</span><br><span class="line">#define offsetof(TYPE, MEMBER) ((size_t) &amp;((TYPE *)0)-&gt;MEMBER)</span><br><span class="line">TYPE是结构体类型，MEMBER是结构体中一个成员变量名</span><br><span class="line">宏返回的是MEMBER相对于整个结构体变量的首地址的偏移量，类型是unsigned int(即size_t)</span><br><span class="line">原理：</span><br><span class="line">(TYPE *)0是一个强制类型转化，将地址0强制类型转换成TYPE *类型，此时这里的0代表内存地址0，指针为0，即可以看做结构体首地址为0，相当于在此处作为首地址虚拟一个TYPE类型的结构体变量</span><br><span class="line">((TYPE *)0)-&gt;MEMBER得到该结构体变量中的MEMBER成员变量</span><br><span class="line">&amp;(((TYPE*)0)-&gt;MEMBER) 使用取地址符&amp;取得了MEMBER成员变量的地址，又因为整个虚拟结构体的起始地址是0，因此返回值在数值上就等于实际结构体中MEMBER成员相对于实际结构体首地址的偏移量</span><br><span class="line">注意：为啥这里0地址没引起kernel访问非法地址而panic呢？理由是这个地址0，实际上从来没有去取值来读写过。如果*((TYPE *)0)这样就出事了。</span><br><span class="line">3.最后来解析container_of的宏定义：</span><br><span class="line">/**</span><br><span class="line"> * container_of - cast a member of a structure out to the containing structure</span><br><span class="line"> * @ptr:    the pointer to the member.</span><br><span class="line"> * @type:   the type of the container struct this is embedded in.</span><br><span class="line"> * @member: the name of the member within the struct.</span><br><span class="line"> *</span><br><span class="line"> */</span><br><span class="line">#define container_of(ptr, type, member) (&#123;          \</span><br><span class="line">    const typeof( ((type *)0)-&gt;member ) *__mptr = (ptr); \</span><br><span class="line">    (type *)( (char *)__mptr - offsetof(type,member) );&#125;)</span><br><span class="line">其基本想法就是：成员的地址 - 成员相对于结构体首部的地址 = 结构体本身的地址</span><br><span class="line">第一行const typeof( ((type *)0)-&gt;member ) *__mptr = (ptr); \</span><br><span class="line">是把ptr转换成member类型的指针。这不是多此一举吗？ptr本来就是member类型的指针啊？</span><br><span class="line">之所以这样是为了提高这个宏的健壮性。正常情况下当然这种赋值不需要。</span><br><span class="line">但如果使用者给了错误类型的ptr，或者错误的member，其类型就会不一致，此处编译器就会报错。</span><br><span class="line">第二行 (type *)( (char *)__mptr - offsetof(type,member) );</span><br><span class="line">用结构体成员的地址(强转为char *是为了消除附加偏移)减去其相对于结构体的偏移量，即得到了结构体的地址。最后强转为(type *)类型进行返回。</span><br><span class="line"></span><br><span class="line">有关container_of，内核的不同版本其实有不同的写法。详见《从基本理解到深入探究 Linux kernel container_of 宏.pdf》</span><br><span class="line"></span><br><span class="line">================================================================================================</span><br><span class="line">最小调度时间片的定义：</span><br><span class="line">	3.2.0的kernel，在kernel/sched.c	#define DEF_TIMESLICE		(100 * HZ / 1000)	也就是100HZ，时间片是10ms</span><br><span class="line">	后面也变成在rt.h</span><br><span class="line">====================================内核module相关的API====================================================</span><br><span class="line">request_module</span><br><span class="line">module_param	给模块增加入参</span><br><span class="line">	#define module_param(name, type, perm) 	module_param_named(name, name, type, perm)</span><br><span class="line">	有三个参数：变量名，类型，访问参数的权限</span><br><span class="line">	第一第二的参数很容易理解。</span><br><span class="line">	第三个参数，perm，是一个权限值， 这个值控制谁可以在  /sys/module下面存取这些模块参数。</span><br><span class="line">		通常，会使用S_IRUGO，表示可以被所有人读取，但不能写。因为一旦通过/sys去改变模块参数，模块本身是不会收到通知的。除非你准备好检测这个改变并且因而作出反应。</span><br><span class="line">		还有很多别的参数，比如 S_IRUGO|S_IWUSR允许 root 来改变参数。但因为改变参数意义不大，所以一般就用S_IRUGO。</span><br><span class="line">	举例：</span><br><span class="line">		static char *whom = &quot;world&quot;;</span><br><span class="line">		static int howmany = 1;</span><br><span class="line">		module_param (howmany, int, S_IRUGO);</span><br><span class="line">		module_param (whom, charp, S_IRUGO);</span><br><span class="line">	如果编译成ko文件，则在insmod的时候，加入参数</span><br><span class="line">	如果buit-in，则在bootargs里面可以加入参数</span><br><span class="line">====================================内核空间的一些API====================================================</span><br><span class="line">kernel_thread建立内核线程</span><br><span class="line"></span><br><span class="line">以看门狗驱动为例：</span><br><span class="line"></span><br><span class="line">static int  watchdog_process(void * unused)</span><br><span class="line">&#123;</span><br><span class="line">	for(;;)</span><br><span class="line">	&#123;</span><br><span class="line">		if(flag_end == 1)</span><br><span class="line">			break;</span><br><span class="line">		watchdog_feed(100);</span><br><span class="line">	&#125;</span><br><span class="line">	return 0;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">pid = kernel_thread(watchdog_process, NULL, CLONE_FS | CLONE_SIGHAND);</span><br><span class="line">====================================size_t和ssize_t的使用====================================================</span><br><span class="line"></span><br><span class="line">#ifndef __kernel_size_t</span><br><span class="line">#if __BITS_PER_LONG != 64</span><br><span class="line">typedef unsigned int	__kernel_size_t;</span><br><span class="line">typedef int		__kernel_ssize_t;</span><br><span class="line">typedef int		__kernel_ptrdiff_t;</span><br><span class="line">#else</span><br><span class="line">typedef unsigned long	__kernel_size_t;</span><br><span class="line">typedef long		__kernel_ssize_t;</span><br><span class="line">typedef long		__kernel_ptrdiff_t;</span><br><span class="line">#endif</span><br><span class="line">#endif</span><br><span class="line"></span><br><span class="line">typedef __kernel_ssize_t	ssize_t;</span><br><span class="line">typedef __kernel_size_t		size_t;</span><br><span class="line"></span><br><span class="line">从上面的定义可以看出。</span><br><span class="line">在32位的平台上，ssize_t就是int，size_t就是unsigned int</span><br><span class="line">在64位的平台上，ssize_t就是long，size_t就是unsigned long</span><br><span class="line"></span><br><span class="line">还有个类型loff_t，用来表示file_operations里面的偏移量的，其实就是long long类型</span><br><span class="line"></span><br><span class="line">====================================字符串格式化和转换API====================================================</span><br><span class="line">sprintf ：</span><br><span class="line">	数字转ascii，%02x的2的含义代表2个bit</span><br><span class="line">	代码举例：</span><br><span class="line">		在下面这个misc驱动的read方法中：</span><br><span class="line">	static ssize_t iq8_dip_read(struct file *file, char __user *buf, size_t count,				   loff_t *ppos)	&#123;	char ret = 0;	char local_buf[4];	ret = get_dip();	if( *ppos &gt; 0)	    return 0;	sprintf(local_buf, &quot;%2x\n&quot;, ret);	*ppos = strlen(local_buf);	if(copy_to_user(buf, local_buf, strlen(local_buf))) &#123;	    return -EFAULT;	&#125;		return strlen(local_buf);	&#125;</span><br><span class="line">	在copy_to_user前，转了下ascii</span><br><span class="line">	这样在命令行下，就可以直接cat显示出来了，不用再用od格式化了。</span><br><span class="line"></span><br><span class="line">sscanf</span><br><span class="line"></span><br><span class="line">strict_strtoul</span><br><span class="line">	把一个字符串直接转成数字：</span><br><span class="line">	参见sysfs的一个属性的回调函数的例子：</span><br><span class="line">	/* Placing data into the read FIFO is done through sysfs */</span><br><span class="line">	static ssize_t gt9xx_update_y(struct device* dev, struct device_attribute* attr, const char* buf, size_t count)</span><br><span class="line">	&#123;</span><br><span class="line">		if (strict_strtoul(buf, 10, &amp;y_axis))//此处，*buf字串，就被转成了数字y_axis了。</span><br><span class="line">			return -EINVAL;</span><br><span class="line">		return count;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">======================内核GENMASK宏=============================</span><br><span class="line">include/linux/bits.h</span><br><span class="line">#define GENMASK(h, l) \</span><br><span class="line">	(GENMASK_INPUT_CHECK(h, l) + __GENMASK(h, l))</span><br><span class="line">h是指high，l是指low</span><br><span class="line">例如：GENMASK_ULL(39, 21) 这行执行后的值等于0x000000ffffe00000，将39和21 之间的bit置为1</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">======================内核GENMASK宏=============================</span><br></pre></td></tr></table></figure></p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2021/03/21/中断/" rel="next" title="">
+                <i class="fa fa-chevron-left"></i> 
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Semiyd</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives">
+                
+                    <span class="site-state-item-count">230</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">118</span>
+                    <span class="site-state-item-name">categories</span>
+                  </a>
+                </div>
+              
+
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Semiyd</span>
+
+  
+
+  
+</div>
+
+
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> v3.7.1</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://theme-next.org">NexT.Muse</a> v6.3.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+	
+    
+
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.3.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.3.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.3.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.3.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.3.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
