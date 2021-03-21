@@ -115,7 +115,7 @@
 <meta property="og:site_name" content="Semiyd&#39;s Blog">
 <meta property="og:description" content="DMA">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-07-29T02:14:41.528Z">
+<meta property="og:updated_time" content="2021-03-21T11:14:41.666Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="DMA">
 <meta name="twitter:description" content="DMA">
@@ -322,12 +322,24 @@
                 
               
 
-              <time title="Created: 2018-07-29 09:52:14 / Modified: 10:14:41" itemprop="dateCreated datePublished" datetime="2018-07-29T09:52:14+08:00">2018-07-29</time>
+              <time title="Created: 2018-07-29 09:52:14" itemprop="dateCreated datePublished" datetime="2018-07-29T09:52:14+08:00">2018-07-29</time>
             
 
             
               
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2021-03-21 19:14:41" itemprop="dateModified" datetime="2021-03-21T19:14:41+08:00">2021-03-21</time>
               
             
           </span>
@@ -400,40 +412,366 @@
 
       
         <p><center><strong>DMA</strong></center><br><a id="more"></a><br>这部分的内容分成三个：<br>DMA子系统API，DMA控制器的驱动，DMA控制器API的使用。</p>
-<p>基础知识：<br>&emsp;&emsp;cache:<br>        参考    Kernel\驱动\Cache and Write buffer\<br>&emsp;&emsp;DMA缓冲区：<br>        使用GFP_DMA标志，使用kmalloc()或者__get_free_pages()等类似函数申请的内存区域，叫DMA缓冲区。在物理上是连续内存。<br>        且此标志保证是在dma_mask有效范围内的内存地址里面去分配。所谓的dma_mask，其实是指，DMA可以使用的内存区域，不是所有地方都能用的，针对x86架构尤其如此。<br>&emsp;&emsp;例如：<br>        设备并不一定能在所有的内存地址上执行DMA操作，在这种情况下应该通过下列函数执行DMA地址掩码：<br>        int dma_set_mask(struct device *dev, u64 mask);<br>        譬如，对于只能在24位地址上执行DMA操作的设备而言，就应该调用dma_set_mask (dev, 0xffffff)。其本质是修改device结构体中的dma_mask成员变量。<br>        所以使用GFP_DMA，可以保证分到的dma内存，是在有效区域范围内的。<br>        也可以直接用__get_dma_pages()或者dma_mem_alloc()来申请，这里面一样是自带GFP_DMA属性的。<br>        dma_mem_alloc()其实就是对__get_dma_pages()的包装，用起来更方便。（因为__get_dma_pages的入参需要是2的order次方这样的指数计算结果，作为参数，涉及换算。）<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">static unsigned long dma_mem_alloc(unsigned long size)</span><br><span class="line">&#123;</span><br><span class="line">	return __get_dma_pages(GFP_KERNEL|__GFP_NORETRY, get_order(size));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>&emsp;&emsp;当然对于很多现今的嵌入式处理器，其实DMA只要在常规内存区域里面，是都可以直接用来当DMA的。<br>        也有的情况，就是一个处理器，大部分DMA控制器可以访问全部内存，但有个别的DMA控制器，只能访问小范围内存。所以总之，用GFP_DMA是保险的。<br>    “coherent”的概念：<br>        因为现在的cpu都有cache。那么cache会根据程序运行时候的内存区域，去提前缓存一些程序周围的内存区域，作为cache，提高访问效率。<br>        那么如果某块内存现在正在被DMA写，且cache缓存的区域，和DMA写的区域有重叠。因为DMA独立于cpu，所以cpu的cache并不知道，可能此时刚刚缓存过<br>        的区域，已经被DMA改写了，从而造成cache的内容过时。那么此时，cache的内容和内存的实时的内容其实已经“不一致”，也就是”non-coherent”<br>        反之如果一致，就是”coherent”<br>        那么要做到一致性，最简单的办法就是禁用cache。</p>
+<p>基础知识：<br>    cache:<br>        参考    Kernel\驱动\Cache and Write buffer\<br>    DMA缓冲区：<br>        使用GFP_DMA标志，使用kmalloc()或者<strong>get_free_pages()等类似函数申请的内存区域，叫DMA缓冲区。在物理上是连续内存。<br>        且此标志保证是在dma_mask有效范围内的内存地址里面去分配。所谓的dma_mask，其实是指，DMA可以使用的内存区域，不是所有地方都能用的，针对x86架构尤其如此。<br>        例如：<br>        设备并不一定能在所有的内存地址上执行DMA操作，在这种情况下应该通过下列函数执行DMA地址掩码：<br>        int dma_set_mask(struct device *dev, u64 mask);<br>        譬如，对于只能在24位地址上执行DMA操作的设备而言，就应该调用dma_set_mask (dev, 0xffffff)。其本质是修改device结构体中的dma_mask成员变量。<br>        所以使用GFP_DMA，可以保证分到的dma内存，是在有效区域范围内的。<br>        也可以直接用</strong>get_dma_pages()或者dma_mem_alloc()来申请，这里面一样是自带GFP_DMA属性的。<br>        dma_mem_alloc()其实就是对<strong>get_dma_pages()的包装，用起来更方便。（因为</strong>get_dma_pages的入参需要是2的order次方这样的指数计算结果，作为参数，涉及换算。）<br>        static unsigned long dma_mem_alloc(unsigned long size)<br>        {<br>            return <strong>get_dma_pages(GFP_KERNEL|</strong>GFP_NORETRY, get_order(size));<br>        }<br>        当然对于很多现今的嵌入式处理器，其实DMA只要在常规内存区域里面，是都可以直接用来当DMA的。<br>        也有的情况，就是一个处理器，大部分DMA控制器可以访问全部内存，但有个别的DMA控制器，只能访问小范围内存。所以总之，用GFP_DMA是保险的。<br>    “coherent”的概念：<br>        因为现在的cpu都有cache。那么cache会根据程序运行时候的内存区域，去提前缓存一些程序周围的内存区域，作为cache，提高访问效率。<br>        那么如果某块内存现在正在被DMA写，且cache缓存的区域，和DMA写的区域有重叠。因为DMA独立于cpu，所以cpu的cache并不知道，可能此时刚刚缓存过<br>        的区域，已经被DMA改写了，从而造成cache的内容过时。那么此时，cache的内容和内存的实时的内容其实已经“不一致”，也就是”non-coherent”<br>        反之如果一致，就是”coherent”<br>        那么要做到一致性，最简单的办法就是禁用cache。</p>
 <p>DMA子系统API：（需#include &lt;linux/dma-mapping.h&gt;）<br>    dma_addr_t    表示DMA总线地址（在ARM上也就是内存物理地址）</p>
-<p>&emsp;&emsp;DMA的映射缓冲区的方式，分为两类。一种是一致性映射（consistent mapping），一种是流式映射（streaming mapping）。一致性映射是关cache。流式映射是刷cache。</p>
-<p>&emsp;&emsp;一致性映射类：<br>        1.单次分配大块的DMA区域（一个页以上）<br>        void <em> dma_alloc_coherent(struct device </em>dev, size_t size,dma_addr_t <em>dma_handle, gfp_t flag)<br>        分配一个dma缓冲区，进行地址映射并保证其与cache的一致性，属于一致性DMA映射。<br>        dma_alloc_coherent 在 arm 平台上会禁止页表项中的 C （Cacheable） 域以及 B (Bufferable)域。这样， dma_alloc_coherent 分配出来的内存不使用缓存，也不会使用写缓冲区。<br>        入参：<br>            struct device </em>dev    当前的device结构体<br>            size_t size    dma区域大小，需要是页对齐的（也就是当内存指针对齐到页的边界）。所以一般会这样：size_t size = PAGE_ALIGN(real_size);<br>            dma_addr_t <em>dma_handle    返回的内存物理地址，dma控制器就可以用。<br>            gfp_t flag        类似kmalloc的入参，一般是GFP_DMA或者GFP_KERNEL。在中断里面调用的时候，需要使用GFP_ATOMIC<br>        返回：cpu可用的虚拟地址。这个虚拟地址和dma_addr_t </em>dma_handle所指向的物理地址，是同一个内存区域。对任意一个操作都将改变缓冲区内容。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">void * dma_zalloc_coherent(struct device *dev, size_t size, dma_addr_t *dma_handle, gfp_t flag)</span><br><span class="line">清空缓冲区的变体。</span><br><span class="line"></span><br><span class="line">dma_free_coherent()</span><br><span class="line">对应释放缓冲区。</span><br><span class="line"></span><br><span class="line">dma_alloc_writecombine(struct device *dev, size_t size, dma_addr_t *handle, gfp_t gfp)</span><br><span class="line">分配一个dma缓冲区，相比dma_alloc_coherent:</span><br><span class="line">dma_alloc_writecombine 虽不使用cache，但是使用写缓冲区，相比dma_alloc_coherent性能好些.</span><br><span class="line">C B 位的具体含义（C=cache对应读	B=Buffer对应写）</span><br><span class="line">0 0 无cache，无写缓冲；任何对memory的读写都反映到总线上。对 memory 的操作过程中CPU需要等待。			这个就是dma_alloc_coherent</span><br><span class="line">0 1 无cache，有写缓冲；读操作直接反映到总线上；写操作，CPU将数据写入到写缓冲后继续运行，由写缓冲进行写回操作。		这个就是dma_alloc_writecombine</span><br><span class="line">1 0 有cache，写通模式；读操作首先考虑cache hit；写操作时直接将数据写入写缓冲，如果同时出现cache hit，那么也更新cache。</span><br><span class="line">1 1 有cache，写回模式；读操作首先考虑cache hit；写操作也首先考虑cache hit。</span><br><span class="line"></span><br><span class="line">dma_alloc_writecombine是否会引起一致性问题？</span><br><span class="line">	我有这个疑问。因为在writecombine下，cpu对内存的操作，不是立即完成的。取决于write buffer的fifo什么时候被flush到主存中去。</span><br><span class="line">	这样在时间上，cpu写操作就不可控，明显需要和DMA对主存的读操作有冲突。否则有可能DMA读的时候，会读到旧的数据。</span><br><span class="line">	大牛Arnd Bergmann童鞋是这么解释的：</span><br><span class="line">	It is expected that the driver uses a barrier (which is implied by readl/writel but not __raw_readl/__raw_writel or readl_relaxed/writel_relaxed) to ensure the write buffers are flushed.</span><br><span class="line">	说白了就是cpu端操作的时候，使用readl/writel来读写。要保证DMA buffer里的内容在DMA开始之前都到memory里</span><br><span class="line"></span><br><span class="line">dma_alloc_coherent()按照道理来说，分配到的是不带cache的内存。但是，由于现代SoC特别强，这样有一些SoC里面可以用硬件做CPU和外设的cache coherence。</span><br><span class="line">这些SoC的厂商就可以把内核的通用实现overwrite掉，变成dma_alloc_coherent()申请的内存也是可以带cache的。（较新的内核里面，会有arm_coherent_dma_ops，就是这种场景）</span><br></pre></td></tr></table></figure></p>
-<p>&emsp;&emsp;2.需要多次使用的小区域的DMA内存（适合分配&lt;4KB页大小）<br>            可能睡眠<br>            struct dma_pool <em> dma_pool_create(const char </em>name, struct device <em>dev, size_t size, size_t align, size_t alloc);    创建DMA池<br>                入参：name仅仅用于debug。struct device </em>dev是设备结构体，size是要分配的字节数。<br>                    align是对齐字节数，需要是2的n次方。<br>            void <em>dma_pool_alloc(struct dma_pool </em>pool, gfp_t gfp_flags, dma_addr_t <em>dma_handle);            从DMA池中获取DMA内存<br>                入参：dma_pool </em>pool刚刚创建的内存池。gfp_t gfp_flags如果不想被阻塞就用GFP_ATOMIC，否则可以用GFP_KERNEL<br>                    struct device <em>dev是设备结构体，dma_addr_t </em>dma_handle也会返回物理地址给设备用<br>                返回：cpu可用的虚拟地址。dma_addr_t <em>dma_handle也会返回物理地址给设备用。<br>            void dma_pool_free(struct dma_pool </em>pool, void <em>vaddr, dma_addr_t addr);                    把内存还给DMA池，给别人用<br>            void dma_pool_destroy(struct dma_pool </em>pool);                                摧毁DMA池</p>
-<p>&emsp;&emsp;适合用此类一致性API的场合有：<br>&emsp;- Network card DMA ring descriptors.<br>&emsp;- SCSI adapter mailbox command data structures.<br>&emsp;- Device firmware microcode executed out of main memory.</p>
-<p>&emsp;&emsp;一致性映射和流式映射的区别：<br>        一致性映射使用于驱动里面，开辟一块DMA缓冲区。<br>        流式映射，适用于，缓冲区早已存在，例如由上层传进来的缓冲区域。<br>        比如网卡，上层已经准备好了buffer，交由device driver通过DMA发送出去。）<br>        那么显然，以流映射方式更为简便，因为只需要刷cache，DMA就能看到实际的buffer数据。<br>        那么采用一致性映射可不可以呢？ 也是可以的，只是麻烦而已，那就得申请一块一致性DMA内存，然后把上层的buffer拷贝到这里，然后启动DMA去传输。<br>        所以下面介绍流式映射类。</p>
-<p>&emsp;&emsp;流式映射类：<br>        由__get_free_page<em>()，kmalloc() 或者kmem_cache_alloc()分配来的内存，可以用于制作流式DMA映射。但vmalloc则不行，因为vmalloc的内存不连续。<br>        总体上分两种流式映射：single和scatterlist<br>        流式映射的操作流程如下：<br>            1.执行流式映射dma_map_single<br>            2.进行DMA操作<br>            3.执行流式去映射dma_unmap_single<br>        single就是单块内存的流式映射：<br>            dma_addr_t dma_map_single(struct device </em>dev, void <em>cpu_addr, size_t size, enum dma_data_direction direction)<br>                入参：cpu_addr   已有内存块的cpu虚拟地址，必须保证物理上连续，例如由kmalloc分配的内存<br>                返回值：dma_addr_t 返回物理地址给设备用。<br>            void dma_unmap_single(struct device </em>dev, dma_addr_t dma_addr, size_t size, enum dma_data_direction direction)<br>            第四个参数，direction，包括DMA_TO_DEVICE,DMA_FROM_DEVICE,DMA_BIDIRECTIONAL,DMA_NONE<br>            这两个API适用于单个已经分配好的缓冲区。返回的是总线地址（在ARM上即物理地址）。<br>            针对DMA_TO_DEVICE等四个宏的解释：<br>                DMA_TO_DEVICE：用了这个宏，则表示数据正在被cpu修改，dma硬件不应该去改变任何东西，对于dma来说应该看作是只读区域。<br>                DMA_FROM_DEVICE：用了这个宏，则表示数据正被DMA硬件修改，cpu不应该再去更改任何东西，对于cpu来说应该看作是只读区域。<br>                DMA_BIDIRECTIONAL：用了这个宏，表示驱动不确信交给DMA之前会不会被DMA修改，也不确信交给DMA之后，会不会被DMA修改。所以会被刷两次cache line。<br>                拿网卡收发包为例，:<br>                假如CPU发包给网卡(DMA_TO_DEVICE)，那CPU填好skb的数据之后，得先把cache里有关这个skb数据的行给刷到物理内存，<br>                否则网卡从物理内存拿到的数据不是真正所要的数据。<br>                反之(DMA_FROM_DEVICE)，CPU把skb数据装配好DMA rx descriptor的时候，得先清除这个skb数据在cache里的行。<br>                这样DMA把收到的包填到物理内存后再中断告知CPU时，CPU就可以避免从cache拿到关于这个skb的老（脏）数据，而会从物理内存取包而重新建立数据cache。<br>            所以根据DMA传输方向的不同，会有刷cache和清cache这两种情况。<br>            而对于一致性映射，没有这个方向的参数，默认就是双向的。<br>            例子：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">	struct device *dev = &amp;my_dev-&gt;dev;</span><br><span class="line">	dma_addr_t dma_handle;</span><br><span class="line">	void *addr = buffer-&gt;ptr;</span><br><span class="line">	size_t size = buffer-&gt;len;</span><br><span class="line"></span><br><span class="line">	dma_handle = dma_map_single(dev, addr, size, direction);</span><br><span class="line">另外。上面的dma_map_single，因为只能使用kmalloc出来的低端内存，不能使用高端内存。</span><br><span class="line">	所以还有个变体。可以直接用page号来返回dma_handle.这样就可以使用高端内存来返回dma_handle</span><br><span class="line"></span><br><span class="line">	struct device *dev = &amp;my_dev-&gt;dev;</span><br><span class="line">	dma_addr_t dma_handle;</span><br><span class="line">	struct page *page = buffer-&gt;page;</span><br><span class="line">	unsigned long offset = buffer-&gt;offset;</span><br><span class="line">	size_t size = buffer-&gt;len;</span><br><span class="line"></span><br><span class="line">	dma_handle = dma_map_page(dev, page, offset, size, direction);		offset是指特定页内的偏移</span><br><span class="line"></span><br><span class="line">	...</span><br><span class="line"></span><br><span class="line">	dma_unmap_page(dev, dma_handle, size, direction);</span><br><span class="line">	（这段不太理解。怎么保证高端内存物理上就是连续的？高端内存分配出来不是都是不连续的么？除非是alloc_page只分配了一个页。）</span><br></pre></td></tr></table></figure></p>
-<p>&emsp;&emsp;同步API：（也就是上面提到的用来刷cache的API）<br>            其作用是：（以single流式映射为例）<br>            如果dma_map_single之后，CPU需要去读写dma区的数据的话。（注意一般流式映射后，是DMA来访问dma内存区域）<br>            这时需要一个API，来做同步，保证<br>            1。cpu需要读的时候，当前cache是最新的内存的内容，而不是旧的cache内容。<br>                cpu申请获取DMA区域的所有权：<br>                    dma_sync_single_for_cpu(dev, dma_handle, size, direction);<br>                    其实质是，把cpu的cache标记为无效，因为此时内存区域早已更新过，需要重新读上来到cache，也就是cache invalidate操作<br>                    数据的方向是：  内存 -&gt; cache<br>            2。cpu需要写的时候，换成DMA取的时候，读到的是cpu的cache已经同步到内存后的，最新的数据。<br>                CPU修改结束后，可以把映射区域的所有权还给DMA了，调用：<br>                    dma_sync_single_for_device(dev, dma_handle, size, direction);<br>                    其实质是，把cpu的cache更新到内存里面，因为此时cache已经更新，需要重新刷到内存里面，也就是cache flush操作<br>                    数据的方向是：  cache -&gt; 内存<br>            当然，一致性映射则无此问题，因为不管cpu和dma如何混搭着访问dma内存区，都是一致的，无需任何同步操作。</p>
-<p>&emsp;&emsp;同样道理还有sg的同步API：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">	dma_sync_sg_for_device(dev, sglist, nents, direction);</span><br><span class="line">	dma_sync_sg_for_cpu(dev, sglist, nents, direction);</span><br><span class="line">有个实例如下：</span><br><span class="line">	my_card_setup_receive_buffer(struct my_card *cp, char *buffer, int len)</span><br><span class="line">		&#123;</span><br><span class="line">			dma_addr_t mapping;</span><br><span class="line">			mapping = dma_map_single(cp-&gt;dev, buffer, len, DMA_FROM_DEVICE);</span><br><span class="line">			cp-&gt;rx_buf = buffer;</span><br><span class="line">			cp-&gt;rx_len = len;</span><br><span class="line">			cp-&gt;rx_dma = mapping;</span><br><span class="line">			give_rx_buf_to_card(cp);		//真正交给dma硬件开始传输</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">	my_card_interrupt_handler(int irq, void *devid, struct pt_regs *regs)	//在中断里面，</span><br><span class="line">		&#123;</span><br><span class="line">			struct my_card *cp = devid;</span><br><span class="line">			if (read_card_status(cp) == RX_BUF_TRANSFERRED) &#123;</span><br><span class="line">			struct my_card_header *hp;</span><br><span class="line">			/* Examine the header to see if we wish</span><br><span class="line"> 			* to accept the data.  But synchronize</span><br><span class="line"> 			* the DMA transfer with the CPU first</span><br><span class="line"> 			* so that we see updated contents.</span><br><span class="line"> 			*/</span><br><span class="line">			dma_sync_single_for_cpu(&amp;cp-&gt;dev, cp-&gt;rx_dma,		//申请对DMA映射区的访问权	</span><br><span class="line">						cp-&gt;rx_len,</span><br><span class="line">						DMA_FROM_DEVICE);</span><br><span class="line">			/* Now it is safe to examine the buffer. */			</span><br><span class="line">			hp = (struct my_card_header *) cp-&gt;rx_buf;			//申请以后，就可以安全的访问dma映射区了。</span><br><span class="line">		&#125;</span><br></pre></td></tr></table></figure></p>
-<p>scatterlist顾名思义，就是可以把分散开来的几块区域，凑一起凑成一个scatterlist。DMA的时候再一块一块的搬移。但虚拟地址上却看上去是连续的。（需IOMMU硬件单元支持,ARM里面叫SMMU）<br>            因为DMA需要连续物理内存。那如果要申请的大片内存不连续的话，申请就会返回错误或者一直睡眠。<br>            此时就可以用scatter/gather也就是sg的API来做。<br>            如果IOMMU存在（ARM里面叫SMMU）的话，DMA完全可以访问非连续的内存，并且把物理上不连续的内存，用IOMMU进行重新映射为I/O virtual address (IOVA).<br>            说白了就是IOMMU，将分散的物理内存，集合起来，统一转化成一个连续的虚拟地址，这种情况下，DMA访问的其实是虚拟地址。<br>            scatterlist本身可以理解为内存块构成的链表。<br>            那么要用DMA来搬数据，首先要有一个建好的scatterlist<br>            struct scatterlist <em>sg<br>            然后就是对这个scatterlist进行map：<br>            int dma_map_sg(struct device </em>dev, struct scatterlist <em>sg, int nents, enum dma_data_direction dir)<br>                入参：    struct device </em>dev是设备结构体<br>                    struct scatterlist <em>sg就是想要被map的scatterlist<br>                    int nents是scatterlist的块数<br>                    enum dma_data_direction dir是和dma_map_single()一样的方向参数。<br>                返回：    这个函数的作用就是把传入的scatterlist，能合并的合并（比如首尾相连的块）。从而更新下scatterlist，让它变成一个更优化更适合DMA的区域。<br>                    而返回值则是调整过后的scatterlist的块的数量。所以这个数量&lt;=nents。<br>                    所以说，dma_map_sg()调用以后，原先sg的内容很可能就会被改变了。<br>            在使用dma_map_sg()以后，就可以通过循环的方式，来依次让DMA来搬运数据。<br>            在循环里面，可以通过sg_dma_address来获取特定块的地址，然后通过sg_dma_len()来获取特定块的长度。例子程序如下：<br>                int i, count = dma_map_sg(dev, sglist, nents, direction);<br>                struct scatterlist </em>sg;<br>                //将各个块塞入DMA队列<br>                     for (i = 0; i &lt; dma_len; i++) {<br>                              sg_dma_address(&amp;data-&gt;sg[i]),<br>                              sg_dma_len(&amp;data-&gt;sg[i]));<br>                              res = dw_dma_enqueue(host-&gt;dma, host        –&gt;对应真正塞入发送队列的某个DMA的函数<br>                     }<br>                //或者用for_each_sg()这种API循环<br>                    for_each_sg(sglist, sg, count, i) {<br>                        hw_address[i] = sg_dma_address(sg);<br>                        hw_len[i] = sg_dma_len(sg);<br>                        program_hw(device, hw_address[i], hw_len[i]);        –&gt;对应真正塞入发送队列的某个DMA的函数<br>                    }</p>
-<p>&emsp;&emsp;有关这方面的实例，可以参考drivers/mmc/host/msm_sdcc.c也就是am335x的mmc的驱动。<br>            同样，如果驱动一定要使用映射情况下的sg缓冲区，也有用来同步的API:</p>
-<p>&emsp;&emsp;适用于流式映射类的场合有：<br>&emsp;- Networking buffers transmitted/received by a device.<br>&emsp;- Filesystem buffers written/read by a SCSI device.</p>
-<p>&emsp;&emsp;错误检查API：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">dma_mapping_error()	这个API可以用于检查dma_addr_t的合法性。</span><br><span class="line">例如：	</span><br><span class="line">	dma_addr_t dma_handle;</span><br><span class="line">	dma_handle = dma_map_single(dev, addr, size, direction);</span><br><span class="line">	if (dma_mapping_error(dev, dma_handle)) &#123;</span><br><span class="line">		/*</span><br><span class="line">		 * reduce current DMA mapping usage,</span><br><span class="line">		 * delay and try again later or</span><br><span class="line">		 * reset driver.</span><br><span class="line">		 */</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure></p>
-<p>&emsp;&emsp;DMA addressing limitations也就是DMA寻址限制相关的内容：（涉及DMA mask之类的概念）<br>        在某些平台上（x86？），设备做DMA操作的时候，只能操作某一段内存地址。比如在32位地址中，只能寻址24位作为DMA的地址。<br>        如果是这样，则需要告诉kernel，比如32位的系统，只能分配哪个范围的地址作为DMA内存地址。否则的话，对于32位系统，内核将默认可以分配32位的DMA地址。<br>        kmalloc或者__get_free_page或者kmem_cache_alloc()，分配到的内存，是可以用来DMA的，vmalloc()这不行。<br>        int dma_set_mask(struct device *dev, u64 mask);    这个可以用来设置mask。<br>            例子代码如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">	if (dma_set_mask(dev, DMA_BIT_MASK(32))) &#123;</span><br><span class="line">			printk(KERN_WARNING</span><br><span class="line">	       &quot;mydev: No suitable DMA available.\n&quot;);</span><br><span class="line">		goto ignore_this_device;</span><br><span class="line">	&#125;</span><br><span class="line">int dma_set_coherent_mask(struct device *dev, u64 mask);	这个可以用来设置一致性mask。</span><br></pre></td></tr></table></figure></p>
-<p>&emsp;&emsp;一些不常用的API：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">void * dma_alloc_noncoherent(struct device *dev, size_t size, dma_addr_t *dma_handle, gfp_t flag)</span><br><span class="line">void dma_free_noncoherent(struct device *dev, size_t size, void *cpu_addr, dma_addr_t dma_handle)</span><br><span class="line">int dma_get_cache_alignment(void)</span><br><span class="line">等</span><br><span class="line">和cpu的cache操作有关。比较专业，一般驱动用不到。</span><br></pre></td></tr></table></figure></p>
-<p>&emsp;&emsp;DMAEngine子系统API<br>        menuconfig:<br>            CONFIG_DMA_ENGINE宏的定义很奇怪。依赖于一堆具体的驱动。如下：（am335x的内核没选上这些东西。）<br>            Symbol: DMA_ENGINE [=y]<br>            Type  : boolean<br>               Selected by: PATA_ARASAN_CF [=y] &amp;&amp; ATA [=y] &amp;&amp; ATA_SFF [=y] &amp;&amp; ATA_BMDMA [=y] &amp;&amp; DMADEVICES [=y]<br>            然后看了4.4.32的内核。DMA_ENGINE同样依赖于一些具体的驱动，除了CONFIG_DMADEVICES<br>        API使用顺序：<br>        dma_request_channel()        //Request a channel<br>        dmaengine_slave_config()        //Configure the channel for our use<br>        dmaengine_prep_slave_sg()        //Get a transaction descriptor for our transfer<br>        dmaengine_submit()        //Put the transaction in the driver pending queue<br>        dmaengine_issue_pending()        //Issue pending requests (blocks and calls back your driver to give an update on the transfer status)<br>        因为目前3.2.0的内核尚未用到。所以细节以后再看。<br>        参考资料：<br>            Linux\Kernel\学习资料\free-electrons.com系列资料\An overview of the DMAEngine subsystem.pdf<br>            kernel\Documentation\dmaengine.txt</p>
-<p>&emsp;&emsp;drivers\dma\dmaengine.c</p>
-<p>&emsp;&emsp;device{}结构体里面有关dma的成员：<br>        dma_mask        一般都设置成DMA_BIT_MASK(32);，因为DMA可以32位寻址。<br>        coherent_dma_mask<br>        dma_parms<br>        dma_pools<br>        dma_mem<br>        后续遇到具体的驱动的时候，再做分析。</p>
-<p>DMA控制器的驱动举例解析：<br>    以am335x平台的DMA驱动为例。ti的DMA主控，它自己叫EDMA3</p>
-<p>&emsp;&emsp;驱动文件：<br>        arch\arm\common\edma.c<br>    menuconfig：<br>        System Type  —&gt;<br>            TI OMAP2/3/4 Specific Features   —&gt;<br>                &lt;*&gt;    OMAP3 EDMA support</p>
-<p>&emsp;&emsp;主控硬件上本身分成两部分：<br>    EDMA3 channel controller（EDMA3CC）<br>        面向用户的寄存器的接口。包含parameter RAM(PaRAM)，control channel register，interrupt control register。<br>        总之就是驱动可以直接操作的寄存器。<br>    EDMA3 transfer controller（EDMA3TC）<br>        执行数据搬运的硬件机构。这部分对驱动是透明的。</p>
-<p>&emsp;一共有64个channel，参考AM335X技术参考手册的Table 11-23. Direct Mapped</p>
-<p>&emsp;这里面有几个和EDMA控制器特定硬件相关的概念：<br>    channel和event<br>        channel指DMA的通道<br>        event对应是哪个外设涉及的DMA请求，比如UART1。（DMA传输可以由外设自动触发通知，也可以手动启动DMA传输）<br>        这两个概念参考Table 11-23. Direct Mapped和Table 11-24. Crossbar Mapped<br>        简单来说就是EDMA包含64个可用的DMA的通道channel<br>        但是，却有总共96个event（可以理解为有可能用到这些DMA通道的具体事件）<br>        那么根据Table 11-23. Direct Mapped。前64个通道，默认是map到前64个event的。<br>        但是，后31个event，可以通过“cross bar”映射的方式，任意映射到Table 11-23. Direct Mapped里面的条目里面去。（首选open条目因为那些event/channel默认无人使用）<br>        所以cross bar event可能会占用一些默认的通道的映射，导致原来默认的event没法对应channel。类似于gpio的mux引脚功能复用。<br>    PaRAM<br>        说白了就是一大组寄存器。<br>        里面需要存放DMA传输所需的source/destination addresses,count, indexes, etc.<br>        PaRAM一共分为256个sets<br>        每个set，包含8个四字节一组的参数，这里面就是source/destination addresses,count, indexes,option等参数存放的地方。<br>        channel和PaRAM set是一对一map的。也就是说，DMA channel X，只能用PaRAM set X来工作。具体这方面的配置，有DCHMAPn寄存器来设置。<br>    priority<br>        DMA request是有优先级的。优先级可编程。<br>    TCC</p>
-<p>&emsp;另外，有关如何操作EDMA来传输数据，可以参照AM335X技术参考手册的11.5.3 Setting Up a Transfer的步骤。</p>
-<p>&emsp;AM335X技术参考手册有关DMA主控的spec本身非常复杂。后面有时间再分析了。目前只能看个梗概，然后着重于如何使用DMA主控的驱动接口。</p>
-<p>&emsp;arch\arm\plat-omap\sdma2edma.c</p>
-<p>&emsp;AM335x EDMA Driver’s Guide - Texas Instruments Wiki.pdf    这文章里面的ARM和Other Masters还是不理解到底指的是什么</p>
-<p>DMA主控制器API的使用：            <em>**<br>    预定义的EMDA3设置：<br>        在devices.c<br>            预定义channel<br>            static const s16 am33xx_dma_rsv_chans[][2] = {<br>                /</em> (offset, number) <em>/<br>                {0, 2},<br>                {14, 2},<br>                {26, 6},<br>                {48, 4},<br>                {56, 8},<br>                {-1, -1}<br>            };<br>            预定义PaRAM的slot<br>            static const s16 am33xx_dma_rsv_slots[][2] = {<br>                /</em> (offset, number) <em>/<br>                {0, 2},<br>                {14, 2},<br>                {26, 6},<br>                {48, 4},<br>                {56, 8},<br>                {64, 127},<br>                {-1, -1}<br>            };<br>            预定义的priority<br>            static const s8 am33xx_queue_priority_mapping[][2] = {<br>                /</em> {event queue no, Priority} <em>/<br>                {0, 0},<br>                {1, 1},<br>                {2, 2},<br>                {-1, -1}<br>            };<br>            预定义的cross bar mapping<br>            static struct event_to_channel_map am33xx_xbar_event_mapping[] = {<br>                /</em> {xbar event no, Channel} <em>/<br>                {1, 12},    /</em> SDTXEVT1 -&gt; MMCHS2 <em>/<br>                {2, 13},    /</em> SDRXEVT1 -&gt; MMCHS2 */</p>
-<p>&emsp;找某个spi驱动为例<br>    和spi相关的通道和事件是：<br>        Event Number     Event Name     Source Module<br>        16         SPIXEVT0     McSPI0<br>        17         SPIREVT0     McSPI0<br>        18         SPIXEVT1     McSPI0<br>        19         SPIREVT1     McSPI0<br>request_dma</p>
-<p>CMA介绍<br>    在我们使用ARM等嵌入式Linux系统的时候，一个头疼的问题是GPU，Camera，HDMI等都需要预留大量连续内存，这部分内存平时不用，但是一般的做法又必须先预留着。<br>    所谓CMA，就是一个内存池。DMA要用内存，可以去里面取。<br>    在嵌入式设备中，很多设备都没有支持scatter-getter和IO map，都需要连续内存块的操作。如设备：摄像机，硬件视频解码器，编码器等。<br>    这些设备往往需要较大的内存缓冲区（如：一个200万像素的高清帧摄像机，需要超过6M的内存）。<br>    一些嵌入式设备对缓冲区有一些额外的要求，比如：在含有多个内存bank的设备中，要求只能在特定的bank中中分配内存；而还有一些要定内存边界对齐的缓存区。<br>    近来，嵌入式设备有了较大的发展(特别是V4L领域)，并且这些驱动都有自己的内存分配代码。它们众多的大多数都是采用bootmem分配方法。<br>    CMA框架企图采用统一的连续内存分配机制，并为这些设备驱动提供简单的API，而且是可以定制化和模块化的。<br>    开机log举例：<br>    Reserved memory: created CMA memory pool at 0x8c000000, size 320 MiB<br>    Reserved memory: initialized node linux,cma, compatible id shared-dma-pool<br>    在支持CMA的情况下：<br>    dma alloc coherent又会变成用__alloc_from_contiguous()从CMA区域获取内存，申请出来的内存显然是物理连续的。<br>    这一点，在设备树dts里面就可以轻松配置,要么配置一个自己特定的cma区域，要么从“linux,cma-default”指定的缺省的CMA池子里面取内存：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">reserved-memory &#123;  </span><br><span class="line">          #address-cells = &lt;1&gt;;  </span><br><span class="line">          #size-cells = &lt;1&gt;;  </span><br><span class="line">          ranges;  </span><br><span class="line">  </span><br><span class="line">          /* global autoconfigured region for contiguous allocations */  </span><br><span class="line">          linux,cma &#123;  </span><br><span class="line">                  compatible = &quot;shared-dma-pool&quot;;  </span><br><span class="line">                  reusable;  </span><br><span class="line">                  size = &lt;0x4000000&gt;;  </span><br><span class="line">                  alignment = &lt;0x2000&gt;;  </span><br><span class="line">                  linux,cma-default;  </span><br><span class="line">          &#125;;  </span><br><span class="line">  </span><br><span class="line">          display_reserved: framebuffer@78000000 &#123;  </span><br><span class="line">                  reg = &lt;0x78000000 0x800000&gt;;  </span><br><span class="line">          &#125;;  </span><br><span class="line">  </span><br><span class="line">          multimedia_reserved: multimedia@77000000 &#123;  </span><br><span class="line">                  compatible = &quot;acme,multimedia-memory&quot;;  </span><br><span class="line">                  reg = &lt;0x77000000 0x4000000&gt;;  </span><br><span class="line">          &#125;;  </span><br><span class="line">  &#125;;</span><br></pre></td></tr></table></figure></p>
-<p>&emsp;所以dma_alloc_coherent()这个API只是一个前端的界面，它的内存究竟从哪里来，究竟要不要连续，带不带cache，都完全是因人而异的。</p>
+<pre><code>DMA的映射缓冲区的方式，分为两类。一种是一致性映射（consistent mapping），一种是流式映射（streaming mapping）。一致性映射是关cache。流式映射是刷cache。
 
+一致性映射类：
+    1.单次分配大块的DMA区域（一个页以上）
+    void * dma_alloc_coherent(struct device *dev, size_t size,dma_addr_t *dma_handle, gfp_t flag)    
+    分配一个dma缓冲区，进行地址映射并保证其与cache的一致性，属于一致性DMA映射。
+    dma_alloc_coherent 在 arm 平台上会禁止页表项中的 C （Cacheable） 域以及 B (Bufferable)域。这样， dma_alloc_coherent 分配出来的内存不使用缓存，也不会使用写缓冲区。
+    入参：
+        struct device *dev    当前的device结构体
+        size_t size    dma区域大小，需要是页对齐的（也就是当内存指针对齐到页的边界）。所以一般会这样：size_t size = PAGE_ALIGN(real_size);
+        dma_addr_t *dma_handle    返回的内存物理地址，dma控制器就可以用。
+        gfp_t flag        类似kmalloc的入参，一般是GFP_DMA或者GFP_KERNEL。在中断里面调用的时候，需要使用GFP_ATOMIC
+    返回：cpu可用的虚拟地址。这个虚拟地址和dma_addr_t *dma_handle所指向的物理地址，是同一个内存区域。对任意一个操作都将改变缓冲区内容。
+
+    void * dma_zalloc_coherent(struct device *dev, size_t size, dma_addr_t *dma_handle, gfp_t flag)
+    清空缓冲区的变体。
+
+    dma_free_coherent()
+    对应释放缓冲区。
+
+    dma_alloc_writecombine(struct device *dev, size_t size, dma_addr_t *handle, gfp_t gfp)
+    分配一个dma缓冲区，相比dma_alloc_coherent:
+    dma_alloc_writecombine 虽不使用cache，但是使用写缓冲区，相比dma_alloc_coherent性能好些.
+    C B 位的具体含义（C=cache对应读    B=Buffer对应写）
+    0 0 无cache，无写缓冲；任何对memory的读写都反映到总线上。对 memory 的操作过程中CPU需要等待。            这个就是dma_alloc_coherent
+    0 1 无cache，有写缓冲；读操作直接反映到总线上；写操作，CPU将数据写入到写缓冲后继续运行，由写缓冲进行写回操作。        这个就是dma_alloc_writecombine
+    1 0 有cache，写通模式；读操作首先考虑cache hit；写操作时直接将数据写入写缓冲，如果同时出现cache hit，那么也更新cache。
+    1 1 有cache，写回模式；读操作首先考虑cache hit；写操作也首先考虑cache hit。
+
+    dma_alloc_writecombine是否会引起一致性问题？
+        我有这个疑问。因为在writecombine下，cpu对内存的操作，不是立即完成的。取决于write buffer的fifo什么时候被flush到主存中去。
+        这样在时间上，cpu写操作就不可控，明显需要和DMA对主存的读操作有冲突。否则有可能DMA读的时候，会读到旧的数据。
+        大牛Arnd Bergmann童鞋是这么解释的：
+        It is expected that the driver uses a barrier (which is implied by readl/writel but not __raw_readl/__raw_writel or readl_relaxed/writel_relaxed) to ensure the write buffers are flushed.
+        说白了就是cpu端操作的时候，使用readl/writel来读写。要保证DMA buffer里的内容在DMA开始之前都到memory里
+
+    dma_alloc_coherent()按照道理来说，分配到的是不带cache的内存。但是，由于现代SoC特别强，这样有一些SoC里面可以用硬件做CPU和外设的cache coherence。
+    这些SoC的厂商就可以把内核的通用实现overwrite掉，变成dma_alloc_coherent()申请的内存也是可以带cache的。（较新的内核里面，会有arm_coherent_dma_ops，就是这种场景）
+
+
+    2.需要多次使用的小区域的DMA内存（适合分配&lt;4KB页大小）
+        可能睡眠
+        struct dma_pool * dma_pool_create(const char *name, struct device *dev, size_t size, size_t align, size_t alloc);    创建DMA池
+            入参：name仅仅用于debug。struct device *dev是设备结构体，size是要分配的字节数。
+                align是对齐字节数，需要是2的n次方。
+        void *dma_pool_alloc(struct dma_pool *pool, gfp_t gfp_flags, dma_addr_t *dma_handle);            从DMA池中获取DMA内存
+            入参：dma_pool *pool刚刚创建的内存池。gfp_t gfp_flags如果不想被阻塞就用GFP_ATOMIC，否则可以用GFP_KERNEL
+                struct device *dev是设备结构体，dma_addr_t *dma_handle也会返回物理地址给设备用
+            返回：cpu可用的虚拟地址。dma_addr_t *dma_handle也会返回物理地址给设备用。
+        void dma_pool_free(struct dma_pool *pool, void *vaddr, dma_addr_t addr);                    把内存还给DMA池，给别人用
+        void dma_pool_destroy(struct dma_pool *pool);                                摧毁DMA池
+
+    适合用此类一致性API的场合有：
+        - Network card DMA ring descriptors.
+        - SCSI adapter mailbox command data structures.
+        - Device firmware microcode executed out of main memory.
+
+一致性映射和流式映射的区别：
+    一致性映射使用于驱动里面，开辟一块DMA缓冲区。
+    流式映射，适用于，缓冲区早已存在，例如由上层传进来的缓冲区域。
+    比如网卡，上层已经准备好了buffer，交由device driver通过DMA发送出去。）
+    那么显然，以流映射方式更为简便，因为只需要刷cache，DMA就能看到实际的buffer数据。
+    那么采用一致性映射可不可以呢？ 也是可以的，只是麻烦而已，那就得申请一块一致性DMA内存，然后把上层的buffer拷贝到这里，然后启动DMA去传输。
+    所以下面介绍流式映射类。
+
+流式映射类：
+    由__get_free_page*()，kmalloc() 或者kmem_cache_alloc()分配来的内存，可以用于制作流式DMA映射。但vmalloc则不行，因为vmalloc的内存不连续。
+    总体上分两种流式映射：single和scatterlist
+    流式映射的操作流程如下：
+        1.执行流式映射dma_map_single
+        2.进行DMA操作
+        3.执行流式去映射dma_unmap_single
+    single就是单块内存的流式映射：
+        dma_addr_t dma_map_single(struct device *dev, void *cpu_addr, size_t size, enum dma_data_direction direction)
+            入参：cpu_addr   已有内存块的cpu虚拟地址，必须保证物理上连续，例如由kmalloc分配的内存
+            返回值：dma_addr_t 返回物理地址给设备用。
+        void dma_unmap_single(struct device *dev, dma_addr_t dma_addr, size_t size, enum dma_data_direction direction)
+        第四个参数，direction，包括DMA_TO_DEVICE,DMA_FROM_DEVICE,DMA_BIDIRECTIONAL,DMA_NONE
+        这两个API适用于单个已经分配好的缓冲区。返回的是总线地址（在ARM上即物理地址）。
+        针对DMA_TO_DEVICE等四个宏的解释：
+            DMA_TO_DEVICE：用了这个宏，则表示数据正在被cpu修改，dma硬件不应该去改变任何东西，对于dma来说应该看作是只读区域。
+            DMA_FROM_DEVICE：用了这个宏，则表示数据正被DMA硬件修改，cpu不应该再去更改任何东西，对于cpu来说应该看作是只读区域。
+            DMA_BIDIRECTIONAL：用了这个宏，表示驱动不确信交给DMA之前会不会被DMA修改，也不确信交给DMA之后，会不会被DMA修改。所以会被刷两次cache line。
+            拿网卡收发包为例，:
+            假如CPU发包给网卡(DMA_TO_DEVICE)，那CPU填好skb的数据之后，得先把cache里有关这个skb数据的行给刷到物理内存，
+            否则网卡从物理内存拿到的数据不是真正所要的数据。
+            反之(DMA_FROM_DEVICE)，CPU把skb数据装配好DMA rx descriptor的时候，得先清除这个skb数据在cache里的行。
+            这样DMA把收到的包填到物理内存后再中断告知CPU时，CPU就可以避免从cache拿到关于这个skb的老（脏）数据，而会从物理内存取包而重新建立数据cache。
+        所以根据DMA传输方向的不同，会有刷cache和清cache这两种情况。
+        而对于一致性映射，没有这个方向的参数，默认就是双向的。
+        例子：
+            struct device *dev = &amp;my_dev-&gt;dev;
+            dma_addr_t dma_handle;
+            void *addr = buffer-&gt;ptr;
+            size_t size = buffer-&gt;len;
+
+            dma_handle = dma_map_single(dev, addr, size, direction);
+        另外。上面的dma_map_single，因为只能使用kmalloc出来的低端内存，不能使用高端内存。
+            所以还有个变体。可以直接用page号来返回dma_handle.这样就可以使用高端内存来返回dma_handle
+
+            struct device *dev = &amp;my_dev-&gt;dev;
+            dma_addr_t dma_handle;
+            struct page *page = buffer-&gt;page;
+            unsigned long offset = buffer-&gt;offset;
+            size_t size = buffer-&gt;len;
+
+            dma_handle = dma_map_page(dev, page, offset, size, direction);        offset是指特定页内的偏移
+
+            ...
+
+            dma_unmap_page(dev, dma_handle, size, direction);
+            （这段不太理解。怎么保证高端内存物理上就是连续的？高端内存分配出来不是都是不连续的么？除非是alloc_page只分配了一个页。）
+
+    同步API：（也就是上面提到的用来刷cache的API）
+        其作用是：（以single流式映射为例）
+        如果dma_map_single之后，CPU需要去读写dma区的数据的话。（注意一般流式映射后，是DMA来访问dma内存区域）
+        这时需要一个API，来做同步，保证
+        1。cpu需要读的时候，当前cache是最新的内存的内容，而不是旧的cache内容。
+            cpu申请获取DMA区域的所有权：
+                dma_sync_single_for_cpu(dev, dma_handle, size, direction);
+                其实质是，把cpu的cache标记为无效，因为此时内存区域早已更新过，需要重新读上来到cache，也就是cache invalidate操作
+                数据的方向是：  内存 -&gt; cache
+        2。cpu需要写的时候，换成DMA取的时候，读到的是cpu的cache已经同步到内存后的，最新的数据。
+            CPU修改结束后，可以把映射区域的所有权还给DMA了，调用：
+                dma_sync_single_for_device(dev, dma_handle, size, direction);
+                其实质是，把cpu的cache更新到内存里面，因为此时cache已经更新，需要重新刷到内存里面，也就是cache flush操作
+                数据的方向是：  cache -&gt; 内存
+        当然，一致性映射则无此问题，因为不管cpu和dma如何混搭着访问dma内存区，都是一致的，无需任何同步操作。
+
+        同样道理还有sg的同步API：
+            dma_sync_sg_for_device(dev, sglist, nents, direction);
+            dma_sync_sg_for_cpu(dev, sglist, nents, direction);
+        有个实例如下：
+            my_card_setup_receive_buffer(struct my_card *cp, char *buffer, int len)
+                {
+                    dma_addr_t mapping;
+                    mapping = dma_map_single(cp-&gt;dev, buffer, len, DMA_FROM_DEVICE);
+                    cp-&gt;rx_buf = buffer;
+                    cp-&gt;rx_len = len;
+                    cp-&gt;rx_dma = mapping;
+                    give_rx_buf_to_card(cp);        //真正交给dma硬件开始传输
+                }
+
+            my_card_interrupt_handler(int irq, void *devid, struct pt_regs *regs)    //在中断里面，
+                {
+                    struct my_card *cp = devid;
+                    if (read_card_status(cp) == RX_BUF_TRANSFERRED) {
+                    struct my_card_header *hp;
+                    /* Examine the header to see if we wish
+                     * to accept the data.  But synchronize
+                     * the DMA transfer with the CPU first
+                     * so that we see updated contents.
+                     */
+                    dma_sync_single_for_cpu(&amp;cp-&gt;dev, cp-&gt;rx_dma,        //申请对DMA映射区的访问权    
+                                cp-&gt;rx_len,
+                                DMA_FROM_DEVICE);
+                    /* Now it is safe to examine the buffer. */            
+                    hp = (struct my_card_header *) cp-&gt;rx_buf;            //申请以后，就可以安全的访问dma映射区了。
+                }    
+
+    scatterlist顾名思义，就是可以把分散开来的几块区域，凑一起凑成一个scatterlist。DMA的时候再一块一块的搬移。但虚拟地址上却看上去是连续的。（需IOMMU硬件单元支持,ARM里面叫SMMU）
+        因为DMA需要连续物理内存。那如果要申请的大片内存不连续的话，申请就会返回错误或者一直睡眠。
+        此时就可以用scatter/gather也就是sg的API来做。
+        如果IOMMU存在（ARM里面叫SMMU）的话，DMA完全可以访问非连续的内存，并且把物理上不连续的内存，用IOMMU进行重新映射为I/O virtual address (IOVA).
+        说白了就是IOMMU，将分散的物理内存，集合起来，统一转化成一个连续的虚拟地址，这种情况下，DMA访问的其实是虚拟地址。
+        scatterlist本身可以理解为内存块构成的链表。
+        那么要用DMA来搬数据，首先要有一个建好的scatterlist
+        struct scatterlist *sg
+        然后就是对这个scatterlist进行map：
+        int dma_map_sg(struct device *dev, struct scatterlist *sg, int nents, enum dma_data_direction dir)
+            入参：    struct device *dev是设备结构体
+                struct scatterlist *sg就是想要被map的scatterlist
+                int nents是scatterlist的块数
+                enum dma_data_direction dir是和dma_map_single()一样的方向参数。
+            返回：    这个函数的作用就是把传入的scatterlist，能合并的合并（比如首尾相连的块）。从而更新下scatterlist，让它变成一个更优化更适合DMA的区域。
+                而返回值则是调整过后的scatterlist的块的数量。所以这个数量&lt;=nents。
+                所以说，dma_map_sg()调用以后，原先sg的内容很可能就会被改变了。
+        在使用dma_map_sg()以后，就可以通过循环的方式，来依次让DMA来搬运数据。
+        在循环里面，可以通过sg_dma_address来获取特定块的地址，然后通过sg_dma_len()来获取特定块的长度。例子程序如下：
+            int i, count = dma_map_sg(dev, sglist, nents, direction);
+            struct scatterlist *sg;
+            //将各个块塞入DMA队列
+                 for (i = 0; i &lt; dma_len; i++) {
+                          sg_dma_address(&amp;data-&gt;sg[i]),
+                          sg_dma_len(&amp;data-&gt;sg[i]));
+                          res = dw_dma_enqueue(host-&gt;dma, host        --&gt;对应真正塞入发送队列的某个DMA的函数
+                 }
+            //或者用for_each_sg()这种API循环
+                for_each_sg(sglist, sg, count, i) {
+                    hw_address[i] = sg_dma_address(sg);
+                    hw_len[i] = sg_dma_len(sg);
+                    program_hw(device, hw_address[i], hw_len[i]);        --&gt;对应真正塞入发送队列的某个DMA的函数
+                }
+
+        有关这方面的实例，可以参考drivers/mmc/host/msm_sdcc.c也就是am335x的mmc的驱动。
+        同样，如果驱动一定要使用映射情况下的sg缓冲区，也有用来同步的API:
+
+    适用于流式映射类的场合有：
+        - Networking buffers transmitted/received by a device.
+        - Filesystem buffers written/read by a SCSI device.
+
+错误检查API：
+    dma_mapping_error()    这个API可以用于检查dma_addr_t的合法性。
+    例如：    
+        dma_addr_t dma_handle;
+        dma_handle = dma_map_single(dev, addr, size, direction);
+        if (dma_mapping_error(dev, dma_handle)) {
+            /*
+             * reduce current DMA mapping usage,
+             * delay and try again later or
+             * reset driver.
+             */
+        }
+
+
+DMA addressing limitations也就是DMA寻址限制相关的内容：（涉及DMA mask之类的概念）
+    在某些平台上（x86？），设备做DMA操作的时候，只能操作某一段内存地址。比如在32位地址中，只能寻址24位作为DMA的地址。
+    如果是这样，则需要告诉kernel，比如32位的系统，只能分配哪个范围的地址作为DMA内存地址。否则的话，对于32位系统，内核将默认可以分配32位的DMA地址。
+    kmalloc或者__get_free_page或者kmem_cache_alloc()，分配到的内存，是可以用来DMA的，vmalloc()这不行。
+    int dma_set_mask(struct device *dev, u64 mask);    这个可以用来设置mask。
+        例子代码如下：
+        if (dma_set_mask(dev, DMA_BIT_MASK(32))) {
+                printk(KERN_WARNING
+               &quot;mydev: No suitable DMA available.\n&quot;);
+            goto ignore_this_device;
+        }
+    int dma_set_coherent_mask(struct device *dev, u64 mask);    这个可以用来设置一致性mask。
+
+一些不常用的API：
+    void * dma_alloc_noncoherent(struct device *dev, size_t size, dma_addr_t *dma_handle, gfp_t flag)
+    void dma_free_noncoherent(struct device *dev, size_t size, void *cpu_addr, dma_addr_t dma_handle)
+    int dma_get_cache_alignment(void)
+    等
+    和cpu的cache操作有关。比较专业，一般驱动用不到。
+
+DMAEngine子系统API
+    menuconfig:
+        CONFIG_DMA_ENGINE宏的定义很奇怪。依赖于一堆具体的驱动。如下：（am335x的内核没选上这些东西。）        
+        Symbol: DMA_ENGINE [=y]   
+        Type  : boolean                                                                                                                                          
+           Selected by: PATA_ARASAN_CF [=y] &amp;&amp; ATA [=y] &amp;&amp; ATA_SFF [=y] &amp;&amp; ATA_BMDMA [=y] &amp;&amp; DMADEVICES [=y]
+        然后看了4.4.32的内核。DMA_ENGINE同样依赖于一些具体的驱动，除了CONFIG_DMADEVICES
+    API使用顺序：
+    dma_request_channel()        //Request a channel
+    dmaengine_slave_config()        //Configure the channel for our use
+    dmaengine_prep_slave_sg()        //Get a transaction descriptor for our transfer
+    dmaengine_submit()        //Put the transaction in the driver pending queue
+    dmaengine_issue_pending()        //Issue pending requests (blocks and calls back your driver to give an update on the transfer status)
+    因为目前3.2.0的内核尚未用到。所以细节以后再看。
+    参考资料：
+        Linux\Kernel\学习资料\free-electrons.com系列资料\An overview of the DMAEngine subsystem.pdf
+        kernel\Documentation\dmaengine.txt
+
+    drivers\dma\dmaengine.c
+
+device{}结构体里面有关dma的成员：    
+    dma_mask        一般都设置成DMA_BIT_MASK(32);，因为DMA可以32位寻址。
+    coherent_dma_mask
+    dma_parms
+    dma_pools
+    dma_mem
+    后续遇到具体的驱动的时候，再做分析。
+</code></pre><p>DMA控制器的驱动举例解析：<br>    以am335x平台的DMA驱动为例。ti的DMA主控，它自己叫EDMA3</p>
+<pre><code>驱动文件：
+    arch\arm\common\edma.c
+menuconfig：
+    System Type  ---&gt;
+        TI OMAP2/3/4 Specific Features   ---&gt;
+            &lt;*&gt;    OMAP3 EDMA support
+
+主控硬件上本身分成两部分：    
+EDMA3 channel controller（EDMA3CC）
+    面向用户的寄存器的接口。包含parameter RAM(PaRAM)，control channel register，interrupt control register。
+    总之就是驱动可以直接操作的寄存器。
+EDMA3 transfer controller（EDMA3TC）
+    执行数据搬运的硬件机构。这部分对驱动是透明的。
+
+一共有64个channel，参考AM335X技术参考手册的Table 11-23. Direct Mapped
+
+这里面有几个和EDMA控制器特定硬件相关的概念：
+channel和event
+    channel指DMA的通道
+    event对应是哪个外设涉及的DMA请求，比如UART1。（DMA传输可以由外设自动触发通知，也可以手动启动DMA传输）
+    这两个概念参考Table 11-23. Direct Mapped和Table 11-24. Crossbar Mapped
+    简单来说就是EDMA包含64个可用的DMA的通道channel
+    但是，却有总共96个event（可以理解为有可能用到这些DMA通道的具体事件）
+    那么根据Table 11-23. Direct Mapped。前64个通道，默认是map到前64个event的。
+    但是，后31个event，可以通过“cross bar”映射的方式，任意映射到Table 11-23. Direct Mapped里面的条目里面去。（首选open条目因为那些event/channel默认无人使用）
+    所以cross bar event可能会占用一些默认的通道的映射，导致原来默认的event没法对应channel。类似于gpio的mux引脚功能复用。
+PaRAM
+    说白了就是一大组寄存器。
+    里面需要存放DMA传输所需的source/destination addresses,count, indexes, etc.
+    PaRAM一共分为256个sets
+    每个set，包含8个四字节一组的参数，这里面就是source/destination addresses,count, indexes,option等参数存放的地方。
+    channel和PaRAM set是一对一map的。也就是说，DMA channel X，只能用PaRAM set X来工作。具体这方面的配置，有DCHMAPn寄存器来设置。
+priority
+    DMA request是有优先级的。优先级可编程。
+TCC
+
+
+另外，有关如何操作EDMA来传输数据，可以参照AM335X技术参考手册的11.5.3 Setting Up a Transfer的步骤。
+
+
+AM335X技术参考手册有关DMA主控的spec本身非常复杂。后面有时间再分析了。目前只能看个梗概，然后着重于如何使用DMA主控的驱动接口。
+
+
+
+arch\arm\plat-omap\sdma2edma.c
+
+AM335x EDMA Driver&apos;s Guide - Texas Instruments Wiki.pdf    这文章里面的ARM和Other Masters还是不理解到底指的是什么
+</code></pre><p>DMA主控制器API的使用：            <em>**<br>    预定义的EMDA3设置：<br>        在devices.c<br>            预定义channel<br>            static const s16 am33xx_dma_rsv_chans[][2] = {<br>                /</em> (offset, number) <em>/<br>                {0, 2},<br>                {14, 2},<br>                {26, 6},<br>                {48, 4},<br>                {56, 8},<br>                {-1, -1}<br>            };<br>            预定义PaRAM的slot<br>            static const s16 am33xx_dma_rsv_slots[][2] = {<br>                /</em> (offset, number) <em>/<br>                {0, 2},<br>                {14, 2},<br>                {26, 6},<br>                {48, 4},<br>                {56, 8},<br>                {64, 127},<br>                {-1, -1}<br>            };<br>            预定义的priority<br>            static const s8 am33xx_queue_priority_mapping[][2] = {<br>                /</em> {event queue no, Priority} <em>/<br>                {0, 0},<br>                {1, 1},<br>                {2, 2},<br>                {-1, -1}<br>            };<br>            预定义的cross bar mapping<br>            static struct event_to_channel_map am33xx_xbar_event_mapping[] = {<br>                /</em> {xbar event no, Channel} <em>/<br>                {1, 12},    /</em> SDTXEVT1 -&gt; MMCHS2 <em>/<br>                {2, 13},    /</em> SDRXEVT1 -&gt; MMCHS2 */</p>
+<pre><code>找某个spi驱动为例
+和spi相关的通道和事件是：
+    Event Number     Event Name     Source Module
+    16         SPIXEVT0     McSPI0
+    17         SPIREVT0     McSPI0
+    18         SPIXEVT1     McSPI0
+    19         SPIREVT1     McSPI0
+</code></pre><p>request_dma</p>
+<p>CMA介绍<br>    在我们使用ARM等嵌入式Linux系统的时候，一个头疼的问题是GPU，Camera，HDMI等都需要预留大量连续内存，这部分内存平时不用，但是一般的做法又必须先预留着。<br>    所谓CMA，就是一个内存池。DMA要用内存，可以去里面取。<br>    在嵌入式设备中，很多设备都没有支持scatter-getter和IO map，都需要连续内存块的操作。如设备：摄像机，硬件视频解码器，编码器等。<br>    这些设备往往需要较大的内存缓冲区（如：一个200万像素的高清帧摄像机，需要超过6M的内存）。<br>    一些嵌入式设备对缓冲区有一些额外的要求，比如：在含有多个内存bank的设备中，要求只能在特定的bank中中分配内存；而还有一些要定内存边界对齐的缓存区。<br>    近来，嵌入式设备有了较大的发展(特别是V4L领域)，并且这些驱动都有自己的内存分配代码。它们众多的大多数都是采用bootmem分配方法。<br>    CMA框架企图采用统一的连续内存分配机制，并为这些设备驱动提供简单的API，而且是可以定制化和模块化的。<br>    开机log举例：<br>    Reserved memory: created CMA memory pool at 0x8c000000, size 320 MiB<br>    Reserved memory: initialized node linux,cma, compatible id shared-dma-pool<br>    在支持CMA的情况下：<br>    dma alloc coherent又会变成用__alloc_from_contiguous()从CMA区域获取内存，申请出来的内存显然是物理连续的。<br>    这一点，在设备树dts里面就可以轻松配置,要么配置一个自己特定的cma区域，要么从“linux,cma-default”指定的缺省的CMA池子里面取内存：reserved-memory {  </p>
+<pre><code>          #address-cells = &lt;1&gt;;  
+          #size-cells = &lt;1&gt;;  
+          ranges;  
+
+          /* global autoconfigured region for contiguous allocations */  
+          linux,cma {  
+                  compatible = &quot;shared-dma-pool&quot;;  
+                  reusable;  
+                  size = &lt;0x4000000&gt;;  
+                  alignment = &lt;0x2000&gt;;  
+                  linux,cma-default;  
+          };  
+
+          display_reserved: framebuffer@78000000 {  
+                  reg = &lt;0x78000000 0x800000&gt;;  
+          };  
+
+          multimedia_reserved: multimedia@77000000 {  
+                  compatible = &quot;acme,multimedia-memory&quot;;  
+                  reg = &lt;0x77000000 0x4000000&gt;;  
+          };  
+  };  
+以4.4内核为例，在支持CMA的情况下，dma_alloc_coherent()最终是会用到CMA接口dma_alloc_from_contiguous()的。如下：
+dma_alloc_coherent()-&gt;__dma_alloc()-&gt;dma_alloc_from_contiguous()-&gt;__alloc_from_contiguous()
+所以dma_alloc_coherent()这个API只是一个前端的界面，它的内存究竟从哪里来，究竟实际物理内存要不要连续，带不带cache，都完全是自动的。
+
+CMA的原理是：
+具体实现很复杂，简单的说，就是在伙伴系统里面，CMA做了这么个设定：
+保留一块区域，其页面块为MIGRATE_CMA类型。此类型有一个重要的属性：只有可移动页才可以从MIGRATE_CMA页面块中分配。
+所以说白了就是，这块区域，是我CMA的地盘。别人用，也可以，但需要接受一个条件，就是gfp_mask参数需要是MIGRATE_MOVABLE的，
+也就是可以接受自己所分配到的页，可以随时被动态迁移到别的物理内存地址，在CMA需要用连续内存的情况下。
+
+参考：
+《Linux内核最新的连续内存分配器(CMA)——避免预留大块内存.pdf》
+《深入理解CMA.pdf》
+《LINUX CMA 详细分析.pdf》
+《A deep dive into CMA [LWN.pdf》
+</code></pre>
       
     </div>
 
