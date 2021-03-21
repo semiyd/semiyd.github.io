@@ -1,0 +1,1252 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.3.0" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.3.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.3.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.3.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.3.0" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '6.3.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="Regmap 子系统">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Regmap 子系统">
+<meta property="og:url" content="http://yoursite.com/2021/03/21/Regmap-子系统/index.html">
+<meta property="og:site_name" content="Semiyd&#39;s Blog">
+<meta property="og:description" content="Regmap 子系统">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2021-03-21T07:15:20.909Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Regmap 子系统">
+<meta name="twitter:description" content="Regmap 子系统">
+
+
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2021/03/21/Regmap-子系统/"/>
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>Regmap 子系统 | Semiyd's Blog</title>
+  
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Semiyd's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br />Home</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+    <a href="/categories/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-th"></i> <br />Categories</a>
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/03/21/Regmap-子系统/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Semiyd">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Semiyd's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Regmap 子系统
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2021-03-21 15:14:23 / Modified: 15:15:20" itemprop="dateCreated datePublished" datetime="2021-03-21T15:14:23+08:00">2021-03-21</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Linux/" itemprop="url" rel="index"><span itemprop="name">Linux</span></a></span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Linux/Kernel/" itemprop="url" rel="index"><span itemprop="name">Kernel</span></a></span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Linux/Kernel/驱动/" itemprop="url" rel="index"><span itemprop="name">驱动</span></a></span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Linux/Kernel/驱动/Regmap/" itemprop="url" rel="index"><span itemprop="name">Regmap</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><center><strong>Regmap 子系统</strong></center><br><a id="more"></a></p>
+<p>=============================regmap介绍==============================<br>regmap是什么？<br>针对i2c，spi总线，或者直接内存地址的寄存器的操作，内核做了一个抽象层，隐藏了总线号，总线地址，寄存器地址和寄存器值的位数，寄存器范围，寄存器默认值，总线速度等细节<br>抽象出来了一个简单的专用于操作寄存器的接口，像这样：<br>regmap_write(struct regmap <em>map, int reg, int val); // 向reg写入val<br>regmap_read(struct regmap </em>map, int reg, int *val); // 读取reg的数据到val中<br>这样可以提高代码重用性。<br>除此之外，regmap还能提供锁机制，cache机制（可以积攒一段时间，一次性写入，如果对时序无要求），处理irq。<br>包装位操作，检查寄存器范围，轮询接口包装<br>内核方面，代码在drivers/base/regmap/</p>
+<p>为什么mfd会扯到regmap？<br>因为一个mfd内部的数个cell，访问这些cell的寄存器的方法，一般来说是相同的。例如都是同一路i2c，或者都是同一路spi，或者都是一个寄存器的内存空间的。<br>所以这些个cell，在访问寄存器上，有很大的共性。cell之间的区别可能只是寄存器的地址和值不一样。<br>所以有必要在mfd里面，利用是regmap的这个功能，这样提高了代码的重用性。</p>
+<p>如何注册regmap？</p>
+<p>#define regmap_init(dev, bus, bus_context, config) \            对应直接访问内存地址的寄存器<br>    <strong>regmap_lockdep_wrapper(</strong>regmap_init, #config, \<br>    dev, bus, bus_context, config)</p>
+<p>#define regmap_init_i2c(i2c, config) \                    对应访问i2c地址的寄存器<br>    <strong>regmap_lockdep_wrapper(</strong>regmap_init_i2c, #config, \<br>    i2c, config)</p>
+<p>#define regmap_init_spi(dev, config) \                    对应访问spi地址的寄存器<br>    <strong>regmap_lockdep_wrapper(</strong>regmap_init_spi, #config, \<br>    dev, config)<br>int regmap_add_irq_chip(struct regmap <em>map, int irq, int irq_flags,<br>            int irq_base, const struct regmap_irq_chip </em>chip,<br>            struct regmap_irq_chip_data <strong>data)<br>以上都有devm_版本的接口，如：<br>/</strong></p>
+<ul>
+<li>@dev: Device that will be interacted with</li>
+<li>@bus: Bus-specific callbacks to use with device</li>
+<li>@bus_context: Data passed to bus-specific callbacks</li>
+<li>@config: Configuration for register map<br>*/<br>#define devm_regmap_init(dev, bus, bus_context, config)    </li>
+</ul>
+<p>如何使用regmap？<br>int regmap_read(struct regmap <em>map, unsigned int reg, unsigned int </em>val);<br>int regmap_write(struct regmap <em>map, unsigned int reg, unsigned int val);<br>int regmap_update_bits(struct regmap </em>map, unsigned int reg, unsigned int mask, unsigned int val);<br>int regcache_sync(struct regmap <em>map);<br>int regcache_sync_region(struct regmap </em>map, unsigned int min, unsigned int max);<br>int regcache_drop_region(struct regmap <em>map, unsigned int min, unsigned int max);<br>void regcache_cache_only(struct regmap </em>map, bool enable);<br>void regcache_cache_bypass(struct regmap <em>map, bool enable);<br>void regcache_mark_dirty(struct regmap </em>map);</p>
+<p>以driver/mfd/atmel-hlcdc.c的代码为例：<br>这个驱动本身是mfd驱动。<br>struct atmel_hlcdc {———————————–私有结构体，内部有regmap成员<br>    struct regmap <em>regmap;<br>    struct clk </em>periph_clk;<br>    struct clk <em>sys_clk;<br>    struct clk </em>slow_clk;<br>    int irq;<br>};</p>
+<p>struct atmel_hlcdc_regmap {<br>    void __iomem *regs;<br>};</p>
+<p>static const struct regmap_config atmel_hlcdc_regmap_config = {<br>    .reg_bits = 32,<br>    .val_bits = 32,<br>    .reg_stride = 4,<br>    .max_register = ATMEL_HLCDC_REG_MAX,<br>    .reg_write = regmap_atmel_hlcdc_reg_write,<br>    .reg_read = regmap_atmel_hlcdc_reg_read,<br>    .fast_io = true,<br>};</p>
+<p>static const struct mfd_cell atmel_hlcdc_cells[] = {<br>    {<br>        .name = “atmel-hlcdc-pwm”,<br>        .of_compatible = “atmel,hlcdc-pwm”,<br>    },<br>    {<br>        .name = “atmel-hlcdc-dc”,<br>        .of_compatible = “atmel,hlcdc-display-controller”,<br>    },<br>};</p>
+<p>static int atmel_hlcdc_probe(struct platform_device <em>pdev)<br>{<br>    struct atmel_hlcdc_regmap </em>hregmap;<br>    struct device <em>dev = &amp;pdev-&gt;dev;<br>    struct atmel_hlcdc </em>hlcdc;<br>    struct resource *res;</p>
+<pre><code>hregmap = devm_kzalloc(dev, sizeof(*hregmap), GFP_KERNEL);
+if (!hregmap)
+    return -ENOMEM;
+
+hlcdc = devm_kzalloc(dev, sizeof(*hlcdc), GFP_KERNEL);
+if (!hlcdc)
+    return -ENOMEM;
+
+res = platform_get_resource(pdev, IORESOURCE_MEM, 0);
+hregmap-&gt;regs = devm_ioremap_resource(dev, res);
+if (IS_ERR(hregmap-&gt;regs))
+    return PTR_ERR(hregmap-&gt;regs);
+
+hlcdc-&gt;irq = platform_get_irq(pdev, 0);
+if (hlcdc-&gt;irq &lt; 0)
+    return hlcdc-&gt;irq;
+
+hlcdc-&gt;periph_clk = devm_clk_get(dev, &quot;periph_clk&quot;);
+if (IS_ERR(hlcdc-&gt;periph_clk)) {
+    dev_err(dev, &quot;failed to get peripheral clock\n&quot;);
+    return PTR_ERR(hlcdc-&gt;periph_clk);
+}
+
+hlcdc-&gt;sys_clk = devm_clk_get(dev, &quot;sys_clk&quot;);
+if (IS_ERR(hlcdc-&gt;sys_clk)) {
+    dev_err(dev, &quot;failed to get system clock\n&quot;);
+    return PTR_ERR(hlcdc-&gt;sys_clk);
+}
+
+hlcdc-&gt;slow_clk = devm_clk_get(dev, &quot;slow_clk&quot;);
+if (IS_ERR(hlcdc-&gt;slow_clk)) {
+    dev_err(dev, &quot;failed to get slow clock\n&quot;);
+    return PTR_ERR(hlcdc-&gt;slow_clk);
+}
+
+hlcdc-&gt;regmap = devm_regmap_init(dev, NULL, hregmap,-----------------------------返回值初始化了regmap，并放入hlcdc-&gt;regmap。而hlcdc属于drvdata，传给mfd。所以将来cell是可以直接取出regmap使用的。
+                 &amp;atmel_hlcdc_regmap_config);
+if (IS_ERR(hlcdc-&gt;regmap))
+    return PTR_ERR(hlcdc-&gt;regmap);
+
+dev_set_drvdata(dev, hlcdc);
+
+return devm_mfd_add_devices(dev, -1, atmel_hlcdc_cells,    ------------------------------在最后向mfd子系统注册了
+                ARRAY_SIZE(atmel_hlcdc_cells),
+                NULL, 0, NULL);
+</code></pre><p>}<br>下面仔细分析下devm_regmap_init的几个入参：<br>回顾下定义：<br>/**</p>
+<ul>
+<li>@dev: Device that will be interacted with</li>
+<li>@bus: Bus-specific callbacks to use with device</li>
+<li>@bus_context: Data passed to bus-specific callbacks</li>
+<li>@config: Configuration for register map<br><em>/<br>#define devm_regmap_init(dev, bus, bus_context, config)<br>@dev给的就是platform_device的device，这个没什么好说的<br>@bus未设置<br>@bus_context需要告诉regmap子系统，寄存器的虚拟地址。代码中的hregmap，其成员void __iomem </em>regs;，其实把platform的resource拿出来，ioremap转下，存好。<br>@config初始化了struct regmap_config的结构体atmel_hlcdc_regmap_config。具体就是初始化了寄存器宽度，数量，寄存器读写的回调函数，扔给regmap子系统。</li>
+</ul>
+<p>mfd内部的cell如何用到这个regmap的？<br>上面的例子中，有一个cell叫”atmel-hlcdc-pwm”<br>static int atmel_hlcdc_pwm_probe(struct platform_device <em>pdev)<br>{<br>    const struct of_device_id </em>match;<br>    struct device <em>dev = &amp;pdev-&gt;dev;<br>    struct atmel_hlcdc_pwm </em>chip;<br>    struct atmel_hlcdc *hlcdc;<br>    int ret;</p>
+<pre><code>hlcdc = dev_get_drvdata(dev-&gt;parent);
+
+chip = devm_kzalloc(dev, sizeof(*chip), GFP_KERNEL);
+
+[...]
+
+chip-&gt;hlcdc = hlcdc;
+
+[...]
+
+platform_set_drvdata(pdev, chip);
+
+return 0;
+</code></pre><p>}<br>可以看到，手法一样，通过parent取出struct atmel_hlcdc私有结构体（里面有mfd设备的regmap）hlcdc，放入自己的platform驱动的私有结构体chip中<br>最后，真正使用regmap访问这个cell的寄存器：<br>static int atmel_hlcdc_pwm_set_polarity(struct pwm_chip <em>c,<br>                    struct pwm_device </em>pwm,<br>                    enum pwm_polarity polarity)<br>{<br>    struct atmel_hlcdc_pwm <em>chip = to_atmel_hlcdc_pwm(c);<br>    struct atmel_hlcdc </em>hlcdc = chip-&gt;hlcdc;<br>    u32 cfg = 0;</p>
+<pre><code>if (polarity == PWM_POLARITY_NORMAL)
+    cfg = ATMEL_HLCDC_PWMPOL;
+
+return regmap_update_bits(hlcdc-&gt;regmap, ATMEL_HLCDC_CFG(6),
+              ATMEL_HLCDC_PWMPOL, cfg);
+</code></pre><p>}<br>可以看到，从自己的platform驱动的私有结构体,取出regmap。将其作为入参，使用regmap_update_bits来访问寄存器。<br>这个过程中，不再需要重复去ioremap，不用去关注如何访问寄存器本身，只管读写就是了。</p>
+<p>——————regmap_add_irq_chip()接口的补充介绍—————————-<br>在向regmap子系统注册的api中，还有个regmap_add_irq_chip()尚未提及，是干嘛用的？<br>内核方面，代码在drivers/base/regmap/regmap-irq.c<br>/**</p>
+<ul>
+<li>regmap_add_irq_chip(): Use standard regmap IRQ controller handling<br>*</li>
+<li>map:       The regmap for the device.</li>
+<li>irq:       The IRQ the device uses to signal interrupts</li>
+<li>irq_flags: The IRQF_ flags to use for the primary interrupt.</li>
+<li>chip:      Configuration for the interrupt controller.</li>
+<li>data:      Runtime data structure for the controller, allocated on success<br>*</li>
+<li>Returns 0 on success or an errno on failure.<br>*</li>
+<li>In order for this to be efficient the chip really should use a</li>
+<li>register cache.  The chip driver is responsible for restoring the</li>
+<li><p>register values used by the IRQ controller over suspend and resume.<br><em>/<br>int regmap_add_irq_chip(struct regmap </em>map, int irq, int irq_flags,</p>
+<pre><code>int irq_base, const struct regmap_irq_chip *chip,
+struct regmap_irq_chip_data **data)
+</code></pre><p>这块东西比较前沿，到写这篇文章为止，国内是找不到任何中文资料的。<br>换句话说就算搞清楚了，国内也没有相应的工作可以给你做，哈哈。<br>言归正传：<br>以drivers/mfd/tps65910.c为例分析。<br>首先是probe函数：<br>static int tps65910_i2c_probe(struct i2c_client *i2c,</p>
+<pre><code>const struct i2c_device_id *id)
+</code></pre><p>{<br> struct tps65910 <em>tps65910;<br> struct tps65910_board </em>pmic_plat_data;<br> struct tps65910_board <em>of_pmic_plat_data = NULL;<br> struct tps65910_platform_data </em>init_data;<br> unsigned long chip_id = id-&gt;driver_data;<br> int ret = 0;</p>
+<p> pmic_plat_data = dev_get_platdata(&amp;i2c-&gt;dev);</p>
+<p> if (!pmic_plat_data &amp;&amp; i2c-&gt;dev.of_node) {</p>
+<pre><code>pmic_plat_data = tps65910_parse_dt(i2c, &amp;chip_id);------------尝试从dts的i2c节点中，获取中断号的配置。
+of_pmic_plat_data = pmic_plat_data;
+</code></pre><p> }</p>
+<p> if (!pmic_plat_data)</p>
+<pre><code>return -EINVAL;
+</code></pre><p> init_data = devm_kzalloc(&amp;i2c-&gt;dev, sizeof(*init_data), GFP_KERNEL);<br> if (init_data == NULL)</p>
+<pre><code>return -ENOMEM;
+</code></pre><p> tps65910 = devm_kzalloc(&amp;i2c-&gt;dev, sizeof(*tps65910), GFP_KERNEL);———————-初始化驱动的私有结构体<br> if (tps65910 == NULL)</p>
+<pre><code>return -ENOMEM;
+</code></pre><p> tps65910-&gt;of_plat_data = of_pmic_plat_data;<br> i2c_set_clientdata(i2c, tps65910);—————————————————————–通过i2c_set_clientdata设置到drvdata里面去<br> tps65910-&gt;dev = &amp;i2c-&gt;dev;<br> tps65910-&gt;i2c_client = i2c;<br> tps65910-&gt;id = chip_id;</p>
+<p> /* Work around silicon erratum SWCZ010: the tps65910 may miss the</p>
+<ul>
+<li>first I2C transfer. So issue a dummy transfer before the first</li>
+<li><p>real transfer.<br>*/<br>i2c_master_send(i2c, “”, 1);<br>tps65910-&gt;regmap = devm_regmap_init_i2c(i2c, &amp;tps65910_regmap_config);—————-通过devm_regmap_init_i2c初始化了regmap的配置，放在私有结构体struct tps65910里面。<br>if (IS_ERR(tps65910-&gt;regmap)) {<br> ret = PTR_ERR(tps65910-&gt;regmap);<br> dev_err(&amp;i2c-&gt;dev, “regmap initialization failed: %d\n”, ret);<br> return ret;<br>}</p>
+<p>init_data-&gt;irq = pmic_plat_data-&gt;irq;<br>init_data-&gt;irq_base = pmic_plat_data-&gt;irq_base;</p>
+<p>tps65910_irq_init(tps65910, init_data-&gt;irq, init_data);——————-这里会涉及调用regmap_add_irq_chip！<br>tps65910_ck32k_init(tps65910, pmic_plat_data);<br>tps65910_sleepinit(tps65910, pmic_plat_data);</p>
+<p>if (pmic_plat_data-&gt;pm_off &amp;&amp; !pm_power_off) {<br> tps65910_i2c_client = i2c;<br> pm_power_off = tps65910_power_off;<br>}</p>
+<p>ret = devm_mfd_add_devices(tps65910-&gt;dev, -1,—————————-向mfd子系统注册</p>
+<pre><code>tps65910s, ARRAY_SIZE(tps65910s),
+NULL, 0,
+regmap_irq_get_domain(tps65910-&gt;irq_data));
+</code></pre><p>if (ret &lt; 0) {<br> dev_err(&amp;i2c-&gt;dev, “mfd_add_devices failed: %d\n”, ret);<br> return ret;<br>}</p>
+<p>return ret;<br>}<br>我们展开tps65910_parse_dt()<br>static struct tps65910_board <em>tps65910_parse_dt(struct i2c_client </em>client,</p>
+<pre><code>unsigned long *chip_id)
+</code></pre><p>{<br>struct device_node <em>np = client-&gt;dev.of_node;<br>struct tps65910_board </em>board_info;<br>unsigned int prop;<br>const struct of_device_id *match;<br>int ret = 0;</p>
+<p>match = of_match_device(tps65910_of_match, &amp;client-&gt;dev);<br>if (!match) {<br> dev_err(&amp;client-&gt;dev, “Failed to find matching dt id\n”);<br> return NULL;<br>}</p>
+<p>*chip_id  = (unsigned long)match-&gt;data;</p>
+<p>board_info = devm_kzalloc(&amp;client-&gt;dev, sizeof(*board_info),</p>
+<pre><code>GFP_KERNEL);
+</code></pre><p>if (!board_info) {<br> dev_err(&amp;client-&gt;dev, “Failed to allocate pdata\n”);<br> return NULL;<br>}</p>
+<p>ret = of_property_read_u32(np, “ti,vmbch-threshold”, &amp;prop);<br>if (!ret)<br> board_info-&gt;vmbch_threshold = prop;</p>
+<p>ret = of_property_read_u32(np, “ti,vmbch2-threshold”, &amp;prop);<br>if (!ret)<br> board_info-&gt;vmbch2_threshold = prop;</p>
+<p>prop = of_property_read_bool(np, “ti,en-ck32k-xtal”);<br>board_info-&gt;en_ck32k_xtal = prop;</p>
+<p>board_info-&gt;irq = client-&gt;irq;<br>board_info-&gt;irq_base = -1;<br>board_info-&gt;pm_off = of_property_read_bool(np,</p>
+<pre><code>&quot;ti,system-power-controller&quot;);
+</code></pre><p>return board_info;<br>}<br>叨叨一大堆，其实里面重点在于board_info-&gt;irq = client-&gt;irq;这句，别的不用看。<br>client-&gt;irq;其实就来自于i2c的dts节点的配置，例如：<br> //i2c触屏控制芯片的例子<br> &amp;i2c2 {</p>
+<pre><code>pinctrl-names = &quot;default&quot;;
+pinctrl-0 = &lt;&amp;i2c2_pins&gt;;
+status = &quot;okay&quot;;
+clock-frequency = &lt;400000&gt;;
+gt911a: gt911a@5d {
+    compatible = &quot;goodix,gt911a&quot;;
+    pinctrl-names = &quot;default&quot;;
+    pinctrl-0 = &lt;&amp;touchscreen_pins&gt;;
+    reg = &lt;0x5d&gt;;
+    interrupt-parent = &lt;&amp;gpio1&gt;;    这个代表是gpio1这组的，因为我们是gpio1_18作为中断。
+    interrupts = &lt;18 2&gt;;        这个是中断脚gpio1_18，后面的2代表下降沿触发，具体定义参考Documentation/devicetree/bindings/gpio/gpio-omap.txt #interrupt-cells
+    reset-gpios = &lt;&amp;gpio1 26 0&gt;;    这个是reset脚gpio1_26，最后的0不代表任何意义，具体定义参考Documentation/devicetree/bindings/gpio/gpio-omap.txt #gpio-cells
+    int-gpios = &lt;&amp;gpio1 18 0&gt;;        同上
+};
+</code></pre><p> };<br>这里配置了中断，client-&gt;irq就能取到（i2c子系统默默帮你搞定）中断号（cpu端的中断号）<br>好了，现在来看重点tps65910_irq_init()<br>static int tps65910_irq_init(struct tps65910 *tps65910, int irq,</p>
+<pre><code>struct tps65910_platform_data *pdata)
+</code></pre><p>{<br>int ret = 0;<br>static struct regmap_irq_chip *tps6591x_irqs_chip;</p>
+<p>if (!irq) {<br> dev_warn(tps65910-&gt;dev, “No interrupt support, no core IRQ\n”);<br> return -EINVAL;<br>}</p>
+<p>if (!pdata) {<br> dev_warn(tps65910-&gt;dev, “No interrupt support, no pdata\n”);<br> return -EINVAL;<br>}</p>
+<p>switch (tps65910_chip_id(tps65910)) {<br>case TPS65910:<br> tps6591x_irqs_chip = &tps65910_irq_chip;<br> break;<br>case TPS65911:<br> tps6591x_irqs_chip = &tps65911_irq_chip;<br> break;<br>}</p>
+<p>tps65910-&gt;chip_irq = irq;<br>ret = devm_regmap_add_irq_chip(tps65910-&gt;dev, tps65910-&gt;regmap,</p>
+<pre><code>tps65910-&gt;chip_irq,
+IRQF_ONESHOT, pdata-&gt;irq_base,
+tps6591x_irqs_chip, &amp;tps65910-&gt;irq_data);
+</code></pre><p>if (ret &lt; 0) {<br> dev_warn(tps65910-&gt;dev, “Failed to add irq_chip %d\n”, ret);<br> tps65910-&gt;chip_irq = 0;<br>}<br>return ret;<br>}<br>这个函数的最后，就调用了devm_regmap_add_irq_chip。<br>这个东西的作用，其实就是一些mfd芯片，是可以扩展主cpu的中断的。其一端连着cpu的一个中断脚，通常就是个gpio。<br>另外另一头，这个mfd芯片本身，能产生很多中断，这么多个中断，都可以汇总到连接主cpu的中断来通知主cpu。<br>主cpu收到中断后，可以进一步查询具体是mfd的哪个中断引起的。算是一个级联过来的中断控制器。<br>现在分析下具体的入参：</p>
+</li>
+</ul>
+</li>
+<li>@dev:       The device pointer on which irq_chip belongs to.</li>
+<li>@map:       The regmap for the device.</li>
+<li>@irq:       The IRQ the device uses to signal interrupts</li>
+<li>@irq_flags: The IRQF_ flags to use for the primary interrupt.</li>
+<li>@irq_base</li>
+<li>@chip:      Configuration for the interrupt controller.</li>
+<li>@data:      Runtime data structure for the controller, allocated on success<br> ret = devm_regmap_add_irq_chip(tps65910-&gt;dev, tps65910-&gt;regmap,<pre><code>tps65910-&gt;chip_irq,
+IRQF_ONESHOT, pdata-&gt;irq_base,
+tps6591x_irqs_chip, &amp;tps65910-&gt;irq_data);
+</code></pre>@dev配置成私有结构体tps65910的device，没啥好说的<br>@map需要把regmap传入，这就是为啥要先做好devm_regmap_init_i2c，然后才能做这个devm_regmap_add_irq_chip。因为访问具体的中断是要涉及regmap的。<br>@irq是指主cpu这边连接的irq号，也就是dts里面mfd的i2c节点，配置的中断号<br>@irq_flags这个和一般申请irq时候的概念一样，例如可以设置 IRQF_ONESHOT<br>@irq_base此处设为-1，暂时不管它啥意思<br>@chip这个很重要，其实是要填充regmap_irq_chip{}结构体，下面详细说明。<br>@data这个其实是返回值，返回的struct regmap_irq_chip_data {}结构体，下面详细说明</li>
+</ul>
+<p>@chip的详细解释<br>tps6591x_irqs_chip其实就是tps65910_irq_chip，是个regmap_irq_chip{}类型的结构体。<br>struct regmap_irq_chip {<br>    const char *name;</p>
+<pre><code>unsigned int status_base;
+unsigned int mask_base;
+unsigned int unmask_base;
+unsigned int ack_base;
+unsigned int wake_base;
+unsigned int type_base;
+unsigned int irq_reg_stride;
+bool init_ack_masked:1;
+bool mask_invert:1;
+bool use_ack:1;
+bool ack_invert:1;
+bool wake_invert:1;
+bool runtime_pm:1;
+bool type_invert:1;
+
+int num_regs;
+
+const struct regmap_irq *irqs;
+int num_irqs;
+
+int num_type_reg;
+unsigned int type_reg_stride;
+
+int (*handle_pre_irq)(void *irq_drv_data);
+int (*handle_post_irq)(void *irq_drv_data);
+void *irq_drv_data;
+</code></pre><p>};<br>具体定义为<br>static struct regmap_irq_chip tps65910_irq_chip = {<br>    .name = “tps65910”,<br>    .irqs = tps65910_irqs,<br>    .num_irqs = ARRAY_SIZE(tps65910_irqs),<br>    .num_regs = 2,<br>    .irq_reg_stride = 2,<br>    .status_base = TPS65910_INT_STS,<br>    .mask_base = TPS65910_INT_MSK,<br>    .ack_base = TPS65910_INT_STS,<br>};<br>这里重点看.irqs = tps65910_irqs,这个成员<br>static const struct regmap_irq tps65910_irqs[] = {<br>    /<em> INT_STS </em>/<br>    [TPS65910_IRQ_VBAT_VMBDCH] = {<br>        .mask = TPS65910_INT_MSK_VMBDCH_IT_MSK_MASK,<br>        .reg_offset = 0,<br>    },<br>    [TPS65910_IRQ_VBAT_VMHI] = {<br>        .mask = TPS65910_INT_MSK_VMBHI_IT_MSK_MASK,<br>        .reg_offset = 0,<br>    },<br>    [TPS65910_IRQ_PWRON] = {<br>        .mask = TPS65910_INT_MSK_PWRON_IT_MSK_MASK,<br>        .reg_offset = 0,<br>    },<br>    [TPS65910_IRQ_PWRON_LP] = {<br>        .mask = TPS65910_INT_MSK_PWRON_LP_IT_MSK_MASK,<br>        .reg_offset = 0,<br>    },<br>    [TPS65910_IRQ_PWRHOLD] = {<br>        .mask = TPS65910_INT_MSK_PWRHOLD_IT_MSK_MASK,<br>        .reg_offset = 0,<br>    },<br>    [TPS65910_IRQ_HOTDIE] = {<br>        .mask = TPS65910_INT_MSK_HOTDIE_IT_MSK_MASK,<br>        .reg_offset = 0,<br>    },<br>    [TPS65910_IRQ_RTC_ALARM] = {<br>        .mask = TPS65910_INT_MSK_RTC_ALARM_IT_MSK_MASK,<br>        .reg_offset = 0,<br>    },<br>    [TPS65910_IRQ_RTC_PERIOD] = {<br>        .mask = TPS65910_INT_MSK_RTC_PERIOD_IT_MSK_MASK,<br>        .reg_offset = 0,<br>    },</p>
+<pre><code>/* INT_STS2 */
+[TPS65910_IRQ_GPIO_R] = {
+    .mask = TPS65910_INT_MSK2_GPIO0_F_IT_MSK_MASK,
+    .reg_offset = 1,
+},
+[TPS65910_IRQ_GPIO_F] = {
+    .mask = TPS65910_INT_MSK2_GPIO0_R_IT_MSK_MASK,
+    .reg_offset = 1,
+},
+</code></pre><p>};</p>
+<p>#define TPS65910_IRQ_VBAT_VMBDCH            0</p>
+<p>#define TPS65910_IRQ_VBAT_VMHI                1</p>
+<p>#define TPS65910_IRQ_PWRON                2</p>
+<p>#define TPS65910_IRQ_PWRON_LP                3</p>
+<p>#define TPS65910_IRQ_PWRHOLD                4</p>
+<p>#define TPS65910_IRQ_HOTDIE                5</p>
+<p>#define TPS65910_IRQ_RTC_ALARM                6</p>
+<p>#define TPS65910_IRQ_RTC_PERIOD                7</p>
+<p>#define TPS65910_IRQ_GPIO_R                8</p>
+<p>#define TPS65910_IRQ_GPIO_F                9<br>看来这就是具体这个中断控制器，会收到的所有的中断的中断表了。<br>就是这个中断号的列表，需要传给regmap子系统</p>
+<p>@data的详细解释：<br>其实是返回值，返回的struct regmap_irq_chip_data {}结构体<br>struct regmap_irq_chip_data {<br>    struct mutex lock;<br>    struct irq_chip irq_chip;</p>
+<pre><code>struct regmap *map;
+const struct regmap_irq_chip *chip;
+
+int irq_base;
+struct irq_domain *domain;
+
+int irq;
+int wake_count;
+
+void *status_reg_buf;
+unsigned int *status_buf;
+unsigned int *mask_buf;
+unsigned int *mask_buf_def;
+unsigned int *wake_buf;
+unsigned int *type_buf;
+unsigned int *type_buf_def;
+
+unsigned int irq_reg_stride;
+unsigned int type_reg_stride;
+</code></pre><p>};<br>可以看到，基本上是把刚刚的入参汇总起来了。<br>这个东西返回了有啥用？<br>注意看probe函数的最后：<br>    ret = devm_mfd_add_devices(tps65910-&gt;dev, -1,<br>                   tps65910s, ARRAY_SIZE(tps65910s),<br>                   NULL, 0,<br>                   regmap_irq_get_domain(tps65910-&gt;irq_data));<br>原来如此，其实这个中断控制器的配置信息tps65910-&gt;irq_data，其实最终给了mfd子系统。作为这个mfd设备资源的一部分。<br>这里就是int mfd_add_devices(struct device <em>parent, int id, const struct mfd_cell </em>cells, int n_devs, struct resource <em>mem_base, int irq_base, struct irq_domain </em>irq_domain);<br>最后的入参struct irq_domain *irq_domain。</p>
+<p>这个中断控制器，如何在其cell中使用？<br>这里换个例子，因为tps65910的其中一个rtc cell，找不到实际使用驱动的dts。<br>所以换成tps659038这个芯片的驱动为例：<br>针对rtc，是compatible = “ti,palmas-rtc”;，对应的驱动是drivers/rtc/rtc-palmas.c<br>针对整个pmic芯片，是compatible = “ti,tps659038”;，对应的驱动是drivers/mfd/palmas.c<br>原理上其实和刚刚分析的tps65910一模一样。<br>mfd驱动用devm_mfd_add_devices已经注册了irq_domain<br>同样，mfd里面也声明过了中断控制器可能会有哪些中断：<br>static const struct regmap_irq palmas_irqs[] = {<br>    […]<br>    /<em> INT2 IRQs</em>/<br>    [PALMAS_RTC_ALARM_IRQ] = {<br>        .mask = PALMAS_INT2_STATUS_RTC_ALARM,<br>        .reg_offset = 1,<br>    },<br>    [PALMAS_RTC_TIMER_IRQ] = {<br>        .mask = PALMAS_INT2_STATUS_RTC_TIMER,<br>        .reg_offset = 1,<br>    },<br>    […]<br>};<br>注意到，其实rtc中断号是8：<br>enum palmas_irqs {<br>    /<em> INT1 registers </em>/<br>    PALMAS_CHARG_DET_N_VBUS_OVV_IRQ,<br>    PALMAS_PWRON_IRQ,<br>    PALMAS_LONG_PRESS_KEY_IRQ,<br>    PALMAS_RPWRON_IRQ,<br>    PALMAS_PWRDOWN_IRQ,<br>    PALMAS_HOTDIE_IRQ,<br>    PALMAS_VSYS_MON_IRQ,<br>    PALMAS_VBAT_MON_IRQ,<br>    /<em> INT2 registers </em>/<br>    PALMAS_RTC_ALARM_IRQ,        此处是8<br>    […]<br>}</p>
+<p>然后看下mfd的dts配置：<br>    tps659038: tps659038@58 {            ———————mfd芯片的dts节点在此<br>        compatible = “ti,tps659038”;<br>        reg = <0x58>;<br>        interrupts-extended = &lt;&amp;gpio1 0 IRQ_TYPE_LEVEL_HIGH<br>                   &amp;dra7_pmx_core 0x418&gt;;</0x58></p>
+<pre><code>    #interrupt-cells = &lt;2&gt;;
+    interrupt-controller;            ----------------------声明是中断控制器
+
+    [...]
+
+    tps659038_rtc: tps659038_rtc {
+        compatible = &quot;ti,palmas-rtc&quot;;
+        interrupt-parent = &lt;&amp;tps659038&gt;;        ----------------------重点来了，声明中断的来源是&quot;ti,tps659038&quot;这个mfd驱动声明的interrupt-controller;
+        interrupts = &lt;8 IRQ_TYPE_EDGE_FALLING&gt;;    ----------------------这个中断号，需要和mfd里面的中断号一致
+        wakeup-source;
+    };
+}
+</code></pre><p>然后在rtc的probe函数中：<br>    palmas_rtc-&gt;irq = platform_get_irq(pdev, 0);————-取出dts里面，rtc对应的中断号（不是8，是内核根据mfd这个中断控制器，再包括内部中断号8，分配的一个中断号）</p>
+<pre><code>ret = devm_request_threaded_irq(&amp;pdev-&gt;dev, palmas_rtc-&gt;irq, NULL,---------------申请中断
+        palmas_rtc_interrupt,
+        IRQF_TRIGGER_LOW | IRQF_ONESHOT,
+        dev_name(&amp;pdev-&gt;dev), palmas_rtc);
+if (ret &lt; 0) {
+    dev_err(&amp;pdev-&gt;dev, &quot;IRQ request failed, err = %d\n&quot;, ret);
+    return ret;
+}
+</code></pre><p>然后，当中断来的时候：<br>static irqreturn_t palmas_rtc_interrupt(int irq, void <em>context)<br>{<br>    struct palmas_rtc </em>palmas_rtc = context;<br>    struct device *dev = palmas_rtc-&gt;dev;<br>    int ret;</p>
+<pre><code>ret = palmas_clear_interrupts(dev);
+[...]
+</code></pre><p>}<br>static int palmas_clear_interrupts(struct device <em>dev)<br>{<br>    struct palmas </em>palmas = dev_get_drvdata(dev-&gt;parent);——————取出parent的私有结构体<br>    unsigned int rtc_reg;<br>    int ret;</p>
+<pre><code>ret = palmas_read(palmas, PALMAS_RTC_BASE, PALMAS_RTC_STATUS_REG,
+            &amp;rtc_reg);
+[...]
+</code></pre><p>}<br>static inline int palmas_read(struct palmas <em>palmas, unsigned int base,<br>        unsigned int reg, unsigned int </em>val)<br>{<br>    unsigned int addr = PALMAS_BASE_TO_REG(base, reg);<br>    int slave_id = PALMAS_BASE_TO_SLAVE(base);</p>
+<pre><code>return regmap_read(palmas-&gt;regmap[slave_id], addr, val);----------------使用regmap子系统，访问parent的私有结构体的regmap[]，从而访问pmic芯片
+</code></pre><p>}</p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2021/03/21/Reset-子系统/" rel="next" title="Reset 子系统">
+                <i class="fa fa-chevron-left"></i> Reset 子系统
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Semiyd</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives">
+                
+                    <span class="site-state-item-count">232</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">120</span>
+                    <span class="site-state-item-name">categories</span>
+                  </a>
+                </div>
+              
+
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Semiyd</span>
+
+  
+
+  
+</div>
+
+
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> v3.7.1</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://theme-next.org">NexT.Muse</a> v6.3.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+	
+    
+
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.3.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.3.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.3.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.3.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.3.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
