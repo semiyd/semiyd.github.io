@@ -1,0 +1,999 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.3.0" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.3.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.3.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.3.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.3.0" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '6.3.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="workqueue 笔记">
+<meta property="og:type" content="article">
+<meta property="og:title" content="workqueue笔记">
+<meta property="og:url" content="http://yoursite.com/2021/03/21/workqueue笔记/index.html">
+<meta property="og:site_name" content="Semiyd&#39;s Blog">
+<meta property="og:description" content="workqueue 笔记">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2021-03-21T07:23:57.275Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="workqueue笔记">
+<meta name="twitter:description" content="workqueue 笔记">
+
+
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2021/03/21/workqueue笔记/"/>
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>workqueue笔记 | Semiyd's Blog</title>
+  
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Semiyd's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br />Home</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+    <a href="/categories/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-th"></i> <br />Categories</a>
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/03/21/workqueue笔记/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Semiyd">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Semiyd's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">workqueue笔记
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2021-03-21 15:22:55 / Modified: 15:23:57" itemprop="dateCreated datePublished" datetime="2021-03-21T15:22:55+08:00">2021-03-21</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Linux/" itemprop="url" rel="index"><span itemprop="name">Linux</span></a></span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Linux/Kernel/" itemprop="url" rel="index"><span itemprop="name">Kernel</span></a></span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Linux/Kernel/内核线程/" itemprop="url" rel="index"><span itemprop="name">内核线程</span></a></span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Linux/Kernel/内核线程/workqueue/" itemprop="url" rel="index"><span itemprop="name">workqueue</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><center><strong>workqueue 笔记</strong></center><br><a id="more"></a></p>
+<p>Workqueue:<br>头文件：#include &lt;linux/workqueue.h&gt;<br>支持single-thread和Per-CPU thread两种形式的workqueue，对于singlethread workqueue，内核会创建单个kthread用于执行work任务，<br>并且该kthread不会绑定到某个CPU上；<br>对于Per-CPU thread workqueue，内核会在每个CPU上针对该workqueue创建一个kthread，每个kthread绑定到一个CPU上</p>
+<p>创建work：<br>static struct work_struct work;<br>INIT_WORK(&amp;work, work_example); //work_example是干活的函数。<br>static void work_example(struct work_struct *work)</p>
+<p>创建work queue：<br>static struct workqueue_struct *test_wq = NULL;<br>test_wq = create_workqueue(“test_wq”);</p>
+<p>启动work:<br>schedule_work(&amp;work);    //把work加入全局的work queue并执行。<br>queue_work(test_wq, &amp;work);    //把work加入自定义的work queue并执行。</p>
+<p>停止work：<br>cancel_work_sync(&amp;work)</p>
+<p>销毁workqueue：<br>destroy_workqueue(test_wq);</p>
+<p>module_exit退出的时候，之前创建的work，是没有可以马上销毁work线程的接口可以调用的。<br>cancel_work_sync和destroy_workqueue都会等待work线程完成后再继续执行。<br>注意：cancel_work()虽然在linux/workqueue.h里面extern了一下，但是没有EXPORT_SYMBOL出来，所以别的kernel module是无法直接使用的！<br>如果有这种需要终止正在进行的work的场景，需要用类似atomic读写的方式，靠标志位来改变work的执行流程，让其退出，见workqueue_1.c</p>
+<p>代码例子：<br>workqueue_1.c</p>
+<p>=========================================================================<br>Cmwq:<br>并发管理的工作队列<br>并发管理工作队列（cmwq）是对工作队列（wq）的重新实现，并专注于以下目标：</p>
+<ol>
+<li>保持与原始工作队列API的兼容性。</li>
+<li>使用所有等待队列共享的每CPU统一工作者线程池来提供灵活的按需并发级别，而不会浪费很多资源。<br>-即：不会再因为多线程，整出一大堆线程，又是休眠状态等等，浪费线程数资源<br>-旧的workqueue实现，每个workqueue都会创建一系列per cpu的thread，这会大大增加系统中的进程数量，导致系统性能的降低</li>
+<li>自动调节工作者线程池和并发级别，以便API用户无需担心此类细节。<br>-对于single thread类型的workqueue，其中的work是顺序执行，如果一个work阻塞，那么后面的都将收到影响，对于per cpu thread workqueue，情况会稍微好些，<br>但是依然不够好，当一个CPU thread中已经加入了一个work时，由于queue_work只会在当前CPU上运行，<br>后面再加入到该CPU thread的work依然需要等待，即使其他CPU thread是空闲的。</li>
+<li>解决死锁的可能<br>在旧版本的workqueue中，已经加入到一个CPU上的work是不能转移到另一个CPU上的，那么假设有两个work 1和work 2，work1 依赖于work2，但是work1和work2被顺序加入到了同一个CPU thread上，那么work1将永远无法等到work2执行结束，这就形成了死锁问题。<br>cmwq的手段就是收编所有各个不同的源头创建的workqueue，每个要干的活被定义为一个work item。<br>然后有专门的worker threads去一个一个处理这些work item。<br>相当于原先公司有自己的干活的团队。现在是用项目的方式外包给外包公司的人来做了。自己没有团队了。<br>CMWQ把work的生产和消费分为了两个部分，对于生产者使用workqueue来管理产生的work，消费者是使用thread pool的形式来执行work。worker pool和workqueue是一对多的关系<br>生产者<br>内核在启动时会创建一些系统级的workqueue，比如system_wq，除了内核自带的一些workqueue，各个模块驱动可以自行创建workqueue，这些workqueue可以通过参数来选择用什么类型的work pool来运行work。<br>消费者<br>CMWQ中，把用于工作的线程叫做worker，并且建立两种worker pool，也就是thread pool线程池。第一种为绑定CPU的worker pool；第二种为unbound worker pool。系统初始化时会针对每个CPU创建绑定的worker pool，每个CPU创建两个类型的worker pool，一个是普通优先级的normal worker pool，另一个是highpri worker pool。每个worker pool中包含的worker线程数量是不定的。系统也会创建unbound worker pool，也有两个类型分别是noraml和highpri。</li>
+</ol>
+<p>创建work：<br>static struct work_struct work;<br>INIT_WORK(&amp;work, work_example); //work_example是干活的函数。<br>static void work_example(struct work_struct *work)</p>
+<p>创建work queue：<br>struct workqueue_struct <em>alloc_workqueue(const char </em>fmt,<br>                     unsigned int flags,<br>                     int max_active, …);<br>而以前旧的workqueue创建方法，当前是被cmwq兼容的。也就是用create_workqueue()创建的时候，内部实际上还是用：</p>
+<p>#define create_workqueue(name)                        \<br>    alloc_workqueue(“%s”, WQ_MEM_RECLAIM, 1, (name))<br>来创建的。</p>
+<p>启动work:<br>schedule_work()其内部其实也是调用的queue_work：<br>static inline bool schedule_work(struct work_struct <em>work)<br>{<br>    return queue_work(system_wq, work);<br>}只不过是在system_wq上调用。<br>queue_work()默认是用和cpu不绑定的方式去调用的，这样在大多数情况下更为灵活，让kernel去决定。<br>static inline bool queue_work(struct workqueue_struct </em>wq,<br>                  struct work_struct *work)<br>{<br>    return queue_work_on(WORK_CPU_UNBOUND, wq, work);<br>}<br>通常这个接口已经够用。<br>如果想要绑定到特定的cpu上去调用，则可以用queue_work_on(cpu号, wq, work);<br>不管是用自定义的workqueue，还是用系统的workqueue，实际干活的都是kworker<br>  PID USER      PR  NI    VIRT    RES    SHR S  %CPU %MEM     TIME+ COMMAND<br>  163 root      20   0       0          0         0      R  100.0    0.0           0:17.91 kworker/5:1<br>意思是5号cpu上的1号worker<br>如果使用了WQ_HIGHPRI，则可以看到是高优先级的worker来干活，NI值很低：<br>  PID USER      PR  NI    VIRT    RES    SHR S  %CPU %MEM     TIME+ COMMAND<br>  234 root       0 -20       0      0      0     R          100.0  0.0            0:14.04 kworker/5:1H   </p>
+<p>停止work：<br>cancel_work_sync(&amp;work)</p>
+<p>销毁workqueue：<br>destroy_workqueue(test_wq)</p>
+<p>有关alloc_workqueue的第二个入参flags：<br>WQ_UNBOUND说明其work的处理不需要绑定在特定的CPU上执行<br>WQ_FREEZABLE表示本work的执行是可以被冻住的<br>WQ_MEM_RECLAIM这种类型的workqueue会创建备份worker，当发生了内存回收导致worker创建失败时就使用备用的worker来进行调度<br>WQ_HIGHPRI说明挂入该workqueue的work是属于高优先级的work<br>WQ_CPU_INTENSIVE说明挂入该workqueue的work是属于特别消耗cpu的那一类，所以当系统检测到该work正在运行时，那么如果还有其他work在排队，那么会假设本worker pool已经没有可用的线程了，需要创建多余worker线程去处理其他的work。</p>
+<p>代码例子：<br>cmwq_test.c</p>
+<p>资料：<br>《linux cmwq介绍》<br>《Linux Workqueue到CMWQ的技术演进》<br>《Concurrency Managed Workqueue》官方文档</p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2021/03/21/CFI介绍/" rel="next" title="CFI介绍">
+                <i class="fa fa-chevron-left"></i> CFI介绍
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Semiyd</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives">
+                
+                    <span class="site-state-item-count">234</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">125</span>
+                    <span class="site-state-item-name">categories</span>
+                  </a>
+                </div>
+              
+
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Semiyd</span>
+
+  
+
+  
+</div>
+
+
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> v3.7.1</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://theme-next.org">NexT.Muse</a> v6.3.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+	
+    
+
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.3.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.3.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.3.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.3.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.3.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
