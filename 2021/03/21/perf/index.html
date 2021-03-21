@@ -1,0 +1,1078 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.3.0" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.3.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.3.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.3.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.3.0" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '6.3.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="perf 笔记">
+<meta property="og:type" content="article">
+<meta property="og:title" content="perf">
+<meta property="og:url" content="http://yoursite.com/2021/03/21/perf/index.html">
+<meta property="og:site_name" content="Semiyd&#39;s Blog">
+<meta property="og:description" content="perf 笔记">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2021-03-21T07:35:29.787Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="perf">
+<meta name="twitter:description" content="perf 笔记">
+
+
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2021/03/21/perf/"/>
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>perf | Semiyd's Blog</title>
+  
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Semiyd's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br />Home</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+    <a href="/categories/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-th"></i> <br />Categories</a>
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/03/21/perf/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Semiyd">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Semiyd's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">perf
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2021-03-21 15:34:09 / Modified: 15:35:29" itemprop="dateCreated datePublished" datetime="2021-03-21T15:34:09+08:00">2021-03-21</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Linux/" itemprop="url" rel="index"><span itemprop="name">Linux</span></a></span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Linux/Kernel/" itemprop="url" rel="index"><span itemprop="name">Kernel</span></a></span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Linux/Kernel/调试/" itemprop="url" rel="index"><span itemprop="name">调试</span></a></span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Linux/Kernel/调试/性能分析和优化/" itemprop="url" rel="index"><span itemprop="name">性能分析和优化</span></a></span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Linux/Kernel/调试/性能分析和优化/perf/" itemprop="url" rel="index"><span itemprop="name">perf</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><center><strong>perf 笔记</strong></center><br><a id="more"></a></p>
+<p><code>`</code><br>perf编译<br>menuconfig选上：<br>    General setup  —&gt;Kernel Performance Events And Counters  —&gt;[*] Kernel performance events and counters<br>    CONFIG_FRAME_POINTER=y<br>    CONFIG_HAVE_PERF_EVENTS=y<br>    CONFIG_PERF_USE_VMALLOC=y<br>    CONFIG_PERF_EVENTS=y<br>    CONFIG_DEBUG_PERF_USE_VMALLOC=y<br>    CONFIG_VM_EVENT_COUNTERS=y<br>    CONFIG_PROFILING=y<br>CONFIG_HW_PERF_EVENTS=y(需要CONFIG_CPU_HAS_PMU支持)<br>    然后下载到板子<br>编译zlib<br>编译elfutils<br>    下载elfutils-0.159 elfutils<br>    ./configure –host=arm-linux<br>    make<br>    make install DESTDIR=$PWD/../elfutils-build<br>编译binutils<br>    下载binutils-2.28<br>    mkdir binutils-compile<br>    cd binutils-compile<br>    ../binutils-2.28/configure –target=arm-linux –host=arm-linux<br>    make<br>    make install DESTDIR=$PWD/../binutils-build<br>    cp binutils-compile/libiberty/libiberty.a binutils-build/usr/local/lib/<br>编译perf<br>    修改Makefile：<br>    搜# Define WERROR=0 to disable treating any warnings as errors.<br>    加入WERROR=0<br>    然后改动已有的行：<br>    EXTLIBS = -lpthread -lrt -lelf -lm -lebl -ldl<br>    ALL_CFLAGS = $(CFLAGS) -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64 -I/home/yandong/NDC/06.00.00.00/arm-none-linux-gnueabi-4.9.1/tmp/perf/elfutils-build/usr/local/include -I/home/mgc/embedded/codebench/arm-none-linux-gnueabi/libc/usr/include/ -L/home/yandong/NDC/06.00.00.00/arm-none-linux-gnueabi-4.9.1/tmp/perf/elfutils-build/usr/local/lib -L/home/mgc/embedded/codebench/arm-none-linux-gnueabi/libc/armv7-a-neon/lib/  -L/home/yandong/NDC/06.00.00.00/arm-none-linux-gnueabi-4.9.1/tmp/perf/binutils-build/usr/local/lib/<br>    修改builtin-sched.c加入#include &lt;sys/resource.h&gt;<br>    编译<br>    make LDFLAGS=-static ARCH=arm CROSS_COMPILE=arm-linux- DEBUG=1 HAVE_CPLUS_DEMANGLE=1</p>
+<p>perf使用<br>———————————————————————–pert list——————————————————————————<br>列出所有能够触发 perf 采样点的事件<br>List of pre-defined events (to be used in -e):<br>  cpu-cycles OR cycles                               [Hardware event]<br>  stalled-cycles-frontend OR idle-cycles-frontend    [Hardware event]<br>  stalled-cycles-backend OR idle-cycles-backend      [Hardware event]<br>  instructions                                       [Hardware event]<br>  cache-references                                   [Hardware event]<br>  cache-misses                                       [Hardware event]<br>  branch-instructions OR branches                    [Hardware event]<br>  branch-misses                                      [Hardware event]<br>  bus-cycles                                         [Hardware event]</p>
+<p>  cpu-clock                                          [Software event]<br>  task-clock                                         [Software event]<br>  page-faults OR faults                              [Software event]<br>  minor-faults                                       [Software event]<br>  major-faults                                       [Software event]<br>  context-switches OR cs                             [Software event]<br>  cpu-migrations OR migrations                       [Software event]<br>  alignment-faults                                   [Software event]<br>  emulation-faults                                   [Software event]</p>
+<p>  L1-dcache-loads                                    [Hardware cache event]<br>  L1-dcache-load-misses                              [Hardware cache event]<br>  L1-dcache-stores                                   [Hardware cache event]<br>  L1-dcache-store-misses                             [Hardware cache event]<br>  L1-dcache-prefetches                               [Hardware cache event]<br>  L1-dcache-prefetch-misses                          [Hardware cache event]<br>  L1-icache-loads                                    [Hardware cache event]<br>  L1-icache-load-misses                              [Hardware cache event]<br>  L1-icache-prefetches                               [Hardware cache event]<br>  L1-icache-prefetch-misses                          [Hardware cache event]<br>  LLC-loads                                          [Hardware cache event]<br>  LLC-load-misses                                    [Hardware cache event]<br>  LLC-stores                                         [Hardware cache event]<br>  LLC-store-misses                                   [Hardware cache event]<br>  LLC-prefetches                                     [Hardware cache event]<br>  LLC-prefetch-misses                                [Hardware cache event]<br>  dTLB-loads                                         [Hardware cache event]<br>  dTLB-load-misses                                   [Hardware cache event]<br>  dTLB-stores                                        [Hardware cache event]<br>  dTLB-store-misses                                  [Hardware cache event]<br>  dTLB-prefetches                                    [Hardware cache event]<br>  dTLB-prefetch-misses                               [Hardware cache event]<br>  iTLB-loads                                         [Hardware cache event]<br>  iTLB-load-misses                                   [Hardware cache event]<br>  branch-loads                                       [Hardware cache event]<br>  branch-load-misses                                 [Hardware cache event]<br>  node-loads                                         [Hardware cache event]<br>  node-load-misses                                   [Hardware cache event]<br>  node-stores                                        [Hardware cache event]<br>  node-store-misses                                  [Hardware cache event]<br>  node-stores                                        [Hardware cache event]<br>  node-store-misses                                  [Hardware cache event]<br>  node-prefetches                                    [Hardware cache event]<br>  node-prefetch-misses                               [Hardware cache event]</p>
+<p>  rNNN (see ‘perf list –help’ on how to encode it)  [Raw hardware event descriptor]</p>
+<p>  mem:<addr>[:access]                                [Hardware breakpoint]<br>———————————————————————–pert stat ./app——————————————————————————<br>这个用于统计当前程序是主要消耗cpu，还是消耗IO<br>例如，写一个死循环的程序<br>[root@NDC ~]# perf stat ./loop<br>^C./t1.sh: Interrupt</addr></p>
+<p> Performance counter stats for ‘./loop’:</p>
+<pre><code>2675.974499 task-clock                #    0.998 CPUs utilized
+         57 context-switches          #    0.000 M/sec
+          0 CPU-migrations            #    0.000 M/sec
+         86 page-faults               #    0.000 M/sec
+</code></pre><p>   <not supported=""> cycles<br>   <not supported=""> stalled-cycles-frontend<br>   <not supported=""> stalled-cycles-backend<br>   <not supported=""> instructions<br>   <not supported=""> branches<br>   <not supported=""> branch-misses</not></not></not></not></not></not></p>
+<pre><code>2.077462291 seconds time elapsed
+</code></pre><p>像上面的例子，0.996 CPUs utilized，接近于1了。（一共只有一个CPU）<br>所以属于CPU bound<br>———————————————————————–pert top——————————————————————————<br>可以看出是哪个程序，哪个库，在占用cpu。<br>还是以刚刚的死循环shell脚本为例：</p>
+<h2 id="PerfTop-1006-irqs-sec-kernel-0-7-exact-0-0-1000Hz-cycles-all-1-CPU"><a href="#PerfTop-1006-irqs-sec-kernel-0-7-exact-0-0-1000Hz-cycles-all-1-CPU" class="headerlink" title="   PerfTop:    1006 irqs/sec  kernel: 0.7%  exact:  0.0% [1000Hz cycles],  (all, 1 CPU)"></a>   PerfTop:    1006 irqs/sec  kernel: 0.7%  exact:  0.0% [1000Hz cycles],  (all, 1 CPU)</h2><pre><code>99.44%  loop      [.] 0x540
+ 0.12%  [kernel]  [k] __do_softirq
+ 0.09%  [kernel]  [k] cpdma_chan_submit
+ 0.06%  perf      [.] symbols__insert
+ 0.04%  perf      [.] perf_event__process_sample
+ 0.04%  [kernel]  [k] __irq_put_desc_unlock
+ 0.03%  perf      [.] rb_next
+ 0.03%  perf      [.] hex2u64
+ 0.03%  perf      [.] __hists__add_entry
+ 0.03%  perf      [.] __memchr
+ 0.02%  perf      [.] perf_event__parse_sample
+ 0.02%  [kernel]  [k] v7_dma_inv_range
+ 0.02%  [kernel]  [k] format_decode
+ 0.01%  perf      [.] perf_evlist__mmap_read
+ 0.01%  perf      [.] hex
+ 0.01%  perf      [.] maps__find
+ 0.01%  [kernel]  [k] kallsyms_expand_symbol
+ 0.01%  [kernel]  [k] __cpdma_chan_process
+</code></pre><p>这里排名第一的是loop</p>
+<p>———————————————————————–perf record———————————————————————–<br>生成报告，并可以解析报告文件<br>假设现在有个测试程序loop2的代码如下：<br>//test.c<br>void longa()<br>{<br>int i,j;<br>for(i = 0; i &lt; 1000000; i++)<br>j=i; //am I silly or crazy? I feel boring and desperate.<br>}<br>void foo2()<br>{<br>int i;<br>for(i=0 ; i &lt; 10; i++)<br>longa();<br>}<br>void foo1()<br>{<br>int i;<br>for(i = 0; i&lt; 100; i++)<br>longa();<br>}<br>int main(void)<br>{<br>foo1();<br>foo2();<br>}<br>注意，loop2的symbol不能去掉，编译的时候不能strip。<br>[root@NDC ~]# perf record -e cpu-clock ./loop2<br>[ perf record: Woken up 1 times to write data ]<br>[ perf record: Captured and wrote 0.049 MB perf.data (~2132 samples) ]</p>
+<p>生成了报告perf.data<br>执行<br>perf report<br>结果是：</p>
+<h1 id=""><a href="#" class="headerlink" title="========"></a>========</h1><h1 id="captured-on-Wed-Nov-14-17-00-47-2018"><a href="#captured-on-Wed-Nov-14-17-00-47-2018" class="headerlink" title="captured on: Wed Nov 14 17:00:47 2018"></a>captured on: Wed Nov 14 17:00:47 2018</h1><h1 id="hostname-NDC"><a href="#hostname-NDC" class="headerlink" title="hostname : NDC"></a>hostname : NDC</h1><h1 id="os-release-3-2-0-perf"><a href="#os-release-3-2-0-perf" class="headerlink" title="os release : 3.2.0-perf"></a>os release : 3.2.0-perf</h1><h1 id="perf-version-3-2-0"><a href="#perf-version-3-2-0" class="headerlink" title="perf version : 3.2.0"></a>perf version : 3.2.0</h1><h1 id="arch-armv7l"><a href="#arch-armv7l" class="headerlink" title="arch : armv7l"></a>arch : armv7l</h1><h1 id="nrcpus-online-1"><a href="#nrcpus-online-1" class="headerlink" title="nrcpus online : 1"></a>nrcpus online : 1</h1><h1 id="nrcpus-avail-1"><a href="#nrcpus-avail-1" class="headerlink" title="nrcpus avail : 1"></a>nrcpus avail : 1</h1><h1 id="cpudesc-ARMv7-Processor-rev-2-v7l"><a href="#cpudesc-ARMv7-Processor-rev-2-v7l" class="headerlink" title="cpudesc : ARMv7 Processor rev 2 (v7l)"></a>cpudesc : ARMv7 Processor rev 2 (v7l)</h1><h1 id="total-memory-509924-kB"><a href="#total-memory-509924-kB" class="headerlink" title="total memory : 509924 kB"></a>total memory : 509924 kB</h1><h1 id="cmdline-usr-local-bin-perf-record-e-cpu-clock-loop2"><a href="#cmdline-usr-local-bin-perf-record-e-cpu-clock-loop2" class="headerlink" title="cmdline : /usr/local/bin/perf record -e cpu-clock ./loop2"></a>cmdline : /usr/local/bin/perf record -e cpu-clock ./loop2</h1><h1 id="event-name-cpu-clock-type-1-config-0x0-config1-0x0-config2-0x0-excl-usr-0-excl-kern-0-id-27"><a href="#event-name-cpu-clock-type-1-config-0x0-config1-0x0-config2-0x0-excl-usr-0-excl-kern-0-id-27" class="headerlink" title="event : name = cpu-clock, type = 1, config = 0x0, config1 = 0x0, config2 = 0x0, excl_usr = 0, excl_kern = 0, id = { 27 }"></a>event : name = cpu-clock, type = 1, config = 0x0, config1 = 0x0, config2 = 0x0, excl_usr = 0, excl_kern = 0, id = { 27 }</h1><h1 id="-1"><a href="#-1" class="headerlink" title="========"></a>========</h1><p>#</p>
+<h1 id="Events-1K-cpu-clock"><a href="#Events-1K-cpu-clock" class="headerlink" title="Events: 1K cpu-clock"></a>Events: 1K cpu-clock</h1><p>#</p>
+<h1 id="Overhead-Command-Shared-Object-Symbol"><a href="#Overhead-Command-Shared-Object-Symbol" class="headerlink" title="Overhead  Command      Shared Object          Symbol"></a>Overhead  Command      Shared Object          Symbol</h1><h1 id="……-……-……………-…………"><a href="#……-……-……………-…………" class="headerlink" title="……..  …….  ……………..  ………….."></a>……..  …….  ……………..  …………..</h1><p>#<br>[[31m    99.60%[[m    loop2  loop2              [.] longa<br>     0.16%    loop2  [kernel.kallsyms]  [k] gpmc_nand_read<br>     0.08%    loop2  ld-2.20.so         [.] strcmp<br>     0.08%    loop2  ld-2.20.so         [.] memcpy<br>     0.08%    loop2  [kernel.kallsyms]  [k] __do_softirq</p>
+<p>#</p>
+<h1 id="For-a-higher-level-overview-try-perf-report-–sort-comm-dso"><a href="#For-a-higher-level-overview-try-perf-report-–sort-comm-dso" class="headerlink" title="(For a higher level overview, try: perf report –sort comm,dso)"></a>(For a higher level overview, try: perf report –sort comm,dso)</h1><p>#<br>所以可以马上看到，罪魁祸首是这个longa()的函数。<br>那么如何看到谁调用了longa()？<br>编译程序的时候，需要加上cflags：        -funwind-tables  -mapcs-frame -fno-omit-frame-pointer<br>perf record -e cpu-clock -g ./loop<br>perf report<br>不过不知什么原因，我这里横竖看不到stack trace.</p>
+<p>———————————————————————–使用 tracepoint———————————————————————–<br>用于静态的监视某个内核函数，看看被调用了多少次<br>[root@ovispoly /]# perf stat -e raw_syscalls:sys_enter ls<br>bin dbg etc  lib  media opt root  selinux sys usr<br>boot dev home lost+found mnt proc sbin srv  tmp var<br>Performance counter stats for ‘ls’:<br>101 raw_syscalls:sys_enter<br>0.003434730 seconds time elapsed<br>[root@ovispoly /]# perf record -e raw_syscalls:sys_enter ls<br>[root@ovispoly /]# perf report<br>Failed to open .lib/ld-2.12.so, continuing without symbols </p>
+<h1 id="Samples-70"><a href="#Samples-70" class="headerlink" title="Samples: 70"></a>Samples: 70</h1><p># </p>
+<h1 id="Overhead-Command-Shared-Object-Symbol-1"><a href="#Overhead-Command-Shared-Object-Symbol-1" class="headerlink" title="Overhead Command Shared Object Symbol"></a>Overhead Command Shared Object Symbol</h1><h1 id="……-……………-……………-……"><a href="#……-……………-……………-……" class="headerlink" title="…….. …………… …………… ……"></a>…….. …………… …………… ……</h1><p>#<br>97.14% ls ld-2.12.so [.] 0x0000000001629d<br>2.86% ls [vdso] [.] 0x00000000421424 </p>
+<p># </p>
+<h1 id="For-a-higher-level-overview-try-perf-report-–sort-comm-dso-1"><a href="#For-a-higher-level-overview-try-perf-report-–sort-comm-dso-1" class="headerlink" title="(For a higher level overview, try: perf report –sort comm,dso)"></a>(For a higher level overview, try: perf report –sort comm,dso)</h1><p>———————————————————————–perf probe———————————————————————–<br>用于动态的在任意内核代码，加入监视点。例如：<br>利用 probe 命令在内核函数 schedule() 的第 12 行处加入了一个动态 probe 点，<br>和 tracepoint 的功能一样，内核一旦运行到该 probe 点时，便会通知 perf。可以理<br>解为动态增加了一个新的 tracepoint。</p>
+<p>[root@ovispoly perftest]# perf probe schedule:12 cpu<br>Added new event:<br>probe:schedule (on schedule+52 with cpu)<br>You can now use it on all perf tools, such as:<br>perf record -e probe:schedule -a sleep 1<br>[root@ovispoly perftest]# perf record -e probe:schedule -a sleep 1<br>Error, output file perf.data exists, use -A to append or -f to<br>overwrite.<br>[root@ovispoly perftest]# perf record -f -e probe:schedule -a sleep 1<br>[ perf record: Woken up 1 times to write data ]<br>[ perf record: Captured and wrote 0.270 MB perf.data (~11811<br>samples) ]<br>[root@ovispoly perftest]# perf report </p>
+<h1 id="Samples-40"><a href="#Samples-40" class="headerlink" title="Samples: 40"></a>Samples: 40</h1><p># </p>
+<h1 id="Overhead-Command-Shared-Object-Symbol-2"><a href="#Overhead-Command-Shared-Object-Symbol-2" class="headerlink" title="Overhead Command Shared Object Symbol"></a>Overhead Command Shared Object Symbol</h1><h1 id="……-……………-……………-……-1"><a href="#……-……………-……………-……-1" class="headerlink" title="…….. …………… …………….. ……"></a>…….. …………… …………….. ……</h1><p>#<br>57.50% init 0 [k] 0000000000000000<br>30.00% firefox [vdso] [.] 0x0000000029c424<br>5.00% sleep [vdso] [.] 0x00000000ca7424<br>5.00% perf.2.6.33.3-8 [vdso] [.] 0x00000000ca7424<br>2.50% ksoftirqd/0 [kernel] [k] 0000000000000000 </p>
+<p># </p>
+<h1 id="For-a-higher-level-overview-try-perf-report-–sort-comm-dso-2"><a href="#For-a-higher-level-overview-try-perf-report-–sort-comm-dso-2" class="headerlink" title="(For a higher level overview, try: perf report –sort comm,dso)"></a>(For a higher level overview, try: perf report –sort comm,dso)</h1><p>#</p>
+<p>———————————————————————–Perf sched———————————————————————–<br>这个需要PMU支持，如果perf list支持sched测试项的话，可以测试各个任务之间调度的详情。可惜我的板子无法看到。</p>
+<p>perf sched record            # low-overhead recording of arbitrary workloads<br>perf sched latency           # output per task latency metrics<br>perf sched map               # show summary/map of context-switching<br>perf sched trace             # output finegrained trace<br>perf sched replay            # replay a captured workload using</p>
+<p>———————————————————————–perf lock———————————————————————–<br>对于锁进行专门分析应该是调优的一项重要工作。<br>这个需要PMU支持，我的板子上显示invalid or unsupported event: ‘lock:lock_acquire’</p>
+<p>———————————————————————–perf Kmem———————————————————————–<br>可以用<br>来研究程序在哪里分配了大量内存，或者在什么地方产生碎片之类的和内存管理相<br>关的问题。</p>
+<p>———————————————————————–Perf timechart———————————————————————–<br>也就是perf-timechart命令<br><a href="http://man7.org/linux/man-pages/man1/perf-timechart.1.html" target="_blank" rel="noopener">http://man7.org/linux/man-pages/man1/perf-timechart.1.html</a><br>强大的图形分析工具，perf工具的一部分<br>可惜我们仍然不能用这个工具</p>
+<p>perf timechart record ./loop<br>invalid or unsupported event: ‘power:cpu_frequency’</p>
+<p>服务器上使用perf：<br>apt-get install linux-tools-3.16</p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2021/03/21/UAPI/" rel="next" title="UAPI">
+                <i class="fa fa-chevron-left"></i> UAPI
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2021/03/21/of-device-id-data的三种用法/" rel="prev" title="of_device_id.data的三种用法">
+                of_device_id.data的三种用法 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Semiyd</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives">
+                
+                    <span class="site-state-item-count">240</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">130</span>
+                    <span class="site-state-item-name">categories</span>
+                  </a>
+                </div>
+              
+
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#PerfTop-1006-irqs-sec-kernel-0-7-exact-0-0-1000Hz-cycles-all-1-CPU"><span class="nav-number">1.</span> <span class="nav-text">   PerfTop:    1006 irqs/sec  kernel: 0.7%  exact:  0.0% [1000Hz cycles],  (all, 1 CPU)</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#"><span class="nav-number"></span> <span class="nav-text">========</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#captured-on-Wed-Nov-14-17-00-47-2018"><span class="nav-number"></span> <span class="nav-text">captured on: Wed Nov 14 17:00:47 2018</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#hostname-NDC"><span class="nav-number"></span> <span class="nav-text">hostname : NDC</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#os-release-3-2-0-perf"><span class="nav-number"></span> <span class="nav-text">os release : 3.2.0-perf</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#perf-version-3-2-0"><span class="nav-number"></span> <span class="nav-text">perf version : 3.2.0</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#arch-armv7l"><span class="nav-number"></span> <span class="nav-text">arch : armv7l</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#nrcpus-online-1"><span class="nav-number"></span> <span class="nav-text">nrcpus online : 1</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#nrcpus-avail-1"><span class="nav-number"></span> <span class="nav-text">nrcpus avail : 1</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#cpudesc-ARMv7-Processor-rev-2-v7l"><span class="nav-number"></span> <span class="nav-text">cpudesc : ARMv7 Processor rev 2 (v7l)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#total-memory-509924-kB"><span class="nav-number"></span> <span class="nav-text">total memory : 509924 kB</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#cmdline-usr-local-bin-perf-record-e-cpu-clock-loop2"><span class="nav-number"></span> <span class="nav-text">cmdline : /usr/local/bin/perf record -e cpu-clock ./loop2</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#event-name-cpu-clock-type-1-config-0x0-config1-0x0-config2-0x0-excl-usr-0-excl-kern-0-id-27"><span class="nav-number"></span> <span class="nav-text">event : name = cpu-clock, type = 1, config = 0x0, config1 = 0x0, config2 = 0x0, excl_usr = 0, excl_kern = 0, id = { 27 }</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#-1"><span class="nav-number"></span> <span class="nav-text">========</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Events-1K-cpu-clock"><span class="nav-number"></span> <span class="nav-text">Events: 1K cpu-clock</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Overhead-Command-Shared-Object-Symbol"><span class="nav-number"></span> <span class="nav-text">Overhead  Command      Shared Object          Symbol</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#……-……-……………-…………"><span class="nav-number"></span> <span class="nav-text">……..  …….  ……………..  …………..</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#For-a-higher-level-overview-try-perf-report-–sort-comm-dso"><span class="nav-number"></span> <span class="nav-text">(For a higher level overview, try: perf report –sort comm,dso)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Samples-70"><span class="nav-number"></span> <span class="nav-text">Samples: 70</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Overhead-Command-Shared-Object-Symbol-1"><span class="nav-number"></span> <span class="nav-text">Overhead Command Shared Object Symbol</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#……-……………-……………-……"><span class="nav-number"></span> <span class="nav-text">…….. …………… …………… ……</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#For-a-higher-level-overview-try-perf-report-–sort-comm-dso-1"><span class="nav-number"></span> <span class="nav-text">(For a higher level overview, try: perf report –sort comm,dso)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Samples-40"><span class="nav-number"></span> <span class="nav-text">Samples: 40</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Overhead-Command-Shared-Object-Symbol-2"><span class="nav-number"></span> <span class="nav-text">Overhead Command Shared Object Symbol</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#……-……………-……………-……-1"><span class="nav-number"></span> <span class="nav-text">…….. …………… …………….. ……</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#For-a-higher-level-overview-try-perf-report-–sort-comm-dso-2"><span class="nav-number"></span> <span class="nav-text">(For a higher level overview, try: perf report –sort comm,dso)</span></a></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Semiyd</span>
+
+  
+
+  
+</div>
+
+
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> v3.7.1</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://theme-next.org">NexT.Muse</a> v6.3.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+	
+    
+
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.3.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.3.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.3.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.3.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.3.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

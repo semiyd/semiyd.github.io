@@ -1,0 +1,1037 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.3.0" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.3.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.3.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.3.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.3.0" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '6.3.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="ftrace 笔记">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ftrace">
+<meta property="og:url" content="http://yoursite.com/2021/03/21/ftrace/index.html">
+<meta property="og:site_name" content="Semiyd&#39;s Blog">
+<meta property="og:description" content="ftrace 笔记">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2021-03-21T07:28:27.959Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="ftrace">
+<meta name="twitter:description" content="ftrace 笔记">
+
+
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2021/03/21/ftrace/"/>
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>ftrace | Semiyd's Blog</title>
+  
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Semiyd's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br />Home</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+    <a href="/categories/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-th"></i> <br />Categories</a>
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/03/21/ftrace/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Semiyd">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Semiyd's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">ftrace
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2021-03-21 15:27:14 / Modified: 15:28:27" itemprop="dateCreated datePublished" datetime="2021-03-21T15:27:14+08:00">2021-03-21</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Linux/" itemprop="url" rel="index"><span itemprop="name">Linux</span></a></span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Linux/Kernel/" itemprop="url" rel="index"><span itemprop="name">Kernel</span></a></span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Linux/Kernel/调试/" itemprop="url" rel="index"><span itemprop="name">调试</span></a></span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Linux/Kernel/调试/性能分析和优化/" itemprop="url" rel="index"><span itemprop="name">性能分析和优化</span></a></span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Linux/Kernel/调试/性能分析和优化/ftrace/" itemprop="url" rel="index"><span itemprop="name">ftrace</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><center><strong>ftrace 笔记</strong></center><br><a id="more"></a></p>
+<p>ftrace是内核原生的debug工具。全名是Function Tracer。<br>使能ftrace：<br>CONFIG_FTRACE<br>挂载：<br>mount -t tracefs nodev /sys/kernel/tracing<br>如果用了debugfs，则会自动挂载到：<br>/sys/kernel/debug/tracing<br>其下有这些内容：<br>root@semiyd:/sys/kernel/debug/tracing# ls -l<br>total 0<br>-r–r–r–  1 root root 0 Nov 22 15:48 available_events<br>-r–r–r–  1 root root 0 Nov 22 15:48 available_filter_functions<br>-r–r–r–  1 root root 0 Nov 22 15:48 available_tracers<br>-rw-r–r–  1 root root 0 Nov 22 15:48 buffer_size_kb<br>-r–r–r–  1 root root 0 Nov 22 15:48 buffer_total_size_kb<br>-rw-r–r–  1 root root 0 Nov 22 15:48 current_tracer<br>-r–r–r–  1 root root 0 Nov 22 15:48 dyn_ftrace_total_info<br>-r–r–r–  1 root root 0 Nov 22 15:48 enabled_functions<br>drwxr-xr-x 63 root root 0 Nov 22 15:48 events<br>–w——-  1 root root 0 Nov 22 15:48 free_buffer<br>drwxr-xr-x  2 root root 0 Nov 22 15:48 instances<br>-rw-r–r–  1 root root 0 Nov 22 15:48 kprobe_events<br>-r–r–r–  1 root root 0 Nov 22 15:48 kprobe_profile<br>-rw-r–r–  1 root root 0 Nov 22 15:48 max_graph_depth<br>drwxr-xr-x  2 root root 0 Nov 22 15:48 options<br>drwxr-xr-x  8 root root 0 Nov 22 15:48 per_cpu<br>-r–r–r–  1 root root 0 Nov 22 15:48 printk_formats<br>-r–r–r–  1 root root 0 Nov 22 15:48 README<br>-r–r–r–  1 root root 0 Nov 22 15:48 saved_cmdlines<br>-rw-r–r–  1 root root 0 Nov 22 15:48 saved_cmdlines_size<br>-rw-r–r–  1 root root 0 Nov 22 15:50 set_event<br>-rw-r–r–  1 root root 0 Nov 22 15:48 set_event_pid<br>-rw-r–r–  1 root root 0 Nov 22 15:48 set_ftrace_filter<br>-rw-r–r–  1 root root 0 Nov 22 15:48 set_ftrace_notrace<br>-rw-r–r–  1 root root 0 Nov 22 15:48 set_ftrace_pid<br>-r–r–r–  1 root root 0 Nov 22 15:48 set_graph_function<br>-r–r–r–  1 root root 0 Nov 22 15:48 set_graph_notrace<br>-rw-r–r–  1 root root 0 Nov 22 15:48 snapshot<br>-rw-r–r–  1 root root 0 Nov 22 15:48 stack_max_size<br>-r–r–r–  1 root root 0 Nov 22 15:48 stack_trace<br>-r–r–r–  1 root root 0 Nov 22 15:48 stack_trace_filter<br>-rw-r–r–  1 root root 0 Nov 22 15:48 trace<br>-rw-r–r–  1 root root 0 Nov 22 15:48 trace_clock<br>–w–w—-  1 root root 0 Nov 22 15:48 trace_marker<br>-rw-r–r–  1 root root 0 Nov 22 15:48 trace_options<br>-r–r–r–  1 root root 0 Nov 22 15:48 trace_pipe<br>-rw-r–r–  1 root root 0 Nov 22 15:48 tracing_cpumask<br>-rw-r–r–  1 root root 0 Nov 22 15:48 tracing_max_latency<br>-rw-r–r–  1 root root 0 Nov 22 15:48 tracing_on<br>-rw-r–r–  1 root root 0 Nov 22 15:48 tracing_thresh<br>-rw-r–r–  1 root root 0 Nov 22 15:48 uprobe_events<br>-r–r–r–  1 root root 0 Nov 22 15:48 uprobe_profile</p>
+<p>常用feature一：<br>set_event：设置监视哪个内核的API。具体监视对象范围，可以查询available_events<br>例如，监视谁在调用kmalloc：<br>echo kmalloc &gt; /sys/kernel/debug/tracing/set_event<br>trace_pipe：用于针对监视的对象输出信息：<br>cat /sys/kernel/debug/tracing/trace_pipe &gt; /out.txt<br>例如刚刚kmalloc的监视信息out.txt如下：<br>            Xorg-606   [000] ….   155.616532: kmalloc: call_site=ffffffffc042d72a ptr=ffff9874b6962a60 bytes_req=8 bytes_alloc=32 gfp_flags=GFP_KERNEL|<strong>GFP_ZERO<br>            Xorg-606   [000] ….   155.633407: kmalloc: call_site=ffffffffc042d72a ptr=ffff9874b6962a60 bytes_req=8 bytes_alloc=32 gfp_flags=GFP_KERNEL|</strong>GFP_ZERO<br>   Socket Thread-1284  [000] ….   155.978418: kmalloc: call_site=ffffffff81a21d28 ptr=ffff9874b6b8e400 bytes_req=904 bytes_alloc=1024 gfp_flags=GFP_KERNEL<br>   Socket Thread-1284  [000] ….   156.027323: kmalloc: call_site=ffffffff81a21d28 ptr=ffff9874b6b8e400 bytes_req=904 bytes_alloc=1024 gfp_flags=GFP_KERNEL<br>        timesync-595   [004] ….   156.046013: kmalloc: call_site=ffffffffc0533f5f ptr=ffff98750dfe1980 bytes_req=48 bytes_alloc=64 gfp_flags=GFP_KERNEL|<strong>GFP_NOWARN<br>        timesync-595   [004] ….   156.046050: kmalloc: call_site=ffffffffc0533f5f ptr=ffff98750dfe1980 bytes_req=48 bytes_alloc=64 gfp_flags=GFP_KERNEL|</strong>GFP_NOWARN<br>   Socket Thread-1284  [000] ….   156.046248: kmalloc: call_site=ffffffff81a21d28 ptr=ffff9874b6b8e400 bytes_req=904 bytes_alloc=1024 gfp_flags=GFP_KERNEL<br>      memballoon-598   [001] ….   156.049760: kmalloc: call_site=ffffffffc0533f5f ptr=ffff98753c6fbb40 bytes_req=48 bytes_alloc=64 gfp_flags=GFP_KERNEL|<strong>GFP_NOWARN<br>     dbus-daemon-462   [001] ….   156.051887: kmalloc: call_site=ffffffffc0352855 ptr=ffff98753c6fbb40 bytes_req=48 bytes_alloc=64 gfp_flags=GFP_KERNEL|</strong>GFP_ZERO<br>可以看到调用的进程，时间戳，申请字节数，得到字节数，gfp标志位，[cpu号]等有用信息。<br>然后回过来看看available_events，数量极其庞大，但都是预先设定好的，可以在这个范围内选择，见《available events.txt》<br>比如这其中有可以监视workqueue的事件名：<br>workqueue:workqueue_queue_work<br>echo workqueue:workqueue_queue_work &gt; /sys/kernel/debug/tracing/set_event<br>然后从trace_pipe中可以看到：<br>    kworker/2:1-58    [002] d…  1124.625445: workqueue_queue_work: work struct=ffff9875967c40b8 function=ata_sff_pio_task [libata] workqueue=ffff987596061400 req_cpu=512 cpu=2<br>          <idle>-0     [003] d.s.  1124.925619: workqueue_queue_work: work struct=ffff98759fcd6d80 function=cache_reap workqueue=ffff98759b084a00 req_cpu=3 cpu=3<br>          <idle>-0     [003] d.s.  1125.371040: workqueue_queue_work: work struct=ffff987595da7088 function=e1000_watchdog [e1000] workqueue=ffff98759b084a00 req_cpu=512 cpu=3<br>          <idle>-0     [000] d.h.  1125.545933: workqueue_queue_work: work struct=ffffffff824c0600 function=console_callback workqueue=ffff98759b084a00 req_cpu=512 cpu=0<br>  xfce4-terminal-949   [001] d…  1125.546586: workqueue_queue_work: work struct=ffff987598bbb608 function=flush_to_ldisc workqueue=ffff98759abcaa00 req_cpu=512 cpu=4294967295<br>  xfce4-terminal-949   [001] d.s.  1125.546696: workqueue_queue_work: work struct=ffff98759fc56a40 function=vmstat_update workqueue=ffff98759a78ea00 req_cpu=1 cpu=1<br>  xfce4-terminal-949   [001] dNs.  1125.546700: workqueue_queue_work: work struct=ffff98759fc56d80 function=cache_reap workqueue=ffff98759b084a00 req_cpu=1 cpu=1<br>这样对workqueue众多的线程，看的很清楚了。<br>当然此时如果想看调用栈，可以看<br>root@semiyd:/sys/kernel/debug/tracing# cat /proc/1973/stack 例如这里想看1973进程的调用栈<br>[<ffffffff818942a6>] process_one_work+0x1b6/0x430<br>[<ffffffff818945e8>] worker_thread+0xc8/0x490<br>[<ffffffff81894520>] process_one_work+0x430/0x430<br>[<ffffffff8189a5d9>] kthread+0xd9/0xf0<br>[<ffffffff8189a500>] kthread_park+0x60/0x60<br>[<ffffffff81e193f7>] ret_from_fork+0x57/0x70<br>[<ffffffffffffffff>] 0xffffffffffffffff</ffffffffffffffff></ffffffff81e193f7></ffffffff8189a500></ffffffff8189a5d9></ffffffff81894520></ffffffff818945e8></ffffffff818942a6></idle></idle></idle></p>
+<p>常用feature二：<br>除了available_events，ftrace还可以查看available_tracers<br>root@semiyd:/sys/kernel/debug/tracing# ccat available_tracers<br>blk mmiotrace function_graph function nop<br>这个品种就没events那么多了。<br>先试试function tracer：<br>echo 1336 &gt; set_ftrace_pid一般会先设定要监视的进程号，这样比较实用，要不然导出的是全量的信息。<br>echo function &gt; current_tracer<br>cat trace &gt; /out.txt</p>
+<h1 id="tracer-function"><a href="#tracer-function" class="headerlink" title="tracer: function"></a>tracer: function</h1><p>#</p>
+<h1 id="entries-in-buffer-entries-written-307477-5357516-P-6"><a href="#entries-in-buffer-entries-written-307477-5357516-P-6" class="headerlink" title="entries-in-buffer/entries-written: 307477/5357516   #P:6"></a>entries-in-buffer/entries-written: 307477/5357516   #P:6</h1><p>#</p>
+<h1 id="—–-gt-irqs-off中间的四个点表示这几个标志位的情况"><a href="#—–-gt-irqs-off中间的四个点表示这几个标志位的情况" class="headerlink" title="_—–=&gt; irqs-off中间的四个点表示这几个标志位的情况"></a>_—–=&gt; irqs-off中间的四个点表示这几个标志位的情况</h1><h1 id="—-gt-need-resched"><a href="#—-gt-need-resched" class="headerlink" title="/ _—-=&gt; need-resched"></a>/ _—-=&gt; need-resched</h1><h1 id="—-gt-hardirq-softirq"><a href="#—-gt-hardirq-softirq" class="headerlink" title="| / _—=&gt; hardirq/softirq"></a>| / _—=&gt; hardirq/softirq</h1><h1 id="–-gt-preempt-depth"><a href="#–-gt-preempt-depth" class="headerlink" title="|| / _–=&gt; preempt-depth"></a>|| / _–=&gt; preempt-depth</h1><h1 id="delay"><a href="#delay" class="headerlink" title="||| /     delay"></a>||| /     delay</h1><h1 id="TASK-PID-CPU-TIMESTAMP-FUNCTION"><a href="#TASK-PID-CPU-TIMESTAMP-FUNCTION" class="headerlink" title="TASK-PID        CPU#||||    TIMESTAMP  FUNCTION"></a>TASK-PID        CPU#||||    TIMESTAMP  FUNCTION</h1><h1 id=""><a href="#" class="headerlink" title="| |                    |     ||||       |         |"></a>| |                    |     ||||       |         |</h1><pre><code>Web Content-1336  [005] ....  1627.660663: skb_release_head_state &lt;-skb_release_all
+Web Content-1336  [005] ....  1627.660663: unix_destruct_scm &lt;-skb_release_head_state
+Web Content-1336  [005] ....  1627.660663: put_pid &lt;-unix_destruct_scm
+Web Content-1336  [005] ....  1627.660664: sock_wfree &lt;-unix_destruct_scm
+Web Content-1336  [005] ....  1627.660664: unix_write_space &lt;-sock_wfree
+Web Content-1336  [005] ....  1627.660665: __wake_up_sync_key &lt;-unix_write_space
+Web Content-1336  [005] ....  1627.660665: _raw_spin_lock_irqsave &lt;-__wake_up_sync_key
+Web Content-1336  [005] d...  1627.660665: __wake_up_common &lt;-__wake_up_sync_key
+Web Content-1336  [005] d...  1627.660665: ep_poll_callback &lt;-__wake_up_common
+</code></pre><p>整个数据的意义是，可以看到时间戳在往前走的时候，整个进程函数调用的过程，这就相当于一个小动画了，牛逼。<br>再试试function_graph tracer：<br>echo function_graph &gt; current_tracer<br>这个的能力是可以可视化的看到函数的调用关系，以及函数所使用的时间。对性能分析非常有用。<br>function_graph只记录函数进出的两个时间点。具体例子见ftrace - Function Tracer的page48的图。</p>
+<p>内核官方文档：<br>《ftrace - Function Tracer》</p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2021/03/21/workqueue笔记/" rel="next" title="workqueue笔记">
+                <i class="fa fa-chevron-left"></i> workqueue笔记
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2021/03/21/ftrace-available-events/" rel="prev" title="ftrace available events">
+                ftrace available events <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Semiyd</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives">
+                
+                    <span class="site-state-item-count">240</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">130</span>
+                    <span class="site-state-item-name">categories</span>
+                  </a>
+                </div>
+              
+
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#tracer-function"><span class="nav-number">1.</span> <span class="nav-text">tracer: function</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#entries-in-buffer-entries-written-307477-5357516-P-6"><span class="nav-number">2.</span> <span class="nav-text">entries-in-buffer/entries-written: 307477/5357516   #P:6</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#—–-gt-irqs-off中间的四个点表示这几个标志位的情况"><span class="nav-number">3.</span> <span class="nav-text">_—–=&gt; irqs-off中间的四个点表示这几个标志位的情况</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#—-gt-need-resched"><span class="nav-number">4.</span> <span class="nav-text">/ _—-=&gt; need-resched</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#—-gt-hardirq-softirq"><span class="nav-number">5.</span> <span class="nav-text">| / _—=&gt; hardirq/softirq</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#–-gt-preempt-depth"><span class="nav-number">6.</span> <span class="nav-text">|| / _–=&gt; preempt-depth</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#delay"><span class="nav-number">7.</span> <span class="nav-text">||| /     delay</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#TASK-PID-CPU-TIMESTAMP-FUNCTION"><span class="nav-number">8.</span> <span class="nav-text">TASK-PID        CPU#||||    TIMESTAMP  FUNCTION</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#"><span class="nav-number">9.</span> <span class="nav-text">| |                    |     ||||       |         |</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Semiyd</span>
+
+  
+
+  
+</div>
+
+
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> v3.7.1</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://theme-next.org">NexT.Muse</a> v6.3.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+	
+    
+
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.3.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.3.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.3.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.3.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.3.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

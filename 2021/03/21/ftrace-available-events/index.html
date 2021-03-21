@@ -1,0 +1,996 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.3.0" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.3.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.3.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.3.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.3.0" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '6.3.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="ftrace available events">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ftrace available events">
+<meta property="og:url" content="http://yoursite.com/2021/03/21/ftrace-available-events/index.html">
+<meta property="og:site_name" content="Semiyd&#39;s Blog">
+<meta property="og:description" content="ftrace available events">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2021-03-21T07:30:18.299Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="ftrace available events">
+<meta name="twitter:description" content="ftrace available events">
+
+
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2021/03/21/ftrace-available-events/"/>
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>ftrace available events | Semiyd's Blog</title>
+  
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Semiyd's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br />Home</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+    <a href="/categories/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-th"></i> <br />Categories</a>
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/03/21/ftrace-available-events/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Semiyd">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Semiyd's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">ftrace available events
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2021-03-21 15:29:02 / Modified: 15:30:18" itemprop="dateCreated datePublished" datetime="2021-03-21T15:29:02+08:00">2021-03-21</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Linux/" itemprop="url" rel="index"><span itemprop="name">Linux</span></a></span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Linux/Kernel/" itemprop="url" rel="index"><span itemprop="name">Kernel</span></a></span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Linux/Kernel/调试/" itemprop="url" rel="index"><span itemprop="name">调试</span></a></span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Linux/Kernel/调试/性能分析和优化/" itemprop="url" rel="index"><span itemprop="name">性能分析和优化</span></a></span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Linux/Kernel/调试/性能分析和优化/ftrace/" itemprop="url" rel="index"><span itemprop="name">ftrace</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><center><strong>ftrace available events</strong></center><br><a id="more"></a><br>drm:drm_vblank_event<br>drm:drm_vblank_event_queued<br>drm:drm_vblank_event_delivered<br>ext4:ext4_other_inode_update_time<br>ext4:ext4_free_inode<br>ext4:ext4_request_inode<br>ext4:ext4_allocate_inode<br>ext4:ext4_evict_inode<br>ext4:ext4_drop_inode<br>ext4:ext4_mark_inode_dirty<br>ext4:ext4_begin_ordered_truncate<br>ext4:ext4_write_begin<br>ext4:ext4_da_write_begin<br>ext4:ext4_write_end<br>ext4:ext4_journalled_write_end<br>ext4:ext4_da_write_end<br>ext4:ext4_writepages<br>ext4:ext4_da_write_pages<br>ext4:ext4_da_write_pages_extent<br>ext4:ext4_writepages_result<br>ext4:ext4_writepage<br>ext4:ext4_readpage<br>ext4:ext4_releasepage<br>ext4:ext4_invalidatepage<br>ext4:ext4_journalled_invalidatepage<br>ext4:ext4_discard_blocks<br>ext4:ext4_mb_new_inode_pa<br>ext4:ext4_mb_new_group_pa<br>ext4:ext4_mb_release_inode_pa<br>ext4:ext4_mb_release_group_pa<br>ext4:ext4_discard_preallocations<br>ext4:ext4_mb_discard_preallocations<br>ext4:ext4_request_blocks<br>ext4:ext4_allocate_blocks<br>ext4:ext4_free_blocks<br>ext4:ext4_sync_file_enter<br>ext4:ext4_sync_file_exit<br>ext4:ext4_sync_fs<br>ext4:ext4_alloc_da_blocks<br>ext4:ext4_mballoc_alloc<br>ext4:ext4_mballoc_prealloc<br>ext4:ext4_mballoc_discard<br>ext4:ext4_mballoc_free<br>ext4:ext4_forget<br>ext4:ext4_da_update_reserve_space<br>ext4:ext4_da_reserve_space<br>ext4:ext4_da_release_space<br>ext4:ext4_mb_bitmap_load<br>ext4:ext4_mb_buddy_bitmap_load<br>ext4:ext4_read_block_bitmap_load<br>ext4:ext4_load_inode_bitmap<br>ext4:ext4_direct_IO_enter<br>ext4:ext4_direct_IO_exit<br>ext4:ext4_fallocate_enter<br>ext4:ext4_punch_hole<br>ext4:ext4_zero_range<br>ext4:ext4_fallocate_exit<br>ext4:ext4_unlink_enter<br>ext4:ext4_unlink_exit<br>ext4:ext4_truncate_enter<br>ext4:ext4_truncate_exit<br>ext4:ext4_ext_convert_to_initialized_enter<br>ext4:ext4_ext_convert_to_initialized_fastpath<br>ext4:ext4_ext_map_blocks_enter<br>ext4:ext4_ind_map_blocks_enter<br>ext4:ext4_ext_map_blocks_exit<br>ext4:ext4_ind_map_blocks_exit<br>ext4:ext4_ext_load_extent<br>ext4:ext4_load_inode<br>ext4:ext4_journal_start<br>ext4:ext4_journal_start_reserved<br>ext4:ext4_trim_extent<br>ext4:ext4_trim_all_free<br>ext4:ext4_ext_handle_unwritten_extents<br>ext4:ext4_get_implied_cluster_alloc_exit<br>ext4:ext4_ext_put_in_cache<br>ext4:ext4_ext_in_cache<br>ext4:ext4_find_delalloc_range<br>ext4:ext4_get_reserved_cluster_alloc<br>ext4:ext4_ext_show_extent<br>ext4:ext4_remove_blocks<br>ext4:ext4_ext_rm_leaf<br>ext4:ext4_ext_rm_idx<br>ext4:ext4_ext_remove_space<br>ext4:ext4_ext_remove_space_done<br>ext4:ext4_es_insert_extent<br>ext4:ext4_es_cache_extent<br>ext4:ext4_es_remove_extent<br>ext4:ext4_es_find_delayed_extent_range_enter<br>ext4:ext4_es_find_delayed_extent_range_exit<br>ext4:ext4_es_lookup_extent_enter<br>ext4:ext4_es_lookup_extent_exit<br>ext4:ext4_es_shrink_count<br>ext4:ext4_es_shrink_scan_enter<br>ext4:ext4_es_shrink_scan_exit<br>ext4:ext4_collapse_range<br>ext4:ext4_insert_range<br>ext4:ext4_es_shrink<br>jbd2:jbd2_checkpoint<br>jbd2:jbd2_start_commit<br>jbd2:jbd2_commit_locking<br>jbd2:jbd2_commit_flushing<br>jbd2:jbd2_commit_logging<br>jbd2:jbd2_drop_transaction<br>jbd2:jbd2_end_commit<br>jbd2:jbd2_submit_inode_data<br>jbd2:jbd2_handle_start<br>jbd2:jbd2_handle_extend<br>jbd2:jbd2_handle_stats<br>jbd2:jbd2_run_stats<br>jbd2:jbd2_checkpoint_stats<br>jbd2:jbd2_update_log_tail<br>jbd2:jbd2_write_superblock<br>jbd2:jbd2_lock_buffer_stall<br>libata:ata_qc_issue<br>libata:ata_qc_complete_internal<br>libata:ata_qc_complete_failed<br>libata:ata_qc_complete_done<br>libata:ata_eh_link_autopsy<br>libata:ata_eh_link_autopsy_qc<br>scsi:scsi_dispatch_cmd_start<br>scsi:scsi_dispatch_cmd_error<br>scsi:scsi_dispatch_cmd_done<br>scsi:scsi_dispatch_cmd_timeout<br>scsi:scsi_eh_wakeup<br>raw_syscalls:sys_exit<br>raw_syscalls:sys_enter<br>vsyscall:emulate_vsyscall<br>xen:xen_cpu_set_ldt<br>xen:xen_cpu_write_gdt_entry<br>xen:xen_cpu_load_idt<br>xen:xen_cpu_write_idt_entry<br>xen:xen_cpu_write_ldt_entry<br>xen:xen_mmu_write_cr3<br>xen:xen_mmu_flush_tlb_others<br>xen:xen_mmu_flush_tlb_single<br>xen:xen_mmu_pgd_unpin<br>xen:xen_mmu_pgd_pin<br>xen:xen_mmu_release_ptpage<br>xen:xen_mmu_alloc_ptpage<br>xen:xen_mmu_ptep_modify_prot_commit<br>xen:xen_mmu_ptep_modify_prot_start<br>xen:xen_mmu_pgd_clear<br>xen:xen_mmu_pud_clear<br>xen:xen_mmu_set_pgd<br>xen:xen_mmu_set_pud<br>xen:xen_mmu_pmd_clear<br>xen:xen_mmu_set_pmd<br>xen:xen_mmu_pte_clear<br>xen:xen_mmu_set_pte_at<br>xen:xen_mmu_set_domain_pte<br>xen:xen_mmu_set_pte_atomic<br>xen:xen_mmu_set_pte<br>xen:xen_mc_extend_args<br>xen:xen_mc_flush<br>xen:xen_mc_flush_reason<br>xen:xen_mc_callback<br>xen:xen_mc_entry_alloc<br>xen:xen_mc_entry<br>xen:xen_mc_issue<br>xen:xen_mc_batch<br>irq_vectors:thermal_apic_exit<br>irq_vectors:thermal_apic_entry<br>irq_vectors:deferred_error_apic_exit<br>irq_vectors:deferred_error_apic_entry<br>irq_vectors:threshold_apic_exit<br>irq_vectors:threshold_apic_entry<br>irq_vectors:call_function_single_exit<br>irq_vectors:call_function_single_entry<br>irq_vectors:call_function_exit<br>irq_vectors:call_function_entry<br>irq_vectors:irq_work_exit<br>irq_vectors:irq_work_entry<br>irq_vectors:x86_platform_ipi_exit<br>irq_vectors:x86_platform_ipi_entry<br>irq_vectors:error_apic_exit<br>irq_vectors:error_apic_entry<br>irq_vectors:spurious_apic_exit<br>irq_vectors:spurious_apic_entry<br>irq_vectors:reschedule_exit<br>irq_vectors:reschedule_entry<br>irq_vectors:local_timer_exit<br>irq_vectors:local_timer_entry<br>syscalls:sys_exit_iopl<br>syscalls:sys_enter_iopl<br>nmi:nmi_handler<br>syscalls:sys_exit_modify_ldt<br>syscalls:sys_enter_modify_ldt<br>syscalls:sys_exit_mmap<br>syscalls:sys_enter_mmap<br>x86_fpu:x86_fpu_xstate_check_failed<br>x86_fpu:x86_fpu_copy_dst<br>x86_fpu:x86_fpu_copy_src<br>x86_fpu:x86_fpu_dropped<br>x86_fpu:x86_fpu_init_state<br>x86_fpu:x86_fpu_deactivate_state<br>x86_fpu:x86_fpu_activate_state<br>x86_fpu:x86_fpu_regs_deactivated<br>x86_fpu:x86_fpu_regs_activated<br>x86_fpu:x86_fpu_after_restore<br>x86_fpu:x86_fpu_before_restore<br>x86_fpu:x86_fpu_after_save<br>x86_fpu:x86_fpu_before_save<br>x86_fpu:x86_fpu_state<br>mce:mce_record<br>tlb:tlb_flush<br>exceptions:page_fault_kernel<br>exceptions:page_fault_user<br>mpx:mpx_new_bounds_table<br>mpx:mpx_unmap_search<br>mpx:mpx_unmap_zap<br>mpx:bounds_exception_mpx<br>mpx:mpx_bounds_register_exception<br>syscalls:sys_exit_unshare<br>syscalls:sys_enter_unshare<br>syscalls:sys_exit_clone<br>syscalls:sys_enter_clone<br>syscalls:sys_exit_vfork<br>syscalls:sys_enter_vfork<br>syscalls:sys_exit_fork<br>syscalls:sys_enter_fork<br>syscalls:sys_exit_set_tid_address<br>syscalls:sys_enter_set_tid_address<br>task:task_rename<br>task:task_newtask<br>syscalls:sys_exit_personality<br>syscalls:sys_enter_personality<br>cpuhp:cpuhp_exit<br>cpuhp:cpuhp_multi_enter<br>cpuhp:cpuhp_enter<br>syscalls:sys_exit_wait4<br>syscalls:sys_enter_wait4<br>syscalls:sys_exit_waitid<br>syscalls:sys_enter_waitid<br>syscalls:sys_exit_exit_group<br>syscalls:sys_enter_exit_group<br>syscalls:sys_exit_exit<br>syscalls:sys_enter_exit<br>irq:softirq_raise<br>irq:softirq_exit<br>irq:softirq_entry<br>irq:irq_handler_exit<br>irq:irq_handler_entry<br>syscalls:sys_exit_sysctl<br>syscalls:sys_enter_sysctl<br>syscalls:sys_exit_capset<br>syscalls:sys_enter_capset<br>syscalls:sys_exit_capget<br>syscalls:sys_enter_capget<br>syscalls:sys_exit_ptrace<br>syscalls:sys_enter_ptrace<br>syscalls:sys_exit_rt_sigsuspend<br>syscalls:sys_enter_rt_sigsuspend<br>syscalls:sys_exit_pause<br>syscalls:sys_enter_pause<br>syscalls:sys_exit_rt_sigaction<br>syscalls:sys_enter_rt_sigaction<br>syscalls:sys_exit_sigaltstack<br>syscalls:sys_enter_sigaltstack<br>syscalls:sys_exit_rt_tgsigqueueinfo<br>syscalls:sys_enter_rt_tgsigqueueinfo<br>syscalls:sys_exit_rt_sigqueueinfo<br>syscalls:sys_enter_rt_sigqueueinfo<br>syscalls:sys_exit_tkill<br>syscalls:sys_enter_tkill<br>syscalls:sys_exit_tgkill<br>syscalls:sys_enter_tgkill<br>syscalls:sys_exit_kill<br>syscalls:sys_enter_kill<br>syscalls:sys_exit_rt_sigtimedwait<br>syscalls:sys_enter_rt_sigtimedwait<br>syscalls:sys_exit_rt_sigpending<br>syscalls:sys_enter_rt_sigpending<br>syscalls:sys_exit_rt_sigprocmask<br>syscalls:sys_enter_rt_sigprocmask<br>syscalls:sys_exit_restart_syscall<br>syscalls:sys_enter_restart_syscall<br>signal:signal_deliver<br>signal:signal_generate<br>syscalls:sys_exit_sysinfo<br>syscalls:sys_enter_sysinfo<br>syscalls:sys_exit_getcpu<br>syscalls:sys_enter_getcpu<br>syscalls:sys_exit_prctl<br>syscalls:sys_enter_prctl<br>syscalls:sys_exit_umask<br>syscalls:sys_enter_umask<br>syscalls:sys_exit_getrusage<br>syscalls:sys_enter_getrusage<br>syscalls:sys_exit_setrlimit<br>syscalls:sys_enter_setrlimit<br>syscalls:sys_exit_prlimit64<br>syscalls:sys_enter_prlimit64<br>syscalls:sys_exit_getrlimit<br>syscalls:sys_enter_getrlimit<br>syscalls:sys_exit_setdomainname<br>syscalls:sys_enter_setdomainname<br>syscalls:sys_exit_sethostname<br>syscalls:sys_enter_sethostname<br>syscalls:sys_exit_newuname<br>syscalls:sys_enter_newuname<br>syscalls:sys_exit_setsid<br>syscalls:sys_enter_setsid<br>syscalls:sys_exit_getsid<br>syscalls:sys_enter_getsid<br>syscalls:sys_exit_getpgrp<br>syscalls:sys_enter_getpgrp<br>syscalls:sys_exit_getpgid<br>syscalls:sys_enter_getpgid<br>syscalls:sys_exit_setpgid<br>syscalls:sys_enter_setpgid<br>syscalls:sys_exit_times<br>syscalls:sys_enter_times<br>syscalls:sys_exit_getegid<br>syscalls:sys_enter_getegid<br>syscalls:sys_exit_getgid<br>syscalls:sys_enter_getgid<br>syscalls:sys_exit_geteuid<br>syscalls:sys_enter_geteuid<br>syscalls:sys_exit_getuid<br>syscalls:sys_enter_getuid<br>syscalls:sys_exit_getppid<br>syscalls:sys_enter_getppid<br>syscalls:sys_exit_gettid<br>syscalls:sys_enter_gettid<br>syscalls:sys_exit_getpid<br>syscalls:sys_enter_getpid<br>syscalls:sys_exit_setfsgid<br>syscalls:sys_enter_setfsgid<br>syscalls:sys_exit_setfsuid<br>syscalls:sys_enter_setfsuid<br>syscalls:sys_exit_getresgid<br>syscalls:sys_enter_getresgid<br>syscalls:sys_exit_setresgid<br>syscalls:sys_enter_setresgid<br>syscalls:sys_exit_getresuid<br>syscalls:sys_enter_getresuid<br>syscalls:sys_exit_setresuid<br>syscalls:sys_enter_setresuid<br>syscalls:sys_exit_setuid<br>syscalls:sys_enter_setuid<br>syscalls:sys_exit_setreuid<br>syscalls:sys_enter_setreuid<br>syscalls:sys_exit_setgid<br>syscalls:sys_enter_setgid<br>syscalls:sys_exit_setregid<br>syscalls:sys_enter_setregid<br>syscalls:sys_exit_getpriority<br>syscalls:sys_enter_getpriority<br>syscalls:sys_exit_setpriority<br>syscalls:sys_enter_setpriority<br>workqueue:workqueue_execute_end<br>workqueue:workqueue_execute_start<br>workqueue:workqueue_activate_work<br>workqueue:workqueue_queue_work<br>syscalls:sys_exit_setns<br>syscalls:sys_enter_setns<br>syscalls:sys_exit_reboot<br>syscalls:sys_enter_reboot<br>syscalls:sys_exit_setgroups<br>syscalls:sys_enter_setgroups<br>syscalls:sys_exit_getgroups<br>syscalls:sys_enter_getgroups<br>syscalls:sys_exit_sched_rr_get_interval<br>syscalls:sys_enter_sched_rr_get_interval<br>syscalls:sys_exit_sched_get_priority_min<br>syscalls:sys_enter_sched_get_priority_min<br>syscalls:sys_exit_sched_get_priority_max<br>syscalls:sys_enter_sched_get_priority_max<br>syscalls:sys_exit_sched_yield<br>syscalls:sys_enter_sched_yield<br>syscalls:sys_exit_sched_getaffinity<br>syscalls:sys_enter_sched_getaffinity<br>syscalls:sys_exit_sched_setaffinity<br>syscalls:sys_enter_sched_setaffinity<br>syscalls:sys_exit_sched_getattr<br>syscalls:sys_enter_sched_getattr<br>syscalls:sys_exit_sched_getparam<br>syscalls:sys_enter_sched_getparam<br>syscalls:sys_exit_sched_getscheduler<br>syscalls:sys_enter_sched_getscheduler<br>syscalls:sys_exit_sched_setattr<br>syscalls:sys_enter_sched_setattr<br>syscalls:sys_exit_sched_setparam<br>syscalls:sys_enter_sched_setparam<br>syscalls:sys_exit_sched_setscheduler<br>syscalls:sys_enter_sched_setscheduler<br>sched:sched_wake_idle_without_ipi<br>sched:sched_swap_numa<br>sched:sched_stick_numa<br>sched:sched_move_numa<br>sched:sched_process_hang<br>sched:sched_pi_setprio<br>sched:sched_stat_runtime<br>sched:sched_stat_blocked<br>sched:sched_stat_iowait<br>sched:sched_stat_sleep<br>sched:sched_stat_wait<br>sched:sched_process_exec<br>sched:sched_process_fork<br>sched:sched_process_wait<br>sched:sched_wait_task<br>sched:sched_process_exit<br>sched:sched_process_free<br>sched:sched_migrate_task<br>sched:sched_switch<br>sched:sched_wakeup_new<br>sched:sched_wakeup<br>sched:sched_waking<br>sched:sched_kthread_stop_ret<br>sched:sched_kthread_stop<br>syscalls:sys_exit_syslog<br>syscalls:sys_enter_syslog<br>printk:console<br>rcu:rcu_utilization<br>syscalls:sys_exit_kcmp<br>syscalls:sys_enter_kcmp<br>syscalls:sys_exit_adjtimex<br>syscalls:sys_enter_adjtimex<br>syscalls:sys_exit_settimeofday<br>syscalls:sys_enter_settimeofday<br>syscalls:sys_exit_gettimeofday<br>syscalls:sys_enter_gettimeofday<br>syscalls:sys_exit_time<br>syscalls:sys_enter_time<br>syscalls:sys_exit_alarm<br>syscalls:sys_enter_alarm<br>timer:tick_stop<br>timer:itimer_expire<br>timer:itimer_state<br>timer:hrtimer_cancel<br>timer:hrtimer_expire_exit<br>timer:hrtimer_expire_entry<br>timer:hrtimer_start<br>timer:hrtimer_init<br>timer:timer_cancel<br>timer:timer_expire_exit<br>timer:timer_expire_entry<br>timer:timer_start<br>timer:timer_init<br>syscalls:sys_exit_nanosleep<br>syscalls:sys_enter_nanosleep<br>syscalls:sys_exit_setitimer<br>syscalls:sys_enter_setitimer<br>syscalls:sys_exit_getitimer<br>syscalls:sys_enter_getitimer<br>syscalls:sys_exit_clock_nanosleep<br>syscalls:sys_enter_clock_nanosleep<br>syscalls:sys_exit_clock_getres<br>syscalls:sys_enter_clock_getres<br>syscalls:sys_exit_clock_adjtime<br>syscalls:sys_enter_clock_adjtime<br>syscalls:sys_exit_clock_gettime<br>syscalls:sys_enter_clock_gettime<br>syscalls:sys_exit_clock_settime<br>syscalls:sys_enter_clock_settime<br>syscalls:sys_exit_timer_delete<br>syscalls:sys_enter_timer_delete<br>syscalls:sys_exit_timer_settime<br>syscalls:sys_enter_timer_settime<br>syscalls:sys_exit_timer_getoverrun<br>syscalls:sys_enter_timer_getoverrun<br>syscalls:sys_exit_timer_gettime<br>syscalls:sys_enter_timer_gettime<br>syscalls:sys_exit_timer_create<br>syscalls:sys_enter_timer_create<br>syscalls:sys_exit_futex<br>syscalls:sys_enter_futex<br>syscalls:sys_exit_get_robust_list<br>syscalls:sys_enter_get_robust_list<br>syscalls:sys_exit_set_robust_list<br>syscalls:sys_enter_set_robust_list<br>syscalls:sys_exit_finit_module<br>syscalls:sys_enter_finit_module<br>syscalls:sys_exit_init_module<br>syscalls:sys_enter_init_module<br>syscalls:sys_exit_delete_module<br>syscalls:sys_enter_delete_module<br>module:module_request<br>module:module_put<br>module:module_get<br>module:module_free<br>module:module_load<br>syscalls:sys_exit_acct<br>syscalls:sys_enter_acct<br>syscalls:sys_exit_kexec_load<br>syscalls:sys_enter_kexec_load<br>syscalls:sys_exit_kexec_file_load<br>syscalls:sys_enter_kexec_file_load<br>cgroup:cgroup_transfer_tasks<br>cgroup:cgroup_attach_task<br>cgroup:cgroup_rename<br>cgroup:cgroup_release<br>cgroup:cgroup_rmdir<br>cgroup:cgroup_mkdir<br>cgroup:cgroup_remount<br>cgroup:cgroup_destroy_root<br>cgroup:cgroup_setup_root<br>syscalls:sys_exit_seccomp<br>syscalls:sys_enter_seccomp<br>power:dev_pm_qos_remove_request<br>power:dev_pm_qos_update_request<br>power:dev_pm_qos_add_request<br>power:pm_qos_update_flags<br>power:pm_qos_update_target<br>power:pm_qos_update_request_timeout<br>power:pm_qos_remove_request<br>power:pm_qos_update_request<br>power:pm_qos_add_request<br>power:power_domain_target<br>power:clock_set_rate<br>power:clock_disable<br>power:clock_enable<br>power:wakeup_source_deactivate<br>power:wakeup_source_activate<br>power:suspend_resume<br>power:device_pm_callback_end<br>power:device_pm_callback_start<br>power:cpu_frequency<br>power:pstate_sample<br>power:powernv_throttle<br>power:cpu_idle<br>rpm:rpm_return_int<br>rpm:rpm_idle<br>rpm:rpm_resume<br>rpm:rpm_suspend<br>syscalls:sys_exit_bpf<br>syscalls:sys_enter_bpf<br>syscalls:sys_exit_perf_event_open<br>syscalls:sys_enter_perf_event_open<br>syscalls:sys_exit_membarrier<br>syscalls:sys_enter_membarrier<br>filemap:mm_filemap_add_to_page_cache<br>filemap:mm_filemap_delete_from_page_cache<br>oom:oom_score_adj_update<br>syscalls:sys_exit_readahead<br>syscalls:sys_enter_readahead<br>pagemap:mm_lru_activate<br>pagemap:mm_lru_insertion<br>vmscan:mm_vmscan_lru_shrink_inactive<br>vmscan:mm_vmscan_writepage<br>vmscan:mm_vmscan_memcg_isolate<br>vmscan:mm_vmscan_lru_isolate<br>vmscan:mm_shrink_slab_end<br>vmscan:mm_shrink_slab_start<br>vmscan:mm_vmscan_memcg_softlimit_reclaim_end<br>vmscan:mm_vmscan_memcg_reclaim_end<br>vmscan:mm_vmscan_direct_reclaim_end<br>vmscan:mm_vmscan_memcg_softlimit_reclaim_begin<br>vmscan:mm_vmscan_memcg_reclaim_begin<br>vmscan:mm_vmscan_direct_reclaim_begin<br>vmscan:mm_vmscan_wakeup_kswapd<br>vmscan:mm_vmscan_kswapd_wake<br>vmscan:mm_vmscan_kswapd_sleep<br>syscalls:sys_exit_memfd_create<br>syscalls:sys_enter_memfd_create<br>kmem:mm_page_alloc_extfrag<br>kmem:mm_page_pcpu_drain<br>kmem:mm_page_alloc_zone_locked<br>kmem:mm_page_alloc<br>kmem:mm_page_free_batched<br>kmem:mm_page_free<br>kmem:kmem_cache_free<br>kmem:kfree<br>kmem:kmem_cache_alloc_node<br>kmem:kmalloc_node<br>kmem:kmem_cache_alloc<br>kmem:kmalloc<br>compaction:mm_compaction_kcompactd_wake<br>compaction:mm_compaction_wakeup_kcompactd<br>compaction:mm_compaction_kcompactd_sleep<br>compaction:mm_compaction_defer_reset<br>compaction:mm_compaction_defer_compaction<br>compaction:mm_compaction_deferred<br>compaction:mm_compaction_suitable<br>compaction:mm_compaction_finished<br>compaction:mm_compaction_try_to_compact_pages<br>compaction:mm_compaction_end<br>compaction:mm_compaction_begin<br>compaction:mm_compaction_migratepages<br>compaction:mm_compaction_isolate_freepages<br>compaction:mm_compaction_isolate_migratepages<br>syscalls:sys_exit_mincore<br>syscalls:sys_enter_mincore<br>syscalls:sys_exit_munlockall<br>syscalls:sys_enter_munlockall<br>syscalls:sys_exit_mlockall<br>syscalls:sys_enter_mlockall<br>syscalls:sys_exit_munlock<br>syscalls:sys_enter_munlock<br>syscalls:sys_exit_mlock2<br>syscalls:sys_enter_mlock2<br>syscalls:sys_exit_mlock<br>syscalls:sys_enter_mlock<br>syscalls:sys_exit_remap_file_pages<br>syscalls:sys_enter_remap_file_pages<br>syscalls:sys_exit_munmap<br>syscalls:sys_enter_munmap<br>syscalls:sys_exit_brk<br>syscalls:sys_enter_brk<br>syscalls:sys_exit_pkey_free<br>syscalls:sys_enter_pkey_free<br>syscalls:sys_exit_pkey_alloc<br>syscalls:sys_enter_pkey_alloc<br>syscalls:sys_exit_pkey_mprotect<br>syscalls:sys_enter_pkey_mprotect<br>syscalls:sys_exit_mprotect<br>syscalls:sys_enter_mprotect<br>syscalls:sys_exit_mremap<br>syscalls:sys_enter_mremap<br>syscalls:sys_exit_msync<br>syscalls:sys_enter_msync<br>syscalls:sys_exit_process_vm_writev<br>syscalls:sys_enter_process_vm_writev<br>syscalls:sys_exit_process_vm_readv<br>syscalls:sys_enter_process_vm_readv<br>syscalls:sys_exit_fadvise64<br>syscalls:sys_enter_fadvise64<br>syscalls:sys_exit_madvise<br>syscalls:sys_enter_madvise<br>syscalls:sys_exit_swapon<br>syscalls:sys_enter_swapon<br>syscalls:sys_exit_swapoff<br>syscalls:sys_enter_swapoff<br>syscalls:sys_exit_get_mempolicy<br>syscalls:sys_enter_get_mempolicy<br>syscalls:sys_exit_migrate_pages<br>syscalls:sys_enter_migrate_pages<br>syscalls:sys_exit_set_mempolicy<br>syscalls:sys_enter_set_mempolicy<br>syscalls:sys_exit_mbind<br>syscalls:sys_enter_mbind<br>syscalls:sys_exit_move_pages<br>syscalls:sys_enter_move_pages<br>migrate:mm_numa_migrate_ratelimit<br>migrate:mm_migrate_pages<br>huge_memory:mm_collapse_huge_page_swapin<br>huge_memory:mm_collapse_huge_page_isolate<br>huge_memory:mm_collapse_huge_page<br>huge_memory:mm_khugepaged_scan_pmd<br>page_isolation:test_pages_isolated<br>syscalls:sys_exit_vhangup<br>syscalls:sys_enter_vhangup<br>syscalls:sys_exit_close<br>syscalls:sys_enter_close<br>syscalls:sys_exit_creat<br>syscalls:sys_enter_creat<br>syscalls:sys_exit_openat<br>syscalls:sys_enter_openat<br>syscalls:sys_exit_open<br>syscalls:sys_enter_open<br>syscalls:sys_exit_fchown<br>syscalls:sys_enter_fchown<br>syscalls:sys_exit_lchown<br>syscalls:sys_enter_lchown<br>syscalls:sys_exit_chown<br>syscalls:sys_enter_chown<br>syscalls:sys_exit_fchownat<br>syscalls:sys_enter_fchownat<br>syscalls:sys_exit_chmod<br>syscalls:sys_enter_chmod<br>syscalls:sys_exit_fchmodat<br>syscalls:sys_enter_fchmodat<br>syscalls:sys_exit_fchmod<br>syscalls:sys_enter_fchmod<br>syscalls:sys_exit_chroot<br>syscalls:sys_enter_chroot<br>syscalls:sys_exit_fchdir<br>syscalls:sys_enter_fchdir<br>syscalls:sys_exit_chdir<br>syscalls:sys_enter_chdir<br>syscalls:sys_exit_access<br>syscalls:sys_enter_access<br>syscalls:sys_exit_faccessat<br>syscalls:sys_enter_faccessat<br>syscalls:sys_exit_fallocate<br>syscalls:sys_enter_fallocate<br>syscalls:sys_exit_ftruncate<br>syscalls:sys_enter_ftruncate<br>syscalls:sys_exit_truncate<br>syscalls:sys_enter_truncate<br>syscalls:sys_exit_copy_file_range<br>syscalls:sys_enter_copy_file_range<br>syscalls:sys_exit_sendfile64<br>syscalls:sys_enter_sendfile64<br>syscalls:sys_exit_pwritev2<br>syscalls:sys_enter_pwritev2<br>syscalls:sys_exit_pwritev<br>syscalls:sys_enter_pwritev<br>syscalls:sys_exit_preadv2<br>syscalls:sys_enter_preadv2<br>syscalls:sys_exit_preadv<br>syscalls:sys_enter_preadv<br>syscalls:sys_exit_writev<br>syscalls:sys_enter_writev<br>syscalls:sys_exit_readv<br>syscalls:sys_enter_readv<br>syscalls:sys_exit_pwrite64<br>syscalls:sys_enter_pwrite64<br>syscalls:sys_exit_pread64<br>syscalls:sys_enter_pread64<br>syscalls:sys_exit_write<br>syscalls:sys_enter_write<br>syscalls:sys_exit_read<br>syscalls:sys_enter_read<br>syscalls:sys_exit_lseek<br>syscalls:sys_enter_lseek<br>syscalls:sys_exit_readlink<br>syscalls:sys_enter_readlink<br>syscalls:sys_exit_readlinkat<br>syscalls:sys_enter_readlinkat<br>syscalls:sys_exit_newfstat<br>syscalls:sys_enter_newfstat<br>syscalls:sys_exit_newfstatat<br>syscalls:sys_enter_newfstatat<br>syscalls:sys_exit_newlstat<br>syscalls:sys_enter_newlstat<br>syscalls:sys_exit_newstat<br>syscalls:sys_enter_newstat<br>syscalls:sys_exit_execveat<br>syscalls:sys_enter_execveat<br>syscalls:sys_exit_execve<br>syscalls:sys_enter_execve<br>syscalls:sys_exit_pipe<br>syscalls:sys_enter_pipe<br>syscalls:sys_exit_pipe2<br>syscalls:sys_enter_pipe2<br>syscalls:sys_exit_rename<br>syscalls:sys_enter_rename<br>syscalls:sys_exit_renameat<br>syscalls:sys_enter_renameat<br>syscalls:sys_exit_renameat2<br>syscalls:sys_enter_renameat2<br>syscalls:sys_exit_link<br>syscalls:sys_enter_link<br>syscalls:sys_exit_linkat<br>syscalls:sys_enter_linkat<br>syscalls:sys_exit_symlink<br>syscalls:sys_enter_symlink<br>syscalls:sys_exit_symlinkat<br>syscalls:sys_enter_symlinkat<br>syscalls:sys_exit_unlink<br>syscalls:sys_enter_unlink<br>syscalls:sys_exit_unlinkat<br>syscalls:sys_enter_unlinkat<br>syscalls:sys_exit_rmdir<br>syscalls:sys_enter_rmdir<br>syscalls:sys_exit_mkdir<br>syscalls:sys_enter_mkdir<br>syscalls:sys_exit_mkdirat<br>syscalls:sys_enter_mkdirat<br>syscalls:sys_exit_mknod<br>syscalls:sys_enter_mknod<br>syscalls:sys_exit_mknodat<br>syscalls:sys_enter_mknodat<br>syscalls:sys_exit_fcntl<br>syscalls:sys_enter_fcntl<br>syscalls:sys_exit_ioctl<br>syscalls:sys_enter_ioctl<br>syscalls:sys_exit_getdents64<br>syscalls:sys_enter_getdents64<br>syscalls:sys_exit_getdents<br>syscalls:sys_enter_getdents<br>syscalls:sys_exit_ppoll<br>syscalls:sys_enter_ppoll<br>syscalls:sys_exit_poll<br>syscalls:sys_enter_poll<br>syscalls:sys_exit_pselect6<br>syscalls:sys_enter_pselect6<br>syscalls:sys_exit_select<br>syscalls:sys_enter_select<br>syscalls:sys_exit_getcwd<br>syscalls:sys_enter_getcwd<br>syscalls:sys_exit_dup<br>syscalls:sys_enter_dup<br>syscalls:sys_exit_dup2<br>syscalls:sys_enter_dup2<br>syscalls:sys_exit_dup3<br>syscalls:sys_enter_dup3<br>syscalls:sys_exit_sysfs<br>syscalls:sys_enter_sysfs<br>syscalls:sys_exit_pivot_root<br>syscalls:sys_enter_pivot_root<br>syscalls:sys_exit_mount<br>syscalls:sys_enter_mount<br>syscalls:sys_exit_umount<br>syscalls:sys_enter_umount<br>syscalls:sys_exit_fremovexattr<br>syscalls:sys_enter_fremovexattr<br>syscalls:sys_exit_lremovexattr<br>syscalls:sys_enter_lremovexattr<br>syscalls:sys_exit_removexattr<br>syscalls:sys_enter_removexattr<br>syscalls:sys_exit_flistxattr<br>syscalls:sys_enter_flistxattr<br>syscalls:sys_exit_llistxattr<br>syscalls:sys_enter_llistxattr<br>syscalls:sys_exit_listxattr<br>syscalls:sys_enter_listxattr<br>syscalls:sys_exit_fgetxattr<br>syscalls:sys_enter_fgetxattr<br>syscalls:sys_exit_lgetxattr<br>syscalls:sys_enter_lgetxattr<br>syscalls:sys_exit_getxattr<br>syscalls:sys_enter_getxattr<br>syscalls:sys_exit_fsetxattr<br>syscalls:sys_enter_fsetxattr<br>syscalls:sys_exit_lsetxattr<br>syscalls:sys_enter_lsetxattr<br>syscalls:sys_exit_setxattr<br>syscalls:sys_enter_setxattr<br>writeback:sb_clear_inode_writeback<br>writeback:sb_mark_inode_writeback<br>writeback:writeback_dirty_inode_enqueue<br>writeback:writeback_lazytime_iput<br>writeback:writeback_lazytime<br>writeback:writeback_single_inode<br>writeback:writeback_single_inode_start<br>writeback:writeback_wait_iff_congested<br>writeback:writeback_congestion_wait<br>writeback:writeback_sb_inodes_requeue<br>writeback:balance_dirty_pages<br>writeback:bdi_dirty_ratelimit<br>writeback:global_dirty_state<br>writeback:writeback_queue_io<br>writeback:wbc_writepage<br>writeback:writeback_bdi_register<br>writeback:writeback_wake_background<br>writeback:writeback_nowork<br>writeback:writeback_pages_written<br>writeback:writeback_wait<br>writeback:writeback_written<br>writeback:writeback_start<br>writeback:writeback_exec<br>writeback:writeback_queue<br>writeback:writeback_write_inode<br>writeback:writeback_write_inode_start<br>writeback:writeback_dirty_inode<br>writeback:writeback_dirty_inode_start<br>writeback:writeback_mark_inode_dirty<br>writeback:writeback_dirty_page<br>syscalls:sys_exit_tee<br>syscalls:sys_enter_tee<br>syscalls:sys_exit_splice<br>syscalls:sys_enter_splice<br>syscalls:sys_exit_vmsplice<br>syscalls:sys_enter_vmsplice<br>syscalls:sys_exit_sync_file_range<br>syscalls:sys_enter_sync_file_range<br>syscalls:sys_exit_fdatasync<br>syscalls:sys_enter_fdatasync<br>syscalls:sys_exit_fsync<br>syscalls:sys_enter_fsync<br>syscalls:sys_exit_syncfs<br>syscalls:sys_enter_syncfs<br>syscalls:sys_exit_sync<br>syscalls:sys_enter_sync<br>syscalls:sys_exit_utimes<br>syscalls:sys_enter_utimes<br>syscalls:sys_exit_futimesat<br>syscalls:sys_enter_futimesat<br>syscalls:sys_exit_utimensat<br>syscalls:sys_enter_utimensat<br>syscalls:sys_exit_utime<br>syscalls:sys_enter_utime<br>syscalls:sys_exit_ustat<br>syscalls:sys_enter_ustat<br>syscalls:sys_exit_fstatfs<br>syscalls:sys_enter_fstatfs<br>syscalls:sys_exit_statfs<br>syscalls:sys_enter_statfs<br>syscalls:sys_exit_inotify_rm_watch<br>syscalls:sys_enter_inotify_rm_watch<br>syscalls:sys_exit_inotify_add_watch<br>syscalls:sys_enter_inotify_add_watch<br>syscalls:sys_exit_inotify_init<br>syscalls:sys_enter_inotify_init<br>syscalls:sys_exit_inotify_init1<br>syscalls:sys_enter_inotify_init1<br>syscalls:sys_exit_fanotify_mark<br>syscalls:sys_enter_fanotify_mark<br>syscalls:sys_exit_fanotify_init<br>syscalls:sys_enter_fanotify_init<br>syscalls:sys_exit_epoll_pwait<br>syscalls:sys_enter_epoll_pwait<br>syscalls:sys_exit_epoll_wait<br>syscalls:sys_enter_epoll_wait<br>syscalls:sys_exit_epoll_ctl<br>syscalls:sys_enter_epoll_ctl<br>syscalls:sys_exit_epoll_create<br>syscalls:sys_enter_epoll_create<br>syscalls:sys_exit_epoll_create1<br>syscalls:sys_enter_epoll_create1<br>syscalls:sys_exit_signalfd<br>syscalls:sys_enter_signalfd<br>syscalls:sys_exit_signalfd4<br>syscalls:sys_enter_signalfd4<br>syscalls:sys_exit_timerfd_gettime<br>syscalls:sys_enter_timerfd_gettime<br>syscalls:sys_exit_timerfd_settime<br>syscalls:sys_enter_timerfd_settime<br>syscalls:sys_exit_timerfd_create<br>syscalls:sys_enter_timerfd_create<br>syscalls:sys_exit_eventfd<br>syscalls:sys_enter_eventfd<br>syscalls:sys_exit_eventfd2<br>syscalls:sys_enter_eventfd2<br>syscalls:sys_exit_userfaultfd<br>syscalls:sys_enter_userfaultfd<br>syscalls:sys_exit_io_getevents<br>syscalls:sys_enter_io_getevents<br>syscalls:sys_exit_io_cancel<br>syscalls:sys_enter_io_cancel<br>syscalls:sys_exit_io_submit<br>syscalls:sys_enter_io_submit<br>syscalls:sys_exit_io_destroy<br>syscalls:sys_enter_io_destroy<br>syscalls:sys_exit_io_setup<br>syscalls:sys_enter_io_setup<br>syscalls:sys_exit_flock<br>syscalls:sys_enter_flock<br>filelock:generic_add_lease<br>filelock:time_out_leases<br>filelock:generic_delete_lease<br>filelock:break_lease_unblock<br>filelock:break_lease_block<br>filelock:break_lease_noblock<br>filelock:locks_remove_posix<br>filelock:fcntl_setlk<br>filelock:posix_lock_inode<br>filelock:locks_get_lock_context<br>syscalls:sys_exit_open_by_handle_at<br>syscalls:sys_enter_open_by_handle_at<br>syscalls:sys_exit_name_to_handle_at<br>syscalls:sys_enter_name_to_handle_at<br>syscalls:sys_exit_quotactl<br>syscalls:sys_enter_quotactl<br>syscalls:sys_exit_lookup_dcookie<br>syscalls:sys_enter_lookup_dcookie<br>syscalls:sys_exit_msgrcv<br>syscalls:sys_enter_msgrcv<br>syscalls:sys_exit_msgsnd<br>syscalls:sys_enter_msgsnd<br>syscalls:sys_exit_msgctl<br>syscalls:sys_enter_msgctl<br>syscalls:sys_exit_msgget<br>syscalls:sys_enter_msgget<br>syscalls:sys_exit_semop<br>syscalls:sys_enter_semop<br>syscalls:sys_exit_semtimedop<br>syscalls:sys_enter_semtimedop<br>syscalls:sys_exit_semctl<br>syscalls:sys_enter_semctl<br>syscalls:sys_exit_semget<br>syscalls:sys_enter_semget<br>syscalls:sys_exit_shmdt<br>syscalls:sys_enter_shmdt<br>syscalls:sys_exit_shmat<br>syscalls:sys_enter_shmat<br>syscalls:sys_exit_shmctl<br>syscalls:sys_enter_shmctl<br>syscalls:sys_exit_shmget<br>syscalls:sys_enter_shmget<br>syscalls:sys_exit_mq_getsetattr<br>syscalls:sys_enter_mq_getsetattr<br>syscalls:sys_exit_mq_notify<br>syscalls:sys_enter_mq_notify<br>syscalls:sys_exit_mq_timedreceive<br>syscalls:sys_enter_mq_timedreceive<br>syscalls:sys_exit_mq_timedsend<br>syscalls:sys_enter_mq_timedsend<br>syscalls:sys_exit_mq_unlink<br>syscalls:sys_enter_mq_unlink<br>syscalls:sys_exit_mq_open<br>syscalls:sys_enter_mq_open<br>syscalls:sys_exit_keyctl<br>syscalls:sys_enter_keyctl<br>syscalls:sys_exit_request_key<br>syscalls:sys_enter_request_key<br>syscalls:sys_exit_add_key<br>syscalls:sys_enter_add_key<br>block:block_rq_remap<br>block:block_bio_remap<br>block:block_split<br>block:block_unplug<br>block:block_plug<br>block:block_sleeprq<br>block:block_getrq<br>block:block_bio_queue<br>block:block_bio_frontmerge<br>block:block_bio_backmerge<br>block:block_bio_complete<br>block:block_bio_bounce<br>block:block_rq_issue<br>block:block_rq_insert<br>block:block_rq_complete<br>block:block_rq_requeue<br>block:block_rq_abort<br>block:block_dirty_buffer<br>block:block_touch_buffer<br>syscalls:sys_exit_ioprio_get<br>syscalls:sys_enter_ioprio_get<br>syscalls:sys_exit_ioprio_set<br>syscalls:sys_enter_ioprio_set<br>swiotlb:swiotlb_bounced<br>msr:rdpmc<br>msr:write_msr<br>msr:read_msr<br>gpio:gpio_value<br>gpio:gpio_direction<br>clk:clk_set_phase_complete<br>clk:clk_set_phase<br>clk:clk_set_parent_complete<br>clk:clk_set_parent<br>clk:clk_set_rate_complete<br>clk:clk_set_rate<br>clk:clk_unprepare_complete<br>clk:clk_unprepare<br>clk:clk_prepare_complete<br>clk:clk_prepare<br>clk:clk_disable_complete<br>clk:clk_disable<br>clk:clk_enable_complete<br>clk:clk_enable<br>syscalls:sys_exit_getrandom<br>syscalls:sys_enter_getrandom<br>random:urandom_read<br>random:random_read<br>random:extract_entropy_user<br>random:extract_entropy<br>random:get_random_bytes_arch<br>random:get_random_bytes<br>random:xfer_secondary_pool<br>random:add_disk_randomness<br>random:add_input_randomness<br>random:debit_entropy<br>random:push_to_pool<br>random:credit_entropy_bits<br>random:mix_pool_bytes_nolock<br>random:mix_pool_bytes<br>random:add_device_randomness<br>iommu:io_page_fault<br>iommu:unmap<br>iommu:map<br>iommu:detach_device_from_domain<br>iommu:attach_device_to_domain<br>iommu:remove_device_from_group<br>iommu:add_device_to_group<br>regmap:regcache_drop_region<br>regmap:regmap_async_complete_done<br>regmap:regmap_async_complete_start<br>regmap:regmap_async_io_complete<br>regmap:regmap_async_write_start<br>regmap:regmap_cache_bypass<br>regmap:regmap_cache_only<br>regmap:regcache_sync<br>regmap:regmap_hw_write_done<br>regmap:regmap_hw_write_start<br>regmap:regmap_hw_read_done<br>regmap:regmap_hw_read_start<br>regmap:regmap_reg_read_cache<br>regmap:regmap_reg_read<br>regmap:regmap_reg_write<br>fence:fence_wait_end<br>fence:fence_wait_start<br>fence:fence_signaled<br>fence:fence_enable_signal<br>fence:fence_destroy<br>fence:fence_init<br>fence:fence_emit<br>fence:fence_annotate_wait_on<br>spi:spi_transfer_stop<br>spi:spi_transfer_start<br>spi:spi_message_done<br>spi:spi_message_start<br>spi:spi_message_submit<br>spi:spi_master_busy<br>spi:spi_master_idle<br>i2c:smbus_result<br>i2c:smbus_reply<br>i2c:smbus_read<br>i2c:smbus_write<br>i2c:i2c_result<br>i2c:i2c_reply<br>i2c:i2c_read<br>i2c:i2c_write<br>thermal:thermal_power_devfreq_limit<br>thermal:thermal_power_devfreq_get_power<br>thermal:thermal_power_cpu_limit<br>thermal:thermal_power_cpu_get_power<br>thermal:thermal_zone_trip<br>thermal:cdev_update<br>thermal:thermal_temperature<br>ras:memory_failure_event<br>ras:aer_event<br>ras:mc_event<br>ras:extlog_mem_event<br>syscalls:sys_exit_recvmmsg<br>syscalls:sys_enter_recvmmsg<br>syscalls:sys_exit_recvmsg<br>syscalls:sys_enter_recvmsg<br>syscalls:sys_exit_sendmmsg<br>syscalls:sys_enter_sendmmsg<br>syscalls:sys_exit_sendmsg<br>syscalls:sys_enter_sendmsg<br>syscalls:sys_exit_shutdown<br>syscalls:sys_enter_shutdown<br>syscalls:sys_exit_getsockopt<br>syscalls:sys_enter_getsockopt<br>syscalls:sys_exit_setsockopt<br>syscalls:sys_enter_setsockopt<br>syscalls:sys_exit_recvfrom<br>syscalls:sys_enter_recvfrom<br>syscalls:sys_exit_sendto<br>syscalls:sys_enter_sendto<br>syscalls:sys_exit_getpeername<br>syscalls:sys_enter_getpeername<br>syscalls:sys_exit_getsockname<br>syscalls:sys_enter_getsockname<br>syscalls:sys_exit_connect<br>syscalls:sys_enter_connect<br>syscalls:sys_exit_accept<br>syscalls:sys_enter_accept<br>syscalls:sys_exit_accept4<br>syscalls:sys_enter_accept4<br>syscalls:sys_exit_listen<br>syscalls:sys_enter_listen<br>syscalls:sys_exit_bind<br>syscalls:sys_enter_bind<br>syscalls:sys_exit_socketpair<br>syscalls:sys_enter_socketpair<br>syscalls:sys_exit_socket<br>syscalls:sys_enter_socket<br>fib6:fib6_table_lookup<br>fib:fib_validate_source<br>fib:fib_table_lookup_nh<br>fib:fib_table_lookup<br>udp:udp_fail_queue_rcv_skb<br>sock:sock_exceed_buf_limit<br>sock:sock_rcvqueue_full<br>napi:napi_poll<br>net:netif_rx_ni_entry<br>net:netif_rx_entry<br>net:netif_receive_skb_entry<br>net:napi_gro_receive_entry<br>net:napi_gro_frags_entry<br>net:netif_rx<br>net:netif_receive_skb<br>net:net_dev_queue<br>net:net_dev_xmit<br>net:net_dev_start_xmit<br>skb:skb_copy_datagram_iovec<br>skb:consume_skb<br>skb:kfree_skb</p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2021/03/21/ftrace/" rel="next" title="ftrace">
+                <i class="fa fa-chevron-left"></i> ftrace
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2021/03/21/UAPI/" rel="prev" title="UAPI">
+                UAPI <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Semiyd</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives">
+                
+                    <span class="site-state-item-count">240</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">130</span>
+                    <span class="site-state-item-name">categories</span>
+                  </a>
+                </div>
+              
+
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Semiyd</span>
+
+  
+
+  
+</div>
+
+
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> v3.7.1</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://theme-next.org">NexT.Muse</a> v6.3.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+	
+    
+
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.3.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.3.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.3.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.3.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.3.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

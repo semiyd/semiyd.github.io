@@ -115,7 +115,7 @@
 <meta property="og:site_name" content="Semiyd&#39;s Blog">
 <meta property="og:description" content="DeviceTree">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2020-07-12T13:38:17.966Z">
+<meta property="og:updated_time" content="2021-03-21T07:45:15.247Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="DeviceTree">
 <meta name="twitter:description" content="DeviceTree">
@@ -339,7 +339,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2020-07-12 21:38:17" itemprop="dateModified" datetime="2020-07-12T21:38:17+08:00">2020-07-12</time>
+                <time title="Modified: 2021-03-21 15:45:15" itemprop="dateModified" datetime="2021-03-21T15:45:15+08:00">2021-03-21</time>
               
             
           </span>
@@ -797,7 +797,7 @@ gateclk: clock-gating-control@18220 {
 <p>int of_alias_get_id(struct device_node <em>np, const char </em>stem)<br>获取节点np对应的aliasid号</p>
 <p>struct device_node<em> of_node_get(struct device_node </em>node)<br>void of_node_put(struct device_node *node)<br>device node计数增加/减少</p>
 <p>const struct of_device_id<em> of_match_node(const struct of_device_id </em>matches,const struct device_node*node)<br>将matches数组中of_device_id结构的name和type与device node的compatible和type匹配，返回匹配度最高的of_device_id结构</p>
-<p>platform_device和resource相关：<br>int of_address_to_resource(struct device_node <em>dev, int index,struct resource </em>r)<br>根据设备节点dev的reg属性值，填充资源结构体resource。Index参数指明了使用reg属性中第几个属性值，一般设置为0，表示第一个。<br>Translate device tree address and return as resource</p>
+<p>platform_device和resource相关：<br>int of_address_to_resource(struct device_node <em>dev, int index,struct resource </em>r)<br>根据设备节点dev的reg属性值，填充资源结构体resource。Index参数指明了使用reg属性中第几个属性值，一般设置为0，表示第一个。<br>Translate device tree address and return as resource<br>以往用platform驱动的时候，都是直接定义resource的。现在变成of_address_to_resource，把dts里面的reg字段，翻译成resource。<br>然后就可以用platform_get_resource和devm_ioremap_resource来使用dts里面写的寄存器基地址信息。</p>
 <p>struct platform_device<em> of_device_alloc(struct device_node </em>np,const char <em>bus_id,struct device </em>parent)<br>根据device node，bus_id以及父节点创建该设备的platform_device结构，同时会初始化它的resource成员。</p>
 <p>int of_platform_bus_probe(struct device_node <em>root,const struct of_device_id </em>matches,struct device *parent)<br>遍历of_allnodes中的节点挂接到of_platform_bus_type总线上,由于此时of_platform_bus_type总线上还没有驱动,所以此时不进行匹配</p>
 <p>int of_platform_populate(struct device_node <em>root,const struct of_device_id </em>matches,const struct of_dev_auxdata <em>lookup,struct device </em>parent)<br>遍历of_allnodes中的所有节点，生成并初始化所以节点的platform_device结构</p>
@@ -990,7 +990,7 @@ leds {                            &lt;----------------------在这里加
                 
                   <a href="/archives">
                 
-                    <span class="site-state-item-count">234</span>
+                    <span class="site-state-item-count">240</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -1253,7 +1253,17 @@ leds {                            &lt;----------------------在这里加
                     
                       
                     
-                    <span class="site-state-item-count">125</span>
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">130</span>
                     <span class="site-state-item-name">categories</span>
                   </a>
                 </div>

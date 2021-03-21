@@ -115,7 +115,7 @@
 <meta property="og:site_name" content="Semiyd&#39;s Blog">
 <meta property="og:description" content="系统调用API">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2020-07-12T13:14:08.787Z">
+<meta property="og:updated_time" content="2021-03-21T07:43:09.788Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="系统调用API">
 <meta name="twitter:description" content="系统调用API">
@@ -339,7 +339,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2020-07-12 21:14:08" itemprop="dateModified" datetime="2020-07-12T21:14:08+08:00">2020-07-12</time>
+                <time title="Modified: 2021-03-21 15:43:09" itemprop="dateModified" datetime="2021-03-21T15:43:09+08:00">2021-03-21</time>
               
             
           </span>
@@ -415,8 +415,9 @@ cmd就是最终传给驱动里面的ioctl()的cmd参数，而...对应驱动里�
     int (*ioctl) (struct inode *inode, struct file *filp,
                   unsigned int cmd, unsigned long arg);
 除了需要给出cmd以外，...可用来传送具体的数值。
-cmd不是简单的随便起的数字。被分为了4个段
-8bit幻数+8bit序数+2bit传输方向+14bit数据大小
+cmd不是简单的随便起的数字。被分为了4个段。详见《内核ioctl函数的cmd宏参数》)
+8bit幻数+8bit序数+2bit传输方向+14bit数据大小(注意，数据大小，取决于驱动私有结构体的size。换句话说，如果驱动里面的结构体新增的成员，
+其cmd的值就需要更新，否则之前的app所调用的cmd是无法被驱动正确识别的）
 理论上说，要求8bit幻数唯一，以和别的驱动相区分。但实际上因为驱动众多，幻数早就差不多用完了。所以随便用一个幻数也可。
 幻数通常会用一个字符来表示。比如这个H字符：
     #define HF_IOC_MAGIC  &apos;H&apos;
@@ -767,7 +768,7 @@ pgprot_noncached()实际上同时禁止了cache和write buffer。
                 
                   <a href="/archives">
                 
-                    <span class="site-state-item-count">234</span>
+                    <span class="site-state-item-count">240</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -1030,7 +1031,17 @@ pgprot_noncached()实际上同时禁止了cache和write buffer。
                     
                       
                     
-                    <span class="site-state-item-count">125</span>
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">130</span>
                     <span class="site-state-item-name">categories</span>
                   </a>
                 </div>
