@@ -115,7 +115,7 @@
 <meta property="og:site_name" content="Semiyd&#39;s Blog">
 <meta property="og:description" content="ALSA audio protocol">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-08-05T03:28:29.026Z">
+<meta property="og:updated_time" content="2024-02-25T14:08:59.244Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="ALSA audio protocol">
 <meta name="twitter:description" content="ALSA audio protocol">
@@ -322,12 +322,24 @@
                 
               
 
-              <time title="Created: 2018-08-05 11:26:17 / Modified: 11:28:29" itemprop="dateCreated datePublished" datetime="2018-08-05T11:26:17+08:00">2018-08-05</time>
+              <time title="Created: 2018-08-05 11:26:17" itemprop="dateCreated datePublished" datetime="2018-08-05T11:26:17+08:00">2018-08-05</time>
             
 
             
               
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2024-02-25 22:08:59" itemprop="dateModified" datetime="2024-02-25T22:08:59+08:00">2024-02-25</time>
               
             
           </span>
@@ -410,6 +422,9 @@
 <p>音频协议很多。包含：<br>AC97，DSPA,DSPB,I2S,LSB justified,MSB justified,PCM<br>但这些协议大同小异</p>
 <p>目前涉及过的协议是i2s和lsb-j<br>这两种协议横向比较，基本相同。<br>相同点：<br>1.都是下降沿打数据，上升沿采样。<br>不同点：<br>1.i2s一上来wclk是用低电平（左声道。此时bclk是下降来来临）表示数据传输的开始。lsb-j一上来wclk是用高电平（左声道.此时bclk是下降来来临）表示数据传输的开始。<br>2.i2s在bclk数据传输开始的那个下降沿来临后，要多等一个周期，才开始打数据/采数据。lsb-j，在在bclk数据传输开始的那个下降沿来临后，要马上打数据，因为紧接着下一个bclk上升沿，就要采数据了。</p>
 <p>至于dsp协议，比较特殊的地方在于，wclk的宽度，不是和整个数据位宽一致，而是一个bit的脉冲。来一次脉冲，意味着接下来要传输完左右声道两组数据。</p>
+<p>多通道的wav文件格式：<br>参考《Multichannel PCM WAV file format for 24 bit 48 kHz 5.1 Multichannel WAV file》<br>先按照声道由左到右的顺序（slot1~8）一次把当前这次采样点的数据填完，然后再填下一个采样点。</p>
+<p>多通道软件拼接方式：<br>见Asoundrc - AlsaProject.pdf的Virtual multi channel devices章</p>
+<p>TDM bclk/采样率/slot数的关系：<br>256fs其实就是256<em>fs.fs的意思sample rate，256是每次采样，总的bit数：<br>例如256可以是tdm的32bit 8slot,即256=32</em>8<br>所以256fs=256<em>fs即bclk的频率，即1秒内，总共多少个bit。<br>例如fs=48khz，此时bit clock应该是48khz </em> 8 slot * 32bit = 12.288mhz</p>
 
       
     </div>
@@ -510,7 +525,7 @@
                 
                   <a href="/archives">
                 
-                    <span class="site-state-item-count">246</span>
+                    <span class="site-state-item-count">252</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>

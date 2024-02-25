@@ -115,7 +115,7 @@
 <meta property="og:site_name" content="Semiyd&#39;s Blog">
 <meta property="og:description" content="dapm笔记">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2020-07-12T13:07:11.947Z">
+<meta property="og:updated_time" content="2024-02-25T13:59:13.619Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="笔记dapm">
 <meta name="twitter:description" content="dapm笔记">
@@ -322,12 +322,24 @@
                 
               
 
-              <time title="Created: 2020-07-12 21:06:50 / Modified: 21:07:11" itemprop="dateCreated datePublished" datetime="2020-07-12T21:06:50+08:00">2020-07-12</time>
+              <time title="Created: 2020-07-12 21:06:50" itemprop="dateCreated datePublished" datetime="2020-07-12T21:06:50+08:00">2020-07-12</time>
             
 
             
               
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2024-02-25 21:59:13" itemprop="dateModified" datetime="2024-02-25T21:59:13+08:00">2024-02-25</time>
               
             
           </span>
@@ -494,7 +506,7 @@ struct list_head list;
 </code></pre><p> struct snd_soc_dobj dobj;<br>};<br>sink指向到达端widget的名字字符串，source指向起始端widget的名字字符串，control指向负责控制该连接所对应的kcontrol名字字符串，<br>connected回调则定义了上一节所提到的自定义连接检查回调函数。<br>该结构的意义很明显就是：source通过一个kcontrol，和sink连接在一起，现在是否处于连接状态，请调用connected回调函数检查。<br>所有定义好的route,通过snd_soc_dapm_add_route()注册到系统中，在snd_soc_dapm_add_route()的结尾，会调用snd_soc_dapm_add_path()<br>动态地生成所需要的snd_soc_dapm_path结构。<br>所以逻辑上的关系是：<br>先有snd_soc_dapm_route -&gt; 再自动生成snd_soc_dapm_path<br>所以snd_soc_dapm_route一般是codec驱动中，自己定义的。<br>而snd_soc_dapm_path不用特别去定义，由DAPM代码搞定。<br>所以route表示连接。path也表示连接。但作为写代码的人，只顾着定义route就完事了。</p>
 </li>
 </ul>
-<p>=============================================DAPM的实战操作：定义widget和route=======================================================<br>和普通的kcontrol一样，DAPM框架为我们提供了大量的辅助宏用来定义各种各样的widget控件<br>这里还是以wm9713.c的定义为例，此处用代码执行的顺序去分析，这样逻辑比较顺。<br>首先，在snd_soc_component_driver中，定义了dapm_widgets和dapm_routes这两个结构体数组成员。<br>static const struct snd_soc_component_driver soc_component_dev_wm9713 = {<br>…<br>    .dapm_widgets        = wm9713_dapm_widgets,<br>    .dapm_routes        = wm9713_audio_map,<br>…<br>};<br>然后看下routes的定义：(顺序：sink-control-source)<br>static const struct snd_soc_dapm_route wm9713_audio_map[] = {<br>    /<em> left HP mixer </em>/<br>    {“Left HP Mixer”, “Beep Playback Switch”,    “PCBEEP”},<br>    {“Left HP Mixer”, “Voice Playback Switch”,   “Voice DAC”},<br>    {“Left HP Mixer”, “Aux Playback Switch”,     “Aux DAC”},<br>    {“Left HP Mixer”, “Bypass Playback Switch”,  “Left Line In”},<br>    {“Left HP Mixer”, “PCM Playback Switch”,     “Left DAC”},<br>    {“Left HP Mixer”, “MonoIn Playback Switch”,  “Mono In”},<br>    {“Left HP Mixer”, NULL,  “Capture Headphone Mux”},</p>
+<p>=============================================DAPM的实战操作1：定义widget和route=======================================================<br>和普通的kcontrol一样，DAPM框架为我们提供了大量的辅助宏用来定义各种各样的widget控件<br>这里还是以wm9713.c的定义为例，此处用代码执行的顺序去分析，这样逻辑比较顺。<br>首先，在snd_soc_component_driver中，定义了dapm_widgets和dapm_routes这两个结构体数组成员。<br>static const struct snd_soc_component_driver soc_component_dev_wm9713 = {<br>…<br>    .dapm_widgets        = wm9713_dapm_widgets,<br>    .dapm_routes        = wm9713_audio_map,<br>…<br>};<br>然后看下routes的定义：(顺序：sink-control-source)<br>static const struct snd_soc_dapm_route wm9713_audio_map[] = {<br>    /<em> left HP mixer </em>/<br>    {“Left HP Mixer”, “Beep Playback Switch”,    “PCBEEP”},<br>    {“Left HP Mixer”, “Voice Playback Switch”,   “Voice DAC”},<br>    {“Left HP Mixer”, “Aux Playback Switch”,     “Aux DAC”},<br>    {“Left HP Mixer”, “Bypass Playback Switch”,  “Left Line In”},<br>    {“Left HP Mixer”, “PCM Playback Switch”,     “Left DAC”},<br>    {“Left HP Mixer”, “MonoIn Playback Switch”,  “Mono In”},<br>    {“Left HP Mixer”, NULL,  “Capture Headphone Mux”},</p>
 <pre><code>/* right HP mixer */
 {&quot;Right HP Mixer&quot;, &quot;Beep Playback Switch&quot;,    &quot;PCBEEP&quot;},
 {&quot;Right HP Mixer&quot;, &quot;Voice Playback Switch&quot;,   &quot;Voice DAC&quot;},
@@ -655,6 +667,12 @@ struct list_head list;
 <p>connect究竟是哪里赋值的？如何设定的complete path??        &lt;&lt;&lt;—i’m here<br>1.sink，NULL，soure：其表示他们肯定是连接在一起的，由他们构造出来的path，其成员connect一直为1。<br>例如：{“IN1P”, NULL, “LDO”},</p>
 <p>具体到linux的环境中，音频通路的动态切换，是怎么和这里定义的route联系起来的？    参考    笔记-音频通路配置.txt</p>
 <p>tinymix可以看到kcontrol的状态，和route的通断情况。如下：<br>ctl     type    num     name                                     value<br>0       ENUM    1       DL1 Equalizer                            Flat response<br>1       ENUM    1       DL2 Left Equalizer                       450Hz High-pass<br>2       ENUM    1       DL2 Right Equalizer                      450Hz High-pass<br>3       ENUM    1       Sidetone Equalizer                       Flat response<br>4       ENUM    1       AMIC Equalizer                           High-pass 0dB<br>5       ENUM    1       DMIC Equalizer                           High-pass 0dB<br>6       INT     1       DL1 Media Playback Volume                120<br>7       INT     1       DL1 Tones Playback Volume                0<br>8       INT     1       DL1 Voice Playback Volume                120<br>9       INT     1       DL1 Capture Playback Volume              0<br>10      INT     1       DL2 Media Playback Volume                120<br>11      INT     1       DL2 Tones Playback Volume                0<br>12      INT     1       DL2 Voice Playback Volume                120<br>13      INT     1       DL2 Capture Playback Volume              0<br>14      INT     1       VXREC Media Volume                       0<br>15      INT     1       VXREC Tones Volume                       0<br>16      INT     1       VXREC Voice DL Volume                    0<br>17      INT     1       VXREC Voice UL Volume                    0<br>18      INT     1       AUDUL Media Volume                       0<br>19      INT     1       AUDUL Tones Volume                       0<br>20      INT     1       AUDUL Voice UL Volume                    120<br>21      INT     1       AUDUL Voice DL Volume                    0<br>22      INT     1       SDT UL Volume                            103<br>23      INT     1       SDT DL Volume                            120<br>24      INT     2       DMIC1 UL Volume                          120 120<br>25      INT     2       DMIC2 UL Volume                          120 120<br>26      INT     2       DMIC3 UL Volume                          120 120<br>27      INT     2       AMIC UL Volume                           120 120<br>28      INT     2       BT UL Volume                             120 120<br>29      BOOL    1       DL1 Mono Mixer                           Off<br>30      BOOL    1       DL2 Mono Mixer                           On<br>31      BOOL    1       AUDUL Mono Mixer                         Off<br>32      BOOL    1       DL1 MM_EXT Switch                        Off<br>33      BOOL    1       DL1 BT_VX Switch                         Off<br>34      BOOL    1       DL1 PDM Switch                           Off<br>35      BOOL    1       Sidetone Mixer Capture                   Off<br>36      BOOL    1       Sidetone Mixer Playback                  On<br>37      BOOL    1       Capture Mixer Tones                      Off<br>38      BOOL    1       Capture Mixer Voice Playback             Off<br>39      BOOL    1       Capture Mixer Voice Capture              Off<br>40      BOOL    1       Capture Mixer Media Playback             Off<br>41      BOOL    1       Voice Capture Mixer Tones Playback       Off<br>42      BOOL    1       Voice Capture Mixer Media Playback       Off<br>43      BOOL    1       Voice Capture Mixer Capture              Off<br>44      BOOL    1       DL2 Mixer Tones                          Off<br>45      BOOL    1       DL2 Mixer Voice                          Off<br>46      BOOL    1       DL2 Mixer Capture                        Off<br>47      BOOL    1       DL2 Mixer Multimedia                     On<br>48      BOOL    1       DL1 Mixer Tones                          Off<br>49      BOOL    1       DL1 Mixer Voice                          Off<br>50      BOOL    1       DL1 Mixer Capture                        Off<br>51      BOOL    1       DL1 Mixer Multimedia                     Off</p>
+<p>============================================DAPM的实战操作2：simple card添加dapm=======================================================<br>背景：<br>声卡用的是simple-card.c即linux标准声卡。<br>pa需要被alsa管理，作为dapm的组件注册进去。<br>解决办法：<br>1.dts里面添加设置：<br>simple-audio-card, widgets = “Speaker”, “Speaker”;<br>simple-audio-card, routing =<br>    “Speaker”, “PA VO”,<br>    “PA IN”, “ADC ROUT”;<br>simple-audio-card, aux-devs = &lt;&amp;audio_aw87519_pa&gt;;<br>simple-audio-card, dai-link@0 {<br>    reg = <0>;<br>    format = “i2s”;<br>    cpu {<br>        sound-dai = &lt;&amp;i2s1 0&gt;;<br>    };<br>    codec {<br>        sound-dai = &lt;&amp;es8156&gt;;<br>    };<br>}<br>simple-audio-card, widgets的格式见devicetree/bindings/sound/widgets.txt<br>涉及的widget由simple_parse_of-&gt;asoc_simple_parse_widgets-&gt;snd_soc_of_parse_audio_simple_widgets和simple_widgets[]做匹配。<br>simple-audio-card,routing的格式是“sink”,”source”。以上表示codec es8156的rout输出给pa的in脚，pa的out脚给speaker。<br>simple-audio-card, aux-devs引用了功放的i2c节点。<br>audio_aw87519_pa: amp@58 {<br>    compatible = “awinic, aw87519_pa”;<br>    reg = <0x58>;<br>    sound-name-prefix = “AW87519”;<br>    status = “okay”;<br>}<br>simple card初始化的时候会把aux设备注册到alsa：<br>snd_soc_register_card-&gt;snd_soc_bind_card-&gt;soc_bind_aux_dev-&gt;snd_soc_component_set_aux<br>2.pa驱动增加devm_snd_soc_register_component注册aw87519_component_driver<br>static const struct snd_soc_component_driver aw87519_component_driver = {<br>    .name = “aw87519”;<br>    .probe = aw87519_component_probe;<br>    .dapm_widgets = aw87519_dapm_widgets,<br>    .num_dapm_widgets = ARRAY_SIZE(aw87519_dapm_widgets),<br>    .dapm_routes = aw87519_dapm_routes,<br>    .num_dapm_routes = ARRAY_SIZE(aw87519_dapm_routes),<br>}<br>alsa要求注册进来的component，要么支持regmap，要么支持driver-&gt;read/write才能使用，所以增加i2c的regmap接口。<br>并且pa要注册SND_SOC_DAPM_SUPPLY的回调函数，在SND_SOC_DAPM_PRE_PMU | SND_SOC_DAPM_POST_PMD也就是上电和下电都被alsa通知：<br>static const struct snd_soc_dapm_widget aw87519_dapm_widgets[] = {<br>    …<br>    SND_SOC_DAPM_SUPPLY(“Power”, SND_SOC_NOPM, 0, 0, aw87519_power_event, SND_SOC_DAPM_PRE_PMU | SND_SOC_DAPM_POST_PMD),<br>}<br>static int aw87519_power_event(struct snd_soc_dapm_widget <em>w,<br>    struct snd_kcontrol </em>kctrl, int event)<br>{<br>    if (SND_SOC_DAPM_EVENT_ON(event)) {<br>        //开pa<br>    } else {<br>        //关pa<br>    }<br>}<br>3.dts里面，涉及音频的节点，加上sound-name-prefix：<br>es8156_audio_codec: es8156@8 {</0x58></0></p>
+<pre><code>#sound-dai-cells = &lt;0&gt;;
+compatible = &quot;everest, es8156&quot;;
+reg = &lt;0x08&gt;;
+sound-name-prefix = &quot;ES8156&quot;;
+</code></pre><p>}<br>刚才的simple-audio-card, routing就可以加上这个prefix，变的容易阅读，例如上述的”ES8156 ROUT”。并且amix查询控件的时候，alsa也会自动把prefix拼接上去，例如：<br>amixer -c 0 set ‘ES8156 DAC’ 50%，原先是amixer -c 0 set ‘DAC’ 50%。（kcontrol控件名是DAC）</p>
 
       
     </div>
@@ -755,7 +773,7 @@ struct list_head list;
                 
                   <a href="/archives">
                 
-                    <span class="site-state-item-count">246</span>
+                    <span class="site-state-item-count">252</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>

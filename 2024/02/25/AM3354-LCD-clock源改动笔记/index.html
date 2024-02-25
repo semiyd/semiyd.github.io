@@ -1,0 +1,1087 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.3.0" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.3.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.3.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.3.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.3.0" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '6.3.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="AM3354 LCD clock源改动笔记">
+<meta property="og:type" content="article">
+<meta property="og:title" content="AM3354 LCD clock源改动笔记">
+<meta property="og:url" content="http://yoursite.com/2024/02/25/AM3354-LCD-clock源改动笔记/index.html">
+<meta property="og:site_name" content="Semiyd&#39;s Blog">
+<meta property="og:description" content="AM3354 LCD clock源改动笔记">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2024-02-25T14:13:43.938Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="AM3354 LCD clock源改动笔记">
+<meta name="twitter:description" content="AM3354 LCD clock源改动笔记">
+
+
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2024/02/25/AM3354-LCD-clock源改动笔记/"/>
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>AM3354 LCD clock源改动笔记 | Semiyd's Blog</title>
+  
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Semiyd's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br />Home</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+    <a href="/categories/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-th"></i> <br />Categories</a>
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2024/02/25/AM3354-LCD-clock源改动笔记/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Semiyd">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Semiyd's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">AM3354 LCD clock源改动笔记
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2024-02-25 22:13:09 / Modified: 22:13:43" itemprop="dateCreated datePublished" datetime="2024-02-25T22:13:09+08:00">2024-02-25</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Linux/" itemprop="url" rel="index"><span itemprop="name">Linux</span></a></span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Linux/Kernel/" itemprop="url" rel="index"><span itemprop="name">Kernel</span></a></span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Linux/Kernel/驱动/" itemprop="url" rel="index"><span itemprop="name">驱动</span></a></span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Linux/Kernel/驱动/Clock/" itemprop="url" rel="index"><span itemprop="name">Clock</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><center><strong>AM3354 LCD clock源改动笔记</strong></center><br><a id="more"></a><br>需求：<br>        时钟源改成PER_CLKOUTM2，并且把原来的lcd时钟源关闭<br>根据clock33xx_data.c：</p>
+<p>static struct omap_clk am33xx_clks[] = {<br>    CLK(NULL,    “clk_32768_ck”,        &amp;clk_32768_ck,    CK_AM33XX),<br>    CLK(NULL,    “clk_32khz_ck”,        &amp;clk_32khz_ck,    CK_AM33XX),<br>    CLK(NULL,    “clk_rc32k_ck”,        &amp;clk_rc32k_ck,    CK_AM33XX),<br>    CLK(NULL,    “virt_19_2m_ck”,    &amp;virt_19_2m_ck,    CK_AM33XX),<br>    CLK(NULL,    “virt_24m_ck”,        &amp;virt_24m_ck,    CK_AM33XX),<br>    CLK(NULL,    “virt_25m_ck”,        &amp;virt_25m_ck,    CK_AM33XX),<br>    CLK(NULL,    “virt_26m_ck”,        &amp;virt_26m_ck,    CK_AM33XX),<br>    CLK(NULL,    “sys_clkin_ck”,        &amp;sys_clkin_ck,    CK_AM33XX),<br>    CLK(NULL,    “tclkin_ck”,        &amp;tclkin_ck,    CK_AM33XX),<br>    CLK(NULL,    “dpll_core_ck”,        &amp;dpll_core_ck,        CK_AM33XX),<br>    CLK(NULL,    “dpll_core_x2_ck”,    &amp;dpll_core_x2_ck,    CK_AM33XX),<br>    CLK(NULL,    “dpll_core_m4_ck”,    &amp;dpll_core_m4_ck,    CK_AM33XX),<br>    CLK(NULL,    “dpll_core_m5_ck”,    &amp;dpll_core_m5_ck,    CK_AM33XX),<br>    CLK(NULL,    “dpll_core_m6_ck”,    &amp;dpll_core_m6_ck,    CK_AM33XX),<br>    CLK(NULL,    “sysclk1_ck”,        &amp;sysclk1_ck,    CK_AM33XX),<br>    CLK(NULL,    “sysclk2_ck”,        &amp;sysclk2_ck,    CK_AM33XX),<br>    CLK(NULL,    “core_clk_out”,        &amp;core_clk_out,    CK_AM33XX),<br>    CLK(NULL,    “clk_32khz_timer”,    &amp;clk_32khz_timer, CK_AM33XX),<br>    CLK(NULL,    “dpll_mpu_ck”,        &amp;dpll_mpu_ck,        CK_AM33XX),<br>    CLK(NULL,    “dpll_mpu_m2_ck”,    &amp;dpll_mpu_m2_ck,    CK_AM33XX),<br>    CLK(NULL,    “mpu_ck”,        &amp;mpu_fck,    CK_AM33XX),<br>    CLK(NULL,    “dpll_ddr_ck”,        &amp;dpll_ddr_ck,        CK_AM33XX),<br>    CLK(NULL,    “dpll_ddr_m2_ck”,    &amp;dpll_ddr_m2_ck,    CK_AM33XX),<br>    CLK(NULL,    “ddr_pll_clk”,        &amp;ddr_pll_clk,    CK_AM33XX),<br>    CLK(NULL,    “emif_fck”,        &amp;emif_fck,    CK_AM33XX),<br>    CLK(NULL,    “emif_fw_fck”,        &amp;emif_fw_fck,    CK_AM33XX),<br>    CLK(NULL,    “dpll_disp_ck”,        &amp;dpll_disp_ck,        CK_AM33XX),<br>    CLK(NULL,    “dpll_disp_m2_ck”,    &amp;dpll_disp_m2_ck,    CK_AM33XX),<br>    CLK(NULL,    “disp_pll_clk”,        &amp;disp_pll_clk,        CK_AM33XX),<br>    CLK(NULL,    “dpll_per_ck”,        &amp;dpll_per_ck,    CK_AM33XX),<br>    CLK(NULL,    “dpll_per_m2_ck”,    &amp;dpll_per_m2_ck,    CK_AM33XX),<br>    CLK(NULL,    “per_192mhz_clk”,    &amp;per_192mhz_clk,    CK_AM33XX),<br>    CLK(NULL,    “usb_pll_clk”,        &amp;usb_pll_clk,        CK_AM33XX),<br>    CLK(NULL,    “core_100mhz_ck”,    &amp;core_100mhz_ck,    CK_AM33XX),<br>    CLK(NULL,    “l3_ick”,        &amp;l3_ick,    CK_AM33XX),<br>    CLK(NULL,    “l3_instr_ick”,        &amp;l3_instr_ick,    CK_AM33XX),<br>    CLK(NULL,    “adc_tsc_fck”,        &amp;adc_tsc_fck,    CK_AM33XX),<br>    CLK(NULL,    “adc_tsc_ick”,        &amp;adc_tsc_ick,    CK_AM33XX),<br>    CLK(NULL,    “aes0_fck”,        &amp;aes0_fck,    CK_AM33XX),<br>    CLK(NULL,    “l4_cefuse_gclk”,    &amp;l4_cefuse_gclk, CK_AM33XX),<br>    CLK(NULL,    “cefuse_fck”,        &amp;cefuse_fck,    CK_AM33XX),<br>    CLK(NULL,    “cefuse_iclk”,        &amp;cefuse_iclk,    CK_AM33XX),<br>    CLK(NULL,    “clkdiv32k_ick”,    &amp;clkdiv32k_ick,    CK_AM33XX),<br>    CLK(NULL,    “control_fck”,        &amp;control_fck,    CK_AM33XX),<br>    CLK(“cpsw.0”,    NULL,            &amp;cpgmac0_ick,    CK_AM33XX),<br>    CLK(“d_can.0”,    “fck”,            &amp;dcan0_fck,    CK_AM33XX),<br>    CLK(“d_can.1”,    “fck”,            &amp;dcan1_fck,    CK_AM33XX),<br>    CLK(“d_can.0”,    “ick”,            &amp;dcan0_ick,    CK_AM33XX),<br>    CLK(“d_can.1”,    “ick”,            &amp;dcan1_ick,    CK_AM33XX),<br>    CLK(NULL,    “debugss_ick”,        &amp;debugss_ick,    CK_AM33XX),<br>    CLK(NULL,    “elm_fck”,        &amp;elm_fck,    CK_AM33XX),<br>    CLK(NULL,    “epwmss0_fck”,        &amp;epwmss0_fck,    CK_AM33XX),<br>    CLK(NULL,    “epwmss1_fck”,        &amp;epwmss1_fck,    CK_AM33XX),<br>    CLK(NULL,    “epwmss2_fck”,        &amp;epwmss2_fck,    CK_AM33XX),<br>    CLK(NULL,    “gpio0_ick”,        &amp;gpio0_ick,    CK_AM33XX),<br>    CLK(NULL,    “gpio1_ick”,        &amp;gpio1_ick,    CK_AM33XX),<br>    CLK(NULL,    “gpio2_ick”,        &amp;gpio2_ick,    CK_AM33XX),<br>    CLK(NULL,    “gpio3_ick”,        &amp;gpio3_ick,    CK_AM33XX),<br>    CLK(NULL,    “gpmc_fck”,        &amp;gpmc_fck,    CK_AM33XX),<br>    CLK(“omap_i2c.1”,    “fck”,        &amp;i2c1_fck,    CK_AM33XX),<br>    CLK(“omap_i2c.1”,    “ick”,        &amp;i2c1_ick,    CK_AM33XX),<br>    CLK(“omap_i2c.2”,    “fck”,        &amp;i2c2_fck,    CK_AM33XX),<br>    CLK(“omap_i2c.2”,    “ick”,        &amp;i2c2_ick,    CK_AM33XX),<br>    CLK(“omap_i2c.3”,    “fck”,        &amp;i2c3_fck,    CK_AM33XX),<br>    CLK(“omap_i2c.3”,    “ick”,        &amp;i2c3_ick,    CK_AM33XX),<br>    CLK(NULL,    “pruss_ocp_gclk”,    &amp;pruss_ocp_gclk,    CK_AM33XX),<br>    CLK(NULL,    “pruss_uart_gclk”,    &amp;pruss_uart_gclk,    CK_AM33XX),<br>    CLK(NULL,    “pruss_iep_gclk”,    &amp;pruss_iep_gclk,    CK_AM33XX),<br>    CLK(NULL,    “ieee5000_fck”,        &amp;ieee5000_fck,    CK_AM33XX),<br>    CLK(NULL,    “l4hs_ick”,        &amp;l4hs_ick,    CK_AM33XX),<br>    CLK(NULL,    “l4wkup_ick”,        &amp;l4wkup_ick,    CK_AM33XX),<br>    CLK(NULL,    “l4fw_ick”,        &amp;l4fw_ick,    CK_AM33XX),<br>    CLK(NULL,    “l4ls_ick”,        &amp;l4ls_ick,    CK_AM33XX),<br>    CLK(“da8xx_lcdc.0”,    NULL,        &amp;lcdc_fck,    CK_AM33XX),<br>    CLK(NULL,    “mailbox0_fck”,        &amp;mailbox0_fck,    CK_AM33XX),<br>    CLK(NULL,    “mcasp1_ick”,        &amp;mcasp0_ick,    CK_AM33XX),<br>    CLK(“davinci-mcasp.0”,    NULL,        &amp;mcasp0_fck,    CK_AM33XX),<br>    CLK(NULL,    “mcasp2_ick”,        &amp;mcasp1_ick,    CK_AM33XX),<br>    CLK(“davinci-mcasp.1”,    NULL,        &amp;mcasp1_fck,    CK_AM33XX),<br>    CLK(NULL,    “mlb_fck”,        &amp;mlb_fck,    CK_AM33XX),<br>    CLK(“omap_hsmmc.0”,    “ick”,        &amp;mmc0_ick,    CK_AM33XX),<br>    CLK(“omap_hsmmc.1”,    “ick”,        &amp;mmc1_ick,    CK_AM33XX),<br>    CLK(“omap_hsmmc.2”,    “ick”,        &amp;mmc2_ick,    CK_AM33XX),<br>    CLK(“omap_hsmmc.0”,    “fck”,        &amp;mmc0_fck,    CK_AM33XX),<br>    CLK(“omap_hsmmc.1”,    “fck”,        &amp;mmc1_fck,    CK_AM33XX),<br>    CLK(“omap_hsmmc.2”,    “fck”,        &amp;mmc2_fck,    CK_AM33XX),<br>    CLK(NULL,    “mmu_fck”,        &amp;mmu_fck,    CK_AM33XX),<br>    CLK(NULL,    “ocmcram_ick”,        &amp;ocmcram_ick,    CK_AM33XX),<br>    CLK(NULL,    “ocpwp_fck”,        &amp;ocpwp_fck,    CK_AM33XX),<br>    CLK(NULL,    “pka_fck”,        &amp;pka_fck,    CK_AM33XX),<br>    CLK(NULL,    “rng_fck”,        &amp;rng_fck,    CK_AM33XX),<br>    CLK(NULL,    “rtc_fck”,        &amp;rtc_fck,    CK_AM33XX),<br>    CLK(NULL,    “rtc_ick”,        &amp;rtc_ick,    CK_AM33XX),<br>    CLK(NULL,    “sha0_fck”,        &amp;sha0_fck,    CK_AM33XX),<br>    CLK(NULL,    “smartreflex0_fck”,    &amp;smartreflex0_fck,    CK_AM33XX),<br>    CLK(NULL,    “smartreflex0_ick”,    &amp;smartreflex0_ick,    CK_AM33XX),<br>    CLK(NULL,    “smartreflex1_fck”,    &amp;smartreflex1_fck,    CK_AM33XX),<br>    CLK(NULL,    “smartreflex1_ick”,    &amp;smartreflex1_ick,    CK_AM33XX),<br>    CLK(“omap2_mcspi.1”,    “fck”,        &amp;spi0_fck,    CK_AM33XX),<br>    CLK(“omap2_mcspi.2”,    “fck”,        &amp;spi1_fck,    CK_AM33XX),<br>    CLK(“omap2_mcspi.1”,    “ick”,        &amp;spi0_ick,    CK_AM33XX),<br>    CLK(“omap2_mcspi.2”,    “ick”,        &amp;spi1_ick,    CK_AM33XX),<br>    CLK(NULL,    “spinlock_fck”,        &amp;spinlock_fck,    CK_AM33XX),<br>    CLK(NULL,    “gpt0_fck”,        &amp;timer0_fck,    CK_AM33XX),<br>    CLK(NULL,    “gpt1_fck”,        &amp;timer1_fck,    CK_AM33XX),<br>    CLK(NULL,    “gpt2_fck”,        &amp;timer2_fck,    CK_AM33XX),<br>    CLK(NULL,    “gpt3_fck”,        &amp;timer3_fck,    CK_AM33XX),<br>    CLK(NULL,    “gpt4_fck”,        &amp;timer4_fck,    CK_AM33XX),<br>    CLK(NULL,    “gpt5_fck”,        &amp;timer5_fck,    CK_AM33XX),<br>    CLK(NULL,    “gpt6_fck”,        &amp;timer6_fck,    CK_AM33XX),<br>    CLK(NULL,    “gpt7_fck”,        &amp;timer7_fck,    CK_AM33XX),<br>    CLK(“da8xx_lcdc.0”,    “lcdc_ick”,    &amp;lcdc_ick,    CK_AM33XX),<br>    CLK(NULL,    “tpcc_ick”,        &amp;tpcc_ick,    CK_AM33XX),<br>    CLK(NULL,    “tptc0_ick”,        &amp;tptc0_ick,    CK_AM33XX),<br>    CLK(NULL,    “tptc1_ick”,        &amp;tptc1_ick,    CK_AM33XX),<br>    CLK(NULL,    “tptc2_ick”,        &amp;tptc2_ick,    CK_AM33XX),<br>    CLK(NULL,    “uart1_fck”,        &amp;uart1_fck,    CK_AM33XX),<br>    CLK(NULL,    “uart2_fck”,        &amp;uart2_fck,    CK_AM33XX),<br>    CLK(NULL,    “uart3_fck”,        &amp;uart3_fck,    CK_AM33XX),<br>    CLK(NULL,    “uart4_fck”,        &amp;uart4_fck,    CK_AM33XX),<br>    CLK(NULL,    “uart5_fck”,        &amp;uart5_fck,    CK_AM33XX),<br>    CLK(NULL,    “uart6_fck”,        &amp;uart6_fck,    CK_AM33XX),<br>    CLK(NULL,    “uart1_ick”,        &amp;uart1_ick,    CK_AM33XX),<br>    CLK(NULL,    “uart2_ick”,        &amp;uart2_ick,    CK_AM33XX),<br>    CLK(NULL,    “uart3_ick”,        &amp;uart3_ick,    CK_AM33XX),<br>    CLK(NULL,    “uart4_ick”,        &amp;uart4_ick,    CK_AM33XX),<br>    CLK(NULL,    “uart5_ick”,        &amp;uart5_ick,    CK_AM33XX),<br>    CLK(NULL,    “uart6_ick”,        &amp;uart6_ick,    CK_AM33XX),<br>    CLK(NULL,    “usbotg_ick”,        &amp;usbotg_ick,    CK_AM33XX),<br>    CLK(NULL,    “usbotg_fck”,        &amp;usbotg_fck,    CK_AM33XX),<br>    CLK(NULL,    “wdt0_ick”,        &amp;wdt0_ick,    CK_AM33XX),<br>    CLK(NULL,    “wdt0_fck”,        &amp;wdt0_fck,    CK_AM33XX),<br>    CLK(NULL,    “wdt1_ick”,        &amp;wdt1_ick,    CK_AM33XX),<br>    CLK(NULL,    “wdt1_fck”,        &amp;wdt1_fck,    CK_AM33XX),<br>    CLK(NULL,    “wkup_m3_fck”,        &amp;wkup_m3_fck,    CK_AM33XX),<br>    CLK(NULL,    “l3_aon_gclk”,        &amp;l3_aon_gclk,        CK_AM33XX),<br>    CLK(NULL,    “l4_wkup_aon_gclk”,    &amp;l4_wkup_aon_gclk,    CK_AM33XX),<br>    CLK(NULL,    “l4_rtc_gclk”,        &amp;l4_rtc_gclk,        CK_AM33XX),<br>    CLK(NULL,    “l3_gclk”,        &amp;l3_gclk,        CK_AM33XX),<br>    CLK(NULL,    “gfx_l3_gclk”,        &amp;gfx_l3_gclk,        CK_AM33XX),<br>    CLK(NULL,    “l4_wkup_gclk”,        &amp;l4_wkup_gclk,        CK_AM33XX),<br>    CLK(NULL,    “l4hs_gclk”,        &amp;l4hs_gclk,        CK_AM33XX),<br>    CLK(NULL,    “l3s_gclk”,        &amp;l3s_gclk,        CK_AM33XX),<br>    CLK(NULL,    “l4fw_gclk”,        &amp;l4fw_gclk,        CK_AM33XX),<br>    CLK(NULL,    “l4ls_gclk”,        &amp;l4ls_gclk,        CK_AM33XX),<br>    CLK(NULL,    “debug_clka_gclk”,    &amp;debug_clka_gclk,    CK_AM33XX),<br>    CLK(NULL,    “clk_24mhz”,        &amp;clk_24mhz,        CK_AM33XX),<br>    CLK(NULL,    “sysclk_div_ck”,    &amp;sysclk_div_ck,        CK_AM33XX),<br>    CLK(NULL,    “cpsw_250mhz_clk”,    &amp;cpsw_250mhz_clk,    CK_AM33XX),<br>    CLK(NULL,    “cpsw_125mhz_gclk”,    &amp;cpsw_125mhz_gclk,    CK_AM33XX),<br>    CLK(NULL,    “cpsw_50mhz_clk”,    &amp;cpsw_50mhz_clk,    CK_AM33XX),<br>    CLK(NULL,    “cpsw_5mhz_clk”,    &amp;cpsw_5mhz_clk,        CK_AM33XX),<br>    CLK(NULL,    “cpsw_cpts_rft_clk”,    &amp;cpsw_cpts_rft_clk,    CK_AM33XX),<br>    CLK(NULL,    “gpio0_dbclk_mux_ck”,    &amp;gpio0_dbclk_mux_ck,    CK_AM33XX),<br>    CLK(NULL,    “gpio0_dbclk”,        &amp;gpio0_dbclk,        CK_AM33XX),<br>    CLK(NULL,    “gpio1_dbclk”,        &amp;gpio1_dbclk,        CK_AM33XX),<br>    CLK(NULL,    “gpio2_dbclk”,        &amp;gpio2_dbclk,        CK_AM33XX),<br>    CLK(NULL,    “gpio3_dbclk”,        &amp;gpio3_dbclk,        CK_AM33XX),<br>    CLK(NULL,    “lcd_gclk”,        &amp;lcd_gclk,        CK_AM33XX),<br>    CLK(NULL,    “mmc_clk”,        &amp;mmc_clk,        CK_AM33XX),<br>    CLK(NULL,    “gfx_fclk_clksel_ck”,    &amp;gfx_fclk_clksel_ck,    CK_AM33XX),<br>    CLK(NULL,    “gfx_fclk”,        &amp;gfx_fclk,        CK_AM33XX),<br>    CLK(NULL,    “gfx_ick”,        &amp;gfx_ick,        CK_AM33XX),<br>    CLK(NULL,    “sysclkout_pre_ck”,    &amp;sysclkout_pre_ck,    CK_AM33XX),<br>    CLK(NULL,    “clkout2_ck”,        &amp;clkout2_ck,        CK_AM33XX),<br>    CLK(NULL,    “gpt0_ick”,        &amp;timer0_ick,        CK_AM33XX),<br>    CLK(NULL,    “gpt1_ick”,        &amp;timer1_ick,        CK_AM33XX),<br>    CLK(NULL,    “gpt2_ick”,        &amp;timer2_ick,        CK_AM33XX),<br>    CLK(NULL,    “gpt3_ick”,        &amp;timer3_ick,        CK_AM33XX),<br>    CLK(NULL,    “gpt4_ick”,        &amp;timer4_ick,        CK_AM33XX),<br>    CLK(NULL,    “gpt5_ick”,        &amp;timer5_ick,        CK_AM33XX),<br>    CLK(NULL,    “gpt6_ick”,        &amp;timer6_ick,        CK_AM33XX),<br>    CLK(NULL,    “gpt7_ick”,        &amp;timer7_ick,        CK_AM33XX),<br>    CLK(NULL,    “vtp_clk”,        &amp;vtp_clk,        CK_AM33XX),<br>    CLK(NULL,    “ehrpwm0_tbclk”,    &amp;ehrpwm0_tbclk,    CK_AM33XX),<br>    CLK(NULL,    “ehrpwm1_tbclk”,    &amp;ehrpwm1_tbclk,    CK_AM33XX),<br>    CLK(NULL,    “ehrpwm2_tbclk”,    &amp;ehrpwm2_tbclk,    CK_AM33XX),<br>};</p>
+<p>int __init am33xx_clk_init(void)<br>{<br>    struct omap_clk *c;<br>    u32 cpu_clkflg;</p>
+<pre><code>if (cpu_is_am33xx()) {
+    cpu_mask = RATE_IN_AM33XX;
+    cpu_clkflg = CK_AM33XX;
+}
+
+clk_init(&amp;omap2_clk_functions);
+
+for (c = am33xx_clks; c &lt; am33xx_clks + ARRAY_SIZE(am33xx_clks); c++)
+    clk_preinit(c-&gt;lk.clk);
+
+for (c = am33xx_clks; c &lt; am33xx_clks + ARRAY_SIZE(am33xx_clks); c++)
+    if (c-&gt;cpu &amp; cpu_clkflg) {
+        clkdev_add(&amp;c-&gt;lk);
+        clk_register(c-&gt;lk.clk);
+        omap2_init_clk_clkdm(c-&gt;lk.clk);
+    }
+
+recalculate_root_clocks();
+
+/*
+ * Only enable those clocks we will need, let the drivers
+ * enable other clocks as necessary
+ */
+clk_enable_init_clocks();
+
+return 0;
+</code></pre><p>}</p>
+<pre><code>&quot;da8xx_lcdc.0&quot;对应lcdc_fck和lcdc_ick。而am33xx_lcdc_hwmod指定了，.main_clk    = &quot;lcdc_fck&quot;,
+</code></pre><p>static struct omap_hwmod am33xx_lcdc_hwmod = {<br>    .name        = “lcdc”,<br>    .class        = &amp;am33xx_lcdc_hwmod_class,<br>    .clkdm_name    = “lcdc_clkdm”,<br>    .mpu_irqs    = am33xx_lcdc_irqs,<br>    .main_clk    = “lcdc_fck”,<br>    .prcm        = {<br>        .omap4    = {<br>            .clkctrl_offs    = AM33XX_CM_PER_LCDC_CLKCTRL_OFFSET,<br>            .modulemode    = MODULEMODE_SWCTRL,<br>        },<br>    },<br>    .slaves        = am33xx_lcdc_slaves,<br>    .slaves_cnt    = ARRAY_SIZE(am33xx_lcdc_slaves),<br>    .flags        = (HWMOD_SWSUP_SIDLE | HWMOD_SWSUP_MSTANDBY),<br>};</p>
+<pre><code>所以实际使用的应该是lcdc_fck
+</code></pre><p>static struct clk lcdc_fck = {<br>    .name        = “lcdc_fck”,<br>    .clkdm_name    = “lcdc_clkdm”,<br>    .parent        = &amp;lcd_gclk,<br>    .enable_reg    = AM33XX_CM_PER_LCDC_CLKCTRL,<br>    .enable_bit    = AM33XX_MODULEMODE_SWCTRL,<br>    .ops        = &amp;clkops_omap2_dflt,<br>    .recalc        = &amp;followparent_recalc,<br>};</p>
+<pre><code>而lcdc_fck的.parent= &amp;lcd_gclk,所以应该看lcd_gclk
+static struct clk lcd_gclk = {
+    .name        = &quot;lcd_gclk&quot;,
+    .parent        = &amp;disp_pll_clk,
+    .init        = &amp;omap2_init_clksel_parent,
+    .clksel        = lcd_clk_mux_sel,
+    .clksel_reg    = AM33XX_CLKSEL_LCDC_PIXEL_CLK,
+    .clksel_mask    = AM33XX_CLKSEL_0_1_MASK,
+    .ops        = &amp;clkops_null,
+    .recalc        = &amp;followparent_recalc,
+};
+lcd_gclk里面有个.clksel = lcd_clk_mux_sel,
+而static const struct clksel lcd_clk_mux_sel[] = {
+    { .parent = &amp;disp_pll_clk, .rates = div_1_0_rates },
+    { .parent = &amp;sysclk2_ck, .rates = div_1_1_rates },
+    { .parent = &amp;per_192mhz_clk, .rates = div_1_2_rates },
+    { .parent = NULL },
+};
+可以看到，其实lcd_gclk也是可以通过lcd_clk_mux_sel[]选择时钟源的。
+结果clkt_clksel.c的omap2_init_clksel_parent()的pr_debug打印出来：
+clock: inited lcd_gclk parent to per_192mhz_clk (was disp_pll_clk)
+</code></pre><p>void omap2_init_clksel_parent(struct clk <em>clk)<br>{<br>    const struct clksel </em>clks;<br>    const struct clksel_rate *clkr;<br>    u32 r, found = 0;</p>
+<pre><code>if (!clk-&gt;clksel || !clk-&gt;clksel_mask)
+    return;
+
+r = __raw_readl(clk-&gt;clksel_reg) &amp; clk-&gt;clksel_mask;
+r &gt;&gt;= __ffs(clk-&gt;clksel_mask);
+
+for (clks = clk-&gt;clksel; clks-&gt;parent &amp;&amp; !found; clks++) {
+    for (clkr = clks-&gt;rates; clkr-&gt;div &amp;&amp; !found; clkr++) {
+        if (!(clkr-&gt;flags &amp; cpu_mask))
+            continue;
+
+        if (clkr-&gt;val == r) {
+            if (clk-&gt;parent != clks-&gt;parent) {
+                pr_debug(&quot;clock: inited %s parent &quot;
+                     &quot;to %s (was %s)\n&quot;,
+                     clk-&gt;name, clks-&gt;parent-&gt;name,
+                     ((clk-&gt;parent) ?
+                      clk-&gt;parent-&gt;name : &quot;NULL&quot;));
+                clk_reparent(clk, clks-&gt;parent);
+            };
+            found = 1;
+        }
+    }
+}
+
+/* This indicates a data error */
+WARN(!found, &quot;clock: %s: init parent: could not find regval %0x\n&quot;,
+     clk-&gt;name, r);
+
+return;
+</code></pre><p>}</p>
+<pre><code>这个结果是这么得来的：
+1.从CLKSEL_LCDC_PIXEL_CLK（见am335x TRM的8.1.12.3.12 CLKSEL_LCDC_PIXEL_CLK Register）寄存器读出当前的lcd的时钟源设置（注意只是读出），有三种选择：
+0x0 = SEL1 : Select DISP PLL CLKOUTM2
+0x1 = SEL2 : Select CORE PLL CLKOUTM5
+0x2 = SEL3 : Select PER PLL CLKOUTM2
+然后读出来是0x2。同时也印证了之前的猜测，就是u-boot-2011，是把per_192mhz_clk作为lcd时钟的。并且内核根本不去主动去设置时钟源。
+只是读到硬件上当前是什么时钟源（由u-boot决定），就依旧照着现有的时钟源继续使用。
+所以clock: inited lcd_gclk parent to per_192mhz_clk (was disp_pll_clk)的意思就是。默认kernel其实是用disp_pll_clk，但因为CLKSEL_LCDC_PIXEL_CLK读出来的是2也就是per_192mhz_clk
+所以调用clk_reparent()改成per_192mhz_clk。
+所以根据目前omap2_init_clksel_parent()的逻辑，只能强制假装CLKSEL_LCDC_PIXEL_CLK读出来的是0。这样就不涉及clk_reparent()了。
+当修改成CLKSEL_LCDC_PIXEL_CLK读出来的是0的时候，clock: inited lcd_gclk parent to per_192mhz_clk (was disp_pll_clk)这句话就消失了。（因为无需clk_reparent()）
+当修改成CLKSEL_LCDC_PIXEL_CLK读出来的是1的时候，打印：clock: inited lcd_gclk parent to sysclk2_ck (was disp_pll_clk)
+</code></pre>
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2024/02/25/alsa数据收发流程和buffer管理/" rel="next" title="alsa数据收发流程和buffer管理">
+                <i class="fa fa-chevron-left"></i> alsa数据收发流程和buffer管理
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2024/02/25/clk的引用计数/" rel="prev" title="clk的引用计数">
+                clk的引用计数 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Semiyd</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives">
+                
+                    <span class="site-state-item-count">252</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">130</span>
+                    <span class="site-state-item-name">categories</span>
+                  </a>
+                </div>
+              
+
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2024</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Semiyd</span>
+
+  
+
+  
+</div>
+
+
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> v3.7.1</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://theme-next.org">NexT.Muse</a> v6.3.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+	
+    
+
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.3.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.3.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.3.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.3.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.3.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -115,7 +115,7 @@
 <meta property="og:site_name" content="Semiyd&#39;s Blog">
 <meta property="og:description" content="系统调用API">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2021-03-21T07:43:09.788Z">
+<meta property="og:updated_time" content="2024-02-25T14:08:07.074Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="系统调用API">
 <meta name="twitter:description" content="系统调用API">
@@ -339,7 +339,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2021-03-21 15:43:09" itemprop="dateModified" datetime="2021-03-21T15:43:09+08:00">2021-03-21</time>
+                <time title="Modified: 2024-02-25 22:08:07" itemprop="dateModified" datetime="2024-02-25T22:08:07+08:00">2024-02-25</time>
               
             
           </span>
@@ -484,11 +484,16 @@ static unsigned drv_poll(struct file *file, poll_table *wait)
         mask |= POLLIN | POLLRDNORM; //表示可读。POLLOUT | POLLWRNORM 表示可写
     return mask;
 }
-驱动接口poll本身不会阻塞进程，只是返回后，系统会根据返回值是否阻塞进程，如阻塞，需求驱动去唤醒（有数据时wake up）。
+驱动接口fops-&gt;poll本身不会阻塞进程，只是返回后，系统会根据返回值是否阻塞进程，如阻塞，需求驱动去唤醒（有数据时wake up）。
 所以进程还是被阻塞，这点和select一样。但是它没有最大连接数的限制，原因是它是基于链表来存储的.
+具体流程是：
+当驱动第一次select这个fd的时候，就会跑一遍drv_poll。此时因为还没数据，mask是0.然后kernel就会把进程阻塞在my_waitq上。
+等驱动通过例如中断拿到数据，wake_up这个my_waitq。进程会再次进入drv_poll。
+此时因为有数据的标志位已经是true，所以会返回POLLIN | POLLRDNORM。进程的select就退出了，然后通过ioctl拿数据。
+拿完后，进程要自己马上再去select。并且这里面有一定的空档期，所以驱动里面一般都要有缓冲队列，否则进程有可能就会漏掉数据。
 有关select()/poll() 的内核实现，参考《select()_poll() 的内核实现.pdf》
 </code></pre><p>epoll<br>    其实就是poll的增强版<br>    当文件描述符数量很大，IO频繁的时候，poll或者select效率会明显下降。<br>    所以主要用于大规模并发的监听很多socket的时候，类似这种服务器程序，需要用epoll()。<br>    epoll最大好处在于不会随着监听fd数目增加，而降低效率。因为select采用轮询方式处理，fd越多，耗时越多。    </p>
-<p>void <em> mmap(void </em>addr,size_t length,int prot, int flags,int fd,off_t offset);<br>    内存映射，简而言之就是将用户空间的一段内存区域映射到内核空间，映射成功后，用户对这段内存区域的修改可以直接反映到内核空间，<br>    同样，内核空间对这段区域的修改也直接反映用户空间。那么对于内核空间<---->用户空间两者之间需要大量数据传输等操作的话效率是非常高的。（相比copy_to_user这种）<br>    mmap并不分配空间, 只是将文件映射到调用进程的地址空间里（但是会占掉你的 virutal memory）, 然后你就可以用memcpy等操作写文件, 而不用write()了.<br>    主要用于和视频，显示有关的应用场景中。<br>    针对void <em> mmap(void </em>addr,size_t length,int prot, int flags,int fd,off_t offset);的详细解释：<br>        1、返回值是映射到用户空间的地址。这是一个通用型指针，这样就保证了各种类型的申请方式。<br>        2、void *addr 是程序员所希望的虚拟地址作为起始映射地址，通常填NULL，内核自动分配。<br>        3、size_t length当然是指需要映射的区域大小。<br>        4、int prot是指对读写权限。<br>            常用的是PROT_EXEC（可执行）,PROT_READ（可读）,PROT_WRITE（可写）,PROT_NONE（不可访问）。<br>        5、int flags主要是指对这段区域的映射方式，主要分为两种方式MAP_SHARE,MAP_PRIVATE.<br>            其中的MAP_SHARE是指对映射区域的写操作会更新到文件中，这样就相当于直接操作文件。这个较为常用。<br>            而MAP_PRIVATE通常采用一种称为”写时保护的机制”实现映射，对映射区的写操作不会更新到文件中，实现方法是将需要被写操作的页复制到重新分配的新页中，然后再对新的页进行写操作。<br>            原来的映射并没有改变，但是读操作并不会重新分配物理内存空间。（这段叨叨了半天，没看懂）<br>        6、int fd是指将被映射的文件描述符<br>        7、off_t offset是指从文件的具体位置开始映射，通常情况下可以设置为0，即从开头映射。<br>    例子代码：</----></p>
+<p>void <em> mmap(void </em>addr,size_t length,int prot, int flags,int fd,off_t offset);<br>    内存映射，简而言之就是将用户空间的一段内存区域映射到内核空间，映射成功后，用户对这段内存区域的修改可以直接反映到内核空间，<br>    同样，内核空间对这段区域的修改也直接反映用户空间。那么对于内核空间<---->用户空间两者之间需要大量数据传输等操作的话效率是非常高的。（相比copy_to_user这种）<br>    mmap并不分配空间, 只是将文件映射到调用进程的地址空间里（但是会占掉你的 virutal memory）, 然后你就可以用memcpy等操作写文件, 而不用write()了.<br>    主要用于和视频，显示有关的应用场景中。<br>    针对void <em> mmap(void </em>addr,size_t length,int prot, int flags,int fd,off_t offset);的详细解释：<br>        1、返回值是映射到用户空间的地址，即用户态虚拟地址（相对应的，还有内核态虚拟地址）。这是一个通用型指针，这样就保证了各种类型的申请方式。<br>        2、void *addr 是程序员所希望的虚拟地址作为起始映射地址，通常填NULL，内核自动分配。<br>        3、size_t length当然是指需要映射的区域大小。<br>        4、int prot是指对读写权限。<br>            常用的是PROT_EXEC（可执行）,PROT_READ（可读）,PROT_WRITE（可写）,PROT_NONE（不可访问）。<br>        5、int flags主要是指对这段区域的映射方式，主要分为两种方式MAP_SHARE,MAP_PRIVATE.<br>            其中的MAP_SHARE是指对映射区域的写操作会更新到文件中，这样就相当于直接操作文件。这个较为常用。<br>            而MAP_PRIVATE通常采用一种称为”写时保护的机制”实现映射，对映射区的写操作不会更新到文件中，实现方法是将需要被写操作的页复制到重新分配的新页中，然后再对新的页进行写操作。<br>            原来的映射并没有改变，但是读操作并不会重新分配物理内存空间。（这段叨叨了半天，没看懂）<br>        6、int fd是指将被映射的文件描述符<br>        7、off_t offset是指从文件的具体位置开始映射，通常情况下可以设置为0，即从开头映射。<br>    mmap用法1：<br>    例子代码：</----></p>
 <pre><code>#include&lt;fcntl.h&gt;
 #include&lt;unistd.h&gt;
 #include&lt;stdio.h&gt;
@@ -596,6 +601,33 @@ int main()
 
     另，还有别的API，是在remap_pfn_range上面又多包了一层。比如io_remap_pfn_range()和vm_iomap_memory()。
 
+
+
+mmap用法2：
+    上面的用法1实现的目的是共享内核态变量给用户态。等于用户态并不能“决定”要把什么映射到用户态，内核态驱动的mmap“决定”了把上面例子中dev-&gt;data给映射给用户态。
+    用法2是指，用户态特别指定要映射某个物理地址，通过mmap传递给内核，内核返回对应的用户态虚拟地址。
+    这个过程其实等于是利用用户态mmap的最后一个参数offset来传递用户态想要映射的物理地址信息。
+    所以操作流程是：
+    用户态：
+        从dts或者其他地方获知想要映射的物理地址
+        mmap(0, size, PROT_READ | PROT_WRITE, MAP_SHARED, fd, phy_addr);
+    内核态：
+        remap_pfn_range(vma, vma-&gt;vm_start, vma-&gt;vm_pgoff, vma-&gt;vm_end-vma-&gt;vm_start, vma-&gt;vm_page_prot)
+        这里vma-&gt;vm_pgoff就是原本用户态mmap的最后一个参数offset的页帧号，也就是用户态指定的物理地址的页帧号
+    4k对齐问题：
+        以上用法有个风险。就是用户态传入想要映射的物理地址的时候，有个隐性要求就是必须是4k对齐的。
+        原因是内核态拿到vma-&gt;vm_pgoff，已经是页帧号的，等于是强制做了4k对齐。
+        如果用户态传入了一个事先4k不对齐的地址，则会被内核4k向下对齐。就会导致映射的范围和预期不符。
+        例如：
+            &lt;-------------实际图片数据范围-------------&gt;
+        &lt;---------4k align down对齐后的起始地址
+        &lt;---------4k align down后的mmap映射范围--&gt;
+        这种情况，如果实在需要映射这个4k不对齐的物理地址，则mmap的映射大小要改大：
+        &lt;---------4k align down后的mmap映射范围----------&gt;
+        然后memcpy拷贝图片数据的实际范围是：
+            &lt;-------------memcpy数据范围-------------&gt;
+
+
 mmap应用实例之framebuffer子系统的设备
     /dev/fb0        major号是29。这个设备其实是drivers/video/fbmem.c这个驱动所注册的字符设备。那么这个字符设备，是写了mmap的函数的。
     这个/dev/fb0，就是上层应用比如qt4会去访问的显示设备。
@@ -666,8 +698,7 @@ pgprot_noncached()实际上同时禁止了cache和write buffer。
 <p>#include &lt;stdio.h&gt;        //包含printf()</p>
 <p>#include &lt;string.h&gt;    //包含strlen()<br>//系统调用诸如open() write() close()等，本身是无需包含任何头文件即可编译的</p>
 <p>#define LENGTH 100<br>void main(void)<br>{<br>    int fd, len;<br>    char str[LENGTH];<br>    fd = open(“hello.txt”, O_CREAT | O_RDWR, S_IRUSR | S_IWUSR);<br>    if(fd)<br>        {<br>            write(fd, “Hello World”, strlen(“Hello World”));<br>            close(fd);<br>        }<br>    fd = open(“hello.txt”, O_RDWR);<br>    len = read(fd, str, LENGTH);<br>    str[len] = ‘\0’;<br>    printf(“%s\n”, str);<br>    close(fd);<br>}</p>
-<p>C库文件操作API：<br>    C库函数的文件操作是独立于具体的操作系统平台的，不管是再DOS、Windows、Linux还是在VxWorks中都是使用这些函数。<br>    FILE <em>fopen(const char </em>filename,const char <em>mode)<br>    size_t fread(void </em>ptr,size_t size,size_t n,FILE <em>stream)<br>    size_t fwrite(const void </em>ptr,size_t size,size_t n,FILE <em>stream)<br>    int fseek(FILE </em>stream,long offset,int whence)<br>    int mkdir(char <em>dir,int mode)            新建目录<br>    char </em>getcwd(char *buffer,size_t size)        获取路径<br>====================================用户空间线程API====================================================<br>pthread_create（依赖c库libpthread？）<br>perror（需要返回值能真正对应实际的错误，比如-ENOMEM等）</p>
-<p>====================================glibc库介绍====================================================<br>参考    Linux\Kernel\学习资料\glibc 各个库作用介绍.pdf</p>
+<p>C库文件操作API：<br>    C库函数的文件操作是独立于具体的操作系统平台的，不管是再DOS、Windows、Linux还是在VxWorks中都是使用这些函数。<br>    FILE <em>fopen(const char </em>filename,const char <em>mode)<br>    size_t fread(void </em>ptr,size_t size,size_t n,FILE <em>stream)<br>    size_t fwrite(const void </em>ptr,size_t size,size_t n,FILE <em>stream)<br>    int fseek(FILE </em>stream,long offset,int whence)<br>    int mkdir(char <em>dir,int mode)            新建目录<br>    char </em>getcwd(char *buffer,size_t size)        获取路径<br>====================================用户空间线程API====================================================<br>pthread_create（依赖c库libpthread？）<br>====================================系统调用调试手段====================================================<br>perror和stderr<br>用法：<br>include &lt;errno.h&gt;<br>perror(“”);<br>strerror(errno);<br>作用：<br>会打印出最后一次系统调用的结果，正确打印Success，错误会打印具体的错误号，比如Operation not permitted<br>但注意，一旦有错以后，perror就不再打印Success，即使后面有成功的系统调用比如open，也会一直打印上一次出错的状态。直到下一次新的错误刷掉当前的错误。<br>====================================file descriptor的补充解释====================================================<br>file descriptor简称fd，最大是1024，对于每个进程。<br>0，1，2都属系统预留值。<br>The system call typically returns the lowest file descriptor that isn’t already in use. For<br>typical programs, open files start at 3 because file descriptors 0, 1 and 2 are used for the preopened standard descriptors (input, output and error).<br>参见《process - AIX open() _ file descriptor is zero (!_)》<br>所以用户分到的fd一般从3开始。<br>如果误操作去close掉0这个fd，结果就是下一个open的任何设备，都会返回fd=0。所以不是fd&lt;0非法，而是fd&lt;3都是非法的。<br>====================================glibc库介绍====================================================<br>参考    Linux\Kernel\学习资料\glibc 各个库作用介绍.pdf</p>
 
       
     </div>
@@ -768,7 +799,7 @@ pgprot_noncached()实际上同时禁止了cache和write buffer。
                 
                   <a href="/archives">
                 
-                    <span class="site-state-item-count">246</span>
+                    <span class="site-state-item-count">252</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>

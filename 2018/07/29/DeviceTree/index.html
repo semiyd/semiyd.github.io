@@ -115,7 +115,7 @@
 <meta property="og:site_name" content="Semiyd&#39;s Blog">
 <meta property="og:description" content="DeviceTree">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2021-03-21T07:45:15.247Z">
+<meta property="og:updated_time" content="2024-02-25T14:00:18.031Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="DeviceTree">
 <meta name="twitter:description" content="DeviceTree">
@@ -339,7 +339,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2021-03-21 15:45:15" itemprop="dateModified" datetime="2021-03-21T15:45:15+08:00">2021-03-21</time>
+                <time title="Modified: 2024-02-25 22:00:18" itemprop="dateModified" datetime="2024-02-25T22:00:18+08:00">2024-02-25</time>
               
             
           </span>
@@ -889,7 +889,7 @@ leds {                            &lt;----------------------在这里加
 <p>c. /sys/devices/platform</p>
 <p>系统中所有的platform_device, 有来自设备树的, 也有来有.c文件中注册的<br>对于来自设备树的platform_device,可以进入 /sys/devices/platform/&lt;设备名&gt;/of_node 查看它的设备树属性（例如进入/sys/devices/platform/led/后若发现该目录下有of_node节点，就表明该platform_device来自设备树）</p>
 <p>d. /proc/device-tree</p>
-<p>是链接文件, 指向 /sys/firmware/devicetree/base<br>========================kernel启动以后查看device tree的配置=============================</p>
+<p>是链接文件, 指向 /sys/firmware/devicetree/base<br>========================kernel启动以后查看device tree的配置=============================<br>========================dts中冒号的作用=============================<br>别名:本名@xxx，被引用时只能引用别名。如果没有冒号，代表只有本名，无法被引用。<br>例如，原先有代码：<br>audio_aw87519_pa@58 {<br>    …<br>}<br>这时候声卡节点中，直接simple-audio-card,aux-devs = &lt;&amp;audio_aw87519_pa&gt;;是编译不过的。要改成：<br>audio_aw87519_pa: amp@58 {<br>    …<br>}<br>========================dts中冒号的作用=============================</p>
 
       
     </div>
@@ -990,7 +990,7 @@ leds {                            &lt;----------------------在这里加
                 
                   <a href="/archives">
                 
-                    <span class="site-state-item-count">246</span>
+                    <span class="site-state-item-count">252</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>

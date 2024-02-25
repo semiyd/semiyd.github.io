@@ -115,7 +115,7 @@
 <meta property="og:site_name" content="Semiyd&#39;s Blog">
 <meta property="og:description" content="perf 笔记">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2021-03-21T07:35:29.787Z">
+<meta property="og:updated_time" content="2024-02-25T13:57:23.272Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="perf">
 <meta name="twitter:description" content="perf 笔记">
@@ -322,12 +322,24 @@
                 
               
 
-              <time title="Created: 2021-03-21 15:34:09 / Modified: 15:35:29" itemprop="dateCreated datePublished" datetime="2021-03-21T15:34:09+08:00">2021-03-21</time>
+              <time title="Created: 2021-03-21 15:34:09" itemprop="dateCreated datePublished" datetime="2021-03-21T15:34:09+08:00">2021-03-21</time>
             
 
             
               
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2024-02-25 21:57:23" itemprop="dateModified" datetime="2024-02-25T21:57:23+08:00">2024-02-25</time>
               
             
           </span>
@@ -407,8 +419,8 @@
 
       
         <p><center><strong>perf 笔记</strong></center><br><a id="more"></a></p>
-<p><code>`</code><br>perf编译<br>menuconfig选上：<br>    General setup  —&gt;Kernel Performance Events And Counters  —&gt;[*] Kernel performance events and counters<br>    CONFIG_FRAME_POINTER=y<br>    CONFIG_HAVE_PERF_EVENTS=y<br>    CONFIG_PERF_USE_VMALLOC=y<br>    CONFIG_PERF_EVENTS=y<br>    CONFIG_DEBUG_PERF_USE_VMALLOC=y<br>    CONFIG_VM_EVENT_COUNTERS=y<br>    CONFIG_PROFILING=y<br>CONFIG_HW_PERF_EVENTS=y(需要CONFIG_CPU_HAS_PMU支持)<br>    然后下载到板子<br>编译zlib<br>编译elfutils<br>    下载elfutils-0.159 elfutils<br>    ./configure –host=arm-linux<br>    make<br>    make install DESTDIR=$PWD/../elfutils-build<br>编译binutils<br>    下载binutils-2.28<br>    mkdir binutils-compile<br>    cd binutils-compile<br>    ../binutils-2.28/configure –target=arm-linux –host=arm-linux<br>    make<br>    make install DESTDIR=$PWD/../binutils-build<br>    cp binutils-compile/libiberty/libiberty.a binutils-build/usr/local/lib/<br>编译perf<br>    修改Makefile：<br>    搜# Define WERROR=0 to disable treating any warnings as errors.<br>    加入WERROR=0<br>    然后改动已有的行：<br>    EXTLIBS = -lpthread -lrt -lelf -lm -lebl -ldl<br>    ALL_CFLAGS = $(CFLAGS) -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64 -I/home/yandong/NDC/06.00.00.00/arm-none-linux-gnueabi-4.9.1/tmp/perf/elfutils-build/usr/local/include -I/home/mgc/embedded/codebench/arm-none-linux-gnueabi/libc/usr/include/ -L/home/yandong/NDC/06.00.00.00/arm-none-linux-gnueabi-4.9.1/tmp/perf/elfutils-build/usr/local/lib -L/home/mgc/embedded/codebench/arm-none-linux-gnueabi/libc/armv7-a-neon/lib/  -L/home/yandong/NDC/06.00.00.00/arm-none-linux-gnueabi-4.9.1/tmp/perf/binutils-build/usr/local/lib/<br>    修改builtin-sched.c加入#include &lt;sys/resource.h&gt;<br>    编译<br>    make LDFLAGS=-static ARCH=arm CROSS_COMPILE=arm-linux- DEBUG=1 HAVE_CPLUS_DEMANGLE=1</p>
-<p>perf使用<br>———————————————————————–pert list——————————————————————————<br>列出所有能够触发 perf 采样点的事件<br>List of pre-defined events (to be used in -e):<br>  cpu-cycles OR cycles                               [Hardware event]<br>  stalled-cycles-frontend OR idle-cycles-frontend    [Hardware event]<br>  stalled-cycles-backend OR idle-cycles-backend      [Hardware event]<br>  instructions                                       [Hardware event]<br>  cache-references                                   [Hardware event]<br>  cache-misses                                       [Hardware event]<br>  branch-instructions OR branches                    [Hardware event]<br>  branch-misses                                      [Hardware event]<br>  bus-cycles                                         [Hardware event]</p>
+<p><strong>perf编译</strong><br>menuconfig选上：<br>    General setup  —&gt;Kernel Performance Events And Counters  —&gt;[*] Kernel performance events and counters<br>    CONFIG_FRAME_POINTER=y<br>    CONFIG_HAVE_PERF_EVENTS=y<br>  CONFIG_PERF_USE_VMALLOC=y<br>  CONFIG_PERF_EVENTS=y<br>  CONFIG_DEBUG_PERF_USE_VMALLOC=y<br>  CONFIG_VM_EVENT_COUNTERS=y<br>  CONFIG_PROFILING=y<br>CONFIG_HW_PERF_EVENTS=y(需要CONFIG_CPU_HAS_PMU支持)<br>    然后下载到板子<br>编译zlib<br>编译elfutils<br>    下载elfutils-0.159 elfutils<br>    ./configure –host=arm-linux<br>    make<br>    make install DESTDIR=$PWD/../elfutils-build<br>编译binutils<br>    下载binutils-2.28<br>    mkdir binutils-compile<br>    cd binutils-compile<br>    ../binutils-2.28/configure –target=arm-linux –host=arm-linux<br>    make<br>    make install DESTDIR=$PWD/../binutils-build<br>    cp binutils-compile/libiberty/libiberty.a binutils-build/usr/local/lib/<br>编译perf<br>    修改Makefile：<br>    搜# Define WERROR=0 to disable treating any warnings as errors.<br>    加入WERROR=0<br>    然后改动已有的行：<br>    EXTLIBS = -lpthread -lrt -lelf -lm -lebl -ldl<br>    ALL_CFLAGS = $(CFLAGS) -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64 -I/home/yandong/NDC/06.00.00.00/arm-none-linux-gnueabi-4.9.1/tmp/perf/elfutils-build/usr/local/include -I/home/mgc/embedded/codebench/arm-none-linux-gnueabi/libc/usr/include/ -L/home/yandong/NDC/06.00.00.00/arm-none-linux-gnueabi-4.9.1/tmp/perf/elfutils-build/usr/local/lib -L/home/mgc/embedded/codebench/arm-none-linux-gnueabi/libc/armv7-a-neon/lib/  -L/home/yandong/NDC/06.00.00.00/arm-none-linux-gnueabi-4.9.1/tmp/perf/binutils-build/usr/local/lib/<br>    修改builtin-sched.c加入#include &lt;sys/resource.h&gt;<br>    编译<br>    make LDFLAGS=-static ARCH=arm CROSS_COMPILE=arm-linux- DEBUG=1 HAVE_CPLUS_DEMANGLE=1</p>
+<p><strong>perf使用</strong><br>———————————————————————–pert list——————————————————————————<br>列出所有能够触发 perf 采样点的事件<br>List of pre-defined events (to be used in -e):<br>  cpu-cycles OR cycles                               [Hardware event]<br>  stalled-cycles-frontend OR idle-cycles-frontend    [Hardware event]<br>  stalled-cycles-backend OR idle-cycles-backend      [Hardware event]<br>  instructions                                       [Hardware event]<br>  cache-references                                   [Hardware event]<br>  cache-misses                                       [Hardware event]<br>  branch-instructions OR branches                    [Hardware event]<br>  branch-misses                                      [Hardware event]<br>  bus-cycles                                         [Hardware event]</p>
 <p>  cpu-clock                                          [Software event]<br>  task-clock                                         [Software event]<br>  page-faults OR faults                              [Software event]<br>  minor-faults                                       [Software event]<br>  major-faults                                       [Software event]<br>  context-switches OR cs                             [Software event]<br>  cpu-migrations OR migrations                       [Software event]<br>  alignment-faults                                   [Software event]<br>  emulation-faults                                   [Software event]</p>
 <p>  L1-dcache-loads                                    [Hardware cache event]<br>  L1-dcache-load-misses                              [Hardware cache event]<br>  L1-dcache-stores                                   [Hardware cache event]<br>  L1-dcache-store-misses                             [Hardware cache event]<br>  L1-dcache-prefetches                               [Hardware cache event]<br>  L1-dcache-prefetch-misses                          [Hardware cache event]<br>  L1-icache-loads                                    [Hardware cache event]<br>  L1-icache-load-misses                              [Hardware cache event]<br>  L1-icache-prefetches                               [Hardware cache event]<br>  L1-icache-prefetch-misses                          [Hardware cache event]<br>  LLC-loads                                          [Hardware cache event]<br>  LLC-load-misses                                    [Hardware cache event]<br>  LLC-stores                                         [Hardware cache event]<br>  LLC-store-misses                                   [Hardware cache event]<br>  LLC-prefetches                                     [Hardware cache event]<br>  LLC-prefetch-misses                                [Hardware cache event]<br>  dTLB-loads                                         [Hardware cache event]<br>  dTLB-load-misses                                   [Hardware cache event]<br>  dTLB-stores                                        [Hardware cache event]<br>  dTLB-store-misses                                  [Hardware cache event]<br>  dTLB-prefetches                                    [Hardware cache event]<br>  dTLB-prefetch-misses                               [Hardware cache event]<br>  iTLB-loads                                         [Hardware cache event]<br>  iTLB-load-misses                                   [Hardware cache event]<br>  branch-loads                                       [Hardware cache event]<br>  branch-load-misses                                 [Hardware cache event]<br>  node-loads                                         [Hardware cache event]<br>  node-load-misses                                   [Hardware cache event]<br>  node-stores                                        [Hardware cache event]<br>  node-store-misses                                  [Hardware cache event]<br>  node-stores                                        [Hardware cache event]<br>  node-store-misses                                  [Hardware cache event]<br>  node-prefetches                                    [Hardware cache event]<br>  node-prefetch-misses                               [Hardware cache event]</p>
 <p>  rNNN (see ‘perf list –help’ on how to encode it)  [Raw hardware event descriptor]</p>
@@ -459,7 +471,7 @@
 <h1 id="For-a-higher-level-overview-try-perf-report-–sort-comm-dso-2"><a href="#For-a-higher-level-overview-try-perf-report-–sort-comm-dso-2" class="headerlink" title="(For a higher level overview, try: perf report –sort comm,dso)"></a>(For a higher level overview, try: perf report –sort comm,dso)</h1><p>#</p>
 <p>———————————————————————–Perf sched———————————————————————–<br>这个需要PMU支持，如果perf list支持sched测试项的话，可以测试各个任务之间调度的详情。可惜我的板子无法看到。</p>
 <p>perf sched record            # low-overhead recording of arbitrary workloads<br>perf sched latency           # output per task latency metrics<br>perf sched map               # show summary/map of context-switching<br>perf sched trace             # output finegrained trace<br>perf sched replay            # replay a captured workload using</p>
-<p>———————————————————————–perf lock———————————————————————–<br>对于锁进行专门分析应该是调优的一项重要工作。<br>这个需要PMU支持，我的板子上显示invalid or unsupported event: ‘lock:lock_acquire’</p>
+<p>详见perf sched for Linux CPU scheduler analysis.pdf<br>———————————————————————–perf lock———————————————————————–<br>对于锁进行专门分析应该是调优的一项重要工作。<br>这个需要PMU支持，我的板子上显示invalid or unsupported event: ‘lock:lock_acquire’</p>
 <p>———————————————————————–perf Kmem———————————————————————–<br>可以用<br>来研究程序在哪里分配了大量内存，或者在什么地方产生碎片之类的和内存管理相<br>关的问题。</p>
 <p>———————————————————————–Perf timechart———————————————————————–<br>也就是perf-timechart命令<br><a href="http://man7.org/linux/man-pages/man1/perf-timechart.1.html" target="_blank" rel="noopener">http://man7.org/linux/man-pages/man1/perf-timechart.1.html</a><br>强大的图形分析工具，perf工具的一部分<br>可惜我们仍然不能用这个工具</p>
 <p>perf timechart record ./loop<br>invalid or unsupported event: ‘power:cpu_frequency’</p>
@@ -573,7 +585,7 @@
                 
                   <a href="/archives">
                 
-                    <span class="site-state-item-count">246</span>
+                    <span class="site-state-item-count">252</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
