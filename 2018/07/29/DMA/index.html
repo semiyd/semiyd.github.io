@@ -115,7 +115,7 @@
 <meta property="og:site_name" content="Semiyd&#39;s Blog">
 <meta property="og:description" content="DMA">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2021-03-21T11:14:41.666Z">
+<meta property="og:updated_time" content="2024-02-25T14:34:30.225Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="DMA">
 <meta name="twitter:description" content="DMA">
@@ -339,7 +339,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2021-03-21 19:14:41" itemprop="dateModified" datetime="2021-03-21T19:14:41+08:00">2021-03-21</time>
+                <time title="Modified: 2024-02-25 22:34:30" itemprop="dateModified" datetime="2024-02-25T22:34:30+08:00">2024-02-25</time>
               
             
           </span>
@@ -437,7 +437,7 @@
     dma_alloc_writecombine(struct device *dev, size_t size, dma_addr_t *handle, gfp_t gfp)
     分配一个dma缓冲区，相比dma_alloc_coherent:
     dma_alloc_writecombine 虽不使用cache，但是使用写缓冲区，相比dma_alloc_coherent性能好些.
-    C B 位的具体含义（C=cache对应读    B=Buffer对应写）
+    C B 位的具体含义（C=cache    B=Buffer）
     0 0 无cache，无写缓冲；任何对memory的读写都反映到总线上。对 memory 的操作过程中CPU需要等待。            这个就是dma_alloc_coherent
     0 1 无cache，有写缓冲；读操作直接反映到总线上；写操作，CPU将数据写入到写缓冲后继续运行，由写缓冲进行写回操作。        这个就是dma_alloc_writecombine
     1 0 有cache，写通模式；读操作首先考虑cache hit；写操作时直接将数据写入写缓冲，如果同时出现cache hit，那么也更新cache。
@@ -453,7 +453,8 @@
     dma_alloc_coherent()按照道理来说，分配到的是不带cache的内存。但是，由于现代SoC特别强，这样有一些SoC里面可以用硬件做CPU和外设的cache coherence。
     这些SoC的厂商就可以把内核的通用实现overwrite掉，变成dma_alloc_coherent()申请的内存也是可以带cache的。（较新的内核里面，会有arm_coherent_dma_ops，就是这种场景）
 
-
+    如果通过dma_alloc_coherent拿到了物理/虚拟地址后，不单要在内核态使用，还要给应用去用，则需要重新map给用户空间，类似remap_pfn_range，使用dma_map_coherent重新建页表，搞出应用可以用的虚拟地址给用户空间。在remap_pfn_range之前，可以通过pgprot_noncached等类似pgprot_xxx的接口去调整内存的属性。默认就是带cache和write buffer.
+    如果需要拿到页表，则可以用phys_to_page或者virt_to_page转。riscv架构下，virt_to_page拿到的struct page有问题，实际还是用的phys_to_page。
     2.需要多次使用的小区域的DMA内存（适合分配&lt;4KB页大小）
         可能睡眠
         struct dma_pool * dma_pool_create(const char *name, struct device *dev, size_t size, size_t align, size_t alloc);    创建DMA池
@@ -535,12 +536,13 @@
             cpu申请获取DMA区域的所有权：
                 dma_sync_single_for_cpu(dev, dma_handle, size, direction);
                 其实质是，把cpu的cache标记为无效，因为此时内存区域早已更新过，需要重新读上来到cache，也就是cache invalidate操作
-                数据的方向是：  内存 -&gt; cache
+                数据的方向是：  device -&gt; 内存 -&gt; cache -&gt; cpu
         2。cpu需要写的时候，换成DMA取的时候，读到的是cpu的cache已经同步到内存后的，最新的数据。
             CPU修改结束后，可以把映射区域的所有权还给DMA了，调用：
                 dma_sync_single_for_device(dev, dma_handle, size, direction);
                 其实质是，把cpu的cache更新到内存里面，因为此时cache已经更新，需要重新刷到内存里面，也就是cache flush操作
-                数据的方向是：  cache -&gt; 内存
+                数据的方向是：  cpu -&gt; cache -&gt; 内存 -&gt; device
+        注意：device侧是没有cache的，只有cpu和ddr之间有cache。
         当然，一致性映射则无此问题，因为不管cpu和dma如何混搭着访问dma内存区，都是一致的，无需任何同步操作。
 
         同样道理还有sg的同步API：
@@ -574,12 +576,14 @@
                     hp = (struct my_card_header *) cp-&gt;rx_buf;            //申请以后，就可以安全的访问dma映射区了。
                 }    
 
-    scatterlist顾名思义，就是可以把分散开来的几块区域，凑一起凑成一个scatterlist。DMA的时候再一块一块的搬移。但虚拟地址上却看上去是连续的。（需IOMMU硬件单元支持,ARM里面叫SMMU）
-        因为DMA需要连续物理内存。那如果要申请的大片内存不连续的话，申请就会返回错误或者一直睡眠。
+    scatterlist：定义见   技术笔记\Linux\Kernel\内存管理\scatterlist\     ，可以把分散开来的几块区域，凑一起凑成数个scatterlist。
+        如果无iommu，DMA的时候使用这些scatterlist，每一个scatterlist配置dma一个自己通常有的linked list结点（如designware dma），完成非连续内存的搬运。
+        如果有iommu，直接把iova配置给dma，用看似连续的iova让dma去访问memory，这中间通过iommu翻译拿到实际物理地址去操作内存。
         此时就可以用scatter/gather也就是sg的API来做。
         如果IOMMU存在（ARM里面叫SMMU）的话，DMA完全可以访问非连续的内存，并且把物理上不连续的内存，用IOMMU进行重新映射为I/O virtual address (IOVA).
         说白了就是IOMMU，将分散的物理内存，集合起来，统一转化成一个连续的虚拟地址，这种情况下，DMA访问的其实是虚拟地址。
         scatterlist本身可以理解为内存块构成的链表。
+        以下为无iommu的dma系统使用scatterlist举例：
         那么要用DMA来搬数据，首先要有一个建好的scatterlist
         struct scatterlist *sg
         然后就是对这个scatterlist进行map：
@@ -759,12 +763,18 @@ AM335x EDMA Driver&apos;s Guide - Texas Instruments Wiki.pdf    这文章里面�
 以4.4内核为例，在支持CMA的情况下，dma_alloc_coherent()最终是会用到CMA接口dma_alloc_from_contiguous()的。如下：
 dma_alloc_coherent()-&gt;__dma_alloc()-&gt;dma_alloc_from_contiguous()-&gt;__alloc_from_contiguous()
 所以dma_alloc_coherent()这个API只是一个前端的界面，它的内存究竟从哪里来，究竟实际物理内存要不要连续，带不带cache，都完全是自动的。
+另外如果CMA用尽，dma_alloc_coherent()实际又会转而从非CMA区域找连续内存分配，也是可以的。只是此时kernel会打印cma: cma_alloc: alloc failed的警告，可以通过_GFP_NOWRN关闭
 
 CMA的原理是：
 具体实现很复杂，简单的说，就是在伙伴系统里面，CMA做了这么个设定：
 保留一块区域，其页面块为MIGRATE_CMA类型。此类型有一个重要的属性：只有可移动页才可以从MIGRATE_CMA页面块中分配。
 所以说白了就是，这块区域，是我CMA的地盘。别人用，也可以，但需要接受一个条件，就是gfp_mask参数需要是MIGRATE_MOVABLE的，
 也就是可以接受自己所分配到的页，可以随时被动态迁移到别的物理内存地址，在CMA需要用连续内存的情况下。
+
+注意：CMA内存，源地址和目的地址都需要是8字节对齐的。一般可能默认拿到的指针都没问题，但我遇到过一次bus error的情况如下：
+CMA的buffer存有图片，需要保存到文件。文件格式是ppm，所以拿到FILE指针以后，先添加了一个ppm header。这个header用fprintf格式化以后，
+相比原来的地址偏移了14字节，也就是不满足8字节对齐了。此时再往header后面做fwrite也就是memcpy的时候，bus error。
+把header内部内容再加2个字节，共16字节，就可以了。
 
 参考：
 《Linux内核最新的连续内存分配器(CMA)——避免预留大块内存.pdf》
@@ -871,7 +881,7 @@ CMA的原理是：
                 
                   <a href="/archives">
                 
-                    <span class="site-state-item-count">252</span>
+                    <span class="site-state-item-count">261</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -1144,7 +1154,9 @@ CMA的原理是：
                     
                       
                     
-                    <span class="site-state-item-count">130</span>
+                      
+                    
+                    <span class="site-state-item-count">131</span>
                     <span class="site-state-item-name">categories</span>
                   </a>
                 </div>

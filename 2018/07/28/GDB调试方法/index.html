@@ -108,17 +108,17 @@
 
 
 
-  <meta name="description" content="如何使用core dump查看backtrace======================================================================================">
+  <meta name="description" content="如何使用core dump查看backtrace======================================================================================产生core的条件：            How are they generated: user side            ● Need to activate the">
 <meta property="og:type" content="article">
 <meta property="og:title" content="GDB调试方法">
 <meta property="og:url" content="http://yoursite.com/2018/07/28/GDB调试方法/index.html">
 <meta property="og:site_name" content="Semiyd&#39;s Blog">
-<meta property="og:description" content="如何使用core dump查看backtrace======================================================================================">
+<meta property="og:description" content="如何使用core dump查看backtrace======================================================================================产生core的条件：            How are they generated: user side            ● Need to activate the">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-08-12T03:09:36.023Z">
+<meta property="og:updated_time" content="2024-02-25T14:19:59.626Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="GDB调试方法">
-<meta name="twitter:description" content="如何使用core dump查看backtrace======================================================================================">
+<meta name="twitter:description" content="如何使用core dump查看backtrace======================================================================================产生core的条件：            How are they generated: user side            ● Need to activate the">
 
 
 
@@ -339,7 +339,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2018-08-12 11:09:36" itemprop="dateModified" datetime="2018-08-12T11:09:36+08:00">2018-08-12</time>
+                <time title="Modified: 2024-02-25 22:19:59" itemprop="dateModified" datetime="2024-02-25T22:19:59+08:00">2024-02-25</time>
               
             
           </span>
@@ -404,7 +404,7 @@
       
 
       
-        <p>如何使用core dump查看backtrace======================================================================================<br><a id="more"></a><br>产生core的条件：<br>            How are they generated: user side<br>            ● Need to activate the ELF_CORE option in kernel        这个目前iq8的.config里面可以看到ELF_CORE已打开。<br>            ● Need to set the core_pattern<br>                – $&gt; echo “core” &gt; /proc/sys/kernel/core_pattern    这个目前iq8的cat /proc/sys/kernel/core_pattern可以看到确实已经是core了。<br>            ● Need to set ulimit<br>                – $&gt; ulimit -c unlimited                这个目前iq8的busybox已经支持这个命令了。执行busybox sh -c ‘ulimit -c unlimited’<br>            ● Special care for busybox systems<br>            – Activate: FEATURE_INIT_COREDUMPS            这个目前iq8的busybox的.config已经支持这个宏了。<br>            – A special file .init_enable_core must be present in /        需要新建一个空文件.init_enable_core在/</p>
+        <p>如何使用core dump查看backtrace======================================================================================<br>产生core的条件：<br>            How are they generated: user side<br>            ● Need to activate the ELF_CORE option in kernel        这个目前iq8的.config里面可以看到ELF_CORE已打开。<br>            ● Need to set the core_pattern<br>                – $&gt; echo “core” &gt; /proc/sys/kernel/core_pattern    这个目前iq8的cat /proc/sys/kernel/core_pattern可以看到确实已经是core了。<br>            ● Need to set ulimit<br>                – $&gt; ulimit -c unlimited                这个目前iq8的busybox已经支持这个命令了。执行busybox sh -c ‘ulimit -c unlimited’<br>            ● Special care for busybox systems<br>            – Activate: FEATURE_INIT_COREDUMPS            这个目前iq8的busybox的.config已经支持这个宏了。<br>            – A special file .init_enable_core must be present in /        需要新建一个空文件.init_enable_core在/</p>
 <pre><code>模拟seg fault的方法：
     kill -s SIGSEGV pid     用segmentation fault的名义杀掉任意一个app。
 
@@ -414,7 +414,7 @@
     gdb exefile /tmp/exefile.xxxxx.core
 
     编译：
-    ./configure -target=arm-linux -host=arm-linux -program-prefix=arm-linux- -prefix=/home/xxx/IQ8/app-debug/gdb-build
+    ./configure -target=arm-linux -host=arm-linux -program-prefix=arm-linux- -prefix=/home/yandong/IQ8/app-debug/gdb-build
     make
     make install
     然后把arm-linux-gdb拷入arm板子，即可。        --&gt;I&apos;m here now
@@ -476,13 +476,23 @@
 <p>(gdb) set $pc = *(void **)$esp<br>(gdb) set $esp = $esp + 4<br>With 64-bit x86 code you need</p>
 <p>(gdb) set $pc = *(void **)$rsp<br>(gdb) set $rsp = $rsp + 8<br>Then, you should be able to do a bt and figure out where the code really is.</p>
 <p>The other 1% of the time, the error will be due to overwriting the stack, usually by overflowing an array stored on the stack. </p>
-<h1 id="In-this-case-you-might-be-able-to-get-more-clarity-on-the-situation-by-using-a-tool-like-valgrind"><a href="#In-this-case-you-might-be-able-to-get-more-clarity-on-the-situation-by-using-a-tool-like-valgrind" class="headerlink" title="In this case, you might be able to get more clarity on the situation by using a tool like valgrind"></a>In this case, you might be able to get more clarity on the situation by using a tool like valgrind</h1><p>多进程调试<br>info threads<br>多线程调式必须知道正在执行程序的进程号，这个用下面的命令就可以获得：<br>ps s | grep 程序名<br>l  1：先运行程序，这时候会有程序的进程test在运行。<br>l  2：查询gui进程当前的进程号： ps s | grep test<br>n  假如进程号是11325<br>l  3：attach 进程<br>n  gdb attach 11325<br>l  4：设置断点<br>n  我们知道test有函数start。<br>n  b start(int&amp; param)<br>l  5：进行相应操作</p>
-<h1 id="l-6：如果我们进行Record操作，那么程序就会在test的start方法停留，然后可以进行参数的查看或者其他的操作。"><a href="#l-6：如果我们进行Record操作，那么程序就会在test的start方法停留，然后可以进行参数的查看或者其他的操作。" class="headerlink" title="l  6：如果我们进行Record操作，那么程序就会在test的start方法停留，然后可以进行参数的查看或者其他的操作。"></a>l  6：如果我们进行Record操作，那么程序就会在test的start方法停留，然后可以进行参数的查看或者其他的操作。</h1><p>单步调试和断点：<br>把c源文件和可执行文件，放在同一目录<br>[root@Honeywell test_applications]# arm-linux-gdb core_dump_app<br>GNU gdb (GDB) 7.11<br>Copyright (C) 2016 Free Software Foundation, Inc.<br>License GPLv3+: GNU GPL version 3 or later <a href="http://gnu.org/licenses/gpl.html" target="_blank" rel="noopener">http://gnu.org/licenses/gpl.html</a><br>This is free software: you are free to change and redistribute it.<br>There is NO WARRANTY, to the extent permitted by law.  Type “show copying”<br>and “show warranty” for details.<br>This GDB was configured as “arm-linux”.<br>Type “show configuration” for configuration details.<br>For bug reporting instructions, please see:<br><a href="http://www.gnu.org/software/gdb/bugs/" target="_blank" rel="noopener">http://www.gnu.org/software/gdb/bugs/</a>.<br>Find the GDB manual and other documentation resources online at:<br><a href="http://www.gnu.org/software/gdb/documentation/" target="_blank" rel="noopener">http://www.gnu.org/software/gdb/documentation/</a>.<br>For help, type “help”.<br>Type “apropos word” to search for commands related to “word”…<br>Reading symbols from core_dump_app…done.<br>(gdb) l<br>warning: Source file is more recent than executable.<br>1       #include &lt;sys/types.h&gt;<br>2       #include &lt;sys/stat.h&gt;<br>3       #include &lt;fcntl.h&gt;<br>4       #include &lt;stdio.h&gt;<br>5       #include &lt;poll.h&gt;<br>6       #include &lt;unistd.h&gt;<br>7       int main(int argc, char **argv)<br>8       {<br>9           while (1)<br>10          {<br>(gdb)        &lt;——————– 直接回车表示，重复上一次命令<br>11                      printf(“simulate SEGMEMTATION FAULT!\n”);<br>12                      sleep(10);<br>13          }<br>14      }<br>(gdb)        &lt;——————– 直接回车表示，重复上一次命令<br>Line number 15 out of range; core_dump_app.c has 14 lines.<br>(gdb) break 11    &lt;——————– 设置断点，在源程序第11行处。<br>Breakpoint 1 at 0x83f4: file core_dump_app.c, line 11.<br>(gdb) info break     &lt;——————– 查看断点信息。<br>Num     Type           Disp Enb Address    What<br>1       breakpoint     keep y   0x000083f4 in main at core_dump_app.c:11<br>(gdb) run        &lt;——————— 运行程序<br>Starting program: /usr/test_applications/core_dump_app</p>
+<h1 id="In-this-case-you-might-be-able-to-get-more-clarity-on-the-situation-by-using-a-tool-like-valgrind"><a href="#In-this-case-you-might-be-able-to-get-more-clarity-on-the-situation-by-using-a-tool-like-valgrind" class="headerlink" title="In this case, you might be able to get more clarity on the situation by using a tool like valgrind"></a>In this case, you might be able to get more clarity on the situation by using a tool like valgrind</h1><p>多进程调试<br>info threads<br>多线程调式必须知道正在执行程序的进程号，这个用下面的命令就可以获得：<br>ps s | grep 程序名<br>l  1：先运行程序，这时候会有程序的进程test在运行。<br>l  2：查询gui进程当前的进程号： ps s | grep test<br>n  假如进程号是11325<br>l  3：attach 进程<br>n  gdb attach 11325<br>l  4：设置断点<br>n  我们知道test有函数start。<br>n  b start(int&amp; param)<br>l  5：进行相应操作<br>l  6：如果我们进行Record操作，那么程序就会在test的start方法停留，然后可以进行参数的查看或者其他的操作。</p>
+<p>注：如果想看调用栈的代码是运行在kernel态，这时候attach是会卡住的，必须等kernel返回user态的时候才能attach上。</p>
+<h1 id="比如在kernel里面有处ioctl代码，想看下用户态谁调用了这个ioctl，可以在这个地方msleep-10000-，然后attach上去，等sleep完成返回user态，就能第一时间看到谁调用的ioctl。"><a href="#比如在kernel里面有处ioctl代码，想看下用户态谁调用了这个ioctl，可以在这个地方msleep-10000-，然后attach上去，等sleep完成返回user态，就能第一时间看到谁调用的ioctl。" class="headerlink" title="比如在kernel里面有处ioctl代码，想看下用户态谁调用了这个ioctl，可以在这个地方msleep(10000)，然后attach上去，等sleep完成返回user态，就能第一时间看到谁调用的ioctl。"></a>比如在kernel里面有处ioctl代码，想看下用户态谁调用了这个ioctl，可以在这个地方msleep(10000)，然后attach上去，等sleep完成返回user态，就能第一时间看到谁调用的ioctl。</h1><p>单步调试和断点：<br>把c源文件和可执行文件，放在同一目录<br>[root@Honeywell test_applications]# arm-linux-gdb core_dump_app<br>GNU gdb (GDB) 7.11<br>Copyright (C) 2016 Free Software Foundation, Inc.<br>License GPLv3+: GNU GPL version 3 or later <a href="http://gnu.org/licenses/gpl.html" target="_blank" rel="noopener">http://gnu.org/licenses/gpl.html</a><br>This is free software: you are free to change and redistribute it.<br>There is NO WARRANTY, to the extent permitted by law.  Type “show copying”<br>and “show warranty” for details.<br>This GDB was configured as “arm-linux”.<br>Type “show configuration” for configuration details.<br>For bug reporting instructions, please see:<br><a href="http://www.gnu.org/software/gdb/bugs/" target="_blank" rel="noopener">http://www.gnu.org/software/gdb/bugs/</a>.<br>Find the GDB manual and other documentation resources online at:<br><a href="http://www.gnu.org/software/gdb/documentation/" target="_blank" rel="noopener">http://www.gnu.org/software/gdb/documentation/</a>.<br>For help, type “help”.<br>Type “apropos word” to search for commands related to “word”…<br>Reading symbols from core_dump_app…done.<br>(gdb) l<br>warning: Source file is more recent than executable.<br>1       #include &lt;sys/types.h&gt;<br>2       #include &lt;sys/stat.h&gt;<br>3       #include &lt;fcntl.h&gt;<br>4       #include &lt;stdio.h&gt;<br>5       #include &lt;poll.h&gt;<br>6       #include &lt;unistd.h&gt;<br>7       int main(int argc, char **argv)<br>8       {<br>9           while (1)<br>10          {<br>(gdb)        &lt;——————– 直接回车表示，重复上一次命令<br>11                      printf(“simulate SEGMEMTATION FAULT!\n”);<br>12                      sleep(10);<br>13          }<br>14      }<br>(gdb)        &lt;——————– 直接回车表示，重复上一次命令<br>Line number 15 out of range; core_dump_app.c has 14 lines.<br>(gdb) break 11    &lt;——————– 设置断点，在源程序第11行处。<br>Breakpoint 1 at 0x83f4: file core_dump_app.c, line 11.<br>(gdb) info break     &lt;——————– 查看断点信息。<br>Num     Type           Disp Enb Address    What<br>1       breakpoint     keep y   0x000083f4 in main at core_dump_app.c:11<br>(gdb) run        &lt;——————— 运行程序<br>Starting program: /usr/test_applications/core_dump_app</p>
 <p>Breakpoint 1, main (argc=1, argv=0xbefffce4) at core_dump_app.c:11    &lt;———- 在断点处停住。<br>11                      printf(“simulate SEGMEMTATION FAULT!\n”);<br>(gdb) n        &lt;——————— 单步语句执行<br>simulate SEGMEMTATION FAULT!<br>12                      sleep(10);<br>(gdb) c        &lt;——————— 继续运行程序，continue命令简写。<br>Continuing.</p>
 <p>Breakpoint 1, main (argc=1, argv=0xbefffce4) at core_dump_app.c:11<br>11                      printf(“simulate SEGMEMTATION FAULT!\n”);<br>(gdb) quit<br>A debugging session is active.</p>
 <pre><code>Inferior 1 [process 134] will be killed.
-</code></pre><p>Quit anyway? (y or n) y<br>[root@Honeywell test_applications]#<br>另外，有关如何设置gdb搜素源码路径的问题。</p>
-<h1 id="看同目录下面的-GDB指定和修改搜素源码文件的路径（set-substitute-path）-mht"><a href="#看同目录下面的-GDB指定和修改搜素源码文件的路径（set-substitute-path）-mht" class="headerlink" title="看同目录下面的    GDB指定和修改搜素源码文件的路径（set substitute-path）.mht"></a>看同目录下面的    GDB指定和修改搜素源码文件的路径（set substitute-path）.mht</h1>
+</code></pre><p>Quit anyway? (y or n) y<br>[root@Honeywell test_applications]#<br>另外，有关如何设置gdb搜素源码路径的问题。<br>看同目录下面的    GDB指定和修改搜素源码文件的路径（set substitute-path）.mht</p>
+<p>b function    添加断点<br>i b        打印断点<br>delete x        删除断点</p>
+<p>条件断点</p>
+<h1 id="watch-变量地址"><a href="#watch-变量地址" class="headerlink" title="watch *变量地址"></a>watch *变量地址</h1><p>运行和停止：</p>
+<p>r arg1 arg2 arg3 以入参运行<br>c 继续跑<br>n 单步<br>step 进入函数<br>finish 退出函数</p>
+<h1 id="until-行号-跑到行号停下"><a href="#until-行号-跑到行号停下" class="headerlink" title="until 行号        跑到行号停下"></a>until 行号        跑到行号停下</h1><p>打印内存：</p>
+<p>打印变量：<br>p 变量名（十进制）<br>p/a 变量名（十六进制）</p>
+<p>打印内存地址：<br>x/16xb 0x123456<br>以32bit为宽度打印1组：<br>(gdb) x/wx 0x123456<br>以32bit为宽度打印16组：<br>(gdb) x/16wx 0x123456</p>
+<p>写内存地址：<br>set {int}0x1234 =  0x5678<br>set *0xffe7014000 = 0x55</p>
+<p>打印结构体指针：<br>假设函数里面有个结构体指针struct aa<em>cfg<br>(gdb) p </em>cfg<br>$2 = {idx = 0, max_width = 0, …..}</p>
+
       
     </div>
 
@@ -591,7 +601,7 @@
                 
                   <a href="/archives">
                 
-                    <span class="site-state-item-count">252</span>
+                    <span class="site-state-item-count">261</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -864,7 +874,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">130</span>
+                      
+                    
+                    <span class="site-state-item-count">131</span>
                     <span class="site-state-item-name">categories</span>
                   </a>
                 </div>
@@ -902,7 +914,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#…"><span class="nav-number">1.</span> <span class="nav-text">…</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#1-0x0000000000400845-in-main-at-1-1-cpp-14"><span class="nav-number">2.</span> <span class="nav-text">#1  0x0000000000400845 in main () at 1.1.cpp:14</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#In-this-case-you-might-be-able-to-get-more-clarity-on-the-situation-by-using-a-tool-like-valgrind"><span class="nav-number">3.</span> <span class="nav-text">In this case, you might be able to get more clarity on the situation by using a tool like valgrind</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#l-6：如果我们进行Record操作，那么程序就会在test的start方法停留，然后可以进行参数的查看或者其他的操作。"><span class="nav-number">4.</span> <span class="nav-text">l  6：如果我们进行Record操作，那么程序就会在test的start方法停留，然后可以进行参数的查看或者其他的操作。</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#看同目录下面的-GDB指定和修改搜素源码文件的路径（set-substitute-path）-mht"><span class="nav-number">5.</span> <span class="nav-text">看同目录下面的    GDB指定和修改搜素源码文件的路径（set substitute-path）.mht</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#…"><span class="nav-number">1.</span> <span class="nav-text">…</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#1-0x0000000000400845-in-main-at-1-1-cpp-14"><span class="nav-number">2.</span> <span class="nav-text">#1  0x0000000000400845 in main () at 1.1.cpp:14</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#In-this-case-you-might-be-able-to-get-more-clarity-on-the-situation-by-using-a-tool-like-valgrind"><span class="nav-number">3.</span> <span class="nav-text">In this case, you might be able to get more clarity on the situation by using a tool like valgrind</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#比如在kernel里面有处ioctl代码，想看下用户态谁调用了这个ioctl，可以在这个地方msleep-10000-，然后attach上去，等sleep完成返回user态，就能第一时间看到谁调用的ioctl。"><span class="nav-number">4.</span> <span class="nav-text">比如在kernel里面有处ioctl代码，想看下用户态谁调用了这个ioctl，可以在这个地方msleep(10000)，然后attach上去，等sleep完成返回user态，就能第一时间看到谁调用的ioctl。</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#watch-变量地址"><span class="nav-number">5.</span> <span class="nav-text">watch *变量地址</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#until-行号-跑到行号停下"><span class="nav-number">6.</span> <span class="nav-text">until 行号        跑到行号停下</span></a></li></ol></div>
             
 
           </div>

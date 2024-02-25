@@ -115,7 +115,7 @@
 <meta property="og:site_name" content="Semiyd&#39;s Blog">
 <meta property="og:description" content="Regulator笔记">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2020-07-12T13:35:20.550Z">
+<meta property="og:updated_time" content="2024-02-25T14:37:20.358Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Regulator笔记">
 <meta name="twitter:description" content="Regulator笔记">
@@ -339,7 +339,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2020-07-12 21:35:20" itemprop="dateModified" datetime="2020-07-12T21:35:20+08:00">2020-07-12</time>
+                <time title="Modified: 2024-02-25 22:37:20" itemprop="dateModified" datetime="2024-02-25T22:37:20+08:00">2024-02-25</time>
               
             
           </span>
@@ -633,6 +633,186 @@ if (err)
 return val;
 </code></pre><p>}<br>而这个read_dev，就是mfd驱动中私有结构体注册过的tps6507x_i2c_read_device<br>tps6507x-&gt;read_dev = tps6507x_i2c_read_device;</p>
 <p>——————————-复杂驱动之drivers/regulator/palmas-regulator.c分析——————————-<br>以drivers/regulator/palmas-regulator.c为例分析。<br>mfd驱动是drivers/mfd/palmas.c<br>但其实这个drivers/mfd/palmas.c并非一个典型的mfd设备，因为并未使用mfd_add_devices向mfd子系统注册。<br>但这并不影响其作为mfd设备的功能：即初始化资源后，把资源作为私有数据，传给手下的那些cell驱动使用。<br>因为从dts节点上说，是存在父设备和子设备这样的继承关系的。<br>[待完善]</p>
+<p>=============================regulator 查错日志1=============================<br>2.sd卡初始化有问题：<br>    omap_hsmmc 4809c000.mmc: Got CD GPIO<br>    omap_hsmmc 480b4000.mmc: no pinctrl state for sdr25 mode<br>    omap_hsmmc 480b4000.mmc: no pinctrl state for sdr12 mode<br>    以上三行前后显示了两遍。<br>    并没有认出来mmcblk0，最后结果是:<br>    Waiting for root device PARTUUID=00094bdc-02…（uuid并没有错，关键是没认出来mmcblk0）<br>    考虑到am5728-evb这块是可以的，参考它的配置。</p>
+<pre><code>AM5728-EVB的启动log：
+    [    1.845949] omap_hsmmc 4809c000.mmc: Got CD GPIO
+    [    1.850992] vdd_3v3: supplied by regen1
+    [    1.898803] omap_hsmmc 480b4000.mmc: no pinctrl state for sdr25 mode
+    [    1.905185] omap_hsmmc 480b4000.mmc: no pinctrl state for sdr12 mode
+    [    2.153131] mmc1: MAN_BKOPS_EN bit is not set
+    [    2.162074] mmc1: new DDR MMC card at address 0001
+    [    2.162410] mmcblk0: mmc1:0001 S10004 3.56 GiB
+    [    2.162565] mmcblk0boot0: mmc1:0001 S10004 partition 1 4.00 MiB
+    [    2.162707] mmcblk0boot1: mmc1:0001 S10004 partition 2 4.00 MiB
+    [    2.163266]  mmcblk0: p1 p2
+
+AM571x-IDK的启动log：
+    [    3.398653] omap_hsmmc 4809c000.mmc: Got CD GPIO
+    [    3.471363] omap_hsmmc 480b4000.mmc: no pinctrl state for sdr25 mode
+    [    3.477743] omap_hsmmc 480b4000.mmc: no pinctrl state for sdr12 mode
+    [    3.768670] mmc0: host does not support reading read-only switch, assuming write-enable
+    [    3.794482] mmc0: new ultra high speed SDR104 SDHC card at address 0001
+    [    3.804840] mmcblk0: mmc0:0001 SD8GB 7.24 GiB
+    [    3.805590]  mmcblk0: p1 p2
+
+am571x-IDK的mmc硬件配置：
+    mmc：        MMC1_XXX
+    emmc：        MMC2_XXX
+
+am5718-EVB的mmc硬件配置：
+    mmc：        MMC1_XXX
+    emmc：        MMC2_XXX
+
+电路上，MMC1和MMC2的连法，看上去从硬件上是一模一样的。
+
+am5718-EVB的mmc的dts配置：
+    对应am571x-idk-lcd-osd101t2045.dts
+    引用了am571x-idk.dts
+    &amp;mmc1 {
+        pinctrl-names = &quot;default&quot;, &quot;hs&quot;, &quot;sdr12&quot;, &quot;sdr25&quot;, &quot;sdr50&quot;, &quot;ddr50&quot;, &quot;sdr104&quot;;
+        pinctrl-0 = &lt;&amp;mmc1_pins_default&gt;;
+        pinctrl-1 = &lt;&amp;mmc1_pins_hs&gt;;
+        pinctrl-2 = &lt;&amp;mmc1_pins_sdr12&gt;;
+        pinctrl-3 = &lt;&amp;mmc1_pins_sdr25&gt;;
+        pinctrl-4 = &lt;&amp;mmc1_pins_sdr50&gt;;
+        pinctrl-5 = &lt;&amp;mmc1_pins_ddr50_rev20 &amp;mmc1_iodelay_ddr50_conf&gt;;
+        pinctrl-6 = &lt;&amp;mmc1_pins_sdr104 &amp;mmc1_iodelay_sdr104_rev20_conf&gt;;
+    };
+am5728-EVB的mmc的dts配置：
+    Machine是TI AM572x EVM Rev A3，对应的dts是am57xx-evm-reva3.dts
+    &amp;mmc1 {
+        pinctrl-names = &quot;default&quot;, &quot;hs&quot;, &quot;sdr12&quot;, &quot;sdr25&quot;, &quot;sdr50&quot;, &quot;ddr50&quot;, &quot;sdr104&quot;;
+        pinctrl-0 = &lt;&amp;mmc1_pins_default&gt;;
+        pinctrl-1 = &lt;&amp;mmc1_pins_hs&gt;;
+        pinctrl-2 = &lt;&amp;mmc1_pins_sdr12&gt;;
+        pinctrl-3 = &lt;&amp;mmc1_pins_sdr25&gt;;
+        pinctrl-4 = &lt;&amp;mmc1_pins_sdr50&gt;;
+        pinctrl-5 = &lt;&amp;mmc1_pins_ddr50 &amp;mmc1_iodelay_ddr_rev20_conf&gt;;
+        pinctrl-6 = &lt;&amp;mmc1_pins_sdr104 &amp;mmc1_iodelay_sdr104_rev20_conf&gt;;
+        vmmc-supply = &lt;&amp;vdd_3v3&gt;;
+        vmmc_aux-supply = &lt;&amp;ldo1_reg&gt;;
+    };
+
+至少可以确定不是因为no pinctrl state for sdr12 mode这类log。并且am571x-IDK的启动log中，也有这两条no pinctrl state for xxx mode。
+
+
+为什么Got CD GPIO显示了两遍？                
+    第一次：
+    omap_hsmmc_driver_init()-&gt;...platform_driver一堆blabla...-&gt;omap_hsmmc_probe()-&gt;mmc_of_parse()
+    第二次：
+    deferred_probe_work_func()-&gt;...-&gt;omap_hsmmc_probe()-&gt;mmc_of_parse()
+    不过也说明了probe返回值不正确。返回的是-517，（返回两次，mmc1和mmc2各一次）而正常来说，如果是AM571x-IDK的话，此处应该在函数结尾return 0;处返回（虽然实际ret值是-19）。
+    omap_hsmmc_probe()-&gt;omap_hsmmc_reg_get()-&gt;devm_regulator_get_optional(host-&gt;dev, &quot;vmmc&quot;)-&gt;_regulator_get()（经过regulator_dev_lookup()找vmmc）-&gt;
+        regulator_resolve_supply()-&gt;regulator_dev_lookup()（找vin失败）返回的-517也就是EPROBE_DEFER了。
+
+    dts的包含顺序：
+        am571x-idk-lcd-osd101t2045.dts-&gt;am571x-idk.dts-&gt;dra72x.dtsi-&gt;dra7.dtsi（soc核心的组件）
+                       |        |-&gt;am57xx-idk-common.dtsi（电源管理有关等等）-&gt;am57xx-industrial-grade.dtsi
+                                |                     |-&gt;dra72x-mmc-iodelay.dtsi（mmc引脚配置）
+                       |-&gt;am57xx-idk-lcd-osd101t2045.dtsi（仅显示相关的配置）
+
+    这个vmmc和vin是什么东西？        
+        vin是vmmc的supplier（regulator子系统里面有supplier的概念）
+        在am57xx-idk-common.dtsi里面，&amp;mmc1其实早已写好有关电源的部分配置：
+        vmmc-supply = &lt;&amp;v3_3d&gt;;
+        vmmc_aux-supply = &lt;&amp;ldo1_reg&gt;;
+        那这个v3_3d，如下：
+        v3_3d: fixedregulator-v3_3d {
+            compatible = &quot;regulator-fixed&quot;;
+            regulator-name = &quot;V3_3D&quot;;
+            vin-supply = &lt;&amp;smps9_reg&gt;;
+            regulator-min-microvolt = &lt;3300000&gt;;
+            regulator-max-microvolt = &lt;3300000&gt;;
+            regulator-always-on;
+            regulator-boot-on;
+        };
+        这里就扯到的vin-supply = &lt;&amp;smps9_reg&gt;;这个东西，正好就是vin。它的supply是smps9_reg。而这个东西，是PMIC tps659038的一个node：
+        tps659038: tps659038@58 {
+        ...
+        tps659038_pmic {
+        ...
+        regulators {
+        ...
+        smps9_reg: smps9 {
+            /* VDD_3_3D */
+            regulator-name = &quot;smps9&quot;;
+            regulator-min-microvolt = &lt;3300000&gt;;
+            regulator-max-microvolt = &lt;3300000&gt;;
+            regulator-always-on;
+            regulator-boot-on;
+        };
+        在regulator_dev_lookup()找vmmc的时候，其supply的全名是/ocp/i2c@48070000/tps659038@58/tps659038_pmic/regulators/smps9
+        所以去查看log，是不是有和pmic相关的初始化错误，因为这个算是pmic的其中一路输出。虽然这路输出其实不用配置，就是固定的3.3v。
+        但pmic如果初始化有问题，应该会影响到后续regulator子系统的操作。
+        找了下，开机log确实有下面这些错误（发生在Got CD GPIO之前）
+        smps9: Bringing 0uV into 3300000-3300000uV
+        smps9: failed to apply 3300000-3300000uV constraint(-22)
+        palmas-pmic 48070000.i2c:tps659038@58:tps659038_pmic: failed to register 48070000.i2c:tps659038@58:tps659038_pmic regulator
+        palmas-pmic: probe of 48070000.i2c:tps659038@58:tps659038_pmic failed with error -22
+        错误值是-22    EINVAL    /* Invalid argument */
+
+    另外，也顺便发现，很多其他代码都在查找这个vin的时候-517了。再次说明这个不是和mmc直接相关的问题，而是早已有的问题。
+
+    有关regulator，am57xx的dts和driver在哪里？为什么regulator_dev_lookup找vin会失败？        
+        这里所谓的regulator，是指硬件上的pmic TPS6590376ZWST
+        对应dts里面，am57xx-idk-common.dtsi的tps659038: tps659038@58节点。
+        因为pmic内部包含很多不同的功能模块，包括电源管理/rtc/gpio/usb等等。每个模块都对应这个独立的驱动程序。
+        针对电源管理，是compatible = &quot;ti,tps659038-pmic&quot;;，对应的驱动是drivers/regulator/palmas-regulator.c
+        针对整个pmic芯片，是compatible = &quot;ti,tps659038&quot;;，对应的驱动是drivers/mfd/palmas.c
+        其实类似smps9的，还有很多路电压，例如smps6等等，但只有smps9出问题。
+        向工说，smps9这路，有个电压反馈脚J8，用来检测smps9是否正确输出的，但是实际上这个脚没有接，悬空了。
+        不知是否这个就是下面这个错误的原因？
+        smps9: Bringing 0uV into 3300000-3300000uV
+        smps9: failed to apply 3300000-3300000uV constraint(-22)
+        上面这两句话，是由drivers/regulator/core.c的machine_constraints_voltage()打出来的。
+        palmas_smps_registration()-&gt;regulator_register()-&gt;set_machine_constraints()-&gt;machine_constraints_voltage()-&gt;_regulator_do_set_voltage()-&gt;
+            regulator_map_voltage()-&gt;regulator_map_voltage_linear_range()这里面有个条件：
+        (min_uV &lt;= linear_max_uV &amp;&amp; max_uV &gt;= range-&gt;min_uV)的结果必须为真。但一直不符合，所以导致返回-22。
+        其原因是，palmas_regulators_probe()-&gt;palmas_smps_registration()的时候，针对PALMAS_REG_SMPS9的情况，配置的是smps_low_ranges，而不是smps_high_ranges。
+        决定用哪个的条件，是去读取PALMAS_SMPS9_VOLTAGE寄存器
+        根据tps659037 Technical Reference Manual.pdf的3.4.18 SMPS9_VOLTAGE Register解释，这个寄存器其实是个电压范围。
+        smps9有两档电压范围。0.7~1.65v，或者1.0~3.3v。此处palmas_smps_registration()的时候读到范围是0.7~1.65v，导致regulator_map_voltage_linear_range()时电压范围不对。
+        但其实在dts的smps9_reg: smps9节点里面，是写明了范围是3.3v-3.3v的
+        但其实在dts的smps9_reg: smps9节点里面，是写明了范围是3.3v-3.3v的
+        smps9的节点里，设置了最小和最大电压是3.3v
+            palmas_regulators_probe()-&gt;palmas_dt_to_pdata-&gt;of_regulator_match()-&gt;of_get_regulator_init_data()-&gt;
+                of_get_regulation_constraints()-&gt;of_property_read_u32(np, &quot;regulator-min-microvolt&quot;, &amp;pval)
+            这过程中，会更新struct palmas_pmic_platform_data{}-&gt;reg_init-&gt;vsel
+        目前的猜测是，在smps9的电压反馈脚J8没接的情况下，虽然
+        palmas_regulators_probe()-&gt;palmas_smps_registration()-&gt;palmas_smps_init()，会把 reg_init-&gt;vsel;，通过palmas_smps_write写入pmic。
+        但因为J8没接，写入估计不成功，导致palmas_smps_registration()后续在选择smps_xxx_ranges的时候，出错了。
+    在dts里面把smps9全部干光，可以启动了
+</code></pre><p>=============================regulator 查错日志2=============================<br>问题：<br>kernel启动完成后，打印soc_dvdd18_scan: disabling</p>
+<p>实际使用这个电源的是sensor的dts节点，但sensor驱动没有主动去打开这个regulator：<br>&amp;sensor2 {<br>    sensor_name = “XXX”<br>    DOVDD18_SCAN-supply = &lt;&amp;soc_dvdd18_scan&gt;<br>}<br>soc_dvdd18_scan这个regulator则是另外一个异构核驱动注册到kernel的。<br>soc_dvdd18_scan: disabling的打印来源于：<br>static int regulator_late_cleanup(struct device <em>dev, void </em>data)<br>{<br>    struct regulator_dev <em>rdev = dev_to_rdev(dev);<br>    struct regulation_constraints </em>c = rdev-&gt;constraints;<br>    int ret;</p>
+<pre><code>if (c &amp;&amp; c-&gt;always_on)
+    return 0;
+
+if (!regulator_ops_is_valid(rdev, REGULATOR_CHANGE_STATUS))
+    return 0;
+
+regulator_lock(rdev);
+
+if (rdev-&gt;use_count)
+    goto unlock;
+
+/* If reading the status failed, assume that it&apos;s off. */
+if (_regulator_is_enabled(rdev) &lt;= 0)
+    goto unlock;
+
+if (have_full_constraints()) {
+    /* We log since this may kill the system if it goes
+     * wrong. */
+    rdev_info(rdev, &quot;disabling\n&quot;);
+    ret = _regulator_do_disable(rdev);
+    if (ret != 0)
+        rdev_err(rdev, &quot;couldn&apos;t disable: %pe\n&quot;, ERR_PTR(ret));
+}
+...
+</code></pre><p>}<br>所以逻辑是：<br>    if (rdev-&gt;use_count)<br>        goto unlock;</p>
+<pre><code>/* If reading the status failed, assume that it&apos;s off. */
+if (_regulator_is_enabled(rdev) &lt;= 0)
+    goto unlock;
+</code></pre><p>也就是说没人用，但却开着电，是不正常的，应该关掉它。<br>实际use_count是0，因为sensor驱动没有去用过。<br>但_regulator_is_enabled会调用到异构核regulator驱动的is_enabled回调函数，因为异构核初始化的时候不小心默认把regulator打开了，导致<br>查询is_enabled返回是true，所以打印soc_dvdd18_scan: disabling</p>
 
       
     </div>
@@ -742,7 +922,7 @@ return val;
                 
                   <a href="/archives">
                 
-                    <span class="site-state-item-count">252</span>
+                    <span class="site-state-item-count">261</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -1015,7 +1195,9 @@ return val;
                     
                       
                     
-                    <span class="site-state-item-count">130</span>
+                      
+                    
+                    <span class="site-state-item-count">131</span>
                     <span class="site-state-item-name">categories</span>
                   </a>
                 </div>
