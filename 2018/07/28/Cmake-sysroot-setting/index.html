@@ -115,7 +115,7 @@
 <meta property="og:site_name" content="Semiyd&#39;s Blog">
 <meta property="og:description" content="Cmake sysroot setting">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-07-28T06:59:08.740Z">
+<meta property="og:updated_time" content="2024-02-25T13:36:08.695Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Cmake sysroot setting">
 <meta name="twitter:description" content="Cmake sysroot setting">
@@ -322,12 +322,24 @@
                 
               
 
-              <time title="Created: 2018-07-28 14:41:32 / Modified: 14:59:08" itemprop="dateCreated datePublished" datetime="2018-07-28T14:41:32+08:00">2018-07-28</time>
+              <time title="Created: 2018-07-28 14:41:32" itemprop="dateCreated datePublished" datetime="2018-07-28T14:41:32+08:00">2018-07-28</time>
             
 
             
               
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2024-02-25 21:36:08" itemprop="dateModified" datetime="2024-02-25T21:36:08+08:00">2024-02-25</time>
               
             
           </span>
@@ -390,6 +402,20 @@
 <p>例子2：<br>cmake .<br>make</p>
 <p>交叉编译的例子：<br>            cmake -D CMAKE_TOOLCHAIN_FILE=arm_linux_toolchain.cmake .<br>            设置交叉编译器的PATH<br>            make<br>arm_linux_toolchain.cmake已放在当前目录中</p>
 <p>有关使用arm-poky-linux-gnueabi-gcc-5.3.0编译的时候，遇到的设置sysroot的方法的解决方案：<br>参见CMake Cross-Compilation Based on Yocto SDK.pdf和cpu.tar.bz2（参见其中的arm_linux_toolchain.cmake和CMakeLists.txt）<br>总的来说，针对cmake，想要设置sysroot这个参数，方法如下：<br>想要设置这个参数，必须设置在arm_linux_toolchain.cmake里面，也就是CMAKE_TOOLCHAIN_FILE指向的文件。设置在CMakeLists.txt是无用的。<br>针对sysroot,cflag,ldflag，分别是以下几个变量进行设置：<br>CMAKE_SYSROOT “${CMAKE_FIND_ROOT_PATH}/cortexa7hf-neon-poky-linux-gnueabi”)<br>set(CMAKE_C_FLAGS “-Wall -Wextra -s -mfloat-abi=hard –sysroot=/home/share/cross-compiler/arm-poky-linux-gnueabi-gcc-5.3.0-MYD-Y6ULX/sysroots/cortexa7hf-neon-poky-linux-gnueabi” CACHE STRING “” FORCE)<br>set(CMAKE_CXX_FLAGS “-std=c++11 -Wall -Wextra -s -mfloat-abi=hard –sysroot=/home/share/cross-compiler/arm-poky-linux-gnueabi-gcc-5.3.0-MYD-Y6ULX/sysroots/cortexa7hf-neon-poky-linux-gnueabi” CACHE STRING “” FORCE)<br>set(CMAKE_CXX_FLAGS_DEBUG “-g -mfloat-abi=hard –sysroot=/home/share/cross-compiler/arm-poky-linux-gnueabi-gcc-5.3.0-MYD-Y6ULX/sysroots/cortexa7hf-neon-poky-linux-gnueabi” CACHE STRING “” FORCE)<br>set(CMAKE_CXX_FLAGS_RELEASE “-O2 -mapcs-frame -mfloat-abi=hard –sysroot=/home/share/cross-compiler/arm-poky-linux-gnueabi-gcc-5.3.0-MYD-Y6ULX/sysroots/cortexa7hf-neon-poky-linux-gnueabi” CACHE STRING “” FORCE)<br>set(CMAKE_EXE_LINKER_FLAGS “${CMAKE_EXE_LINKER_FLAGS} -mfloat-abi=hard –sysroot=/home/share/cross-compiler/arm-poky-linux-gnueabi-gcc-5.3.0-MYD-Y6ULX/sysroots/cortexa7hf-neon-poky-linux-gnueabi” CACHE INTERNAL “” FORCE)<br>set(CMAKE_SHARED_LINKER_FLAGS “${CMAKE_SHARED_LINKER_FLAGS} -mfloat-abi=hard –sysroot=/home/share/cross-compiler/arm-poky-linux-gnueabi-gcc-5.3.0-MYD-Y6ULX/sysroots/cortexa7hf-neon-poky-linux-gnueabi” CACHE INTERNAL “” FORCE)</p>
+<p>如果需要以追加方式，增加CFLAGS和LFLAGS的选项，可以这么做：<br>在CMakeLists.txt中：<br>    set(JANSSON_INCLUDEDIR “/home/share/jasson_lib/arm-none-linux-4.9.1/include/“)<br>    set(JANSSON_LIBRARY_DIR “/home/share/jasson_lib/arm-none-linux-4.9.1/lib/“)<br>    include_directories(${JANSSON_INCLUDEDIR})<br>target_link_libraries(${PROJECT_NAME} PUBLIC<br>    ${JANSSON_LIBRARY_DIR}/libjansson.so</p>
+<p>注意cmake的source file需要单独放置，否则递归搜.c源码的时候，会把cmake自己的测试代码也搜进去，导致main函数&gt;1，编译出错:<br>CMakeLists.txt举例：</p>
+<h1 id="minimum-required-CMake-version"><a href="#minimum-required-CMake-version" class="headerlink" title="minimum required CMake version"></a>minimum required CMake version</h1><p>cmake_minimum_required(VERSION 3.0)</p>
+<h1 id="define-project-name"><a href="#define-project-name" class="headerlink" title="define project name"></a>define project name</h1><p>project(partition)</p>
+<p>######################</p>
+<h2 id="compiler-options"><a href="#compiler-options" class="headerlink" title="compiler options"></a>compiler options</h2><p>######################<br>if(NOT CMAKE_BUILD_TYPE)<br>  set(CMAKE_BUILD_TYPE Release)<br>endif()</p>
+<p>###################</p>
+<h2 id="file-globbing"><a href="#file-globbing" class="headerlink" title="file globbing"></a>file globbing</h2><p>###################<br>set(SOURCE_DIR Source)<br>file(GLOB_RECURSE SRC_FILES ${SOURCE_DIR}/<em>.c)<br>file(GLOB_RECURSE HDR_FILES ${SOURCE_DIR}/</em>.h)</p>
+<p>########################</p>
+<h2 id="target-definitions"><a href="#target-definitions" class="headerlink" title="target definitions"></a>target definitions</h2><p>########################<br>add_executable( ${PROJECT_NAME} ${SRC_FILES} ${HDR_FILES})</p>
+<p>如果编译遇到错误，需要让cmake把完整的gcc的参数打印出来：<br>cmake .<br>make VERBOSE=1</p>
+<p>有关链接动态库的语法：<br>1.链接的是同一个cmake工程内部的so：不要用link_directories和link_libraries，直接再add_library或add_executable后面加<br>target_link_libraries，那个被链接的so，需要在add_library时候声明下SHARED，例如add_library($(module) SHARED $(libsources))<br>而module定义为例如set (module ABC)<br>在target_link_libraries内部用这个module名就可以，假设当前是一个$(APP)需要链接ABC这个so：<br>target_link_libraries ( $(APP) ABCD)<br>注意：target_link_libraries的目标，不能包含当前cmake工程内部即将生成的.so，否则会导致cmake预处理失败。也就是不能自己link自己要产生的so。<br>2.链接的是外部工程目录的so：用link_directories和link_libraries，然后仍然要用target_link_libraries，但里面要写库文件的全名：<br>target_link_libraries ( $(APP) libABCD.so)<br>3.上述两种情况，均需要遵循规则：先设定include_directories,link_directories和link_libraries，再设定add_library或add_executable，<br>最后设定target_link_libraries的顺序<br>参考：<br>《CMake使用总结(一).pdf》<br>《cmake 的link_libraries和target_link_libraries.pdf》</p>
+<p>有关propagate传递的规则：<br>假设cmake工程<br>/CMakeLists.txt<br>/a/CMakeLists.txt<br>有子目录a，根目录的CMakeLists.txt用add_subdirectory(a)包含了子目录的CMakeLists.txt<br>则默认/CMakeLists.txt里面的所有变量，包括include_diretories，link_directories都会传递到目录的CMakeLists.txt里面，也就是逐级继承。<br>所以如果子目录不想用根目录的include_diretories怎么办？<br>这种情况下，在/CMakeLists.txt里面就不要用include_diretories，而是要换成target_include_diretories，并用PRIVATE属性。<br>然后/a/CMakeLists.txt也用自己的target_include_diretories就可以了。<br>注意：一旦/CMakeLists.txt定义了include_diretories，/a/CMakeLists.txt即使用了target_include_diretories也无济于事，还是会继承/CMakeLists.txt的定义<br>有关PRIVATE,PUBLIC,INTERFACE的详细解释，见《cmake：target___ 中的 PUBLIC，PRIVATE，INTERFACE - 知乎》<br>另外在传递例如链接的路径的时候，/CMakeLists.txt注意不要用相对寻址，像../../usr/lib，这样传递到子目录，子目录仍然用../../usr/lib，就不对了，还是<br>要用绝对地址的寻址方式，在cmake从外部开始执行的时候，通过-D参数传入当前的pwd对应的变量.</p>
+<p>添加CFlag参数：<br>add_definitions(-Dfoo)即可添加foo这个cflag</p>
 
       
     </div>
@@ -474,8 +500,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -490,7 +525,7 @@
                 
                   <a href="/archives">
                 
-                    <span class="site-state-item-count">242</span>
+                    <span class="site-state-item-count">244</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -791,6 +826,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#minimum-required-CMake-version"><span class="nav-number">1.</span> <span class="nav-text">minimum required CMake version</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#define-project-name"><span class="nav-number">2.</span> <span class="nav-text">define project name</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#compiler-options"><span class="nav-number">2.1.</span> <span class="nav-text">compiler options</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#file-globbing"><span class="nav-number">2.2.</span> <span class="nav-text">file globbing</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#target-definitions"><span class="nav-number">2.3.</span> <span class="nav-text">target definitions</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
